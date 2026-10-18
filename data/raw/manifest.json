@@ -1,0 +1,42 @@
+{
+  "dataset": "flax-sentence-embeddings/stackexchange_titlebody_best_and_down_voted_answer_jsonl",
+  "revision": "32151f5480872e6db89ae147e1d727266f574606",
+  "seed": 42,
+  "obtained_at": "2026-10-12T10:15:25.265497+00:00",
+  "license": "cc-by-nc-sa-4.0 (dataset card; original post attribution unavailable)",
+  "fields": [
+    "title_body",
+    "upvoted_answer",
+    "downvoted_answer"
+  ],
+  "sources": [
+    {
+      "url": "https://huggingface.co/datasets/flax-sentence-embeddings/stackexchange_titlebody_best_and_down_voted_answer_jsonl/resolve/32151f5480872e6db89ae147e1d727266f574606/unix.stackexchange.com.jsonl.gz",
+      "file": "data\\raw\\unix.stackexchange.com.jsonl.gz",
+      "sha256": "b7728e57490d102c111888cfac3a3b2bbe29446b4844e77dda19bb9c288569f1",
+      "available_rows": 6173,
+      "selected_rows": 800
+    },
+    {
+      "url": "https://huggingface.co/datasets/flax-sentence-embeddings/stackexchange_titlebody_best_and_down_voted_answer_jsonl/resolve/32151f5480872e6db89ae147e1d727266f574606/dba.stackexchange.com.jsonl.gz",
+      "file": "data\\raw\\dba.stackexchange.com.jsonl.gz",
+      "sha256": "4806100b7e7a309c731c3fc7940a5030e051ca674305f4d0407e0a5db6094458",
+      "available_rows": 2502,
+      "selected_rows": 800
+    },
+    {
+      "url": "https://huggingface.co/datasets/flax-sentence-embeddings/stackexchange_titlebody_best_and_down_voted_answer_jsonl/resolve/32151f5480872e6db89ae147e1d727266f574606/serverfault.com.jsonl.gz",
+      "file": "data\\raw\\serverfault.com.jsonl.gz",
+      "sha256": "04cf6b8d4d6174db34b8d1617c8e4f4787592332d83382ad67817cf35aca06c9",
+      "available_rows": 7969,
+      "selected_rows": 800
+    },
+    {
+      "url": "https://huggingface.co/datasets/flax-sentence-embeddings/stackexchange_titlebody_best_and_down_voted_answer_jsonl/resolve/32151f5480872e6db89ae147e1d727266f574606/codereview.stackexchange.com.jsonl.gz",
+      "file": "data\\raw\\codereview.stackexchange.com.jsonl.gz",
+      "sha256": "b7cb2e592c8b4e4f629731249d28280c016a7c15f9f7c13c8db1e2aed43f2ada",
+      "available_rows": 666,
+      "selected_rows": 666
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "sshleifer/tiny-gpt2": {
+    "revision": "5f91d94bd9cd7190a9f3216ff93cd1dd95f2c7be",
+    "path": ".cache\\huggingface\\models--sshleifer--tiny-gpt2\\snapshots\\5f91d94bd9cd7190a9f3216ff93cd1dd95f2c7be"
+  },
+  "sentence-transformers/all-MiniLM-L6-v2": {
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "path": ".cache\\huggingface\\models--sentence-transformers--all-MiniLM-L6-v2\\snapshots\\1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+  }
+}

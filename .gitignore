@@ -1,0 +1,65 @@
+# Local Python environments and generated files
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+.ipynb_checkpoints/
+
+# Secrets / local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Model weights, adapters and caches
+.cache/
+models/**
+!models/external_manifest.json
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.gguf
+*.onnx
+*.joblib
+
+# Original and derivative datasets (the metadata manifest is allowed)
+data/raw/*
+!data/raw/manifest.json
+data/processed/
+data/interim/
+data/sample/*
+!data/sample/safety.jsonl
+
+# Generated experiments and MLflow tracking
+experiments/
+mlruns/
+wandb/
+mlflow.db
+outputs/
+checkpoints/
+runs/
+.tmp/
+
+# Logs and local test artifacts
+*.log
+reports/tests.xml
+reports/http_server.log
+
+# Editor / operating system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
