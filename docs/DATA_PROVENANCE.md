@@ -21,3 +21,21 @@ Seed=42; максимум 800/section, codereview доступно 666. Всег
 Sample — 60 real records/section, 240 всего, taken до cleaning. Он нужен для CI/smoke и не подменяет основной эксперимент.
 SHA256 каждого raw file: [manifest](../data/raw/manifest.json). Subset SHA256: `fd4a3c1a8e160d89adb49efff9cf7429ca5df6f42682d4d65891dad4c81b12c3`.
 Raw missing values и cleaning counters: локальном data_audit.json (будет опубликован вместе с этапом F1). Raw gzip не изменяется; interim и processed пересчитываются.
+
+## F1.2 — публичный контроль происхождения
+
+Metadata можно проверить без исходных текстов: `python -m src.data.provenance`.
+Проверяются четыре pinned URL, 40-символьная ревизия, ожидаемые SHA-256
+(формат), выбранное количество строк, пути и перечень полей.
+Это **не** проверка реальных байтов: для неё после F1.3 нужен
+`python -m src.data.provenance --verify-files`. Скачивание не запускается автоматически.
+
+Отдельно: Stack Exchange использует лицензии CC BY-SA, зависящие от
+даты конкретного поста/ревизии. Лицензия карточки HF CC BY-NC-SA 4.0
+не устанавливает однозначно условия всех исходных Q&A. Если требуются
+публичные текстовые примеры или коммерческое использование, сначала
+восстановить исходные посты/авторов и проверить соответствующие условия.
+До этого raw, subset, sample и processed тексты не коммитятся.
+
+Справка: [Stack Exchange licensing](https://english.stackexchange.com/help/licensing),
+[Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
