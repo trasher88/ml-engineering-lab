@@ -1,0 +1,46 @@
+seed: 42
+data:
+  input: data/raw/subset.jsonl
+  fallback: data/sample/technical_qa.jsonl
+  min_words: 8
+  near_duplicate_threshold: 0.92
+classical:
+  max_features: 18000
+  C: 2.0
+  max_iter: 500
+neural:
+  vocab_size: 12000
+  max_length: 128
+  embedding_dim: 48
+  hidden_dim: 48
+  batch_size: 32
+  epochs: 12
+  learning_rate: 0.003
+  patience: 4
+retrieval:
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+  batch_size: 32
+  max_length: 256
+  benchmark_size: 80
+  rrf_constant: 60
+  candidates: 100
+  k: 5
+sft:
+  model: sshleifer/tiny-gpt2
+  max_length: 128
+  max_steps: 16
+  batch_size: 2
+  learning_rate: 0.0005
+  rank: 4
+  alpha: 8
+  eval_size: 8
+  max_new_tokens: 32
+  target_modules: [c_attn]
+  dpo_steps: 2
+evaluation:
+  bootstrap_samples: 500
+  safety_benchmark: data/sample/safety.jsonl
+api:
+  max_input_chars: 6000
+  max_k: 20
+

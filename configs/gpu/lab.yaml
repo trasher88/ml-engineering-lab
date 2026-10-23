@@ -1,0 +1,15 @@
+inherits: configs/local_cpu/lab.yaml
+sft:
+  model: Qwen/Qwen2.5-0.5B-Instruct
+  max_length: 512
+  max_steps: 100
+  batch_size: 1
+  learning_rate: 0.0002
+  rank: 8
+  alpha: 16
+  target_modules: [q_proj, v_proj]
+  eval_size: 8
+  max_new_tokens: 64
+  dpo_steps: 5
+  quantization: none
+

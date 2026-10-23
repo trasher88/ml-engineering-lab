@@ -1,0 +1,23 @@
+name: Foundation F1.1 tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  foundation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install minimal test dependencies
+        run: python -m pip install -r requirements-foundation.txt
+      - name: Foundation unit tests
+        run: python -m pytest -q tests/test_foundation.py
