@@ -75,3 +75,7 @@ reports/data_split_audit.json
 # F1.7: local aggregate metrics and text-free per-record predictions
 reports/classical.json
 reports/classical_predictions.json
+
+# F1.8: aggregate-only error audit and local case IDs; PNG excluded by docs/visuals/f1/*.png
+reports/classical_error_analysis.json
+reports/classical_error_ids.json

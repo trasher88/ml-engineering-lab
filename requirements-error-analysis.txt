@@ -1,0 +1,2 @@
+# F1.8 — offline analysis of saved F1.7 predictions and metrics.
+-r requirements-classical.txt
