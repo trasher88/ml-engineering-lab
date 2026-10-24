@@ -1,3 +1,6 @@
+# Назначение файла: F1.6: проверки групп близких дубликатов и отсутствия утечек между выборками.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.6 offline tests: synthetic Q&A only; no raw Stack Exchange material."""
 from __future__ import annotations
 
@@ -16,12 +19,14 @@ from src.data.splitting import (
 )
 
 
+# Генерирует различающиеся строки для проверки TF-IDF сходства.
 def unique_text(i: int, salt: int) -> str:
     generator = random.Random(i * 128 + salt)
     token = "".join(generator.choice(string.ascii_lowercase) for _ in range(80))
     return f"synthetic technical example {token}"
 
 
+# Создаёт запись с синтетическими вопросом, ответом и классом.
 def row(i: int, domain: str = "linux", *, context: str | None = None,
         answer: str | None = None) -> dict:
     return {"id": f"synthetic:{i}", "domain": domain,
@@ -30,22 +35,26 @@ def row(i: int, domain: str = "linux", *, context: str | None = None,
             "rejected": "", "source": "synthetic"}
 
 
+# Собирает небольшой исходный корпус для тестов группового разбиения.
 def dataset(n: int = 30) -> list[dict]:
     domains = ("linux", "databases", "systems")
     return [row(i, domains[i % len(domains)]) for i in range(n)]
 
 
+# Проверяет отказ разделять пустой корпус.
 def test_reject_empty_dataset():
     with pytest.raises(SplitError, match="nonempty"):
         validate_cleaned([])
 
 
+# Проверяет проверку структуры и типов входных записей.
 @pytest.mark.parametrize("bad", [None, "not a record", {"id": "x"}])
 def test_reject_invalid_records(bad):
     with pytest.raises(SplitError):
         validate_cleaned([bad])
 
 
+# Проверяет отказ от повторяющихся ID или полностью одинаковых вопросов.
 def test_reject_duplicates_by_id_and_exact_question():
     with pytest.raises(SplitError, match="duplicate IDs"):
         validate_cleaned([row(1), row(1, context="different example")])
@@ -53,18 +62,21 @@ def test_reject_duplicates_by_id_and_exact_question():
         validate_cleaned([row(1), row(2, context=row(1)["context"].upper())])
 
 
+# Проверяет отказ повторно делить уже размеченные записи.
 @pytest.mark.parametrize("column", ["split", "group_id"])
 def test_reject_already_assigned_input(column):
     with pytest.raises(SplitError, match="pre-split"):
         validate_cleaned([{**row(0), column: 0}])
 
 
+# Проверяет ограничения порога похожести.
 @pytest.mark.parametrize("value", [0, -0.1, 1.1, float('nan'), float('inf'), True])
 def test_reject_invalid_threshold(value):
     with pytest.raises(SplitError, match="threshold"):
         group_near_duplicates(dataset(5), threshold=value)
 
 
+# Проверяет ограничения параметров TF-IDF и группировки.
 def test_reject_invalid_parameters():
     with pytest.raises(SplitError, match="max_features"):
         group_near_duplicates(dataset(5), threshold=.92, max_features=0)
@@ -74,6 +86,7 @@ def test_reject_invalid_parameters():
         split_cleaned(dataset(15), seed=True)
 
 
+# Проверяет объединение разных вопросов при одинаковом ответе.
 def test_same_answer_connects_different_questions():
     rows = [row(1), row(2, answer=row(1)["answer"]), row(3)]
     groups, edges = group_near_duplicates(rows, threshold=.92)
@@ -82,6 +95,7 @@ def test_same_answer_connects_different_questions():
     assert edges >= 1
 
 
+# Проверяет группировку почти одинаковых вопросов с разными ответами.
 def test_near_identical_contexts_connect_even_if_answers_differ():
     context = "configuration example involving alpha beta gamma delta epsilon zeta"
     rows = [row(1, context=context), row(2, context=context + " fine")]
@@ -90,6 +104,7 @@ def test_near_identical_contexts_connect_even_if_answers_differ():
     assert edges >= 1
 
 
+# Проверяет транзитивное объединение связанных записей через union-find.
 def test_transitive_groups_preserve_connections():
     common_answer = unique_text(100, 5)
     shared_question = "diagnostic alpha beta gamma delta epsilon zeta delta epsilon"
@@ -101,6 +116,7 @@ def test_transitive_groups_preserve_connections():
     assert edges >= 2
 
 
+# Проверяет различие между числом связей и числом исключённых записей.
 def test_edges_are_not_number_of_removed_rows():
     answer = unique_text(90, 17)
     rows = [row(i, answer=answer) for i in range(4)]
@@ -110,6 +126,7 @@ def test_edges_are_not_number_of_removed_rows():
     assert len(rows) == 4  # nothing removed
 
 
+# Проверяет отказ при недостатке независимых групп для разбиения.
 def test_insufficient_independent_groups_fails():
     answer = unique_text(80, 17)
     rows = [row(i, answer=answer) for i in range(7)]
@@ -117,6 +134,7 @@ def test_insufficient_independent_groups_fails():
         split_cleaned(rows)
 
 
+# Проверяет повторяемость split, отсутствие пересечений и неизменность входа.
 def test_split_is_deterministic_group_disjoint_and_does_not_mutate():
     rows = dataset(36)
     # Tie two question records by an identical answer, even across domains.
@@ -138,6 +156,7 @@ def test_split_is_deterministic_group_disjoint_and_does_not_mutate():
     assert "semantic" in audit["leakage_scope"]
 
 
+# Проверяет, что аудит не раскрывает исходные вопросы, ответы и ID.
 def test_audit_never_contains_question_answer_or_ids():
     rows = dataset(20)
     rows[0]["context"] = "UNIQUE-SENSITIVE-TOKEN-abc123"
@@ -148,6 +167,7 @@ def test_audit_never_contains_question_answer_or_ids():
     assert unique_text(1, 17) not in blob
 
 
+# Создаёт временную структуру с синтетическим очищенным корпусом.
 @pytest.fixture
 def sandbox(tmp_path: Path):
     conf = tmp_path / "configs/local_cpu/lab.yaml"
@@ -161,6 +181,7 @@ def sandbox(tmp_path: Path):
     return tmp_path, source
 
 
+# Проверяет создание трёх выборок и отчёта без Q&A-текстов.
 def test_local_run_creates_split_files_and_aggregate_only_audit(sandbox):
     root, source = sandbox
     audit = run(root, expect_rows=30)
@@ -185,11 +206,13 @@ def test_local_run_creates_split_files_and_aggregate_only_audit(sandbox):
     assert original_outputs == [path.read_bytes() for path in [report_path] + [root / f"data/processed/{n}.jsonl" for n in ("train", "val", "test")]]
 
 
+# Проверяет отказ при отсутствии очищенного корпуса без скрытой подмены.
 def test_missing_cleaned_dataset_does_not_fall_back_to_sample(tmp_path):
     with pytest.raises(SplitRunError, match="missing F1.4"):
         run(tmp_path)
 
 
+# Проверяет ожидаемый размер корпуса до сохранения файлов.
 def test_expected_row_count_blocks_outputs(sandbox):
     root, _ = sandbox
     with pytest.raises(SplitRunError, match="expected 3040"):
@@ -198,6 +221,7 @@ def test_expected_row_count_blocks_outputs(sandbox):
     assert not (root / "reports/data_split_audit.json").exists()
 
 
+# Проверяет ограничения размеров отдельных выборок.
 def test_expected_split_count_blocks_outputs(sandbox):
     root, _ = sandbox
     with pytest.raises(SplitRunError, match="expected train"):
@@ -205,6 +229,7 @@ def test_expected_split_count_blocks_outputs(sandbox):
     assert not (root / "data/processed").exists()
 
 
+# Проверяет контроль ожидаемого числа связей близких дубликатов.
 def test_expected_edge_count_blocks_outputs(sandbox):
     root, _ = sandbox
     with pytest.raises(SplitRunError, match="expected near edges"):
@@ -212,6 +237,7 @@ def test_expected_edge_count_blocks_outputs(sandbox):
     assert not (root / "data/processed").exists()
 
 
+# Проверяет отсутствие записи поверх входных данных.
 def test_output_collision_blocks_processing(sandbox):
     root, _ = sandbox
     with pytest.raises(SplitRunError, match="distinct paths"):
@@ -219,6 +245,7 @@ def test_output_collision_blocks_processing(sandbox):
     assert not (root / "data/processed").exists()
 
 
+# Проверяет отказ при неверной конфигурации разбиения.
 def test_bad_config_rejected(sandbox):
     root, _ = sandbox
     with pytest.raises(SplitRunError, match="configuration"):

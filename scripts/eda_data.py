@@ -1,3 +1,7 @@
+# Назначение файла: F1.5: CLI для статистики и графиков по очищенным вопросам.
+# Сохраняет агрегаты, а не строки датасета.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.5 EDA on locally cleaned data; emits aggregate-only JSON and charts.
 
 Run: python -m scripts.eda_data --expect-rows 3040
@@ -16,10 +20,12 @@ from src.common.io import ROOT, read_jsonl
 from src.data.eda import EDAError, length_arrays, summarize_cleaned
 
 
+# Ошибка чтения данных, расчёта статистики или сохранения EDA.
 class EDARunError(EDAError):
     """Bad input, invalid output path or mismatch against expected data."""
 
 
+# Считает SHA-256 очищенного корпуса для аудита воспроизводимости.
 def _sha256(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as stream:
@@ -28,6 +34,7 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+# Записывает JSON-аудит атомарно.
 def _write_json_atomic(path: Path, value: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = None
@@ -44,6 +51,7 @@ def _write_json_atomic(path: Path, value: dict) -> None:
             temp.unlink(missing_ok=True)
 
 
+# Строит диаграмму распределения классов без исходных текстов.
 def _plot_bars(data: dict[str, int], path: Path) -> None:
     import matplotlib
     matplotlib.use("Agg")
@@ -64,6 +72,7 @@ def _plot_bars(data: dict[str, int], path: Path) -> None:
         plt.close(fig)
 
 
+# Строит гистограмму длин вопросов и ответов.
 def _plot_lengths(questions: list[int], answers: list[int], path: Path) -> None:
     import matplotlib
     matplotlib.use("Agg")
@@ -88,6 +97,7 @@ def _plot_lengths(questions: list[int], answers: list[int], path: Path) -> None:
         plt.close(fig)
 
 
+# Запускает полный EDA по очищенному корпусу и сохраняет агрегаты.
 def run(root: Path = ROOT, *,
         input_path: Path = Path("data/interim/cleaned.jsonl"),
         audit_path: Path = Path("reports/data_eda_audit.json"),
@@ -127,6 +137,7 @@ def run(root: Path = ROOT, *,
     return summary
 
 
+# Обрабатывает параметры CLI и печатает результаты EDA.
 def main() -> int:
     parser = argparse.ArgumentParser(description="F1.5 — EDA on cleaned technical Q&A")
     parser.add_argument("--root", type=Path, default=ROOT)

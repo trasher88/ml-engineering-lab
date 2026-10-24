@@ -1,3 +1,7 @@
+# Назначение файла: F1.4: CLI для очистки subset и записи агрегированного аудита.
+# Не загружает данные из сети; исходные тексты не попадают в отчёт.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.4: clean the F1.3 local subset without accessing the network.
 
 Run: python -m scripts.clean_data --expect-input 3066 --expect-output 3040
@@ -19,10 +23,12 @@ from src.common.io import ROOT, read_jsonl
 from src.data.cleaning import clean_records
 
 
+# Ошибка локальной очистки или проверки ожидаемых чисел.
 class CleaningError(ValueError):
     """Input, configuration or historical count check failed."""
 
 
+# Вычисляет хеш входного файла для связи очистки с источником.
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -31,6 +37,7 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+# Сохраняет результат через временный файл для защиты от обрыва записи.
 def _atomic_write(path: Path, payload: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp: Path | None = None
@@ -47,6 +54,7 @@ def _atomic_write(path: Path, payload: str) -> None:
             temp.unlink(missing_ok=True)
 
 
+# Загружает subset, очищает записи, сверяет объёмы и пишет аудит.
 def run(root: Path = ROOT, *, config_path: Path = Path("configs/local_cpu/lab.yaml"),
         input_path: Path | None = None, output_path: Path = Path("data/interim/cleaned.jsonl"),
         audit_path: Path = Path("reports/data_cleaning_audit.json"),
@@ -90,6 +98,7 @@ def run(root: Path = ROOT, *, config_path: Path = Path("configs/local_cpu/lab.ya
     return audit
 
 
+# Читает CLI-параметры и выводит статистику очистки.
 def main() -> int:
     parser = argparse.ArgumentParser(description="F1.4: deterministic technical Q&A cleaning")
     parser.add_argument("--root", type=Path, default=ROOT)

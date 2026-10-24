@@ -1,3 +1,7 @@
+# Назначение файла: F1.9: верификация локальных аудит-файлов и генерация отчёта F1.
+# В публичный Markdown включаются только агрегированные сведения.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.9: aggregate-only final report, validated against local F1.4–F1.8 audits.
 
 No source Q&A, record IDs, model weights or row-level predictions are read
@@ -11,6 +15,7 @@ import re
 from typing import Any
 
 
+# Ошибка согласованности отчётов F1.4–F1.8.
 class F1ReportError(ValueError):
     """Missing/inconsistent audit evidence; report must not be published."""
 
@@ -19,24 +24,28 @@ SPLITS = ("train", "val", "test")
 OVERLAPS = ("train/test", "train/val", "val/test")
 
 
+# Проверяет целочисленное поле входного аудита.
 def _integer(value: Any, label: str, *, minimum: int = 0) -> int:
     if type(value) is not int or value < minimum:
         raise F1ReportError(f"invalid {label}: expected integer >= {minimum}")
     return value
 
 
+# Проверяет числовое поле и допустимый формат значения.
 def _number(value: Any, label: str, *, lower: float = 0, upper: float = 1) -> float:
     if type(value) not in (float, int) or not math.isfinite(value) or not lower <= value <= upper:
         raise F1ReportError(f"invalid {label}: expected finite value in [{lower}, {upper}]")
     return float(value)
 
 
+# Проверяет ожидаемый SHA-256 в исходных метаданных.
 def _digest(value: Any, label: str) -> str:
     if not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{64}", value) is None:
         raise F1ReportError(f"invalid {label} SHA-256")
     return value
 
 
+# Извлекает и проверяет ожидаемый набор категорий.
 def _labels(value: Any) -> list[str]:
     if not isinstance(value, list) or len(value) != 4 or any(
         not isinstance(x, str) or re.fullmatch(r"[a-z][a-z_]*", x) is None for x in value
@@ -45,12 +54,14 @@ def _labels(value: Any) -> list[str]:
     return value
 
 
+# Проверяет, что структура нужного поля является объектом JSON.
 def _dict(value: Any, label: str) -> dict:
     if not isinstance(value, dict):
         raise F1ReportError(f"missing/invalid {label}")
     return value
 
 
+# Сверяет размерности, хеши, split-контракт и метрики нескольких этапов.
 def validate_audits(cleaning: dict, eda: dict, split: dict,
                     classical: dict, errors: dict, manifest: dict) -> dict:
     """Reconcile five stage audits; return ONLY allowlisted aggregate metrics."""
@@ -184,6 +195,7 @@ def validate_audits(cleaning: dict, eda: dict, split: dict,
     }
 
 
+# Формирует отчёт Markdown из прошедших проверку агрегированных данных.
 def render_markdown(result: dict) -> str:
     """Render public report exclusively from typed, allowlisted aggregates."""
     d = result

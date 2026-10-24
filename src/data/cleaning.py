@@ -1,3 +1,7 @@
+# Назначение файла: F1.4: детерминированная очистка технических текстов и фильтрация записей.
+# Близкие дубликаты здесь не группируются: это отдельный этап F1.6.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.4: deterministic text cleaning from the original ML Engineering Lab.
 
 Keep this stage separate from near-duplicate grouping and train/val/test
@@ -13,6 +17,7 @@ from typing import Any, Iterable
 REQUIRED_FIELDS = ("id", "domain", "context", "answer")
 
 
+# Нормализует HTML/Markdown и пробелы; учитывай риск потери символов кода.
 def clean_text(text: str) -> str:
     """Reproduce the historical F1 text normalization rules.
 
@@ -27,6 +32,7 @@ def clean_text(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+# Проверяет поля, удаляет точные повторы и короткие записи, ведёт счётчики.
 def clean_records(records: Iterable[Any], *, min_words: int) -> tuple[list[dict], dict[str, int]]:
     """Clean, filter, and deduplicate by ID / casefolded question.
 

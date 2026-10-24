@@ -1,3 +1,7 @@
+# Назначение файла: F1.8: анализ сохранённых предсказаний без повторного обучения.
+# Формирует агрегированные метрики, матрицу ошибок и список ID без текстов Q&A.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.8: text-free analysis of frozen F1.7 predictions.
 
 This module never loads a trained joblib model, refits TF-IDF, or copies Q&A
@@ -13,10 +17,12 @@ import numpy as np
 from sklearn.metrics import confusion_matrix, precision_recall_fscore_support
 
 
+# Ошибка входных прогнозов, аудита или метрик анализа ошибок.
 class ErrorAnalysisError(ValueError):
     """Invalid or inconsistent F1.7 prediction/audit inputs."""
 
 
+# Сверяет предсказания, подсчитывает ошибки по классам и их пары.
 def analyze_errors(test_rows: list[dict], predictions: dict, f17_report: dict) -> tuple[dict, list[dict]]:
     """Compare frozen test predictions with the same ordered F1.6 test split.
 
@@ -105,6 +111,7 @@ def analyze_errors(test_rows: list[dict], predictions: dict, f17_report: dict) -
         )
     ]
 
+    # Сводит длины ошибочных вопросов к агрегированной статистике без текста.
     def lengths_stats(values: list[int]) -> dict:
         return {"n": len(values),
                 "median_words": float(median(values)) if values else None,
@@ -130,6 +137,7 @@ def analyze_errors(test_rows: list[dict], predictions: dict, f17_report: dict) -
     return summary, error_cases
 
 
+# Строит матрицу ошибок на рисунке без текстов исходных вопросов.
 def draw_confusion_matrix(report: dict, destination: Any) -> None:
     """Draw aggregate confusion counts only; no raw Q&A text or IDs."""
     import matplotlib

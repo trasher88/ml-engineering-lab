@@ -1,3 +1,7 @@
+# Назначение файла: F1.6: CLI для группового разделения очищенного корпуса.
+# Сохраняет train/val/test локально и аудит без исходных текстов.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.6: offline, grouped train/val/test split of cleaned F1.4 JSONL.
 
 Run: python -m scripts.split_data --expect-rows 3040
@@ -18,10 +22,12 @@ from src.common.io import ROOT, read_jsonl
 from src.data.splitting import SplitError, split_cleaned
 
 
+# Ошибка подготовки split или проверки ожидаемых характеристик.
 class SplitRunError(SplitError):
     """Invalid file/config or mismatch to a caller's expected counts."""
 
 
+# Привязывает отчёт разбиения к точным байтам очищенного корпуса.
 def _sha256(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as source:
@@ -30,6 +36,7 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+# Записывает локальные выборки либо аудит через временный файл.
 def _write_atomic(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = None
@@ -45,6 +52,7 @@ def _write_atomic(path: Path, content: str) -> None:
             temp.unlink(missing_ok=True)
 
 
+# Выполняет групповое разбиение, проверяет контракт и сохраняет файлы.
 def run(root: Path = ROOT, *,
         config_path: Path = Path("configs/local_cpu/lab.yaml"),
         input_path: Path = Path("data/interim/cleaned.jsonl"),
@@ -105,6 +113,7 @@ def run(root: Path = ROOT, *,
     return audit
 
 
+# Принимает параметры разбиения и выводит статистику групп.
 def main() -> int:
     parser = argparse.ArgumentParser(description="F1.6 — grouped, leakage-audited split")
     parser.add_argument("--root", type=Path, default=ROOT)

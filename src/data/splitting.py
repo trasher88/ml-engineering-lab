@@ -1,3 +1,7 @@
+# Назначение файла: F1.6: группировка лексически похожих Q&A и разделение train/val/test.
+# Алгоритм защищает от пересечений найденных групп, но не всех смысловых перефразировок.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.6: group near-duplicate technical Q&A before train/val/test split.
 
 Based on the original project's char_wb TF-IDF (3..5 grams), union-find,
@@ -14,10 +18,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import StratifiedGroupKFold
 
 
+# Ошибка целостности входных записей или группового разбиения.
 class SplitError(ValueError):
     """Invalid cleaned data or a split that violates grouping requirements."""
 
 
+# Проверяет схему данных, уникальность ID и отсутствие готовых split-меток.
 def validate_cleaned(rows: list[dict]) -> None:
     """Reject malformed, already-split, or exactly repeated cleaned records."""
     if not isinstance(rows, list) or not rows:
@@ -41,6 +47,7 @@ def validate_cleaned(rows: list[dict]) -> None:
         seen_contexts.add(normalized_context)
 
 
+# Находит TF-IDF сходство и объединяет связанные записи через union-find.
 def group_near_duplicates(rows: list[dict], *, threshold: float,
                           max_features: int = 18000, batch_size: int = 128
                           ) -> tuple[list[int], int]:
@@ -60,6 +67,7 @@ def group_near_duplicates(rows: list[dict], *, threshold: float,
 
     parent = list(range(len(rows)))
 
+    # Находит представителя группы с сжатием пути в структуре union-find.
     def find(i: int) -> int:
         while parent[i] != i:
             parent[i] = parent[parent[i]]
@@ -83,6 +91,7 @@ def group_near_duplicates(rows: list[dict], *, threshold: float,
     return [find(i) for i in range(len(rows))], near_edges
 
 
+# Размещает целые группы по train/val/test и проверяет пересечения.
 def split_cleaned(rows: list[dict], *, seed: int = 42,
                   threshold: float = 0.92, max_features: int = 18000
                   ) -> tuple[list[dict], dict[str, Any]]:

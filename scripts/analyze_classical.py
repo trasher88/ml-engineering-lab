@@ -1,3 +1,7 @@
+# Назначение файла: F1.8: CLI анализа ошибок уже обученной модели.
+# Сопоставляет источники и агрегирует ошибки, не выполняя fit.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.8: offline, post-training analysis of stored F1.7 test predictions.
 
 Does not load serialized models or train. Results contain aggregate metrics;
@@ -15,6 +19,7 @@ from src.classical_ml.error_analysis import ErrorAnalysisError, analyze_errors, 
 from src.common.io import ROOT, read_jsonl
 
 
+# Вычисляет SHA-256 test-файла, чтобы проверить соответствие прогнозов.
 def _digest(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as f:
@@ -23,6 +28,7 @@ def _digest(path: Path) -> str:
     return digest.hexdigest()
 
 
+# Сверяет предсказания и формирует агрегированную статистику ошибок.
 def run(root: Path = ROOT, *,
         test_path: Path = Path("data/processed/test.jsonl"),
         predictions_path: Path = Path("reports/classical_predictions.json"),
@@ -65,6 +71,7 @@ def run(root: Path = ROOT, *,
     return report
 
 
+# Обрабатывает CLI-аргументы и выводит краткую сводку анализа.
 def main() -> int:
     parser = argparse.ArgumentParser(description="F1.8 — offline error analysis of saved F1.7 predictions")
     parser.add_argument("--root", type=Path, default=ROOT)

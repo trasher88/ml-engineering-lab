@@ -1,3 +1,6 @@
+# Назначение файла: F1.1: проверки конфигурации, JSONL, хеширования и журнала. Используются временные файлы.
+# Примечание: комментарии не влияют на работу программы.
+
 """Автономные тесты foundation-модуля; не требуют датасетов или моделей."""
 
 import hashlib
@@ -9,11 +12,13 @@ import pytest
 from src.common import io
 
 
+# Проверяет, что корневая папка проекта определяется независимо от текущего каталога.
 def test_root_resolution():
     """Путь к репозиторию должен определяться модулем, а не текущим каталогом."""
     assert (io.ROOT / "src/common/io.py").is_file()
 
 
+# Проверяет чтение и основные параметры конфигурации CPU.
 def test_cpu_config():
     """Базовый профиль существует и содержит необходимые настройки."""
     cfg = io.config()
@@ -22,6 +27,7 @@ def test_cpu_config():
     assert cfg["classical"]["max_features"] == 18000
 
 
+# Проверяет наследование базовых настроек в GPU-конфигурации.
 def test_gpu_config_inheritance():
     """GPU-профиль меняет sft, но наследует остальные базовые настройки."""
     cpu = io.config("configs/local_cpu/lab.yaml")
@@ -34,6 +40,7 @@ def test_gpu_config_inheritance():
     assert gpu["sft"]["model"] == "Qwen/Qwen2.5-0.5B-Instruct"
 
 
+# Проверяет сохранение и обратное чтение записей JSONL.
 def test_save_and_read_jsonl(tmp_path):
     rows = [{"id": 1, "text": "Пример"}, {"id": 2, "text": "Next"}]
     path = tmp_path / "nested" / "records.jsonl"
@@ -43,6 +50,7 @@ def test_save_and_read_jsonl(tmp_path):
     assert io.read_jsonl(path) == rows
 
 
+# Проверяет запись Unicode и отказ от невалидных JSON-чисел.
 def test_save_json_strict_and_unicode(tmp_path):
     path = tmp_path / "reports" / "metrics.json"
     io.save_json(path, {"metric": 0.75, "label": "точность"})
@@ -51,6 +59,7 @@ def test_save_json_strict_and_unicode(tmp_path):
         io.save_json(path, {"invalid": float("nan")})
 
 
+# Проверяет, что хеш файла совпадает с вычисленным SHA-256.
 def test_digest_sha256(tmp_path):
     path = tmp_path / "payload.bin"
     payload = b"sample-f1-1"
@@ -58,6 +67,7 @@ def test_digest_sha256(tmp_path):
     assert io.digest(path) == hashlib.sha256(payload).hexdigest()
 
 
+# Проверяет отметку времени UTC и добавление записей в журнал.
 def test_log_event_is_utc_and_appends(tmp_path, monkeypatch):
     monkeypatch.setattr(io, "ROOT", tmp_path)
     io.log_event("F1.1", "PASS", "pytest", "foundation test")

@@ -1,3 +1,6 @@
+# Назначение файла: F1.8: проверки анализа зафиксированных прогнозов без реальных вопросов.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.8 offline tests — all examples are invented, no Stack Exchange texts."""
 from __future__ import annotations
 
@@ -15,6 +18,7 @@ from src.classical_ml.error_analysis import (
 from src.classical_ml.train import classification_metrics
 
 
+# Создаёт выдуманные прогнозы и правильные ответы для анализа.
 def example():
     labels = ["databases", "linux", "systems"]
     truth = ["databases", "linux", "systems", "linux", "systems", "databases"]
@@ -32,6 +36,7 @@ def example():
     return rows, prediction, frozen
 
 
+# Проверяет число ошибок, Accuracy и F1 в сводке.
 def test_analysis_reports_correct_counts_and_metrics():
     rows, preds, f17 = example()
     aggregate, errors = analyze_errors(rows, preds, f17)
@@ -47,6 +52,7 @@ def test_analysis_reports_correct_counts_and_metrics():
     assert all(set(x) == {"id", "true", "predicted", "question_words"} for x in errors)
 
 
+# Проверяет наиболее частую пару ошибок и стабильное разрешение ничьих.
 def test_most_confused_pair_and_deterministic_tie_order():
     rows, preds, report = example()
     a, _ = analyze_errors(rows, preds, report)
@@ -57,6 +63,7 @@ def test_most_confused_pair_and_deterministic_tie_order():
     ]
 
 
+# Проверяет агрегирование длин без публикации текста вопроса.
 def test_question_lengths_no_raw_question_text():
     rows, preds, report = example()
     stats, errors = analyze_errors(rows, preds, report)
@@ -67,6 +74,7 @@ def test_question_lengths_no_raw_question_text():
     assert "demo placeholder" not in payload
 
 
+# Проверяет неизменность переданных списков предсказаний.
 def test_input_lists_are_not_mutated():
     rows, preds, report = example()
     frozen = copy.deepcopy((rows, preds, report))
@@ -74,6 +82,7 @@ def test_input_lists_are_not_mutated():
     assert (rows, preds, report) == frozen
 
 
+# Проверяет корректную статистику при отсутствии ошибок.
 def test_no_error_cases_and_empty_wrong_length_stats():
     rows, preds, report = example()
     for row, pred in zip(rows, preds["test"]):
@@ -86,6 +95,7 @@ def test_no_error_cases_and_empty_wrong_length_stats():
     assert aggregate["question_lengths"]["incorrect"]["median_words"] is None
 
 
+# Проверяет отказ при пустых или повреждённых тестовых записях.
 @pytest.mark.parametrize("bad", [[], None, {}, "not rows"])
 def test_rejects_empty_or_malformed_test_rows(bad):
     _, preds, report = example()
@@ -93,6 +103,7 @@ def test_rejects_empty_or_malformed_test_rows(bad):
         analyze_errors(bad, preds, report)
 
 
+# Проверяет обнаружение некорректных либо изменённых предсказаний.
 @pytest.mark.parametrize("corrupt", [
     lambda r,p,f: p.pop("test"),
     lambda r,p,f: p["test"].pop(),
@@ -115,6 +126,7 @@ def test_rejects_invalid_or_tampered_inputs(corrupt):
         analyze_errors(rows, preds, report)
 
 
+# Создаёт временные файлы модели, аудита и фиктивных прогнозов.
 def make_project(tmp_path: Path):
     rows, preds, frozen = example()
     data = tmp_path / "data/processed/test.jsonl"
@@ -129,6 +141,7 @@ def make_project(tmp_path: Path):
     return data
 
 
+# Проверяет генерацию агрегатов, ID ошибок и рисунка.
 def test_run_generates_aggregate_report_id_only_cases_and_figure(tmp_path):
     make_project(tmp_path)
     report = run(tmp_path, expect_test=6)
@@ -145,6 +158,7 @@ def test_run_generates_aggregate_report_id_only_cases_and_figure(tmp_path):
     assert report["test_source_sha256"] == hashlib.sha256((tmp_path/"data/processed/test.jsonl").read_bytes()).hexdigest()
 
 
+# Проверяет повторяемость и неизменность входных прогнозов.
 def test_run_is_repeatable_and_does_not_change_predictions(tmp_path):
     make_project(tmp_path)
     pred_path = tmp_path/"reports/classical_predictions.json"
@@ -158,6 +172,7 @@ def test_run_is_repeatable_and_does_not_change_predictions(tmp_path):
     assert r1 == r2 and outputs1 == outputs2 and before == pred_path.read_bytes()
 
 
+# Проверяет отсутствие артефактов при несовпадении SHA-256.
 def test_hash_mismatch_prevents_any_output(tmp_path):
     data = make_project(tmp_path)
     data.write_text(data.read_text(encoding="utf-8") + "\n", encoding="utf-8")
@@ -167,6 +182,7 @@ def test_hash_mismatch_prevents_any_output(tmp_path):
     assert not (tmp_path / "docs/visuals/f1/confusion_matrix.png").exists()
 
 
+# Проверяет блокировку анализа при неправильном размере теста.
 def test_wrong_expected_size_prevents_output(tmp_path):
     make_project(tmp_path)
     with pytest.raises(ErrorAnalysisError, match="expected test"):
@@ -174,17 +190,20 @@ def test_wrong_expected_size_prevents_output(tmp_path):
     assert not (tmp_path / "reports/classical_error_ids.json").exists()
 
 
+# Проверяет запрет анализа без артефактов F1.7.
 def test_missing_baseline_inputs_block(tmp_path):
     with pytest.raises(ErrorAnalysisError, match="missing F1.7"):
         run(tmp_path)
 
 
+# Проверяет, что выходные пути не должны совпадать с входными.
 def test_paths_cannot_overlap(tmp_path):
     make_project(tmp_path)
     with pytest.raises(ErrorAnalysisError, match="distinct"):
         run(tmp_path, output_path=Path("data/processed/test.jsonl"))
 
 
+# Проверяет корректную генерацию изображения PNG.
 def test_chart_writes_valid_png(tmp_path):
     rows, preds, f17 = example()
     stats, _ = analyze_errors(rows, preds, f17)

@@ -1,3 +1,7 @@
+# Назначение файла: F1.2: проверка неизменяемых метаданных датасета Stack Exchange.
+# Без флага --verify-files проверяется манифест, а не содержимое gzip-архивов.
+# Примечание: комментарии не влияют на работу программы.
+
 """Offline validation of the pinned Stack Exchange dataset manifest (F1.2).
 
 This module reads metadata only. It does not download or redistribute Q&A.
@@ -25,15 +29,18 @@ SHA40 = re.compile(r"[0-9a-f]{40}\Z")
 SHA64 = re.compile(r"[0-9a-f]{64}\Z")
 
 
+# Ошибка в схеме либо значениях закреплённого манифеста.
 class ManifestError(ValueError):
     """The pinned dataset metadata violates the F1.2 contract."""
 
 
+# Останавливает проверку с понятной ошибкой при нарушении условия.
 def _require(condition: bool, detail: str) -> None:
     if not condition:
         raise ManifestError(detail)
 
 
+# Читает JSON-манифест без запросов к сети или исходным архивам.
 def load_manifest(path: Path) -> dict[str, Any]:
     """Load JSON metadata. No source files or network calls are involved."""
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
@@ -41,6 +48,7 @@ def load_manifest(path: Path) -> dict[str, Any]:
     return payload
 
 
+# Проверяет источник, revision, четыре домена, пути, SHA-256 и объёмы.
 def validate_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
     """Check identity, pin, source list, paths, SHA format and sample counts.
 
@@ -92,6 +100,7 @@ def validate_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
             "by_domain": selected_counts}
 
 
+# Сравнивает реальные SHA-256 всех gzip-файлов с манифестом.
 def verify_raw_files(manifest: dict[str, Any], root: Path) -> int:
     """Optional strict SHA check of all pinned gzip files downloaded in F1.3."""
     validate_manifest(manifest)
@@ -111,6 +120,7 @@ def verify_raw_files(manifest: dict[str, Any], root: Path) -> int:
     return checked
 
 
+# Разбирает аргументы CLI и выводит результат валидации.
 def main() -> int:
     parser = argparse.ArgumentParser(description="Offline dataset provenance check (F1.2)")
     parser.add_argument("--manifest", type=Path, default=ROOT / "data/raw/manifest.json")

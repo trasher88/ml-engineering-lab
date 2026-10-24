@@ -1,3 +1,7 @@
+# Назначение файла: F1.9: CLI построения и проверки итогового Markdown-отчёта.
+# Сверяет локальные аудиты; --check проверяет существующий файл без перезаписи.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.9: rebuild a public-safe report from local, aggregate-only F1 audits.
 
 Usage:
@@ -28,6 +32,7 @@ AUDIT_FILES = {
 OUTFILE = Path("docs/reports/F1_PHASE_REPORT.md")
 
 
+# Считает хеш локального артефакта, использованного для отчёта.
 def sha256(path: Path) -> str:
     result = hashlib.sha256()
     with path.open("rb") as fd:
@@ -36,6 +41,7 @@ def sha256(path: Path) -> str:
     return result.hexdigest()
 
 
+# Читает аудит-файлы F1.4–F1.8 и проверяет их наличие.
 def read_report_inputs(root: Path) -> dict:
     result = {}
     for name, relpath in AUDIT_FILES.items():
@@ -49,6 +55,7 @@ def read_report_inputs(root: Path) -> dict:
     return result
 
 
+# Сверяет входные аудиты и строит итоговый Markdown.
 def build_report(root: Path, *, expected_rows: int | None = None,
                  expected_test: int | None = None) -> str:
     root = Path(root)
@@ -72,6 +79,7 @@ def build_report(root: Path, *, expected_rows: int | None = None,
     return render_markdown(summary)
 
 
+# Сохраняет сгенерированный Markdown-файл.
 def save_report(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = None
@@ -86,6 +94,7 @@ def save_report(path: Path, content: str) -> None:
             tmp.unlink(missing_ok=True)
 
 
+# Создаёт отчёт или сверяет существующий при флаге --check.
 def run(root: Path = ROOT, *, output: Path = OUTFILE, check: bool = False,
         expected_rows: int | None = None, expected_test: int | None = None) -> Path:
     root = Path(root)
@@ -102,6 +111,7 @@ def run(root: Path = ROOT, *, output: Path = OUTFILE, check: bool = False,
     return destination
 
 
+# Обрабатывает параметры CLI и сообщает результат проверки.
 def main() -> int:
     parser = argparse.ArgumentParser(description="F1.9 public-safe reproducible Markdown report")
     parser.add_argument("--root", type=Path, default=ROOT)

@@ -1,3 +1,7 @@
+# Назначение файла: F1.7: TF-IDF + Logistic Regression и оценка на отложенных выборках.
+# Векторизатор и классификатор обучаются только на train.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.7 baseline: fit TF-IDF and classifier on train exclusively.
 
 The validation/test sets are never passed to .fit().  Pure functions here
@@ -15,10 +19,12 @@ from sklearn.metrics import accuracy_score, confusion_matrix, precision_recall_f
 from sklearn.pipeline import Pipeline
 
 
+# Ошибка контракта выборок, конфигурации либо обучения baseline.
 class ClassicalError(ValueError):
     """A split contract, configuration, or model-training error."""
 
 
+# Проверяет метки классов, уникальные ID и отсутствие утечек групп.
 def validate_splits(datasets: dict[str, list[dict]]) -> dict[str, Any]:
     """Validate disjoint split IDs/groups and labels without returning texts."""
     if not isinstance(datasets, dict) or set(datasets) != {"train", "val", "test"}:
@@ -70,6 +76,7 @@ def validate_splits(datasets: dict[str, list[dict]]) -> dict[str, Any]:
     }
 
 
+# Создаёт Pipeline из TF-IDF и Logistic Regression с фиксированными параметрами.
 def build_pipeline(*, max_features: int, c: float, max_iter: int, seed: int) -> Pipeline:
     if type(max_features) is not int or max_features < 1:
         raise ClassicalError("max_features must be positive integer")
@@ -85,6 +92,7 @@ def build_pipeline(*, max_features: int, c: float, max_iter: int, seed: int) -> 
     ])
 
 
+# Вычисляет Accuracy, Precision/Recall/F1 и confusion matrix.
 def classification_metrics(y_true: list[str], y_pred: list[str], labels: list[str]) -> dict:
     if not y_true or len(y_true) != len(y_pred):
         raise ClassicalError("aligned, nonempty predictions required")
@@ -102,6 +110,7 @@ def classification_metrics(y_true: list[str], y_pred: list[str], labels: list[st
     return result
 
 
+# Оценивает разброс Macro F1 при bootstrap по строкам; группы не учитывает.
 def bootstrap_macro_f1(y_true: list[str], y_pred: list[str], labels: list[str], *,
                        seed: int = 42, samples: int = 500) -> list[float]:
     """Example-level bootstrap; does NOT account for group/training variance."""
@@ -121,6 +130,7 @@ def bootstrap_macro_f1(y_true: list[str], y_pred: list[str], labels: list[str], 
     return np.quantile(values, [0.025, 0.975]).tolist()
 
 
+# Обучает модель только на train; оценивает val/test и возвращает агрегаты.
 def fit_and_evaluate(datasets: dict[str, list[dict]], *, max_features: int = 18000,
                      c: float = 2.0, max_iter: int = 500, seed: int = 42,
                      bootstrap_samples: int = 500) -> tuple[Pipeline, dict, dict]:

@@ -1,3 +1,6 @@
+# Назначение файла: F1.9: проверки согласования аудит-файлов и формирования публичного отчёта.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.9 offline synthetic tests. No real Q&A or model weights."""
 from __future__ import annotations
 
@@ -14,6 +17,7 @@ from src.reporting.f1 import F1ReportError, render_markdown, validate_audits
 LABELS = ["databases", "linux", "programming", "systems"]
 
 
+# Формирует согласованный синтетический комплект локальных аудитов F1.
 def payload():
     matrix = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0]]
     # F1=1.0, 2/3, 1.0, 0.0 -> macro 2/3.
@@ -46,6 +50,7 @@ def payload():
     }
 
 
+# Проверяет успешную сверку всех аудит-файлов на согласованных данных.
 def test_valid_reconciliation():
     report = validate_audits(**payload())
     assert report["cleaned"] == 12
@@ -53,6 +58,7 @@ def test_valid_reconciliation():
     assert report["top_confusion"]["count"] == 1
 
 
+# Проверяет отсутствие исходных Q&A и ID в публичном Markdown.
 def test_render_no_ids_no_raw_text():
     reports = payload()
     reports["errors"]["private_case_ids"] = ["SHOULD_NOT_LEAK"]
@@ -63,12 +69,14 @@ def test_render_no_ids_no_raw_text():
     assert "SHA-256" in text
 
 
+# Проверяет отказ, когда аудит помечен неверным этапом.
 @pytest.mark.parametrize("stage", ["cleaning", "eda", "split", "classical", "errors"])
 def test_wrong_stage_rejected(stage):
     d = payload(); d[stage]["stage"] = "wrong"
     with pytest.raises(F1ReportError): validate_audits(**d)
 
 
+# Проверяет отказ строить отчёт по противоречивым аудитам.
 @pytest.mark.parametrize("case", [
     "bad_totals", "class_mismatch", "hash_mismatch", "group_leakage",
     "split_count", "train_only", "wrong_test", "matrix_mismatch", "wrong_accuracy",
@@ -96,6 +104,7 @@ def test_invalid_audit_fails_closed(case):
     with pytest.raises(F1ReportError): validate_audits(**d)
 
 
+# Создаёт временные исходные отчёты и структуру проекта.
 def fixture_root(tmp_path):
     d = payload()
     contents = b"SYNTHETIC fixture for F1.9 without any original questions\n"
@@ -115,6 +124,7 @@ def fixture_root(tmp_path):
     return d
 
 
+# Проверяет построение отчёта и проверку --check без изменений.
 def test_build_and_check_round_trip(tmp_path):
     fixture_root(tmp_path)
     assert run(root=tmp_path, expected_rows=12, expected_test=4).is_file()
@@ -124,6 +134,7 @@ def test_build_and_check_round_trip(tmp_path):
     assert "test" in contents
 
 
+# Проверяет одинаковый Markdown при одинаковых исходных аудитах.
 def test_report_deterministic(tmp_path):
     fixture_root(tmp_path)
     first = build_report(tmp_path)
@@ -131,6 +142,7 @@ def test_report_deterministic(tmp_path):
     assert first == second
 
 
+# Проверяет обнаружение подмены контрольной суммы источника.
 def test_hash_tamper_rejected(tmp_path):
     fixture_root(tmp_path)
     (tmp_path / "data/processed/test.jsonl").write_text("changed", encoding="utf-8")
@@ -138,6 +150,7 @@ def test_hash_tamper_rejected(tmp_path):
         build_report(tmp_path)
 
 
+# Проверяет отказ при отсутствии одного из обязательных отчётов.
 def test_missing_file_rejected(tmp_path):
     fixture_root(tmp_path)
     (tmp_path / "reports/classical_error_analysis.json").unlink()
@@ -145,6 +158,7 @@ def test_missing_file_rejected(tmp_path):
         build_report(tmp_path)
 
 
+# Проверяет обнаружение ручных изменений в сгенерированном документе.
 def test_generated_report_check_detects_edits(tmp_path):
     fixture_root(tmp_path)
     p = run(root=tmp_path)
@@ -153,6 +167,7 @@ def test_generated_report_check_detects_edits(tmp_path):
         run(root=tmp_path, check=True)
 
 
+# Проверяет соответствие размеров корпуса и test заданным ограничениям.
 def test_expected_counts_are_enforced(tmp_path):
     fixture_root(tmp_path)
     with pytest.raises(F1ReportError, match="expected cleaned"):

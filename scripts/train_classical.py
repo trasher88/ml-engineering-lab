@@ -1,3 +1,7 @@
+# Назначение файла: F1.7: CLI обучения фиксированного classical baseline.
+# Проверяет разбиение и сохраняет модель/предсказания только локально.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.7: train a fixed classical baseline from locally prepared F1.6 splits.
 
 Run from repository root: python -m scripts.train_classical --expect-test 608
@@ -19,10 +23,12 @@ from src.classical_ml.train import ClassicalError, fit_and_evaluate
 from src.common.io import ROOT, read_jsonl
 
 
+# Ошибка локального эксперимента baseline либо артефактов.
 class BaselineRunError(ClassicalError):
     """Invalid inputs, configuration, or expected output sizes."""
 
 
+# Вычисляет контрольную сумму файла входных выборок.
 def _digest(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as fd:
@@ -31,6 +37,7 @@ def _digest(path: Path) -> str:
     return h.hexdigest()
 
 
+# Безопасно записывает текстовый отчёт через временный файл.
 def _atomic_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp: Path | None = None
@@ -46,6 +53,7 @@ def _atomic_text(path: Path, text: str) -> None:
             temp.unlink(missing_ok=True)
 
 
+# Проверяет train/val/test, обучает baseline и сохраняет модель с метриками.
 def run(root: Path = ROOT, *,
         config_path: Path = Path("configs/local_cpu/lab.yaml"),
         data_dir: Path = Path("data/processed"),
@@ -116,6 +124,7 @@ def run(root: Path = ROOT, *,
     return report
 
 
+# Читает аргументы и выводит результаты обучения/оценки.
 def main() -> int:
     parser = argparse.ArgumentParser(description="F1.7 — offline classical ML baseline")
     parser.add_argument("--root", type=Path, default=ROOT)

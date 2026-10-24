@@ -1,3 +1,7 @@
+# Назначение файла: P0: проверка целостности публичной структуры проекта и ссылок в документах.
+# Не выполняет обучение моделей и проверку полного набора экспериментов.
+# Примечание: комментарии не влияют на работу программы.
+
 """Validate repository metadata and published links using Python stdlib only."""
 from pathlib import Path
 import json
@@ -7,6 +11,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Проверяет наличие обязательных файлов и внутреннюю связность документов.
 def check() -> None:
     required = ['README.md', '.gitignore', '.gitattributes',
                 'docs/visuals/architecture.svg', 'docs/DATA_PROVENANCE.md',

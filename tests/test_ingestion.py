@@ -1,3 +1,6 @@
+# Назначение файла: F1.3: проверки повторяемой загрузки на выдуманных gzip-файлах; сеть подменяется.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.3 ingestion checks with synthetic gzip fixtures only; never reach HF."""
 from __future__ import annotations
 
@@ -14,6 +17,7 @@ from scripts import download_data as ingestion
 from src.data.provenance import load_manifest, validate_manifest
 
 
+# Создаёт локальные тестовые gzip-архивы и их контрольные суммы.
 @pytest.fixture
 def synthetic_lab(tmp_path: Path):
     manifest = copy.deepcopy(load_manifest(ingestion.ROOT / "data/raw/manifest.json"))
@@ -43,10 +47,12 @@ def synthetic_lab(tmp_path: Path):
     return tmp_path, manifest
 
 
+# Проверяет повторяемость offline-отбора и неизменность манифеста.
 def test_reproducible_offline_and_manifest_read_only(synthetic_lab, monkeypatch):
     root, manifest = synthetic_lab
     before = (root / "data/raw/manifest.json").read_bytes()
 
+    # Подменяет сетевой вызов, чтобы гарантировать автономность offline-теста.
     def no_network(*_args, **_kwargs):
         raise AssertionError("unexpected network access")
 
@@ -68,6 +74,7 @@ def test_reproducible_offline_and_manifest_read_only(synthetic_lab, monkeypatch)
     assert {r["domain"] for r in rows} == set(ingestion.select_records(manifest, root)[0][i]["domain"] for i in range(12))
 
 
+# Проверяет ограничение числа элементов в итоговом образце.
 def test_sample_limit(synthetic_lab):
     root, manifest = synthetic_lab
     selected, sample = ingestion.select_records(manifest, root, sample_per_domain=2)
@@ -75,6 +82,7 @@ def test_sample_limit(synthetic_lab):
     assert len(sample) == 8
 
 
+# Проверяет отказ от ранее скачанного файла с неверным SHA-256.
 def test_existing_corrupt_source_rejected(synthetic_lab):
     root, manifest = synthetic_lab
     path = root / manifest["sources"][0]["file"].replace("\\", "/")
@@ -84,6 +92,7 @@ def test_existing_corrupt_source_rejected(synthetic_lab):
     assert not (root / "data/raw/subset.jsonl").exists()
 
 
+# Проверяет отказ без создания результатов, если файла нет в offline-режиме.
 def test_offline_missing_fails_without_writing_output(synthetic_lab):
     root, manifest = synthetic_lab
     path = root / manifest["sources"][0]["file"].replace("\\", "/")
@@ -93,6 +102,7 @@ def test_offline_missing_fails_without_writing_output(synthetic_lab):
     assert not (root / "data/raw/subset.jsonl").exists()
 
 
+# Проверяет загрузку исключительно с URL закреплённой версии.
 def test_validated_download_only_from_pinned_url(synthetic_lab, monkeypatch):
     root, manifest = synthetic_lab
     rec = manifest["sources"][0]
@@ -101,6 +111,7 @@ def test_validated_download_only_from_pinned_url(synthetic_lab, monkeypatch):
     dest.unlink()
     calls = []
 
+    # Подменяет HTTP-загрузку синтетическим содержимым для проверки URL.
     def fake_urlopen(url, timeout):
         calls.append((url, timeout))
         return io.BytesIO(payload)
@@ -111,6 +122,7 @@ def test_validated_download_only_from_pinned_url(synthetic_lab, monkeypatch):
     assert dest.read_bytes() == payload
 
 
+# Проверяет удаление временного файла при ошибочной загрузке.
 def test_bad_download_is_rejected_and_temp_deleted(synthetic_lab, monkeypatch):
     root, manifest = synthetic_lab
     rec = manifest["sources"][0]
@@ -124,6 +136,7 @@ def test_bad_download_is_rejected_and_temp_deleted(synthetic_lab, monkeypatch):
     assert not list(dest.parent.glob(".download-*.tmp"))
 
 
+# Проверяет обнаружение несовпадения заявленного и реального числа строк.
 def test_row_count_mismatch_is_detected(synthetic_lab):
     root, manifest = synthetic_lab
     manifest["sources"][0]["available_rows"] = 999
@@ -131,6 +144,7 @@ def test_row_count_mismatch_is_detected(synthetic_lab):
         ingestion.select_records(manifest, root)
 
 
+# Проверяет отказ от повреждённой записи JSONL.
 def test_invalid_json_is_detected(synthetic_lab):
     root, manifest = synthetic_lab
     rec = manifest["sources"][0]
@@ -142,12 +156,14 @@ def test_invalid_json_is_detected(synthetic_lab):
         ingestion.select_records(manifest, root)
 
 
+# Проверяет валидацию размера образца.
 def test_invalid_sample_size(synthetic_lab):
     root, manifest = synthetic_lab
     with pytest.raises(ingestion.IngestionError, match="nonnegative"):
         ingestion.select_records(manifest, root, sample_per_domain=-1)
 
 
+# Проверяет сохранность манифеста даже после неудачной загрузки.
 def test_original_manifest_unmodified_after_invalid_download(synthetic_lab, monkeypatch):
     root, manifest = synthetic_lab
     before = (root / "data/raw/manifest.json").read_bytes()

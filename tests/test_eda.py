@@ -1,3 +1,6 @@
+# Назначение файла: F1.5: проверки агрегатов и графиков EDA на синтетическом корпусе.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.5: deterministic EDA with synthetic records only (never remote data)."""
 from __future__ import annotations
 
@@ -12,6 +15,7 @@ from scripts.eda_data import EDARunError, run
 from src.data.eda import EDAError, length_arrays, summarize_cleaned
 
 
+# Создаёт синтетическую очищенную запись для анализа.
 def row(n: int, domain: str = "linux", *, context: str | None = None,
         answer: str | None = None) -> dict:
     return {
@@ -22,6 +26,7 @@ def row(n: int, domain: str = "linux", *, context: str | None = None,
     }
 
 
+# Проверяет распределение классов, сортировку и оценку дисбаланса.
 def test_class_distribution_sorted_and_imbalance_ratio():
     rows = [row(1, "systems"), row(2, "linux"), row(3, "linux")]
     report = summarize_cleaned(rows)
@@ -30,6 +35,7 @@ def test_class_distribution_sorted_and_imbalance_ratio():
     assert report["total_rows"] == 3
 
 
+# Проверяет подсчёт слов по пробелам, а не по токенам модели.
 def test_length_stats_use_whitespace_words_not_tokens():
     rows = [row(1, context="a b", answer="w x y z"),
             row(2, context="a b c d e f", answer="h i")]
@@ -42,12 +48,14 @@ def test_length_stats_use_whitespace_words_not_tokens():
     assert report["length_measure"].startswith("whitespace-separated")
 
 
+# Проверяет, что отчёт EDA не заявляет результаты ещё не выполненного split.
 def test_no_split_or_near_duplicate_results_claimed():
     report = summarize_cleaned([row(1)])
     assert report["split_distribution"] == "NOT RUN (F1.6)"
     assert report["near_duplicate_grouping"] == "NOT RUN (F1.6)"
 
 
+# Проверяет неизменность входа и отсутствие текстов вопросов в отчёте.
 def test_no_input_mutation_and_no_example_text_in_report():
     rows = [row(1, context="SECRET-TRAINING-TEXT-123 is a private fake test string")]
     copy_before = copy.deepcopy(rows)
@@ -57,22 +65,26 @@ def test_no_input_mutation_and_no_example_text_in_report():
     assert "technical answer" not in json.dumps(report)
 
 
+# Проверяет отказ от повреждённых очищенных записей.
 @pytest.mark.parametrize("bad", [[], [None], [{"id": "a"}], [row(1, answer=" ")]])
 def test_invalid_cleaned_input_rejected(bad):
     with pytest.raises(EDAError):
         summarize_cleaned(bad)
 
 
+# Проверяет обнаружение повторяющихся идентификаторов.
 def test_duplicate_id_rejected():
     with pytest.raises(EDAError, match="duplicate IDs"):
         summarize_cleaned([row(1), row(1, context="another question that differs a lot")])
 
 
+# Проверяет повторные вопросы без учёта регистра.
 def test_duplicate_context_rejected_even_casefolded():
     with pytest.raises(EDAError, match="duplicate normalized contexts"):
         summarize_cleaned([row(1), row(2, context=row(1)["context"].upper())])
 
 
+# Проверяет отказ анализировать записи с преждевременными split/group-метками.
 def test_preexisting_split_or_group_rejected():
     with pytest.raises(EDAError, match="F1.6"):
         summarize_cleaned([dict(row(1), split="train")])
@@ -80,10 +92,12 @@ def test_preexisting_split_or_group_rejected():
         summarize_cleaned([dict(row(1), group_id=0)])
 
 
+# Проверяет числовые массивы длин для построения графиков.
 def test_length_arrays():
     assert length_arrays([row(1, context="x y", answer="z")]) == ([2], [1])
 
 
+# Создаёт временные каталоги и очищенный синтетический корпус.
 @pytest.fixture
 def temp_project(tmp_path: Path):
     source = tmp_path / "data/interim/cleaned.jsonl"
@@ -93,6 +107,7 @@ def temp_project(tmp_path: Path):
     return tmp_path, source
 
 
+# Проверяет формирование отчёта и графиков только из агрегатов.
 def test_full_offline_run_saves_aggregate_only_artifacts(temp_project):
     root, source = temp_project
     summary = run(root, expect_rows=3)
@@ -111,12 +126,14 @@ def test_full_offline_run_saves_aggregate_only_artifacts(temp_project):
     assert output.read_bytes() == first_bytes
 
 
+# Проверяет отсутствие незаметной замены полного корпуса образцом.
 def test_missing_input_never_uses_sample(tmp_path):
     with pytest.raises(EDARunError, match="missing full F1.4"):
         run(tmp_path, expect_rows=3040)
     assert not (tmp_path / "reports/data_eda_audit.json").exists()
 
 
+# Проверяет контроль ожидаемого размера до записи результата.
 def test_count_mismatch_fails_before_writing(temp_project):
     root, _ = temp_project
     with pytest.raises(EDARunError, match="row count mismatch"):
@@ -125,12 +142,14 @@ def test_count_mismatch_fails_before_writing(temp_project):
     assert not (root / "docs/visuals/f1").exists()
 
 
+# Проверяет защиту от записи поверх исходного файла.
 def test_input_output_collision_fails(temp_project):
     root, _ = temp_project
     with pytest.raises(EDARunError, match="different"):
         run(root, audit_path=Path("data/interim/cleaned.jsonl"))
 
 
+# Проверяет отказ при некорректном параметре размера корпуса.
 def test_invalid_expected_count_fails(temp_project):
     root, _ = temp_project
     for count in [0, -1, True]:
@@ -138,6 +157,7 @@ def test_invalid_expected_count_fails(temp_project):
             run(root, expect_rows=count)
 
 
+# Проверяет, что повреждённый JSONL не создаёт выходных файлов.
 def test_reject_bad_jsonl_before_outputs(temp_project):
     root, source = temp_project
     source.write_text("{BAD JSON}\n", encoding="utf-8")

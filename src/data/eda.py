@@ -1,3 +1,7 @@
+# Назначение файла: F1.5: описательная статистика очищенного корпуса без публикации текстов.
+# Разбиение на train/validation/test и поиск близких дубликатов здесь не выполняются.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.5: text-free, reproducible descriptive statistics for cleaned Q&A.
 
 Split-aware analysis is intentionally deferred to F1.6. The API does not
@@ -15,10 +19,12 @@ import pandas as pd
 REQUIRED = ("id", "domain", "context", "answer")
 
 
+# Ошибка входного корпуса либо параметров статистического анализа.
 class EDAError(ValueError):
     """The F1.4 cleaned dataset violates the F1.5 input contract."""
 
 
+# Считает статистику длин текстов по количеству слов.
 def _length_statistics(lengths: pd.Series) -> dict[str, int | float]:
     values = lengths.to_numpy(dtype=np.int64)
     return {
@@ -31,6 +37,7 @@ def _length_statistics(lengths: pd.Series) -> dict[str, int | float]:
     }
 
 
+# Проверяет данные и возвращает агрегаты классов и длин без Q&A.
 def summarize_cleaned(rows: list[dict[str, Any]]) -> dict[str, Any]:
     """Compute aggregate-only statistics, without modifying input rows.
 
@@ -84,6 +91,7 @@ def summarize_cleaned(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+# Формирует числовые массивы длин для построения гистограмм.
 def length_arrays(rows: list[dict[str, Any]]) -> tuple[list[int], list[int]]:
     """Private plot inputs; do not serialize or print per-row values."""
     return ([len(row["context"].split()) for row in rows],

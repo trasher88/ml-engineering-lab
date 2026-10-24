@@ -1,3 +1,7 @@
+# Назначение файла: F1.3: скачивание архивов по закреплённому манифесту и воспроизводимый отбор Q&A.
+# Сверяет SHA-256, поддерживает offline-режим; исходные тексты остаются локально.
+# Примечание: комментарии не влияют на работу программы.
+
 """F1.3: reproduce the pinned technical Q&A subset from verified source files.
 
 No downloaded Q&A or derivatives belong in the public Git repository.
@@ -25,15 +29,18 @@ INSTRUCTION = "Answer the technical question using the supplied context."
 COLUMNS = ("title_body", "upvoted_answer", "downvoted_answer")
 
 
+# Ошибка загрузки, целостности архива или схемы JSONL.
 class IngestionError(ValueError):
     """Downloaded bytes or parsed source rows violate the pinned contract."""
 
 
+# Приводит путь из Windows-манифеста к безопасной относительной форме.
 def _normalized_path(record: dict, root: Path) -> Path:
     # validate_manifest has already constrained this exact relative path.
     return root / record["file"].replace("\\", "/")
 
 
+# Считает SHA-256 файла для проверки его неизменности.
 def _sha256(path: Path) -> str:
     hash_ = hashlib.sha256()
     with path.open("rb") as reader:
@@ -42,6 +49,7 @@ def _sha256(path: Path) -> str:
     return hash_.hexdigest()
 
 
+# Скачивает во временный файл и принимает только при совпадении SHA-256.
 def _download_verified(record: dict, destination: Path, retries: int = 3) -> None:
     """Download into a temporary file; publish only after matching pinned SHA."""
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -72,6 +80,7 @@ def _download_verified(record: dict, destination: Path, retries: int = 3) -> Non
                 temp.unlink(missing_ok=True)
 
 
+# Гарантирует наличие всех архивов с корректными хешами; умеет offline.
 def ensure_sources(manifest: dict, root: Path, *, offline: bool = False) -> None:
     """Reuse verified files, or fetch missing pinned files; never trust stale cache."""
     validate_manifest(manifest)
@@ -91,6 +100,7 @@ def ensure_sources(manifest: dict, root: Path, *, offline: bool = False) -> None
     verify_raw_files(manifest, root)
 
 
+# Преобразует строку источника к единой схеме учебного корпуса.
 def _to_record(item: object, *, site: str, domain: str, url: str, row: int,
                dataset: str) -> dict | None:
     if isinstance(item, list) and len(item) == len(COLUMNS):
@@ -113,6 +123,7 @@ def _to_record(item: object, *, site: str, domain: str, url: str, row: int,
     }
 
 
+# Воспроизводимо выбирает ограниченное число записей каждого источника.
 def select_records(manifest: dict, root: Path, *, sample_per_domain: int = 60
                    ) -> tuple[list[dict], list[dict]]:
     """Match the original seeded selection and maintain row-level lineage."""
@@ -156,6 +167,7 @@ def select_records(manifest: dict, root: Path, *, sample_per_domain: int = 60
     return selected, sample
 
 
+# Сохраняет набор JSONL атомарно, чтобы не оставить частичный результат.
 def _atomic_jsonl(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp: Path | None = None
@@ -173,6 +185,7 @@ def _atomic_jsonl(path: Path, rows: list[dict]) -> None:
             temp.unlink(missing_ok=True)
 
 
+# Оркестрирует чтение манифеста, проверку источников и выборку данных.
 def run(root: Path = ROOT, *, offline: bool = False) -> dict:
     root = Path(root)
     manifest_path = root / "data/raw/manifest.json"
@@ -192,6 +205,7 @@ def run(root: Path = ROOT, *, offline: bool = False) -> dict:
     return {"selected": len(rows), "sample": len(sample), "sources_verified": 4}
 
 
+# Обрабатывает параметры командной строки и сообщает итог загрузки.
 def main() -> int:
     parser = argparse.ArgumentParser(description="F1.3: verified, pinned dataset ingestion")
     parser.add_argument("--offline", action="store_true",
