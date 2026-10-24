@@ -33,7 +33,7 @@
 
 ## Статус публикации
 
-**P0 — исходная структура; F1.1 — инфраструктура Python; F1.2 — provenance; F1.3 — проверяемый ingestion; F1.4 — детерминированная очистка; F1.5 — EDA; F1.6 — grouped split и защита от лексических утечек (код, тесты, без публичных текстов).** Остальные модули и результаты будут добавляться по фазам. Репозиторий **ещё не является запускаемым end-to-end ML-продуктом**. CI проверяет метаданные, foundation, offline provenance, ingestion, cleaning, EDA и grouped-split тесты на синтетических данных, но **не выполняет** обучение моделей или GPU/Docker-проверки.
+**P0 — исходная структура; F1.1 — инфраструктура Python; F1.2 — provenance; F1.3 — проверяемый ingestion; F1.4 — детерминированная очистка; F1.5 — EDA; F1.6 — grouped split и защита от лексических утечек; F1.7 — classical ML baseline (код и синтетические тесты, без публичных текстов/весов).** Остальные модули и результаты будут добавляться по фазам. Репозиторий **ещё не является запускаемым end-to-end ML-продуктом**. CI проверяет метаданные, foundation, offline provenance, ingestion, cleaning, EDA и grouped-split тесты на синтетических данных, но **не выполняет** обучение модели на реальном корпусе или GPU/Docker-проверки.
 
 Начало технического разбора: [F1.1 — Project Foundation](docs/steps/F1_01_project_foundation.md). Локально: `py -3 -m pip install -r requirements-foundation.txt`, затем `py -3 -m pytest -q tests/test_foundation.py`.
 
@@ -44,6 +44,8 @@
 **F1.4 — Data Cleaning:** [разбор очистки и статистики исключений](docs/steps/F1_04_cleaning.md). Локально после F1.3: `python -m scripts.clean_data --expect-input 3066 --expect-output 3040`. Очищенный корпус (`data/interim/`) и локальный audit JSON не публикуются. Группировка близких дубликатов и split будут реализованы отдельно в F1.6.
 
 **F1.5 — Exploratory Data Analysis:** [статистика и графики до разбиения](docs/steps/F1_05_eda.md). После F1.4 локально: `python -m scripts.eda_data --expect-rows 3040` (установить `requirements-eda.txt`). Сводка и изображения сохраняются локально, без оригинальных Q&A. **F1.6 — Data Splitting & Leakage Prevention:** [подробный разбор](docs/steps/F1_06_splits.md). После F1.4 локально: `python -m scripts.split_data --expect-rows 3040` (установить `requirements-splitting.txt`). Группы формируются по вопросам и ответам, train/validation/test не пересекаются по вычисленным группам. Исторические ориентиры — 1824/608/608, 535 near-duplicate edges; реальный Windows-запуск должен подтвердить или объяснить расхождение. Файлы `data/processed/` и локальный audit не публикуются.
+
+**F1.7 — Classical ML Baseline:** [TF-IDF + Logistic Regression, train-only fit и оценки Macro F1](docs/steps/F1_07_classical_baseline.md). После F1.6 локально: `python -m scripts.train_classical --expect-train 1824 --expect-val 608 --expect-test 608` (установить `requirements-classical.txt`). Исторические результаты **не гарантируют** совпадения с новым исполнением. Веса, predictions, метрики и тексты остаются локальными. F1.8 будет посвящён анализу ошибок.
 
 План последовательного раскрытия модулей: [GitHub Publication Plan](docs/GITHUB_PUBLICATION_PLAN.md).
 

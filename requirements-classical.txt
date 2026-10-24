@@ -1,0 +1,3 @@
+# F1.7: classical ML baseline and offline test dependencies.
+-r requirements-splitting.txt
+joblib>=1.4,<2

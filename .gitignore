@@ -71,3 +71,7 @@ docs/visuals/f1/*.png
 
 # F1.6: locally generated aggregate split audit
 reports/data_split_audit.json
+
+# F1.7: local aggregate metrics and text-free per-record predictions
+reports/classical.json
+reports/classical_predictions.json
