@@ -41,8 +41,16 @@ flowchart TD
 **Важно:** модель PyTorch уступила классическому baseline; hybrid retrieval уступил vector-only в данном benchmark; SFT tiny LLM не повысил качество. Метрики retrieval опираются на silver labels и не подтверждают фактическую корректность ответов. Отрицательные результаты и ограничения представлены намеренно — это часть инженерной оценки.
 
 ## Статус публикации
-
-**P0 — исходная структура; F1.1 — инфраструктура Python; F1.2 — provenance; F1.3 — проверяемый ingestion; F1.4 — детерминированная очистка; F1.5 — EDA; F1.6 — grouped split и защита от лексических утечек; F1.7 — classical ML baseline; F1.8 — анализ ошибок без повторного обучения; F1.9 — генератор итогового отчёта из согласованных локальных аудит-артефактов (проверка на Windows ожидается).** Остальные модули и результаты будут добавляться по фазам. Репозиторий **ещё не является запускаемым end-to-end ML-продуктом**. CI проверяет метаданные и автономные тесты F1.1–F1.9 на синтетических данных, но **не выполняет** обучение модели на реальном корпусе или GPU/Docker-проверки.
+### Данные и классический ML
+[F1.1 - Основа ML-проекта](docs/steps/F1_01_project_foundation.md)
+[F1.2 - Выбор датасета](docs/steps/F1_02_dataset_selection.md)
+[F1.3 - Получение данных](docs/steps/F1_03_data_ingestion.md)
+[F1.4 - Очистка](docs/steps/F1_04_cleaning.md)
+[F1.5 - Разведочный анализ](docs/steps/F1_05_eda.md)
+[F1.6 - Split без утечки](docs/steps/F1_06_splits.md)
+[F1.7 - TF-IDF + Logistic Regression](docs/steps/F1_07_classical_baseline.md)
+[F1.8 - Анализ ошибок](docs/steps/F1_08_error_analysis.md)
+[F1.9 - Итоговый отчёт F1](docs/steps/F1_09_report.md)
 
 Начало технического разбора: [F1.1 — Project Foundation](docs/steps/F1_01_project_foundation.md). Локально: `py -3 -m pip install -r requirements-foundation.txt`, затем `py -3 -m pytest -q tests/test_foundation.py`.
 
