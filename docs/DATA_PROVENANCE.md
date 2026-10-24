@@ -78,3 +78,8 @@ TF-IDF и параметров классификатора. Отчёт и ве�
 ## F1.8 — анализ ошибок без распространения текстов
 
 После F1.7 скрипт `scripts/analyze_classical.py` проверяет SHA-256 test-выборки по зафиксированному `reports/classical.json`, сопоставляет ID/labels/метрики и строит confusion matrix, per-class Precision/Recall/F1 и частоты направленных ошибок. Агрегаты, PNG и ID ошибочных записей остаются локально, а исходные Q&A не копируются в артефакты. Стадия не выполняет повторное обучение или загрузку модели. [Учебный разбор](steps/F1_08_error_analysis.md).
+
+
+## F1.9 — проверяемый агрегированный отчёт
+
+`scripts/build_f1_report.py` сверяет F1.4–F1.8 по численности, class distribution, SHA-256 очищенного корпуса и train/val/test, confusion matrix и F1.8 error counts. В `docs/reports/F1_PHASE_REPORT.md` публикуются только согласованные агрегаты и хеши; оригинальные Q&A, ID ошибок, веса модели и локальные аудиты остаются вне Git. Детали: [F1.9](steps/F1_09_report.md).
