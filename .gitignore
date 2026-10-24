@@ -57,6 +57,7 @@ runs/
 *.log
 reports/tests.xml
 reports/http_server.log
+reports/data_cleaning_audit.json
 
 # Editor / operating system
 .vscode/
