@@ -33,11 +33,13 @@
 
 ## Статус публикации
 
-**P0 — исходная структура; F1.1 — инфраструктура Python; F1.2 — provenance и независимая проверка метаданных датасета.** Остальные модули и результаты будут добавляться по фазам. Репозиторий **ещё не является запускаемым end-to-end ML-продуктом**. CI проверяет метаданные, foundation и offline provenance, но **не выполняет** обучение моделей или GPU/Docker-проверки.
+**P0 — исходная структура; F1.1 — инфраструктура Python; F1.2 — provenance; F1.3 — проверяемый ingestion (код, тесты, без публичных текстов).** Остальные модули и результаты будут добавляться по фазам. Репозиторий **ещё не является запускаемым end-to-end ML-продуктом**. CI проверяет метаданные, foundation, offline provenance и синтетические ingestion-тесты, но **не выполняет** обучение моделей или GPU/Docker-проверки.
 
 Начало технического разбора: [F1.1 — Project Foundation](docs/steps/F1_01_project_foundation.md). Локально: `py -3 -m pip install -r requirements-foundation.txt`, затем `py -3 -m pytest -q tests/test_foundation.py`.
 
 **F1.2 — Dataset Selection & Provenance:** [теория и ограничения](docs/steps/F1_02_dataset_selection.md). Проверка без загрузки данных: `.\.venv\Scripts\python.exe -m src.data.provenance`; автономные тесты: `.\.venv\Scripts\python.exe -m pytest -q tests/test_provenance.py`. Исходные тексты и веса не публикуются.
+
+**F1.3 — Data Ingestion:** [разбор кода и воспроизводимости](docs/steps/F1_03_data_ingestion.md). Локальные offline-тесты: `python -m pytest -q tests/test_ingestion.py`. Реальный download **вручную**, вне CI: `python -m scripts.download_data`; если архивы уже есть: `python -m scripts.download_data --offline`. Для побайтовой проверки: `python -m src.data.provenance --verify-files`. Raw gzip, subset и sample остаются локальными и исключены из Git.
 
 План последовательного раскрытия модулей: [GitHub Publication Plan](docs/GITHUB_PUBLICATION_PLAN.md).
 

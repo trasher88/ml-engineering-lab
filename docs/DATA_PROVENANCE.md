@@ -39,3 +39,9 @@ Metadata можно проверить без исходных текстов: `
 
 Справка: [Stack Exchange licensing](https://english.stackexchange.com/help/licensing),
 [Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+## F1.3 — воспроизводимая загрузка
+
+[`scripts/download_data.py`](../scripts/download_data.py) читает **закреплённый** manifest, не заменяет его новым состоянием HF, проверяет SHA-256 исходных gzip перед чтением и создаёт локальные `data/raw/subset.jsonl` и `data/sample/technical_qa.jsonl`. Режим `--offline` использует уже полученные архивы. Подробности и тесты: [F1.3](steps/F1_03_data_ingestion.md).
+
+До реального запуска на новой машине подтверждены **лишь синтетические тесты**. Ожидаемые размеры subset=3066 и sample=240 происходят из исторических локальных отчётов, не из загрузки в CI. Все исходные тексты остаются исключены из публичного Git.
