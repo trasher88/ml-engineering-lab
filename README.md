@@ -42,34 +42,17 @@ flowchart TD
 
 ## Статус публикации
 ### Данные и классический ML
-[F1.1 - Основа ML-проекта](docs/steps/F1_01_project_foundation.md)
-[F1.2 - Выбор датасета](docs/steps/F1_02_dataset_selection.md)
-[F1.3 - Получение данных](docs/steps/F1_03_data_ingestion.md)
-[F1.4 - Очистка](docs/steps/F1_04_cleaning.md)
-[F1.5 - Разведочный анализ](docs/steps/F1_05_eda.md)
-[F1.6 - Split без утечки](docs/steps/F1_06_splits.md)
-[F1.7 - TF-IDF + Logistic Regression](docs/steps/F1_07_classical_baseline.md)
-[F1.8 - Анализ ошибок](docs/steps/F1_08_error_analysis.md)
-[F1.9 - Итоговый отчёт F1](docs/steps/F1_09_report.md)
-
-Начало технического разбора: [F1.1 — Project Foundation](docs/steps/F1_01_project_foundation.md). Локально: `py -3 -m pip install -r requirements-foundation.txt`, затем `py -3 -m pytest -q tests/test_foundation.py`.
-
-**F1.2 — Dataset Selection & Provenance:** [теория и ограничения](docs/steps/F1_02_dataset_selection.md). Проверка без загрузки данных: `.\.venv\Scripts\python.exe -m src.data.provenance`; автономные тесты: `.\.venv\Scripts\python.exe -m pytest -q tests/test_provenance.py`. Исходные тексты и веса не публикуются.
-
-**F1.3 — Data Ingestion:** [разбор кода и воспроизводимости](docs/steps/F1_03_data_ingestion.md). Локальные offline-тесты: `python -m pytest -q tests/test_ingestion.py`. Реальный download **вручную**, вне CI: `python -m scripts.download_data`; если архивы уже есть: `python -m scripts.download_data --offline`. Для побайтовой проверки: `python -m src.data.provenance --verify-files`. Raw gzip, subset и sample остаются локальными и исключены из Git.
-
-**F1.4 — Data Cleaning:** [разбор очистки и статистики исключений](docs/steps/F1_04_cleaning.md). Локально после F1.3: `python -m scripts.clean_data --expect-input 3066 --expect-output 3040`. Очищенный корпус (`data/interim/`) и локальный audit JSON не публикуются. Группировка близких дубликатов и split будут реализованы отдельно в F1.6.
-
-**F1.5 — Exploratory Data Analysis:** [статистика и графики до разбиения](docs/steps/F1_05_eda.md). После F1.4 локально: `python -m scripts.eda_data --expect-rows 3040` (установить `requirements-eda.txt`). Сводка и изображения сохраняются локально, без оригинальных Q&A. **F1.6 — Data Splitting & Leakage Prevention:** [подробный разбор](docs/steps/F1_06_splits.md). После F1.4 локально: `python -m scripts.split_data --expect-rows 3040` (установить `requirements-splitting.txt`). Группы формируются по вопросам и ответам, train/validation/test не пересекаются по вычисленным группам. Исторические ориентиры — 1824/608/608, 535 near-duplicate edges; реальный Windows-запуск должен подтвердить или объяснить расхождение. Файлы `data/processed/` и локальный audit не публикуются.
-
-**F1.7 — Classical ML Baseline:** [TF-IDF + Logistic Regression, train-only fit и оценки Macro F1](docs/steps/F1_07_classical_baseline.md). После F1.6 локально: `python -m scripts.train_classical --expect-train 1824 --expect-val 608 --expect-test 608` (установить `requirements-classical.txt`). Исторические результаты **не гарантируют** совпадения с новым исполнением. Веса, predictions, метрики и тексты остаются локальными. F1.8 будет посвящён анализу ошибок.
-
-**Подтверждённый Windows-запуск F1.7:** Test macro F1 **0.8838**, Accuracy **0.8799** на 608 примерах; это отдельный прогон с результатами, близкими к историческим, но не обязательно теми же test-ID. Реальное обучение на полном корпусе выполнялось локально, а не в GitHub CI.
-
-**F1.8 — Error Analysis:** [анализ замороженных test-предсказаний](docs/steps/F1_08_error_analysis.md) без повторного обучения. После F1.7: `python -m scripts.analyze_classical --expect-test 608` (установить `requirements-error-analysis.txt`). Отчёт, локальные ID ошибок и изображение confusion matrix исключены из Git. Причины ошибок фиксируются как гипотезы, а не доказанные факты.
+1. [F1.1 - Основа ML-проекта](docs/steps/F1_01_project_foundation.md)
+2. [F1.2 - Выбор датасета](docs/steps/F1_02_dataset_selection.md)
+3. [F1.3 - Получение данных](docs/steps/F1_03_data_ingestion.md)
+4. [F1.4 - Очистка](docs/steps/F1_04_cleaning.md)
+5. [F1.5 - Разведочный анализ](docs/steps/F1_05_eda.md)
+6. [F1.6 - Split без утечки](docs/steps/F1_06_splits.md)
+7. [F1.7 - TF-IDF + Logistic Regression](docs/steps/F1_07_classical_baseline.md)
+8. [F1.8 - Анализ ошибок](docs/steps/F1_08_error_analysis.md)
+9. [F1.9 - Итоговый отчёт F1](docs/steps/F1_09_report.md)
 
 
-**F1.9 — Итоговый отчёт первой фазы:** [генератор отчёта и методика](docs/steps/F1_09_report.md). На локальных аудитах после F1.8: `python -m scripts.build_f1_report --expect-rows 3040 --expect-test 608`, затем та же команда с `--check`. Публичный [F1 Phase Report](docs/reports/F1_PHASE_REPORT.md) добавляем только после воспроизводимой генерации на Windows. [Черновик релиза v0.1-f1](docs/releases/v0.1-f1.md). GitHub CI по-прежнему не запускает полный корпус.
 
 План последовательного раскрытия модулей: [GitHub Publication Plan](docs/GITHUB_PUBLICATION_PLAN.md).
 
@@ -87,7 +70,3 @@ flowchart TD
 - Docker build/run не проверены.
 - Expert/LLM-judge correctness evaluation не проводилась.
 - API и безопасность — учебные прототипы, не production-сервис.
-
-## Для работодателя
-
-Проект показывает постановку экспериментов, построение воспроизводимых ML-пайплайнов, сравнение baseline и neural models, разработку retrieval/RAG и способность документировать **не только успехи, но и ограничения**. По мере публикации появятся исходники, инструкции запуска, тесты и технические отчёты по каждому модулю.
