@@ -119,7 +119,7 @@ def test_end_to_end_offline_audit_and_stable_bytes(sample_project):
     assert report["source_sha256"] == hashlib.sha256(raw.read_bytes()).hexdigest()
     assert report["cleaning"]["short_removed"] == 1
     assert len(output_path.read_text(encoding="utf-8").splitlines()) == 2
-    assert "NOT RUN (F1.5)" == report["near_duplicate_grouping"]
+    assert "NOT RUN (F1.6)" == report["near_duplicate_grouping"]
     saved = output_path.read_bytes(), audit_path.read_bytes()
     assert run(root, expect_input=3, expect_output=2) == report
     assert (output_path.read_bytes(), audit_path.read_bytes()) == saved

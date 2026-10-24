@@ -80,8 +80,8 @@ def run(root: Path = ROOT, *, config_path: Path = Path("configs/local_cpu/lab.ya
         "source_sha256": _sha256(source), "min_words": min_words,
         "cleaning": counts,
         "by_domain": dict(sorted(Counter(row["domain"] for row in cleaned).items())),
-        "near_duplicate_grouping": "NOT RUN (F1.5)",
-        "train_val_test_split": "NOT RUN (F1.5)",
+        "near_duplicate_grouping": "NOT RUN (F1.6)",
+        "train_val_test_split": "NOT RUN (F1.6)",
     }
     # Only scalar metrics, never full question/answer contents, in the audit.
     output_rows = "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in cleaned)
@@ -113,7 +113,7 @@ def main() -> int:
           f"duplicates_removed={stats['duplicates_removed']}; "
           f"invalid_or_missing={stats['invalid_or_missing']}; "
           f"output={stats['output_rows']}")
-    print("Near-duplicate grouping / train-val-test split: NOT RUN (F1.5)")
+    print("Near-duplicate grouping / train-val-test split: NOT RUN (F1.6)")
     return 0
 
 

@@ -33,7 +33,7 @@
 
 ## Статус публикации
 
-**P0 — исходная структура; F1.1 — инфраструктура Python; F1.2 — provenance; F1.3 — проверяемый ingestion; F1.4 — детерминированная очистка (код, тесты, без публичных текстов).** Остальные модули и результаты будут добавляться по фазам. Репозиторий **ещё не является запускаемым end-to-end ML-продуктом**. CI проверяет метаданные, foundation, offline provenance, ingestion и cleaning-тесты на синтетических данных, но **не выполняет** обучение моделей или GPU/Docker-проверки.
+**P0 — исходная структура; F1.1 — инфраструктура Python; F1.2 — provenance; F1.3 — проверяемый ingestion; F1.4 — детерминированная очистка; F1.5 — EDA (код, тесты, без публичных текстов).** Остальные модули и результаты будут добавляться по фазам. Репозиторий **ещё не является запускаемым end-to-end ML-продуктом**. CI проверяет метаданные, foundation, offline provenance, ingestion, cleaning и EDA-тесты на синтетических данных, но **не выполняет** обучение моделей или GPU/Docker-проверки.
 
 Начало технического разбора: [F1.1 — Project Foundation](docs/steps/F1_01_project_foundation.md). Локально: `py -3 -m pip install -r requirements-foundation.txt`, затем `py -3 -m pytest -q tests/test_foundation.py`.
 
@@ -41,7 +41,9 @@
 
 **F1.3 — Data Ingestion:** [разбор кода и воспроизводимости](docs/steps/F1_03_data_ingestion.md). Локальные offline-тесты: `python -m pytest -q tests/test_ingestion.py`. Реальный download **вручную**, вне CI: `python -m scripts.download_data`; если архивы уже есть: `python -m scripts.download_data --offline`. Для побайтовой проверки: `python -m src.data.provenance --verify-files`. Raw gzip, subset и sample остаются локальными и исключены из Git.
 
-**F1.4 — Data Cleaning:** [разбор очистки и статистики исключений](docs/steps/F1_04_cleaning.md). Локально после F1.3: `python -m scripts.clean_data --expect-input 3066 --expect-output 3040`. Очищенный корпус (`data/interim/`) и локальный audit JSON не публикуются. Группировка близких дубликатов и split будут реализованы отдельно в F1.5.
+**F1.4 — Data Cleaning:** [разбор очистки и статистики исключений](docs/steps/F1_04_cleaning.md). Локально после F1.3: `python -m scripts.clean_data --expect-input 3066 --expect-output 3040`. Очищенный корпус (`data/interim/`) и локальный audit JSON не публикуются. Группировка близких дубликатов и split будут реализованы отдельно в F1.6.
+
+**F1.5 — Exploratory Data Analysis:** [статистика и графики до разбиения](docs/steps/F1_05_eda.md). После F1.4 локально: `python -m scripts.eda_data --expect-rows 3040` (установить `requirements-eda.txt`). Сводка и изображения сохраняются локально, без оригинальных Q&A. **F1.6 — группировка почти одинаковых примеров и train/validation/test split**.
 
 План последовательного раскрытия модулей: [GitHub Publication Plan](docs/GITHUB_PUBLICATION_PLAN.md).
 

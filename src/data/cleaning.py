@@ -1,7 +1,7 @@
 """F1.4: deterministic text cleaning from the original ML Engineering Lab.
 
 Keep this stage separate from near-duplicate grouping and train/val/test
-allocation (F1.5). No input examples are logged or committed.
+allocation (F1.6). No input examples are logged or committed.
 """
 from __future__ import annotations
 
@@ -33,7 +33,7 @@ def clean_records(records: Iterable[Any], *, min_words: int) -> tuple[list[dict]
     Filter order matches the historical pipeline: invalid raw fields ->
     normalized exact duplicates -> too-short question/answer. Accepted
     IDs/contexts are recorded only *after* the minimum-length filter.
-    Near-duplicates are deliberately NOT removed here (see F1.5).
+    Near-duplicates are deliberately NOT removed here (see F1.6).
     """
     if not isinstance(min_words, int) or isinstance(min_words, bool) or min_words < 1:
         raise ValueError("min_words must be a positive integer")

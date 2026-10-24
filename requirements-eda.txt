@@ -1,0 +1,4 @@
+# F1.5 EDA: foundation dependencies plus original pandas/matplotlib stack.
+-r requirements-foundation.txt
+pandas>=2.2,<4
+matplotlib>=3.8,<4

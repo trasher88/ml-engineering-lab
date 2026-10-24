@@ -64,3 +64,7 @@ reports/data_cleaning_audit.json
 .idea/
 .DS_Store
 Thumbs.db
+
+# F1.5: local-only statistics and generated plots from cleaned text
+reports/data_eda_audit.json
+docs/visuals/f1/*.png
