@@ -68,3 +68,6 @@ Thumbs.db
 # F1.5: local-only statistics and generated plots from cleaned text
 reports/data_eda_audit.json
 docs/visuals/f1/*.png
+
+# F1.6: locally generated aggregate split audit
+reports/data_split_audit.json
