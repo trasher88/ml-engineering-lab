@@ -1,20 +1,28 @@
 # ML Engineering Lab
 
-**Практическая лаборатория ML Engineering: от технических данных до моделей, retrieval/RAG, оценки качества и API.**
+**Учебная лаборатория полного ML-цикла на технических вопросах и ответах: подготовка данных, классификация, поиск, RAG, дообучение LLM, оценка и запуск сервиса. Проект показывает не только работающий код, но и фактические результаты с ограничениями.**
 
-Этот публичный репозиторий **пополняется поэтапно**: в исходном локальном проекте реализованы пять фаз (F1–F5, 43 учебных шага); после отдельного ревью, проверки и документации модули публикуются здесь осмысленными коммитами.
+В исходном локальном проекте реализованы пять фаз (F1–F5, 43 учебных шага).
 
-![Архитектура проекта](docs/visuals/architecture.svg)
+```mermaid
+flowchart TD
+    A[Технические вопросы и ответы Stack Exchange] --> B[F1 · Данные и классический baseline]
+    B --> C[F2 · Нейросеть на PyTorch]
+    C --> D[F3 · Embeddings, поиск и RAG]
+    D --> E[F4 · SFT, LoRA и мини-DPO]
+    E --> F[F5 · Оценка, API, тесты, MLflow и demo]
+    F --> G[Сохранённые результаты и известные ограничения]
+```
 
 ## Направления проекта
 
 | Фаза | Инженерная задача | Основные технологии |
 |---|---|---|
-| F1 | Ingestion, очистка, split без утечек, baseline и анализ ошибок | Python, pandas, scikit-learn, TF-IDF, Logistic Regression |
-| F2 | Обучение собственного классификатора и сравнение с baseline | PyTorch, DataLoader, autograd, early stopping |
-| F3 | Информационный поиск и RAG с источниками | BM25, sentence-transformers, cosine, RRF |
-| F4 | Мини-эксперименты с дообучением языковой модели | Transformers, LoRA, SFT, DPO |
-| F5 | Оценка качества, тестирование, API и эксперименты | FastAPI, pytest, MLflow, Docker |
+| F1 | Данные, очистка, разделение и TF-IDF + Logistic Regression | Python, pandas, scikit-learn, TF-IDF, Logistic Regression |
+| F2 | Тензоры, градиенты, ручное обучение и validation | PyTorch, DataLoader, autograd, early stopping |
+| F3 | Attention, embeddings, BM25, vector, hybrid и RAG | BM25, sentence-transformers, cosine, RRF |
+| F4 | Instruction dataset, выбор модели, SFT + LoRA и DPO | Transformers, LoRA, SFT, DPO |
+| F5 | Общая оценка, safety, FastAPI, Docker, тесты и MLflow | FastAPI, pytest, MLflow, Docker |
 
 ## Метрики из сохранённых локальных экспериментов
 
