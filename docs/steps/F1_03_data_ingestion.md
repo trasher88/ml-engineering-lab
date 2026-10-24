@@ -49,18 +49,6 @@ flowchart TD
     K --> L[Sample: 240 записей по историческому правилу]
 ```
 
-## Исходный код
-
-Полный исполняемый файл: [`scripts/download_data.py`](../../scripts/download_data.py).
-
-**Повторяемость выборки** достигается независимым генератором для каждого источника:
-```python
-random.Random(manifest["seed"]).shuffle(site_rows)
-chosen = site_rows[:record["selected_rows"]]
-```
-Это **не** очистка данных и **не** ML train/test split. Сначала выполняется отбор исходного поднабора.
-
-
 ## Проверка в Windows (PowerShell)
 
 Из `F:\DEVELOPMENT\ML\ml-engineering-lab` после F1.2:
