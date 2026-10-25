@@ -1,6 +1,5 @@
 # Назначение файла: F1.2: проверка неизменяемых метаданных датасета Stack Exchange.
 # Без флага --verify-files проверяется манифест, а не содержимое gzip-архивов.
-# Примечание: комментарии не влияют на работу программы.
 
 """Offline validation of the pinned Stack Exchange dataset manifest (F1.2).
 
