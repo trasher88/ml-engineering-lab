@@ -42,6 +42,7 @@ flowchart TD
 
 ## Статус публикации
 ### Данные и классический ML
+
 1. [F1.1 - Основа ML-проекта](docs/steps/F1_01_project_foundation.md)
 2. [F1.2 - Выбор датасета](docs/steps/F1_02_dataset_selection.md)
 3. [F1.3 - Получение данных](docs/steps/F1_03_data_ingestion.md)
@@ -51,6 +52,7 @@ flowchart TD
 7. [F1.7 - TF-IDF + Logistic Regression](docs/steps/F1_07_classical_baseline.md)
 8. [F1.8 - Анализ ошибок](docs/steps/F1_08_error_analysis.md)
 9. [F1.9 - Итоговый отчёт F1](docs/steps/F1_09_report.md)
+10. [**F1 - Итоги Фазы 1**](/docs/reports/F1_PHASE_REPORT.md)
 
 
 
