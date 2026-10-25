@@ -1,5 +1,4 @@
 # Назначение файла: F1.3: проверки повторяемой загрузки на выдуманных gzip-файлах; сеть подменяется.
-# Примечание: комментарии не влияют на работу программы.
 
 """F1.3 ingestion checks with synthetic gzip fixtures only; never reach HF."""
 from __future__ import annotations
