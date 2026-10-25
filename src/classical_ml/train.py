@@ -1,6 +1,5 @@
 # Назначение файла: F1.7: TF-IDF + Logistic Regression и оценка на отложенных выборках.
 # Векторизатор и классификатор обучаются только на train.
-# Примечание: комментарии не влияют на работу программы.
 
 """F1.7 baseline: fit TF-IDF and classifier on train exclusively.
 
