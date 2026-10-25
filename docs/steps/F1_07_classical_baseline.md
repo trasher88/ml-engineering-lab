@@ -14,9 +14,9 @@ programming
 ```text
 Текст вопроса
       ↓
-TF-IDF — превращает текст в числа
+TF-IDF - превращает текст в числа
       ↓
-Logistic Regression — выбирает класс
+Logistic Regression - выбирает класс
 ```
 
 ```mermaid
