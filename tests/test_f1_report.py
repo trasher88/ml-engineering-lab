@@ -1,5 +1,4 @@
 # Назначение файла: F1.9: проверки согласования аудит-файлов и формирования публичного отчёта.
-# Примечание: комментарии не влияют на работу программы.
 
 """F1.9 offline synthetic tests. No real Q&A or model weights."""
 from __future__ import annotations
