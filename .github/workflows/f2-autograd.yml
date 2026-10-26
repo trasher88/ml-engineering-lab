@@ -1,0 +1,27 @@
+name: F2.1 Autograd CPU tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  autograd:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install existing F1 test dependencies
+        run: python -m pip install -r requirements-error-analysis.txt
+      - name: Install pinned CPU-only PyTorch
+        run: python -m pip install 'torch==2.14.1+cpu' --extra-index-url https://download.pytorch.org/whl/cpu
+      - name: Run full offline regression suite including F2.1
+        run: python -m pytest -q
+      - name: F2.1 independent CLI smoke test
+        run: python -m src.pytorch_f2.autograd_demo --check
