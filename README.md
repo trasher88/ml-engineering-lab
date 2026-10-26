@@ -52,7 +52,7 @@ flowchart TD
 7. [F1.7 - TF-IDF + Logistic Regression](docs/steps/F1_07_classical_baseline.md)
 8. [F1.8 - Анализ ошибок](docs/steps/F1_08_error_analysis.md)
 9. [F1.9 - Итоговый отчёт F1](docs/steps/F1_09_report.md)
-10. [**F1 - Итоги Фазы 1**](/docs/reports/F1_PHASE_REPORT.md)
+10. [**F1 - Итоги Фазы 1**](docs/reports/F1_PHASE_REPORT.md)
 
 
 
