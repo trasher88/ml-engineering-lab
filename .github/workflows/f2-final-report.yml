@@ -1,0 +1,26 @@
+name: F2.8 Final Phase Report CPU tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  f2-final-report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-pytorch-diagnostics.txt
+      - name: Install CPU test dependencies
+        run: python -m pip install -r requirements-pytorch-diagnostics.txt
+      - name: Unit tests for final reporting
+        run: python -m pytest -q tests/test_final_report.py
+      - name: Synthetic reporting smoke check
+        run: python -m scripts.build_f2_report --self-check --check
