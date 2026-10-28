@@ -58,7 +58,7 @@ flowchart TD
 2. [F2.2 - Dataset, DataLoader и токенизация](docs/steps/F2_02_dataset_dataloader.md)
 3. [F2.3 - Embedding Classifier: Первая маленькая нейросетевая архитектура](docs/steps/F2_03_embedding_classifier.md)
 4. [F2.4 - Training Loop: обучение Embedding Classifier в PyTorch](docs/steps/F2_04_training_loop.md)
-5. [F2.5 - Validation & Checkpointing: Оценка и выбор лучшей нейросети](F2_05_validation_checkpointing.md)
+5. [F2.5 - Validation & Checkpointing: Оценка и выбор лучшей нейросети](docs/steps/F2_05_validation_checkpointing.md)
 6. [F2.6 - Training Diagnostics & Visualization: Графики обучения](docs/steps/F2_06_training_diagnostics.md)
 7. [F2.7 - Classical ML vs Neural Network: Сравнение](docs/steps/F2_07_classical_vs_neural.md)
 8. [F2.8 - Final Phase Report: Сведение проверяемых результатов](docs/steps/F2_08_final_phase_report.md)
