@@ -62,9 +62,7 @@ flowchart TD
 6. [F2.6 - Training Diagnostics & Visualization: Графики обучения](docs/steps/F2_06_training_diagnostics.md)
 7. [F2.7 - Classical ML vs Neural Network: Сравнение](docs/steps/F2_07_classical_vs_neural.md)
 8. [F2.8 - Final Phase Report: Сведение проверяемых результатов](docs/steps/F2_08_final_phase_report.md)
-9. 
-
-
+9. [**F2 - Итоги Фазы 1**](docs/reports/F2_PHASE_REPORT.md)
 
 
 План последовательного раскрытия модулей: [GitHub Publication Plan](docs/GITHUB_PUBLICATION_PLAN.md).
