@@ -42,7 +42,6 @@ flowchart TD
 
 ## Статус публикации
 ### Данные и классический ML
-
 1. [F1.1 - Основа ML-проекта](docs/steps/F1_01_project_foundation.md)
 2. [F1.2 - Выбор датасета](docs/steps/F1_02_dataset_selection.md)
 3. [F1.3 - Получение данных](docs/steps/F1_03_data_ingestion.md)
@@ -53,6 +52,18 @@ flowchart TD
 8. [F1.8 - Анализ ошибок](docs/steps/F1_08_error_analysis.md)
 9. [F1.9 - Итоговый отчёт F1](docs/steps/F1_09_report.md)
 10. [**F1 - Итоги Фазы 1**](docs/reports/F1_PHASE_REPORT.md)
+
+### PyTorch и обучение нейросети
+1. [F2.1 - PyTorch: Tensor and autograd (Тензоры, вычислительный граф и градиенты)](docs/steps/F2_01_autograd.md)
+2. [F2.2 - Dataset, DataLoader и токенизация](docs/steps/F2_02_dataset_dataloader.md)
+3. [F2.3 - Embedding Classifier: Первая маленькая нейросетевая архитектура](docs/steps/F2_03_embedding_classifier.md)
+4. [F2.4 - Training Loop: обучение Embedding Classifier в PyTorch](docs/steps/F2_04_training_loop.md)
+5. [F2.5 - Validation & Checkpointing: Оценка и выбор лучшей нейросети](F2_05_validation_checkpointing.md)
+6. [F2.6 - Training Diagnostics & Visualization: Графики обучения](docs/steps/F2_06_training_diagnostics.md)
+7. [F2.7 - Classical ML vs Neural Network: Сравнение](docs/steps/F2_07_classical_vs_neural.md)
+8. [F2.8 - Final Phase Report: Сведение проверяемых результатов](docs/steps/F2_08_final_phase_report.md)
+9. 
+
 
 
 
