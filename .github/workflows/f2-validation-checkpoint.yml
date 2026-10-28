@@ -1,0 +1,26 @@
+name: F2.5 Validation Checkpoint CPU tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  f2-validation-checkpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-pytorch-validation.txt
+      - name: Install CPU dependencies
+        run: python -m pip install -r requirements-pytorch-validation.txt
+      - name: Unit tests F2.1-F2.5
+        run: python -m pytest -q tests/test_autograd.py tests/test_pytorch_data.py tests/test_embedding_classifier.py tests/test_training_loop.py tests/test_validation_checkpoint.py
+      - name: Synthetic validation checkpoint smoke
+        run: python -m scripts.pytorch_validation --synthetic --check
