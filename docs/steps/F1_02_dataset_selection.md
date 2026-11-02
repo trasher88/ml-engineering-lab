@@ -40,16 +40,6 @@
 - [`tests/test_provenance.py`](../../tests/test_provenance.py) - unit-тесты реального manifest и **синтетических** файлов. Проверяются pin URL, контрольные суммы, допустимые пути, счётчики, повреждённые байты.
 - [GitHub Actions](../../.github/workflows/foundation-tests.yml) - включает эти тесты в существующий тестовый workflow, не создавая третий параллельный workflow.
 
-```mermaid
-flowchart TD
-    A[Hugging Face: pinned dataset revision] --> B[Public manifest.json: URL + SHA256]
-    B --> C[Validate metadata offline: F1.2]
-    C --> D{Metadata valid?}
-    D -->|yes| E[Ready for F1.3 download]
-    D -->|no| F[Stop: fix provenance]
-    E --> G[Optional F1.3 byte-level SHA256 verification]
-```
-
 ## Как связаны элементы F1.2
 ```mermaid
 flowchart TD
@@ -64,12 +54,11 @@ flowchart TD
     C --> J["Provenance: версия, файл, строка"]
 ```
 
-## Что получилось в F1.2
+## Результаты F1.2
 Выбран реальный технический датасет, определены четыре класса, сформирована выборка из **3 066 записей** с объяснением, для каких задач она подходит.
 Также подготовлен встроенный sample из **240 записей** и сохранены сведения о происхождении данных.
 
-## Запуск на Windows (PowerShell)
-
+## Локальная проверка через Windows PowerShell
 Из корня репозитория, используя `.venv` после F1.1:
 ```powershell
 .\.venv\Scripts\python.exe -m src.data.provenance
@@ -79,7 +68,7 @@ flowchart TD
 
 **Важно:** `Dataset provenance: PASS` означает, что **метаданные согласованы**. Без исходных gzip-файлов строки `Raw files SHA-256: NOT CHECKED` - ожидаемый результат. После F1.3 появится вариант: `python -m src.data.provenance --verify-files`, который сравнивает реальные байты с закреплённым SHA-256.
 
-## Известные ограничения
+## Принципы воспроизводимости и ограничения
 1. SHA-256 в манифесте не является доказательством целостности без физического файла и пересчёта его хеша.
 2. Файл содержит Windows-пути вида `data\raw\...`: проверяющий код нормализует разделители для Linux CI, но не переписывает исторический manifest.
 3. Seed обеспечивает повторяемость процедуры при неизменных файлах/алгоритме/версии Python; он не гарантирует неизменность исходного датасета без revision и hash.
