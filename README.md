@@ -65,6 +65,12 @@ flowchart TD
 9. [**F2 - Итоги Фазы 2**](docs/reports/F2_PHASE_REPORT.md)
 
 
+### PyTorch и нейросети (F2)
+
+Восемь учебных этапов F2.1–F2.8: тензоры, загрузка данных, классификатор, обучение, validation/checkpoint, диагностика и сравнение с F1.
+
+[Итоговый отчёт Фазы 2](docs/reports/F2_PHASE_REPORT.md) · [Алгоритмы F2.8](docs/steps/F2_08_final_phase_report.md).
+
 План последовательного раскрытия модулей: [GitHub Publication Plan](docs/GITHUB_PUBLICATION_PLAN.md).
 
 ## Данные и воспроизводимость
