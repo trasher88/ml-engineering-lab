@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "retrieval_mode": "bm25",
+  "top_k": 3,
+  "candidate_pool_size": 10,
+  "max_quote_chars": 220,
+  "context_char_budget": 600,
+  "rrf_k": 60,
+  "lexical_weight": 1.0,
+  "vector_weight": 1.0
+}
