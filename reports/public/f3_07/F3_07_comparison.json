@@ -1,0 +1,7087 @@
+{
+  "backend": "pretrained_transformer",
+  "benchmark_id": "f3.6-synthetic-retrieval-v1",
+  "benchmark_manifest_sha256": "a584868b8818552815151a85dfde714a762f14d959813e607bb4319cec70756c",
+  "config": {
+    "batch_size": 16,
+    "bm25_b": 0.75,
+    "bm25_k1": 1.5,
+    "candidate_pool_size": 20,
+    "lexical_weight": 1.0,
+    "rrf_k": 60,
+    "top_ks": [
+      1,
+      5,
+      10
+    ],
+    "vector_weight": 1.0
+  },
+  "config_sha256": "6682562919c46b608823689a34dfb5983ed671ad21e3ec844fbcacdb4e315fb7",
+  "doc_sources": {
+    "doc-141059be14b642cf": "src-04078978f3969bbd",
+    "doc-1673eec14560f3a3": "src-7e9aeacdbfb92713",
+    "doc-16dca3fda3120a79": "src-0444bdd99052f10d",
+    "doc-1ff70b08c91060b6": "src-ceb89f74bb074d95",
+    "doc-24b462aced1f90b3": "src-0444bdd99052f10d",
+    "doc-2c129ea40152a7cf": "src-0e166209a6208b01",
+    "doc-340478b40c305b7d": "src-8dd9a392116b6aee",
+    "doc-34ab3040f462c408": "src-22b6d130a42d436d",
+    "doc-3584a0561b43c2cf": "src-9e2e59b1a81318be",
+    "doc-364eb0468195fad7": "src-669de2b0921f3a10",
+    "doc-373e837665418bc9": "src-39b2fbb96c9310f1",
+    "doc-39e26c2f59f10e38": "src-6ba0d114bcd14018",
+    "doc-3cc7d48d20343742": "src-bb962fa3b80aed5c",
+    "doc-3ea259bb27e861d2": "src-650d88190f6b207e",
+    "doc-42e3259e8e775b5e": "src-b682710d767876de",
+    "doc-44a1019e16996b96": "src-92bc25b54a430fd9",
+    "doc-4ac973ea7a68014f": "src-5cf5acdedad9b0cd",
+    "doc-4ae3286cc237299f": "src-0f278cc7cf1d0fe3",
+    "doc-4ff40268f956ee87": "src-6ba0d114bcd14018",
+    "doc-5357c812caf1ca82": "src-965ca2dc8467bb08",
+    "doc-561fa83bfd05a5b3": "src-4a4c43fac48dc42f",
+    "doc-584a530dcf759bbd": "src-8dd9a392116b6aee",
+    "doc-5b83e0ccd598fd9c": "src-5b83e0ccd598fd9c",
+    "doc-5bb0841304bf9371": "src-1016bbae8ba4a517",
+    "doc-604434eaed4f4d2e": "src-667908bf8dd9b8c2",
+    "doc-61db7a457fede1c9": "src-9b3c2b0146038f6b",
+    "doc-634066890c1c26f0": "src-11855fbe3af3eed9",
+    "doc-647412681155459a": "src-249ec8ff0056593a",
+    "doc-671125a54cecbc3b": "src-b306e6027b9a6c37",
+    "doc-67fac853aaeff42f": "src-df8b634c7db291f7",
+    "doc-6abb488242cd1560": "src-249ec8ff0056593a",
+    "doc-6aedebecc3cfb1a7": "src-8e68516684521ad3",
+    "doc-6e72e83fe2331727": "src-669de2b0921f3a10",
+    "doc-6ee33007f80fcc68": "src-d90996d966a311e4",
+    "doc-7226d6c292222ad1": "src-e6866e4df290cb78",
+    "doc-72c1f4c9ca25f636": "src-db9cdacb521455fb",
+    "doc-73e52dad104a968d": "src-db9cdacb521455fb",
+    "doc-783b98988963895b": "src-5cf5acdedad9b0cd",
+    "doc-796bd79d62495e5f": "src-ca31f8368e47e168",
+    "doc-7d718f047f419750": "src-8e68516684521ad3",
+    "doc-80d0c66a887e8b51": "src-4a4c43fac48dc42f",
+    "doc-86c8ded7d6929070": "src-13628df13b68fd2f",
+    "doc-8cd7fb7b74a289d2": "src-c1e7386b9972c792",
+    "doc-8e826b79e7f55d9f": "src-c1e7386b9972c792",
+    "doc-91ffaed662beb8b8": "src-22b6d130a42d436d",
+    "doc-92e5f002b005ba65": "src-df8b634c7db291f7",
+    "doc-994893baa31daa52": "src-b682710d767876de",
+    "doc-9ded73901182cf9c": "src-72f9f51b257795f8",
+    "doc-9dfab65276737deb": "src-1016bbae8ba4a517",
+    "doc-9e523df11037d5d2": "src-d90996d966a311e4",
+    "doc-a00d46e97dfdefbb": "src-bb708c8f1fac0a72",
+    "doc-a4dedfefa055135a": "src-a4dedfefa055135a",
+    "doc-a6108eb1a5387a98": "src-a6108eb1a5387a98",
+    "doc-a748b69d3c78798b": "src-74cce8dc7717bb2b",
+    "doc-a75a9a3c1d822f4a": "src-c0f9279bbb1e032b",
+    "doc-a8166a552ab22936": "src-39b2fbb96c9310f1",
+    "doc-a923b740b67980a6": "src-0e3609f2d3278f60",
+    "doc-ac2d40a66e4d5949": "src-ac2d40a66e4d5949",
+    "doc-b04fe615d8313e6f": "src-92bc25b54a430fd9",
+    "doc-b18669db0ef5018c": "src-650d88190f6b207e",
+    "doc-b450c62ed37e0501": "src-bb962fa3b80aed5c",
+    "doc-b456380aa5e6b979": "src-e6866e4df290cb78",
+    "doc-b962d55f8fa219ae": "src-b962d55f8fa219ae",
+    "doc-b9e807ec69da220e": "src-0e3609f2d3278f60",
+    "doc-bb416c322a705639": "src-11855fbe3af3eed9",
+    "doc-bbcbe752ef7dee9e": "src-ca31f8368e47e168",
+    "doc-bd4e63d0e38c9f23": "src-72f9f51b257795f8",
+    "doc-bd53a7b604614ea4": "src-f771bed64354c68e",
+    "doc-c3fba9998af841fe": "src-13628df13b68fd2f",
+    "doc-ccae3a305aabfa5f": "src-7e9aeacdbfb92713",
+    "doc-cdb635d4dca69998": "src-cdb635d4dca69998",
+    "doc-d55df7cf08c0b6d8": "src-d55df7cf08c0b6d8",
+    "doc-dbfa4d5f4cd6780a": "src-667908bf8dd9b8c2",
+    "doc-dfb217e507caae6d": "src-389c4666b864f913",
+    "doc-e873d7c858862d55": "src-f771bed64354c68e",
+    "doc-e9883cb73bfa06d0": "src-389c4666b864f913",
+    "doc-ea8ed763832e8996": "src-9b3c2b0146038f6b",
+    "doc-eba15d399e12203a": "src-04078978f3969bbd",
+    "doc-edb5a938da5648da": "src-9e2e59b1a81318be",
+    "doc-f081204cf27b0765": "src-b306e6027b9a6c37",
+    "doc-f644fc0c04bacd9c": "src-ceb89f74bb074d95",
+    "doc-f92e10566a88e69b": "src-f92e10566a88e69b",
+    "doc-fa0afa57781d76b5": "src-0f278cc7cf1d0fe3",
+    "doc-fa19d9cf439cb167": "src-bb708c8f1fac0a72",
+    "doc-fb83c0127a73a748": "src-0e166209a6208b01",
+    "doc-fcd6999e810a29d8": "src-c0f9279bbb1e032b",
+    "doc-fd0e52e60a131c43": "src-74cce8dc7717bb2b",
+    "doc-ffe83e9d8feb3573": "src-965ca2dc8467bb08"
+  },
+  "methods": [
+    "bm25",
+    "vector",
+    "hybrid"
+  ],
+  "metrics": {
+    "bm25": {
+      "1": {
+        "mrr_at_k": 0.65,
+        "n_queries": 80,
+        "recall_at_k": 0.325
+      },
+      "10": {
+        "mrr_at_k": 0.7290972222222222,
+        "n_queries": 80,
+        "recall_at_k": 0.73125
+      },
+      "5": {
+        "mrr_at_k": 0.7222916666666667,
+        "n_queries": 80,
+        "recall_at_k": 0.6375
+      }
+    },
+    "hybrid": {
+      "1": {
+        "mrr_at_k": 0.7625,
+        "n_queries": 80,
+        "recall_at_k": 0.38125
+      },
+      "10": {
+        "mrr_at_k": 0.8356398809523811,
+        "n_queries": 80,
+        "recall_at_k": 0.875
+      },
+      "5": {
+        "mrr_at_k": 0.8310416666666667,
+        "n_queries": 80,
+        "recall_at_k": 0.76875
+      }
+    },
+    "vector": {
+      "1": {
+        "mrr_at_k": 0.8,
+        "n_queries": 80,
+        "recall_at_k": 0.4
+      },
+      "10": {
+        "mrr_at_k": 0.8559374999999999,
+        "n_queries": 80,
+        "recall_at_k": 0.89375
+      },
+      "5": {
+        "mrr_at_k": 0.8502083333333333,
+        "n_queries": 80,
+        "recall_at_k": 0.7875
+      }
+    }
+  },
+  "model_metadata": {
+    "embedding_dim": 384,
+    "library_versions": {
+      "huggingface_hub": "2.4.0",
+      "torch": "2.14.1+cpu",
+      "transformers": "5.22.1"
+    },
+    "license": "apache-2.0",
+    "model_id": "sentence-transformers/paraphrase-MiniLM-L3-v2",
+    "model_manifest_sha256": "59cfd5c59c7e2e95cc670c80469809778691875b8f4fcd093914346af13ad7f5",
+    "normalize": true,
+    "numpy_version": "2.5.4",
+    "pooling": "masked_mean",
+    "revision": "4ca70771034acceecb2e72475f72050fcdde4ddc"
+  },
+  "n_queries": 80,
+  "per_query_rankings": [
+    {
+      "domain": "linux",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-006ceb584f0f5aef",
+      "rankings": {
+        "bm25": [
+          "doc-16dca3fda3120a79",
+          "doc-cdb635d4dca69998",
+          "doc-a6108eb1a5387a98",
+          "doc-ffe83e9d8feb3573",
+          "doc-e873d7c858862d55",
+          "doc-73e52dad104a968d",
+          "doc-7d718f047f419750",
+          "doc-80d0c66a887e8b51",
+          "doc-34ab3040f462c408"
+        ],
+        "hybrid": [
+          "doc-16dca3fda3120a79",
+          "doc-cdb635d4dca69998",
+          "doc-7d718f047f419750",
+          "doc-34ab3040f462c408",
+          "doc-a6108eb1a5387a98",
+          "doc-e873d7c858862d55",
+          "doc-73e52dad104a968d",
+          "doc-373e837665418bc9",
+          "doc-ffe83e9d8feb3573",
+          "doc-24b462aced1f90b3"
+        ],
+        "vector": [
+          "doc-16dca3fda3120a79",
+          "doc-cdb635d4dca69998",
+          "doc-373e837665418bc9",
+          "doc-7d718f047f419750",
+          "doc-24b462aced1f90b3",
+          "doc-34ab3040f462c408",
+          "doc-91ffaed662beb8b8",
+          "doc-72c1f4c9ca25f636",
+          "doc-5b83e0ccd598fd9c",
+          "doc-5bb0841304bf9371"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.2
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.2
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-0084d212f624e8dd",
+      "rankings": {
+        "bm25": [
+          "doc-34ab3040f462c408",
+          "doc-dfb217e507caae6d",
+          "doc-4ae3286cc237299f",
+          "doc-c3fba9998af841fe",
+          "doc-340478b40c305b7d",
+          "doc-b18669db0ef5018c",
+          "doc-373e837665418bc9",
+          "doc-7d718f047f419750",
+          "doc-6ee33007f80fcc68",
+          "doc-5bb0841304bf9371"
+        ],
+        "hybrid": [
+          "doc-c3fba9998af841fe",
+          "doc-1ff70b08c91060b6",
+          "doc-340478b40c305b7d",
+          "doc-34ab3040f462c408",
+          "doc-5357c812caf1ca82",
+          "doc-dfb217e507caae6d",
+          "doc-4ae3286cc237299f",
+          "doc-ffe83e9d8feb3573",
+          "doc-42e3259e8e775b5e",
+          "doc-b18669db0ef5018c"
+        ],
+        "vector": [
+          "doc-5357c812caf1ca82",
+          "doc-1ff70b08c91060b6",
+          "doc-c3fba9998af841fe",
+          "doc-ffe83e9d8feb3573",
+          "doc-42e3259e8e775b5e",
+          "doc-ccae3a305aabfa5f",
+          "doc-1673eec14560f3a3",
+          "doc-f644fc0c04bacd9c",
+          "doc-9ded73901182cf9c",
+          "doc-b450c62ed37e0501"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-035ed07ed08e8e40",
+      "rankings": {
+        "bm25": [
+          "doc-fd0e52e60a131c43",
+          "doc-d55df7cf08c0b6d8",
+          "doc-fb83c0127a73a748",
+          "doc-39e26c2f59f10e38",
+          "doc-72c1f4c9ca25f636",
+          "doc-f92e10566a88e69b",
+          "doc-a4dedfefa055135a",
+          "doc-b18669db0ef5018c",
+          "doc-4ae3286cc237299f",
+          "doc-bd4e63d0e38c9f23"
+        ],
+        "hybrid": [
+          "doc-fd0e52e60a131c43",
+          "doc-a748b69d3c78798b",
+          "doc-b18669db0ef5018c",
+          "doc-39e26c2f59f10e38",
+          "doc-d55df7cf08c0b6d8",
+          "doc-9e523df11037d5d2",
+          "doc-4ae3286cc237299f",
+          "doc-f92e10566a88e69b",
+          "doc-671125a54cecbc3b",
+          "doc-bb416c322a705639"
+        ],
+        "vector": [
+          "doc-a748b69d3c78798b",
+          "doc-bb416c322a705639",
+          "doc-fd0e52e60a131c43",
+          "doc-b18669db0ef5018c",
+          "doc-9e523df11037d5d2",
+          "doc-a75a9a3c1d822f4a",
+          "doc-141059be14b642cf",
+          "doc-1ff70b08c91060b6",
+          "doc-39e26c2f59f10e38",
+          "doc-6ee33007f80fcc68"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.16666666666666666
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        }
+      },
+      "query_id": "qry-039fb78f3c85d12e",
+      "rankings": {
+        "bm25": [
+          "doc-f92e10566a88e69b",
+          "doc-8cd7fb7b74a289d2",
+          "doc-b962d55f8fa219ae",
+          "doc-1ff70b08c91060b6",
+          "doc-6e72e83fe2331727",
+          "doc-4ff40268f956ee87",
+          "doc-364eb0468195fad7",
+          "doc-bbcbe752ef7dee9e",
+          "doc-86c8ded7d6929070",
+          "doc-e873d7c858862d55"
+        ],
+        "hybrid": [
+          "doc-f92e10566a88e69b",
+          "doc-4ff40268f956ee87",
+          "doc-a748b69d3c78798b",
+          "doc-8cd7fb7b74a289d2",
+          "doc-561fa83bfd05a5b3",
+          "doc-b962d55f8fa219ae",
+          "doc-1ff70b08c91060b6",
+          "doc-edb5a938da5648da",
+          "doc-6e72e83fe2331727",
+          "doc-bb416c322a705639"
+        ],
+        "vector": [
+          "doc-f92e10566a88e69b",
+          "doc-4ff40268f956ee87",
+          "doc-561fa83bfd05a5b3",
+          "doc-edb5a938da5648da",
+          "doc-bb416c322a705639",
+          "doc-796bd79d62495e5f",
+          "doc-eba15d399e12203a",
+          "doc-6aedebecc3cfb1a7",
+          "doc-a748b69d3c78798b",
+          "doc-9e523df11037d5d2"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-052a446e94bbc535",
+      "rankings": {
+        "bm25": [
+          "doc-fcd6999e810a29d8",
+          "doc-373e837665418bc9",
+          "doc-39e26c2f59f10e38",
+          "doc-cdb635d4dca69998",
+          "doc-9e523df11037d5d2",
+          "doc-a6108eb1a5387a98",
+          "doc-141059be14b642cf",
+          "doc-c3fba9998af841fe",
+          "doc-bd4e63d0e38c9f23",
+          "doc-a00d46e97dfdefbb"
+        ],
+        "hybrid": [
+          "doc-fcd6999e810a29d8",
+          "doc-a00d46e97dfdefbb",
+          "doc-c3fba9998af841fe",
+          "doc-bd4e63d0e38c9f23",
+          "doc-373e837665418bc9",
+          "doc-39e26c2f59f10e38",
+          "doc-3cc7d48d20343742",
+          "doc-cdb635d4dca69998",
+          "doc-9e523df11037d5d2",
+          "doc-edb5a938da5648da"
+        ],
+        "vector": [
+          "doc-fcd6999e810a29d8",
+          "doc-a00d46e97dfdefbb",
+          "doc-3cc7d48d20343742",
+          "doc-c3fba9998af841fe",
+          "doc-edb5a938da5648da",
+          "doc-3584a0561b43c2cf",
+          "doc-bd4e63d0e38c9f23",
+          "doc-f081204cf27b0765",
+          "doc-42e3259e8e775b5e",
+          "doc-80d0c66a887e8b51"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-06eed65f4f975eb7",
+      "rankings": {
+        "bm25": [
+          "doc-73e52dad104a968d",
+          "doc-72c1f4c9ca25f636",
+          "doc-5b83e0ccd598fd9c",
+          "doc-cdb635d4dca69998",
+          "doc-ffe83e9d8feb3573",
+          "doc-e873d7c858862d55",
+          "doc-7d718f047f419750",
+          "doc-80d0c66a887e8b51",
+          "doc-34ab3040f462c408"
+        ],
+        "hybrid": [
+          "doc-73e52dad104a968d",
+          "doc-72c1f4c9ca25f636",
+          "doc-5b83e0ccd598fd9c",
+          "doc-cdb635d4dca69998",
+          "doc-ffe83e9d8feb3573",
+          "doc-34ab3040f462c408",
+          "doc-7d718f047f419750",
+          "doc-24b462aced1f90b3",
+          "doc-604434eaed4f4d2e",
+          "doc-e873d7c858862d55"
+        ],
+        "vector": [
+          "doc-73e52dad104a968d",
+          "doc-72c1f4c9ca25f636",
+          "doc-24b462aced1f90b3",
+          "doc-5b83e0ccd598fd9c",
+          "doc-604434eaed4f4d2e",
+          "doc-cdb635d4dca69998",
+          "doc-e9883cb73bfa06d0",
+          "doc-92e5f002b005ba65",
+          "doc-bd53a7b604614ea4",
+          "doc-ffe83e9d8feb3573"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-08c00ad02335b764",
+      "rankings": {
+        "bm25": [
+          "doc-671125a54cecbc3b",
+          "doc-39e26c2f59f10e38",
+          "doc-3cc7d48d20343742",
+          "doc-d55df7cf08c0b6d8",
+          "doc-4ff40268f956ee87",
+          "doc-9ded73901182cf9c",
+          "doc-647412681155459a",
+          "doc-cdb635d4dca69998",
+          "doc-6ee33007f80fcc68",
+          "doc-ac2d40a66e4d5949"
+        ],
+        "hybrid": [
+          "doc-671125a54cecbc3b",
+          "doc-39e26c2f59f10e38",
+          "doc-d55df7cf08c0b6d8",
+          "doc-6ee33007f80fcc68",
+          "doc-4ff40268f956ee87",
+          "doc-141059be14b642cf",
+          "doc-3cc7d48d20343742",
+          "doc-9e523df11037d5d2",
+          "doc-4ae3286cc237299f",
+          "doc-9ded73901182cf9c"
+        ],
+        "vector": [
+          "doc-671125a54cecbc3b",
+          "doc-39e26c2f59f10e38",
+          "doc-9e523df11037d5d2",
+          "doc-6ee33007f80fcc68",
+          "doc-4ae3286cc237299f",
+          "doc-a6108eb1a5387a98",
+          "doc-d55df7cf08c0b6d8",
+          "doc-141059be14b642cf",
+          "doc-f644fc0c04bacd9c",
+          "doc-4ff40268f956ee87"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.16666666666666666
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          }
+        }
+      },
+      "query_id": "qry-0a1ead4f4ca7a0b6",
+      "rankings": {
+        "bm25": [
+          "doc-34ab3040f462c408",
+          "doc-bd4e63d0e38c9f23",
+          "doc-ea8ed763832e8996",
+          "doc-dfb217e507caae6d",
+          "doc-6ee33007f80fcc68",
+          "doc-4ae3286cc237299f",
+          "doc-f92e10566a88e69b",
+          "doc-6abb488242cd1560",
+          "doc-9e523df11037d5d2",
+          "doc-796bd79d62495e5f"
+        ],
+        "hybrid": [
+          "doc-4ae3286cc237299f",
+          "doc-6ee33007f80fcc68",
+          "doc-b450c62ed37e0501",
+          "doc-6abb488242cd1560",
+          "doc-ea8ed763832e8996",
+          "doc-f92e10566a88e69b",
+          "doc-fa0afa57781d76b5",
+          "doc-9e523df11037d5d2",
+          "doc-796bd79d62495e5f",
+          "doc-647412681155459a"
+        ],
+        "vector": [
+          "doc-b18669db0ef5018c",
+          "doc-141059be14b642cf",
+          "doc-4ae3286cc237299f",
+          "doc-b450c62ed37e0501",
+          "doc-6ee33007f80fcc68",
+          "doc-fa0afa57781d76b5",
+          "doc-f644fc0c04bacd9c",
+          "doc-6abb488242cd1560",
+          "doc-a748b69d3c78798b",
+          "doc-39e26c2f59f10e38"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-0bf91307f194a87c",
+      "rankings": {
+        "bm25": [
+          "doc-b456380aa5e6b979",
+          "doc-783b98988963895b",
+          "doc-16dca3fda3120a79",
+          "doc-7226d6c292222ad1",
+          "doc-604434eaed4f4d2e",
+          "doc-ffe83e9d8feb3573",
+          "doc-72c1f4c9ca25f636",
+          "doc-364eb0468195fad7",
+          "doc-4ae3286cc237299f",
+          "doc-634066890c1c26f0"
+        ],
+        "hybrid": [
+          "doc-b456380aa5e6b979",
+          "doc-783b98988963895b",
+          "doc-7226d6c292222ad1",
+          "doc-16dca3fda3120a79",
+          "doc-ffe83e9d8feb3573",
+          "doc-5bb0841304bf9371",
+          "doc-b9e807ec69da220e",
+          "doc-604434eaed4f4d2e",
+          "doc-a923b740b67980a6",
+          "doc-796bd79d62495e5f"
+        ],
+        "vector": [
+          "doc-b456380aa5e6b979",
+          "doc-7226d6c292222ad1",
+          "doc-783b98988963895b",
+          "doc-b9e807ec69da220e",
+          "doc-a923b740b67980a6",
+          "doc-796bd79d62495e5f",
+          "doc-4ac973ea7a68014f",
+          "doc-edb5a938da5648da",
+          "doc-73e52dad104a968d",
+          "doc-8cd7fb7b74a289d2"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-0ede1b4eb47ec42d",
+      "rankings": {
+        "bm25": [
+          "doc-39e26c2f59f10e38",
+          "doc-634066890c1c26f0",
+          "doc-42e3259e8e775b5e",
+          "doc-a4dedfefa055135a",
+          "doc-dfb217e507caae6d",
+          "doc-ea8ed763832e8996",
+          "doc-ccae3a305aabfa5f",
+          "doc-f92e10566a88e69b",
+          "doc-f081204cf27b0765",
+          "doc-6ee33007f80fcc68"
+        ],
+        "hybrid": [
+          "doc-634066890c1c26f0",
+          "doc-39e26c2f59f10e38",
+          "doc-ccae3a305aabfa5f",
+          "doc-42e3259e8e775b5e",
+          "doc-a4dedfefa055135a",
+          "doc-f081204cf27b0765",
+          "doc-fcd6999e810a29d8",
+          "doc-ea8ed763832e8996",
+          "doc-eba15d399e12203a",
+          "doc-b450c62ed37e0501"
+        ],
+        "vector": [
+          "doc-634066890c1c26f0",
+          "doc-561fa83bfd05a5b3",
+          "doc-f644fc0c04bacd9c",
+          "doc-ccae3a305aabfa5f",
+          "doc-bb416c322a705639",
+          "doc-eba15d399e12203a",
+          "doc-39e26c2f59f10e38",
+          "doc-f081204cf27b0765",
+          "doc-42e3259e8e775b5e",
+          "doc-fcd6999e810a29d8"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-0fce1f593b78409c",
+      "rankings": {
+        "bm25": [
+          "doc-67fac853aaeff42f",
+          "doc-f92e10566a88e69b",
+          "doc-34ab3040f462c408",
+          "doc-6abb488242cd1560",
+          "doc-b962d55f8fa219ae",
+          "doc-86c8ded7d6929070",
+          "doc-4ff40268f956ee87",
+          "doc-1ff70b08c91060b6",
+          "doc-ea8ed763832e8996",
+          "doc-bd4e63d0e38c9f23"
+        ],
+        "hybrid": [
+          "doc-67fac853aaeff42f",
+          "doc-b962d55f8fa219ae",
+          "doc-6abb488242cd1560",
+          "doc-bd4e63d0e38c9f23",
+          "doc-86c8ded7d6929070",
+          "doc-ea8ed763832e8996",
+          "doc-dfb217e507caae6d",
+          "doc-fa0afa57781d76b5",
+          "doc-1673eec14560f3a3",
+          "doc-92e5f002b005ba65"
+        ],
+        "vector": [
+          "doc-67fac853aaeff42f",
+          "doc-92e5f002b005ba65",
+          "doc-b962d55f8fa219ae",
+          "doc-796bd79d62495e5f",
+          "doc-141059be14b642cf",
+          "doc-f644fc0c04bacd9c",
+          "doc-f081204cf27b0765",
+          "doc-6abb488242cd1560",
+          "doc-e873d7c858862d55",
+          "doc-eba15d399e12203a"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-10f7ebe134d2fbc6",
+      "rankings": {
+        "bm25": [
+          "doc-3cc7d48d20343742",
+          "doc-b450c62ed37e0501",
+          "doc-a923b740b67980a6",
+          "doc-584a530dcf759bbd",
+          "doc-ea8ed763832e8996",
+          "doc-8cd7fb7b74a289d2",
+          "doc-a6108eb1a5387a98",
+          "doc-9e523df11037d5d2",
+          "doc-34ab3040f462c408",
+          "doc-a748b69d3c78798b"
+        ],
+        "hybrid": [
+          "doc-3cc7d48d20343742",
+          "doc-b450c62ed37e0501",
+          "doc-a923b740b67980a6",
+          "doc-a6108eb1a5387a98",
+          "doc-a748b69d3c78798b",
+          "doc-9e523df11037d5d2",
+          "doc-8cd7fb7b74a289d2",
+          "doc-39e26c2f59f10e38",
+          "doc-9dfab65276737deb",
+          "doc-a00d46e97dfdefbb"
+        ],
+        "vector": [
+          "doc-3cc7d48d20343742",
+          "doc-a6108eb1a5387a98",
+          "doc-a00d46e97dfdefbb",
+          "doc-a748b69d3c78798b",
+          "doc-a923b740b67980a6",
+          "doc-b450c62ed37e0501",
+          "doc-9e523df11037d5d2",
+          "doc-fa19d9cf439cb167",
+          "doc-39e26c2f59f10e38",
+          "doc-671125a54cecbc3b"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-111535d590eeece3",
+      "rankings": {
+        "bm25": [
+          "doc-2c129ea40152a7cf",
+          "doc-fb83c0127a73a748"
+        ],
+        "hybrid": [
+          "doc-2c129ea40152a7cf",
+          "doc-fb83c0127a73a748",
+          "doc-44a1019e16996b96",
+          "doc-994893baa31daa52",
+          "doc-364eb0468195fad7",
+          "doc-584a530dcf759bbd",
+          "doc-ccae3a305aabfa5f",
+          "doc-1673eec14560f3a3",
+          "doc-a00d46e97dfdefbb",
+          "doc-e9883cb73bfa06d0"
+        ],
+        "vector": [
+          "doc-2c129ea40152a7cf",
+          "doc-fb83c0127a73a748",
+          "doc-44a1019e16996b96",
+          "doc-994893baa31daa52",
+          "doc-364eb0468195fad7",
+          "doc-584a530dcf759bbd",
+          "doc-ccae3a305aabfa5f",
+          "doc-1673eec14560f3a3",
+          "doc-a00d46e97dfdefbb",
+          "doc-e9883cb73bfa06d0"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-12aa958a0c85ddb0",
+      "rankings": {
+        "bm25": [
+          "doc-b962d55f8fa219ae",
+          "doc-67fac853aaeff42f",
+          "doc-92e5f002b005ba65",
+          "doc-4ff40268f956ee87"
+        ],
+        "hybrid": [
+          "doc-67fac853aaeff42f",
+          "doc-b962d55f8fa219ae",
+          "doc-92e5f002b005ba65",
+          "doc-4ff40268f956ee87",
+          "doc-8e826b79e7f55d9f",
+          "doc-604434eaed4f4d2e",
+          "doc-f644fc0c04bacd9c",
+          "doc-72c1f4c9ca25f636",
+          "doc-6e72e83fe2331727",
+          "doc-796bd79d62495e5f"
+        ],
+        "vector": [
+          "doc-67fac853aaeff42f",
+          "doc-b962d55f8fa219ae",
+          "doc-92e5f002b005ba65",
+          "doc-8e826b79e7f55d9f",
+          "doc-604434eaed4f4d2e",
+          "doc-f644fc0c04bacd9c",
+          "doc-72c1f4c9ca25f636",
+          "doc-6e72e83fe2331727",
+          "doc-4ff40268f956ee87",
+          "doc-796bd79d62495e5f"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-16456ac9b52704dd",
+      "rankings": {
+        "bm25": [
+          "doc-647412681155459a",
+          "doc-a4dedfefa055135a",
+          "doc-6abb488242cd1560",
+          "doc-364eb0468195fad7",
+          "doc-ccae3a305aabfa5f",
+          "doc-796bd79d62495e5f",
+          "doc-634066890c1c26f0",
+          "doc-ea8ed763832e8996"
+        ],
+        "hybrid": [
+          "doc-647412681155459a",
+          "doc-a4dedfefa055135a",
+          "doc-6abb488242cd1560",
+          "doc-634066890c1c26f0",
+          "doc-796bd79d62495e5f",
+          "doc-364eb0468195fad7",
+          "doc-ccae3a305aabfa5f",
+          "doc-ea8ed763832e8996",
+          "doc-eba15d399e12203a",
+          "doc-44a1019e16996b96"
+        ],
+        "vector": [
+          "doc-647412681155459a",
+          "doc-a4dedfefa055135a",
+          "doc-6abb488242cd1560",
+          "doc-634066890c1c26f0",
+          "doc-796bd79d62495e5f",
+          "doc-ea8ed763832e8996",
+          "doc-ccae3a305aabfa5f",
+          "doc-364eb0468195fad7",
+          "doc-eba15d399e12203a",
+          "doc-44a1019e16996b96"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-16ea91108786e596",
+      "rankings": {
+        "bm25": [
+          "doc-ccae3a305aabfa5f",
+          "doc-1673eec14560f3a3",
+          "doc-994893baa31daa52",
+          "doc-42e3259e8e775b5e",
+          "doc-edb5a938da5648da",
+          "doc-ac2d40a66e4d5949",
+          "doc-ffe83e9d8feb3573",
+          "doc-364eb0468195fad7",
+          "doc-634066890c1c26f0",
+          "doc-a4dedfefa055135a"
+        ],
+        "hybrid": [
+          "doc-ccae3a305aabfa5f",
+          "doc-1673eec14560f3a3",
+          "doc-ffe83e9d8feb3573",
+          "doc-ea8ed763832e8996",
+          "doc-647412681155459a",
+          "doc-a4dedfefa055135a",
+          "doc-364eb0468195fad7",
+          "doc-634066890c1c26f0",
+          "doc-42e3259e8e775b5e",
+          "doc-edb5a938da5648da"
+        ],
+        "vector": [
+          "doc-ccae3a305aabfa5f",
+          "doc-1673eec14560f3a3",
+          "doc-ea8ed763832e8996",
+          "doc-647412681155459a",
+          "doc-ffe83e9d8feb3573",
+          "doc-783b98988963895b",
+          "doc-a4dedfefa055135a",
+          "doc-634066890c1c26f0",
+          "doc-364eb0468195fad7",
+          "doc-5357c812caf1ca82"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-1b62bcc828e74c5d",
+      "rankings": {
+        "bm25": [
+          "doc-34ab3040f462c408",
+          "doc-bd4e63d0e38c9f23",
+          "doc-73e52dad104a968d",
+          "doc-e873d7c858862d55",
+          "doc-91ffaed662beb8b8",
+          "doc-a4dedfefa055135a",
+          "doc-1673eec14560f3a3",
+          "doc-2c129ea40152a7cf",
+          "doc-ea8ed763832e8996",
+          "doc-6abb488242cd1560"
+        ],
+        "hybrid": [
+          "doc-34ab3040f462c408",
+          "doc-91ffaed662beb8b8",
+          "doc-e873d7c858862d55",
+          "doc-cdb635d4dca69998",
+          "doc-80d0c66a887e8b51",
+          "doc-ffe83e9d8feb3573",
+          "doc-1673eec14560f3a3",
+          "doc-7d718f047f419750",
+          "doc-bd4e63d0e38c9f23",
+          "doc-73e52dad104a968d"
+        ],
+        "vector": [
+          "doc-34ab3040f462c408",
+          "doc-80d0c66a887e8b51",
+          "doc-91ffaed662beb8b8",
+          "doc-cdb635d4dca69998",
+          "doc-f92e10566a88e69b",
+          "doc-e873d7c858862d55",
+          "doc-3584a0561b43c2cf",
+          "doc-ffe83e9d8feb3573",
+          "doc-edb5a938da5648da",
+          "doc-6e72e83fe2331727"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.2
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.2
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-1d17963df556c0f8",
+      "rankings": {
+        "bm25": [
+          "doc-ccae3a305aabfa5f",
+          "doc-42e3259e8e775b5e",
+          "doc-b456380aa5e6b979",
+          "doc-24b462aced1f90b3",
+          "doc-783b98988963895b",
+          "doc-16dca3fda3120a79",
+          "doc-a748b69d3c78798b",
+          "doc-eba15d399e12203a",
+          "doc-80d0c66a887e8b51",
+          "doc-a00d46e97dfdefbb"
+        ],
+        "hybrid": [
+          "doc-ccae3a305aabfa5f",
+          "doc-42e3259e8e775b5e",
+          "doc-c3fba9998af841fe",
+          "doc-783b98988963895b",
+          "doc-61db7a457fede1c9",
+          "doc-bb416c322a705639",
+          "doc-eba15d399e12203a",
+          "doc-80d0c66a887e8b51",
+          "doc-ea8ed763832e8996",
+          "doc-634066890c1c26f0"
+        ],
+        "vector": [
+          "doc-ea8ed763832e8996",
+          "doc-ccae3a305aabfa5f",
+          "doc-634066890c1c26f0",
+          "doc-61db7a457fede1c9",
+          "doc-c3fba9998af841fe",
+          "doc-a4dedfefa055135a",
+          "doc-6abb488242cd1560",
+          "doc-647412681155459a",
+          "doc-42e3259e8e775b5e",
+          "doc-f644fc0c04bacd9c"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-220094b48ad3bbdf",
+      "rankings": {
+        "bm25": [
+          "doc-a923b740b67980a6",
+          "doc-b9e807ec69da220e",
+          "doc-373e837665418bc9",
+          "doc-bd53a7b604614ea4",
+          "doc-8cd7fb7b74a289d2",
+          "doc-584a530dcf759bbd",
+          "doc-b450c62ed37e0501"
+        ],
+        "hybrid": [
+          "doc-a923b740b67980a6",
+          "doc-b9e807ec69da220e",
+          "doc-bd53a7b604614ea4",
+          "doc-373e837665418bc9",
+          "doc-584a530dcf759bbd",
+          "doc-9dfab65276737deb",
+          "doc-8cd7fb7b74a289d2",
+          "doc-e873d7c858862d55",
+          "doc-5bb0841304bf9371",
+          "doc-b450c62ed37e0501"
+        ],
+        "vector": [
+          "doc-a923b740b67980a6",
+          "doc-b9e807ec69da220e",
+          "doc-9dfab65276737deb",
+          "doc-bd53a7b604614ea4",
+          "doc-e873d7c858862d55",
+          "doc-5bb0841304bf9371",
+          "doc-584a530dcf759bbd",
+          "doc-a00d46e97dfdefbb",
+          "doc-373e837665418bc9",
+          "doc-ac2d40a66e4d5949"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.1111111111111111
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-223d26e01a005177",
+      "rankings": {
+        "bm25": [
+          "doc-dfb217e507caae6d",
+          "doc-ea8ed763832e8996",
+          "doc-ccae3a305aabfa5f",
+          "doc-34ab3040f462c408",
+          "doc-d55df7cf08c0b6d8",
+          "doc-86c8ded7d6929070",
+          "doc-67fac853aaeff42f",
+          "doc-f92e10566a88e69b",
+          "doc-994893baa31daa52",
+          "doc-1ff70b08c91060b6"
+        ],
+        "hybrid": [
+          "doc-ccae3a305aabfa5f",
+          "doc-c3fba9998af841fe",
+          "doc-42e3259e8e775b5e",
+          "doc-994893baa31daa52",
+          "doc-bd4e63d0e38c9f23",
+          "doc-86c8ded7d6929070",
+          "doc-340478b40c305b7d",
+          "doc-e9883cb73bfa06d0",
+          "doc-dfb217e507caae6d",
+          "doc-ea8ed763832e8996"
+        ],
+        "vector": [
+          "doc-42e3259e8e775b5e",
+          "doc-c3fba9998af841fe",
+          "doc-eba15d399e12203a",
+          "doc-f644fc0c04bacd9c",
+          "doc-ccae3a305aabfa5f",
+          "doc-fb83c0127a73a748",
+          "doc-340478b40c305b7d",
+          "doc-9e523df11037d5d2",
+          "doc-994893baa31daa52",
+          "doc-9ded73901182cf9c"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.25
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.25
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        }
+      },
+      "query_id": "qry-24ab7272a31618fd",
+      "rankings": {
+        "bm25": [
+          "doc-39e26c2f59f10e38",
+          "doc-67fac853aaeff42f",
+          "doc-796bd79d62495e5f",
+          "doc-9e523df11037d5d2",
+          "doc-4ae3286cc237299f",
+          "doc-e873d7c858862d55",
+          "doc-72c1f4c9ca25f636",
+          "doc-6ee33007f80fcc68",
+          "doc-373e837665418bc9",
+          "doc-6abb488242cd1560"
+        ],
+        "hybrid": [
+          "doc-39e26c2f59f10e38",
+          "doc-9e523df11037d5d2",
+          "doc-4ae3286cc237299f",
+          "doc-6ee33007f80fcc68",
+          "doc-671125a54cecbc3b",
+          "doc-796bd79d62495e5f",
+          "doc-141059be14b642cf",
+          "doc-d55df7cf08c0b6d8",
+          "doc-fa0afa57781d76b5",
+          "doc-b18669db0ef5018c"
+        ],
+        "vector": [
+          "doc-39e26c2f59f10e38",
+          "doc-9e523df11037d5d2",
+          "doc-4ae3286cc237299f",
+          "doc-141059be14b642cf",
+          "doc-671125a54cecbc3b",
+          "doc-6ee33007f80fcc68",
+          "doc-eba15d399e12203a",
+          "doc-42e3259e8e775b5e",
+          "doc-d55df7cf08c0b6d8",
+          "doc-a748b69d3c78798b"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-26d8ebc93430e1df",
+      "rankings": {
+        "bm25": [
+          "doc-b04fe615d8313e6f",
+          "doc-44a1019e16996b96",
+          "doc-6abb488242cd1560",
+          "doc-364eb0468195fad7",
+          "doc-634066890c1c26f0",
+          "doc-a4dedfefa055135a",
+          "doc-ccae3a305aabfa5f",
+          "doc-ea8ed763832e8996",
+          "doc-647412681155459a"
+        ],
+        "hybrid": [
+          "doc-b04fe615d8313e6f",
+          "doc-44a1019e16996b96",
+          "doc-6abb488242cd1560",
+          "doc-a4dedfefa055135a",
+          "doc-364eb0468195fad7",
+          "doc-634066890c1c26f0",
+          "doc-647412681155459a",
+          "doc-ccae3a305aabfa5f",
+          "doc-ea8ed763832e8996",
+          "doc-d55df7cf08c0b6d8"
+        ],
+        "vector": [
+          "doc-b04fe615d8313e6f",
+          "doc-a4dedfefa055135a",
+          "doc-44a1019e16996b96",
+          "doc-6abb488242cd1560",
+          "doc-364eb0468195fad7",
+          "doc-647412681155459a",
+          "doc-d55df7cf08c0b6d8",
+          "doc-634066890c1c26f0",
+          "doc-16dca3fda3120a79",
+          "doc-ea8ed763832e8996"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          }
+        }
+      },
+      "query_id": "qry-340638fddf58e509",
+      "rankings": {
+        "bm25": [
+          "doc-f644fc0c04bacd9c",
+          "doc-1ff70b08c91060b6",
+          "doc-f081204cf27b0765",
+          "doc-fa19d9cf439cb167",
+          "doc-4ff40268f956ee87",
+          "doc-604434eaed4f4d2e",
+          "doc-6ee33007f80fcc68",
+          "doc-eba15d399e12203a",
+          "doc-796bd79d62495e5f",
+          "doc-a923b740b67980a6"
+        ],
+        "hybrid": [
+          "doc-f644fc0c04bacd9c",
+          "doc-1ff70b08c91060b6",
+          "doc-f081204cf27b0765",
+          "doc-fa19d9cf439cb167",
+          "doc-ffe83e9d8feb3573",
+          "doc-4ff40268f956ee87",
+          "doc-a00d46e97dfdefbb",
+          "doc-b450c62ed37e0501",
+          "doc-5357c812caf1ca82",
+          "doc-edb5a938da5648da"
+        ],
+        "vector": [
+          "doc-ffe83e9d8feb3573",
+          "doc-5357c812caf1ca82",
+          "doc-1ff70b08c91060b6",
+          "doc-f644fc0c04bacd9c",
+          "doc-edb5a938da5648da",
+          "doc-fa19d9cf439cb167",
+          "doc-f081204cf27b0765",
+          "doc-80d0c66a887e8b51",
+          "doc-42e3259e8e775b5e",
+          "doc-4ff40268f956ee87"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-34aa12d16cece049",
+      "rankings": {
+        "bm25": [
+          "doc-ea8ed763832e8996",
+          "doc-a4dedfefa055135a",
+          "doc-34ab3040f462c408",
+          "doc-61db7a457fede1c9",
+          "doc-364eb0468195fad7",
+          "doc-634066890c1c26f0",
+          "doc-ccae3a305aabfa5f",
+          "doc-647412681155459a"
+        ],
+        "hybrid": [
+          "doc-ea8ed763832e8996",
+          "doc-a4dedfefa055135a",
+          "doc-61db7a457fede1c9",
+          "doc-ccae3a305aabfa5f",
+          "doc-634066890c1c26f0",
+          "doc-647412681155459a",
+          "doc-34ab3040f462c408",
+          "doc-364eb0468195fad7",
+          "doc-6abb488242cd1560",
+          "doc-783b98988963895b"
+        ],
+        "vector": [
+          "doc-ea8ed763832e8996",
+          "doc-a4dedfefa055135a",
+          "doc-ccae3a305aabfa5f",
+          "doc-61db7a457fede1c9",
+          "doc-634066890c1c26f0",
+          "doc-6abb488242cd1560",
+          "doc-647412681155459a",
+          "doc-783b98988963895b",
+          "doc-f644fc0c04bacd9c",
+          "doc-1673eec14560f3a3"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-34e481f81c392284",
+      "rankings": {
+        "bm25": [
+          "doc-e9883cb73bfa06d0",
+          "doc-dfb217e507caae6d",
+          "doc-24b462aced1f90b3",
+          "doc-eba15d399e12203a",
+          "doc-86c8ded7d6929070",
+          "doc-44a1019e16996b96",
+          "doc-783b98988963895b",
+          "doc-bd4e63d0e38c9f23",
+          "doc-f644fc0c04bacd9c"
+        ],
+        "hybrid": [
+          "doc-e9883cb73bfa06d0",
+          "doc-dfb217e507caae6d",
+          "doc-24b462aced1f90b3",
+          "doc-eba15d399e12203a",
+          "doc-bd4e63d0e38c9f23",
+          "doc-141059be14b642cf",
+          "doc-86c8ded7d6929070",
+          "doc-44a1019e16996b96",
+          "doc-9ded73901182cf9c",
+          "doc-61db7a457fede1c9"
+        ],
+        "vector": [
+          "doc-e9883cb73bfa06d0",
+          "doc-dfb217e507caae6d",
+          "doc-eba15d399e12203a",
+          "doc-24b462aced1f90b3",
+          "doc-141059be14b642cf",
+          "doc-9ded73901182cf9c",
+          "doc-61db7a457fede1c9",
+          "doc-bd4e63d0e38c9f23",
+          "doc-561fa83bfd05a5b3",
+          "doc-a6108eb1a5387a98"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-37282d3d1c37d8cc",
+      "rankings": {
+        "bm25": [
+          "doc-3584a0561b43c2cf",
+          "doc-9dfab65276737deb",
+          "doc-5bb0841304bf9371",
+          "doc-f92e10566a88e69b",
+          "doc-ac2d40a66e4d5949",
+          "doc-ffe83e9d8feb3573",
+          "doc-6aedebecc3cfb1a7",
+          "doc-80d0c66a887e8b51"
+        ],
+        "hybrid": [
+          "doc-3584a0561b43c2cf",
+          "doc-f92e10566a88e69b",
+          "doc-5bb0841304bf9371",
+          "doc-6aedebecc3cfb1a7",
+          "doc-ffe83e9d8feb3573",
+          "doc-ac2d40a66e4d5949",
+          "doc-9dfab65276737deb",
+          "doc-9e523df11037d5d2",
+          "doc-b962d55f8fa219ae",
+          "doc-80d0c66a887e8b51"
+        ],
+        "vector": [
+          "doc-3584a0561b43c2cf",
+          "doc-f92e10566a88e69b",
+          "doc-5bb0841304bf9371",
+          "doc-6aedebecc3cfb1a7",
+          "doc-9e523df11037d5d2",
+          "doc-ffe83e9d8feb3573",
+          "doc-b962d55f8fa219ae",
+          "doc-ac2d40a66e4d5949",
+          "doc-b9e807ec69da220e",
+          "doc-783b98988963895b"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-3d0d042933857fc5",
+      "rankings": {
+        "bm25": [
+          "doc-ffe83e9d8feb3573",
+          "doc-80d0c66a887e8b51",
+          "doc-b18669db0ef5018c",
+          "doc-5357c812caf1ca82",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-fa0afa57781d76b5",
+          "doc-3584a0561b43c2cf",
+          "doc-6aedebecc3cfb1a7",
+          "doc-cdb635d4dca69998",
+          "doc-e873d7c858862d55"
+        ],
+        "hybrid": [
+          "doc-ffe83e9d8feb3573",
+          "doc-5357c812caf1ca82",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-7d718f047f419750",
+          "doc-80d0c66a887e8b51",
+          "doc-6aedebecc3cfb1a7",
+          "doc-e873d7c858862d55",
+          "doc-b18669db0ef5018c",
+          "doc-ccae3a305aabfa5f",
+          "doc-f081204cf27b0765"
+        ],
+        "vector": [
+          "doc-ffe83e9d8feb3573",
+          "doc-5357c812caf1ca82",
+          "doc-7d718f047f419750",
+          "doc-ccae3a305aabfa5f",
+          "doc-f081204cf27b0765",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-4ac973ea7a68014f",
+          "doc-edb5a938da5648da",
+          "doc-1673eec14560f3a3",
+          "doc-bd53a7b604614ea4"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-40f33277d01f3709",
+      "rankings": {
+        "bm25": [
+          "doc-584a530dcf759bbd",
+          "doc-340478b40c305b7d",
+          "doc-5b83e0ccd598fd9c",
+          "doc-c3fba9998af841fe"
+        ],
+        "hybrid": [
+          "doc-584a530dcf759bbd",
+          "doc-340478b40c305b7d",
+          "doc-5b83e0ccd598fd9c",
+          "doc-c3fba9998af841fe",
+          "doc-b9e807ec69da220e",
+          "doc-a00d46e97dfdefbb",
+          "doc-a923b740b67980a6",
+          "doc-2c129ea40152a7cf",
+          "doc-16dca3fda3120a79",
+          "doc-e873d7c858862d55"
+        ],
+        "vector": [
+          "doc-584a530dcf759bbd",
+          "doc-5b83e0ccd598fd9c",
+          "doc-340478b40c305b7d",
+          "doc-b9e807ec69da220e",
+          "doc-a00d46e97dfdefbb",
+          "doc-a923b740b67980a6",
+          "doc-2c129ea40152a7cf",
+          "doc-16dca3fda3120a79",
+          "doc-e873d7c858862d55",
+          "doc-5357c812caf1ca82"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-4a0d8c0a5798d0e3",
+      "rankings": {
+        "bm25": [
+          "doc-a748b69d3c78798b",
+          "doc-fd0e52e60a131c43",
+          "doc-a6108eb1a5387a98",
+          "doc-f92e10566a88e69b",
+          "doc-3cc7d48d20343742",
+          "doc-fcd6999e810a29d8",
+          "doc-44a1019e16996b96",
+          "doc-dfb217e507caae6d",
+          "doc-bd4e63d0e38c9f23",
+          "doc-1673eec14560f3a3"
+        ],
+        "hybrid": [
+          "doc-a748b69d3c78798b",
+          "doc-a6108eb1a5387a98",
+          "doc-fd0e52e60a131c43",
+          "doc-3cc7d48d20343742",
+          "doc-fcd6999e810a29d8",
+          "doc-b18669db0ef5018c",
+          "doc-a75a9a3c1d822f4a",
+          "doc-9e523df11037d5d2",
+          "doc-141059be14b642cf",
+          "doc-bd53a7b604614ea4"
+        ],
+        "vector": [
+          "doc-a748b69d3c78798b",
+          "doc-a6108eb1a5387a98",
+          "doc-3cc7d48d20343742",
+          "doc-9e523df11037d5d2",
+          "doc-b18669db0ef5018c",
+          "doc-fd0e52e60a131c43",
+          "doc-a75a9a3c1d822f4a",
+          "doc-671125a54cecbc3b",
+          "doc-fcd6999e810a29d8",
+          "doc-39e26c2f59f10e38"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-4db98997e2bb00fc",
+      "rankings": {
+        "bm25": [
+          "doc-6abb488242cd1560",
+          "doc-e9883cb73bfa06d0",
+          "doc-141059be14b642cf",
+          "doc-fa0afa57781d76b5",
+          "doc-34ab3040f462c408",
+          "doc-f92e10566a88e69b",
+          "doc-eba15d399e12203a",
+          "doc-671125a54cecbc3b",
+          "doc-340478b40c305b7d",
+          "doc-a8166a552ab22936"
+        ],
+        "hybrid": [
+          "doc-141059be14b642cf",
+          "doc-fa0afa57781d76b5",
+          "doc-6abb488242cd1560",
+          "doc-eba15d399e12203a",
+          "doc-4ae3286cc237299f",
+          "doc-e9883cb73bfa06d0",
+          "doc-340478b40c305b7d",
+          "doc-671125a54cecbc3b",
+          "doc-647412681155459a",
+          "doc-61db7a457fede1c9"
+        ],
+        "vector": [
+          "doc-141059be14b642cf",
+          "doc-4ae3286cc237299f",
+          "doc-6ee33007f80fcc68",
+          "doc-a748b69d3c78798b",
+          "doc-fa0afa57781d76b5",
+          "doc-42e3259e8e775b5e",
+          "doc-eba15d399e12203a",
+          "doc-39e26c2f59f10e38",
+          "doc-994893baa31daa52",
+          "doc-9e523df11037d5d2"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        }
+      },
+      "query_id": "qry-50941e52352e049c",
+      "rankings": {
+        "bm25": [
+          "doc-5bb0841304bf9371",
+          "doc-ac2d40a66e4d5949",
+          "doc-3584a0561b43c2cf",
+          "doc-f92e10566a88e69b",
+          "doc-bd53a7b604614ea4",
+          "doc-9dfab65276737deb",
+          "doc-6abb488242cd1560",
+          "doc-7d718f047f419750",
+          "doc-73e52dad104a968d",
+          "doc-b456380aa5e6b979"
+        ],
+        "hybrid": [
+          "doc-5bb0841304bf9371",
+          "doc-9dfab65276737deb",
+          "doc-3584a0561b43c2cf",
+          "doc-f92e10566a88e69b",
+          "doc-4ac973ea7a68014f",
+          "doc-80d0c66a887e8b51",
+          "doc-fcd6999e810a29d8",
+          "doc-796bd79d62495e5f",
+          "doc-ac2d40a66e4d5949",
+          "doc-b9e807ec69da220e"
+        ],
+        "vector": [
+          "doc-796bd79d62495e5f",
+          "doc-9dfab65276737deb",
+          "doc-4ac973ea7a68014f",
+          "doc-b9e807ec69da220e",
+          "doc-634066890c1c26f0",
+          "doc-a923b740b67980a6",
+          "doc-5bb0841304bf9371",
+          "doc-783b98988963895b",
+          "doc-3584a0561b43c2cf",
+          "doc-bbcbe752ef7dee9e"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-52da25450ff34fcf",
+      "rankings": {
+        "bm25": [
+          "doc-dfb217e507caae6d",
+          "doc-bbcbe752ef7dee9e",
+          "doc-f92e10566a88e69b",
+          "doc-6abb488242cd1560",
+          "doc-8e826b79e7f55d9f",
+          "doc-92e5f002b005ba65",
+          "doc-e9883cb73bfa06d0",
+          "doc-647412681155459a",
+          "doc-796bd79d62495e5f",
+          "doc-bb416c322a705639"
+        ],
+        "hybrid": [
+          "doc-bbcbe752ef7dee9e",
+          "doc-92e5f002b005ba65",
+          "doc-6abb488242cd1560",
+          "doc-bb416c322a705639",
+          "doc-dfb217e507caae6d",
+          "doc-796bd79d62495e5f",
+          "doc-a75a9a3c1d822f4a",
+          "doc-6aedebecc3cfb1a7",
+          "doc-bd4e63d0e38c9f23",
+          "doc-f92e10566a88e69b"
+        ],
+        "vector": [
+          "doc-bbcbe752ef7dee9e",
+          "doc-92e5f002b005ba65",
+          "doc-bb416c322a705639",
+          "doc-561fa83bfd05a5b3",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-eba15d399e12203a",
+          "doc-6abb488242cd1560",
+          "doc-796bd79d62495e5f",
+          "doc-a75a9a3c1d822f4a",
+          "doc-9ded73901182cf9c"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.1
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          }
+        }
+      },
+      "query_id": "qry-56784c758ffd0baa",
+      "rankings": {
+        "bm25": [
+          "doc-34ab3040f462c408",
+          "doc-dfb217e507caae6d",
+          "doc-fa19d9cf439cb167",
+          "doc-a923b740b67980a6",
+          "doc-bd4e63d0e38c9f23",
+          "doc-f92e10566a88e69b",
+          "doc-141059be14b642cf",
+          "doc-ea8ed763832e8996",
+          "doc-7d718f047f419750",
+          "doc-2c129ea40152a7cf"
+        ],
+        "hybrid": [
+          "doc-34ab3040f462c408",
+          "doc-f92e10566a88e69b",
+          "doc-7d718f047f419750",
+          "doc-a923b740b67980a6",
+          "doc-ffe83e9d8feb3573",
+          "doc-80d0c66a887e8b51",
+          "doc-1673eec14560f3a3",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-3584a0561b43c2cf",
+          "doc-4ac973ea7a68014f"
+        ],
+        "vector": [
+          "doc-3584a0561b43c2cf",
+          "doc-4ac973ea7a68014f",
+          "doc-783b98988963895b",
+          "doc-80d0c66a887e8b51",
+          "doc-7d718f047f419750",
+          "doc-ffe83e9d8feb3573",
+          "doc-f92e10566a88e69b",
+          "doc-34ab3040f462c408",
+          "doc-edb5a938da5648da",
+          "doc-e873d7c858862d55"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-5ab369d9482b18ab",
+      "rankings": {
+        "bm25": [
+          "doc-634066890c1c26f0",
+          "doc-bb416c322a705639",
+          "doc-561fa83bfd05a5b3",
+          "doc-ac2d40a66e4d5949",
+          "doc-c3fba9998af841fe",
+          "doc-61db7a457fede1c9",
+          "doc-80d0c66a887e8b51",
+          "doc-364eb0468195fad7",
+          "doc-a4dedfefa055135a",
+          "doc-ccae3a305aabfa5f"
+        ],
+        "hybrid": [
+          "doc-634066890c1c26f0",
+          "doc-bb416c322a705639",
+          "doc-561fa83bfd05a5b3",
+          "doc-c3fba9998af841fe",
+          "doc-61db7a457fede1c9",
+          "doc-ac2d40a66e4d5949",
+          "doc-80d0c66a887e8b51",
+          "doc-ccae3a305aabfa5f",
+          "doc-364eb0468195fad7",
+          "doc-a4dedfefa055135a"
+        ],
+        "vector": [
+          "doc-634066890c1c26f0",
+          "doc-bb416c322a705639",
+          "doc-561fa83bfd05a5b3",
+          "doc-c3fba9998af841fe",
+          "doc-61db7a457fede1c9",
+          "doc-80d0c66a887e8b51",
+          "doc-ccae3a305aabfa5f",
+          "doc-ac2d40a66e4d5949",
+          "doc-e9883cb73bfa06d0",
+          "doc-a4dedfefa055135a"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-5fa4df447d88929e",
+      "rankings": {
+        "bm25": [
+          "doc-e873d7c858862d55",
+          "doc-bd53a7b604614ea4",
+          "doc-b456380aa5e6b979",
+          "doc-16dca3fda3120a79",
+          "doc-cdb635d4dca69998",
+          "doc-ffe83e9d8feb3573",
+          "doc-73e52dad104a968d",
+          "doc-7d718f047f419750",
+          "doc-80d0c66a887e8b51",
+          "doc-34ab3040f462c408"
+        ],
+        "hybrid": [
+          "doc-e873d7c858862d55",
+          "doc-bd53a7b604614ea4",
+          "doc-34ab3040f462c408",
+          "doc-80d0c66a887e8b51",
+          "doc-7d718f047f419750",
+          "doc-cdb635d4dca69998",
+          "doc-ffe83e9d8feb3573",
+          "doc-b456380aa5e6b979",
+          "doc-16dca3fda3120a79",
+          "doc-92e5f002b005ba65"
+        ],
+        "vector": [
+          "doc-e873d7c858862d55",
+          "doc-bd53a7b604614ea4",
+          "doc-34ab3040f462c408",
+          "doc-92e5f002b005ba65",
+          "doc-5b83e0ccd598fd9c",
+          "doc-5bb0841304bf9371",
+          "doc-b9e807ec69da220e",
+          "doc-80d0c66a887e8b51",
+          "doc-8cd7fb7b74a289d2",
+          "doc-6aedebecc3cfb1a7"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-5fb4f947984d33b0",
+      "rankings": {
+        "bm25": [
+          "doc-4ae3286cc237299f",
+          "doc-b962d55f8fa219ae",
+          "doc-d55df7cf08c0b6d8",
+          "doc-42e3259e8e775b5e",
+          "doc-994893baa31daa52",
+          "doc-a6108eb1a5387a98",
+          "doc-fa0afa57781d76b5",
+          "doc-b18669db0ef5018c",
+          "doc-a748b69d3c78798b",
+          "doc-b9e807ec69da220e"
+        ],
+        "hybrid": [
+          "doc-4ae3286cc237299f",
+          "doc-fa0afa57781d76b5",
+          "doc-994893baa31daa52",
+          "doc-a748b69d3c78798b",
+          "doc-42e3259e8e775b5e",
+          "doc-d55df7cf08c0b6d8",
+          "doc-a6108eb1a5387a98",
+          "doc-b962d55f8fa219ae",
+          "doc-b18669db0ef5018c",
+          "doc-6ee33007f80fcc68"
+        ],
+        "vector": [
+          "doc-4ae3286cc237299f",
+          "doc-fa0afa57781d76b5",
+          "doc-a748b69d3c78798b",
+          "doc-6ee33007f80fcc68",
+          "doc-141059be14b642cf",
+          "doc-994893baa31daa52",
+          "doc-671125a54cecbc3b",
+          "doc-42e3259e8e775b5e",
+          "doc-a6108eb1a5387a98",
+          "doc-9e523df11037d5d2"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-6342222565606971",
+      "rankings": {
+        "bm25": [
+          "doc-4ac973ea7a68014f",
+          "doc-e873d7c858862d55",
+          "doc-b9e807ec69da220e",
+          "doc-7d718f047f419750",
+          "doc-ffe83e9d8feb3573",
+          "doc-f92e10566a88e69b",
+          "doc-fcd6999e810a29d8",
+          "doc-5bb0841304bf9371"
+        ],
+        "hybrid": [
+          "doc-4ac973ea7a68014f",
+          "doc-b9e807ec69da220e",
+          "doc-e873d7c858862d55",
+          "doc-ffe83e9d8feb3573",
+          "doc-5bb0841304bf9371",
+          "doc-7d718f047f419750",
+          "doc-fcd6999e810a29d8",
+          "doc-6aedebecc3cfb1a7",
+          "doc-783b98988963895b",
+          "doc-3584a0561b43c2cf"
+        ],
+        "vector": [
+          "doc-4ac973ea7a68014f",
+          "doc-6aedebecc3cfb1a7",
+          "doc-783b98988963895b",
+          "doc-b9e807ec69da220e",
+          "doc-3584a0561b43c2cf",
+          "doc-340478b40c305b7d",
+          "doc-e873d7c858862d55",
+          "doc-5bb0841304bf9371",
+          "doc-ffe83e9d8feb3573",
+          "doc-bd4e63d0e38c9f23"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.125
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        }
+      },
+      "query_id": "qry-6432cc4725e3945d",
+      "rankings": {
+        "bm25": [
+          "doc-b04fe615d8313e6f",
+          "doc-cdb635d4dca69998",
+          "doc-647412681155459a",
+          "doc-9e523df11037d5d2",
+          "doc-634066890c1c26f0",
+          "doc-a4dedfefa055135a",
+          "doc-364eb0468195fad7",
+          "doc-b9e807ec69da220e",
+          "doc-4ac973ea7a68014f",
+          "doc-373e837665418bc9"
+        ],
+        "hybrid": [
+          "doc-634066890c1c26f0",
+          "doc-647412681155459a",
+          "doc-a4dedfefa055135a",
+          "doc-4ac973ea7a68014f",
+          "doc-bbcbe752ef7dee9e",
+          "doc-b04fe615d8313e6f",
+          "doc-ea8ed763832e8996",
+          "doc-cdb635d4dca69998",
+          "doc-e9883cb73bfa06d0",
+          "doc-994893baa31daa52"
+        ],
+        "vector": [
+          "doc-ea8ed763832e8996",
+          "doc-e9883cb73bfa06d0",
+          "doc-634066890c1c26f0",
+          "doc-994893baa31daa52",
+          "doc-bd4e63d0e38c9f23",
+          "doc-eba15d399e12203a",
+          "doc-796bd79d62495e5f",
+          "doc-6abb488242cd1560",
+          "doc-141059be14b642cf",
+          "doc-647412681155459a"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-66d5eb6c6dd5109c",
+      "rankings": {
+        "bm25": [
+          "doc-a923b740b67980a6",
+          "doc-b04fe615d8313e6f",
+          "doc-b456380aa5e6b979",
+          "doc-364eb0468195fad7",
+          "doc-634066890c1c26f0",
+          "doc-fcd6999e810a29d8",
+          "doc-5bb0841304bf9371"
+        ],
+        "hybrid": [
+          "doc-a923b740b67980a6",
+          "doc-5bb0841304bf9371",
+          "doc-e873d7c858862d55",
+          "doc-b04fe615d8313e6f",
+          "doc-bd53a7b604614ea4",
+          "doc-9dfab65276737deb",
+          "doc-b456380aa5e6b979",
+          "doc-364eb0468195fad7",
+          "doc-8cd7fb7b74a289d2",
+          "doc-634066890c1c26f0"
+        ],
+        "vector": [
+          "doc-e873d7c858862d55",
+          "doc-bd53a7b604614ea4",
+          "doc-9dfab65276737deb",
+          "doc-8cd7fb7b74a289d2",
+          "doc-b9e807ec69da220e",
+          "doc-d55df7cf08c0b6d8",
+          "doc-a923b740b67980a6",
+          "doc-5b83e0ccd598fd9c",
+          "doc-bbcbe752ef7dee9e",
+          "doc-fa0afa57781d76b5"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-6e281be45a340e61",
+      "rankings": {
+        "bm25": [
+          "doc-b18669db0ef5018c",
+          "doc-1673eec14560f3a3",
+          "doc-f92e10566a88e69b",
+          "doc-3cc7d48d20343742",
+          "doc-a00d46e97dfdefbb",
+          "doc-3ea259bb27e861d2",
+          "doc-a75a9a3c1d822f4a",
+          "doc-a6108eb1a5387a98",
+          "doc-fcd6999e810a29d8",
+          "doc-4ae3286cc237299f"
+        ],
+        "hybrid": [
+          "doc-b18669db0ef5018c",
+          "doc-a00d46e97dfdefbb",
+          "doc-3ea259bb27e861d2",
+          "doc-d55df7cf08c0b6d8",
+          "doc-3cc7d48d20343742",
+          "doc-a6108eb1a5387a98",
+          "doc-f644fc0c04bacd9c",
+          "doc-4ae3286cc237299f",
+          "doc-ffe83e9d8feb3573",
+          "doc-b450c62ed37e0501"
+        ],
+        "vector": [
+          "doc-b18669db0ef5018c",
+          "doc-a00d46e97dfdefbb",
+          "doc-d55df7cf08c0b6d8",
+          "doc-a748b69d3c78798b",
+          "doc-3ea259bb27e861d2",
+          "doc-fa0afa57781d76b5",
+          "doc-a6108eb1a5387a98",
+          "doc-8e826b79e7f55d9f",
+          "doc-141059be14b642cf",
+          "doc-3cc7d48d20343742"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-6e2f1cdd7a547d1c",
+      "rankings": {
+        "bm25": [
+          "doc-bbcbe752ef7dee9e",
+          "doc-796bd79d62495e5f",
+          "doc-6abb488242cd1560",
+          "doc-eba15d399e12203a",
+          "doc-8e826b79e7f55d9f",
+          "doc-141059be14b642cf",
+          "doc-647412681155459a",
+          "doc-6aedebecc3cfb1a7"
+        ],
+        "hybrid": [
+          "doc-bbcbe752ef7dee9e",
+          "doc-796bd79d62495e5f",
+          "doc-6abb488242cd1560",
+          "doc-eba15d399e12203a",
+          "doc-647412681155459a",
+          "doc-141059be14b642cf",
+          "doc-8e826b79e7f55d9f",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-bb416c322a705639",
+          "doc-a75a9a3c1d822f4a"
+        ],
+        "vector": [
+          "doc-bbcbe752ef7dee9e",
+          "doc-796bd79d62495e5f",
+          "doc-eba15d399e12203a",
+          "doc-6abb488242cd1560",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-bb416c322a705639",
+          "doc-a75a9a3c1d822f4a",
+          "doc-647412681155459a",
+          "doc-561fa83bfd05a5b3",
+          "doc-141059be14b642cf"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        }
+      },
+      "query_id": "qry-7530c5084955c673",
+      "rankings": {
+        "bm25": [
+          "doc-ea8ed763832e8996",
+          "doc-994893baa31daa52",
+          "doc-bd4e63d0e38c9f23",
+          "doc-dfb217e507caae6d",
+          "doc-a00d46e97dfdefbb",
+          "doc-fd0e52e60a131c43",
+          "doc-141059be14b642cf",
+          "doc-3ea259bb27e861d2",
+          "doc-647412681155459a",
+          "doc-4ff40268f956ee87"
+        ],
+        "hybrid": [
+          "doc-141059be14b642cf",
+          "doc-b962d55f8fa219ae",
+          "doc-994893baa31daa52",
+          "doc-d55df7cf08c0b6d8",
+          "doc-671125a54cecbc3b",
+          "doc-39e26c2f59f10e38",
+          "doc-6ee33007f80fcc68",
+          "doc-6abb488242cd1560",
+          "doc-a6108eb1a5387a98",
+          "doc-ea8ed763832e8996"
+        ],
+        "vector": [
+          "doc-a6108eb1a5387a98",
+          "doc-141059be14b642cf",
+          "doc-b962d55f8fa219ae",
+          "doc-671125a54cecbc3b",
+          "doc-d55df7cf08c0b6d8",
+          "doc-9e523df11037d5d2",
+          "doc-39e26c2f59f10e38",
+          "doc-4ae3286cc237299f",
+          "doc-a748b69d3c78798b",
+          "doc-fa0afa57781d76b5"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-783d76ff5a63fbcd",
+      "rankings": {
+        "bm25": [
+          "doc-39e26c2f59f10e38",
+          "doc-4ff40268f956ee87",
+          "doc-8e826b79e7f55d9f",
+          "doc-cdb635d4dca69998",
+          "doc-671125a54cecbc3b",
+          "doc-91ffaed662beb8b8",
+          "doc-a748b69d3c78798b"
+        ],
+        "hybrid": [
+          "doc-39e26c2f59f10e38",
+          "doc-4ff40268f956ee87",
+          "doc-671125a54cecbc3b",
+          "doc-8e826b79e7f55d9f",
+          "doc-6ee33007f80fcc68",
+          "doc-cdb635d4dca69998",
+          "doc-9e523df11037d5d2",
+          "doc-91ffaed662beb8b8",
+          "doc-f644fc0c04bacd9c",
+          "doc-994893baa31daa52"
+        ],
+        "vector": [
+          "doc-39e26c2f59f10e38",
+          "doc-4ff40268f956ee87",
+          "doc-671125a54cecbc3b",
+          "doc-6ee33007f80fcc68",
+          "doc-9e523df11037d5d2",
+          "doc-f644fc0c04bacd9c",
+          "doc-994893baa31daa52",
+          "doc-141059be14b642cf",
+          "doc-d55df7cf08c0b6d8",
+          "doc-a8166a552ab22936"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.25
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.25
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-78f23bc462cac014",
+      "rankings": {
+        "bm25": [
+          "doc-fa0afa57781d76b5",
+          "doc-a923b740b67980a6",
+          "doc-34ab3040f462c408",
+          "doc-73e52dad104a968d",
+          "doc-f92e10566a88e69b",
+          "doc-b456380aa5e6b979",
+          "doc-d55df7cf08c0b6d8",
+          "doc-a75a9a3c1d822f4a",
+          "doc-5bb0841304bf9371",
+          "doc-b04fe615d8313e6f"
+        ],
+        "hybrid": [
+          "doc-73e52dad104a968d",
+          "doc-34ab3040f462c408",
+          "doc-5bb0841304bf9371",
+          "doc-b456380aa5e6b979",
+          "doc-dfb217e507caae6d",
+          "doc-9ded73901182cf9c",
+          "doc-fa0afa57781d76b5",
+          "doc-24b462aced1f90b3",
+          "doc-a923b740b67980a6",
+          "doc-91ffaed662beb8b8"
+        ],
+        "vector": [
+          "doc-73e52dad104a968d",
+          "doc-24b462aced1f90b3",
+          "doc-91ffaed662beb8b8",
+          "doc-72c1f4c9ca25f636",
+          "doc-7226d6c292222ad1",
+          "doc-16dca3fda3120a79",
+          "doc-e9883cb73bfa06d0",
+          "doc-34ab3040f462c408",
+          "doc-783b98988963895b",
+          "doc-bb416c322a705639"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.2
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.2
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.16666666666666666
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        }
+      },
+      "query_id": "qry-82bb1f98684dc082",
+      "rankings": {
+        "bm25": [
+          "doc-d55df7cf08c0b6d8",
+          "doc-b9e807ec69da220e",
+          "doc-73e52dad104a968d",
+          "doc-ffe83e9d8feb3573",
+          "doc-3cc7d48d20343742",
+          "doc-671125a54cecbc3b",
+          "doc-bbcbe752ef7dee9e",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-e873d7c858862d55",
+          "doc-39e26c2f59f10e38"
+        ],
+        "hybrid": [
+          "doc-b9e807ec69da220e",
+          "doc-d55df7cf08c0b6d8",
+          "doc-3cc7d48d20343742",
+          "doc-fcd6999e810a29d8",
+          "doc-ffe83e9d8feb3573",
+          "doc-39e26c2f59f10e38",
+          "doc-e873d7c858862d55",
+          "doc-5bb0841304bf9371",
+          "doc-a00d46e97dfdefbb",
+          "doc-73e52dad104a968d"
+        ],
+        "vector": [
+          "doc-fcd6999e810a29d8",
+          "doc-a00d46e97dfdefbb",
+          "doc-b9e807ec69da220e",
+          "doc-a923b740b67980a6",
+          "doc-c3fba9998af841fe",
+          "doc-3cc7d48d20343742",
+          "doc-ac2d40a66e4d5949",
+          "doc-d55df7cf08c0b6d8",
+          "doc-42e3259e8e775b5e",
+          "doc-5bb0841304bf9371"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-82e99981c19f2230",
+      "rankings": {
+        "bm25": [
+          "doc-6e72e83fe2331727",
+          "doc-e9883cb73bfa06d0",
+          "doc-f92e10566a88e69b",
+          "doc-d55df7cf08c0b6d8",
+          "doc-5bb0841304bf9371",
+          "doc-364eb0468195fad7",
+          "doc-b04fe615d8313e6f",
+          "doc-a923b740b67980a6",
+          "doc-b456380aa5e6b979",
+          "doc-7226d6c292222ad1"
+        ],
+        "hybrid": [
+          "doc-6e72e83fe2331727",
+          "doc-e9883cb73bfa06d0",
+          "doc-364eb0468195fad7",
+          "doc-d55df7cf08c0b6d8",
+          "doc-5bb0841304bf9371",
+          "doc-634066890c1c26f0",
+          "doc-604434eaed4f4d2e",
+          "doc-bd4e63d0e38c9f23",
+          "doc-f92e10566a88e69b",
+          "doc-8e826b79e7f55d9f"
+        ],
+        "vector": [
+          "doc-6e72e83fe2331727",
+          "doc-bd4e63d0e38c9f23",
+          "doc-364eb0468195fad7",
+          "doc-8e826b79e7f55d9f",
+          "doc-e9883cb73bfa06d0",
+          "doc-61db7a457fede1c9",
+          "doc-92e5f002b005ba65",
+          "doc-994893baa31daa52",
+          "doc-d55df7cf08c0b6d8",
+          "doc-2c129ea40152a7cf"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-86be54234db62059",
+      "rankings": {
+        "bm25": [
+          "doc-d55df7cf08c0b6d8",
+          "doc-b456380aa5e6b979",
+          "doc-b9e807ec69da220e",
+          "doc-a4dedfefa055135a",
+          "doc-5b83e0ccd598fd9c",
+          "doc-b04fe615d8313e6f",
+          "doc-b962d55f8fa219ae",
+          "doc-cdb635d4dca69998",
+          "doc-647412681155459a",
+          "doc-92e5f002b005ba65"
+        ],
+        "hybrid": [
+          "doc-b456380aa5e6b979",
+          "doc-b9e807ec69da220e",
+          "doc-edb5a938da5648da",
+          "doc-5bb0841304bf9371",
+          "doc-340478b40c305b7d",
+          "doc-dfb217e507caae6d",
+          "doc-d55df7cf08c0b6d8",
+          "doc-4ac973ea7a68014f",
+          "doc-783b98988963895b",
+          "doc-a4dedfefa055135a"
+        ],
+        "vector": [
+          "doc-b456380aa5e6b979",
+          "doc-edb5a938da5648da",
+          "doc-4ac973ea7a68014f",
+          "doc-783b98988963895b",
+          "doc-b9e807ec69da220e",
+          "doc-80d0c66a887e8b51",
+          "doc-ffe83e9d8feb3573",
+          "doc-fcd6999e810a29d8",
+          "doc-c3fba9998af841fe",
+          "doc-f081204cf27b0765"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-946f33236c164c84",
+      "rankings": {
+        "bm25": [
+          "doc-9e523df11037d5d2",
+          "doc-34ab3040f462c408",
+          "doc-f92e10566a88e69b",
+          "doc-b962d55f8fa219ae",
+          "doc-92e5f002b005ba65",
+          "doc-1673eec14560f3a3",
+          "doc-3cc7d48d20343742",
+          "doc-bd4e63d0e38c9f23",
+          "doc-a6108eb1a5387a98",
+          "doc-1ff70b08c91060b6"
+        ],
+        "hybrid": [
+          "doc-9e523df11037d5d2",
+          "doc-a6108eb1a5387a98",
+          "doc-3cc7d48d20343742",
+          "doc-a748b69d3c78798b",
+          "doc-b962d55f8fa219ae",
+          "doc-34ab3040f462c408",
+          "doc-671125a54cecbc3b",
+          "doc-f92e10566a88e69b",
+          "doc-92e5f002b005ba65",
+          "doc-d55df7cf08c0b6d8"
+        ],
+        "vector": [
+          "doc-9e523df11037d5d2",
+          "doc-671125a54cecbc3b",
+          "doc-a6108eb1a5387a98",
+          "doc-a748b69d3c78798b",
+          "doc-d55df7cf08c0b6d8",
+          "doc-39e26c2f59f10e38",
+          "doc-3cc7d48d20343742",
+          "doc-6ee33007f80fcc68",
+          "doc-8cd7fb7b74a289d2",
+          "doc-2c129ea40152a7cf"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        }
+      },
+      "query_id": "qry-950ee111736dbf99",
+      "rankings": {
+        "bm25": [
+          "doc-3cc7d48d20343742",
+          "doc-f92e10566a88e69b",
+          "doc-bb416c322a705639",
+          "doc-9ded73901182cf9c",
+          "doc-42e3259e8e775b5e",
+          "doc-b04fe615d8313e6f",
+          "doc-34ab3040f462c408",
+          "doc-a923b740b67980a6",
+          "doc-bd53a7b604614ea4",
+          "doc-b456380aa5e6b979"
+        ],
+        "hybrid": [
+          "doc-3cc7d48d20343742",
+          "doc-a923b740b67980a6",
+          "doc-f92e10566a88e69b",
+          "doc-fcd6999e810a29d8",
+          "doc-bd53a7b604614ea4",
+          "doc-b18669db0ef5018c",
+          "doc-bb416c322a705639",
+          "doc-e873d7c858862d55",
+          "doc-9ded73901182cf9c",
+          "doc-a00d46e97dfdefbb"
+        ],
+        "vector": [
+          "doc-3cc7d48d20343742",
+          "doc-fcd6999e810a29d8",
+          "doc-e873d7c858862d55",
+          "doc-a00d46e97dfdefbb",
+          "doc-b9e807ec69da220e",
+          "doc-a923b740b67980a6",
+          "doc-ffe83e9d8feb3573",
+          "doc-c3fba9998af841fe",
+          "doc-6aedebecc3cfb1a7",
+          "doc-bd53a7b604614ea4"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-999567a30487ab64",
+      "rankings": {
+        "bm25": [
+          "doc-dfb217e507caae6d",
+          "doc-8cd7fb7b74a289d2",
+          "doc-647412681155459a",
+          "doc-16dca3fda3120a79",
+          "doc-d55df7cf08c0b6d8",
+          "doc-39e26c2f59f10e38",
+          "doc-b456380aa5e6b979",
+          "doc-7226d6c292222ad1",
+          "doc-671125a54cecbc3b",
+          "doc-6ee33007f80fcc68"
+        ],
+        "hybrid": [
+          "doc-8cd7fb7b74a289d2",
+          "doc-d55df7cf08c0b6d8",
+          "doc-39e26c2f59f10e38",
+          "doc-dfb217e507caae6d",
+          "doc-671125a54cecbc3b",
+          "doc-7226d6c292222ad1",
+          "doc-bd4e63d0e38c9f23",
+          "doc-42e3259e8e775b5e",
+          "doc-8e826b79e7f55d9f",
+          "doc-647412681155459a"
+        ],
+        "vector": [
+          "doc-8cd7fb7b74a289d2",
+          "doc-8e826b79e7f55d9f",
+          "doc-6e72e83fe2331727",
+          "doc-d55df7cf08c0b6d8",
+          "doc-39e26c2f59f10e38",
+          "doc-141059be14b642cf",
+          "doc-b962d55f8fa219ae",
+          "doc-67fac853aaeff42f",
+          "doc-f644fc0c04bacd9c",
+          "doc-92e5f002b005ba65"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.125
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.25
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.25
+          }
+        }
+      },
+      "query_id": "qry-9a61976763ad142d",
+      "rankings": {
+        "bm25": [
+          "doc-fcd6999e810a29d8",
+          "doc-a00d46e97dfdefbb",
+          "doc-f92e10566a88e69b",
+          "doc-647412681155459a",
+          "doc-604434eaed4f4d2e",
+          "doc-7d718f047f419750",
+          "doc-3ea259bb27e861d2",
+          "doc-91ffaed662beb8b8",
+          "doc-ccae3a305aabfa5f",
+          "doc-ac2d40a66e4d5949"
+        ],
+        "hybrid": [
+          "doc-a00d46e97dfdefbb",
+          "doc-fcd6999e810a29d8",
+          "doc-f92e10566a88e69b",
+          "doc-c3fba9998af841fe",
+          "doc-ccae3a305aabfa5f",
+          "doc-bd53a7b604614ea4",
+          "doc-42e3259e8e775b5e",
+          "doc-1ff70b08c91060b6",
+          "doc-647412681155459a",
+          "doc-604434eaed4f4d2e"
+        ],
+        "vector": [
+          "doc-a00d46e97dfdefbb",
+          "doc-42e3259e8e775b5e",
+          "doc-fcd6999e810a29d8",
+          "doc-1ff70b08c91060b6",
+          "doc-c3fba9998af841fe",
+          "doc-fa19d9cf439cb167",
+          "doc-f92e10566a88e69b",
+          "doc-796bd79d62495e5f",
+          "doc-bd53a7b604614ea4",
+          "doc-86c8ded7d6929070"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.16666666666666666
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        }
+      },
+      "query_id": "qry-a4136f351c6750f2",
+      "rankings": {
+        "bm25": [
+          "doc-73e52dad104a968d",
+          "doc-7d718f047f419750",
+          "doc-671125a54cecbc3b",
+          "doc-39e26c2f59f10e38",
+          "doc-f644fc0c04bacd9c",
+          "doc-5b83e0ccd598fd9c",
+          "doc-994893baa31daa52",
+          "doc-e873d7c858862d55",
+          "doc-b962d55f8fa219ae",
+          "doc-d55df7cf08c0b6d8"
+        ],
+        "hybrid": [
+          "doc-39e26c2f59f10e38",
+          "doc-671125a54cecbc3b",
+          "doc-f644fc0c04bacd9c",
+          "doc-994893baa31daa52",
+          "doc-e9883cb73bfa06d0",
+          "doc-b962d55f8fa219ae",
+          "doc-92e5f002b005ba65",
+          "doc-cdb635d4dca69998",
+          "doc-f081204cf27b0765",
+          "doc-73e52dad104a968d"
+        ],
+        "vector": [
+          "doc-a6108eb1a5387a98",
+          "doc-39e26c2f59f10e38",
+          "doc-ac2d40a66e4d5949",
+          "doc-42e3259e8e775b5e",
+          "doc-92e5f002b005ba65",
+          "doc-671125a54cecbc3b",
+          "doc-e9883cb73bfa06d0",
+          "doc-994893baa31daa52",
+          "doc-f644fc0c04bacd9c",
+          "doc-b962d55f8fa219ae"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-a4b73870ff665cb6",
+      "rankings": {
+        "bm25": [
+          "doc-fcd6999e810a29d8",
+          "doc-91ffaed662beb8b8",
+          "doc-7d718f047f419750",
+          "doc-2c129ea40152a7cf",
+          "doc-67fac853aaeff42f",
+          "doc-5b83e0ccd598fd9c",
+          "doc-cdb635d4dca69998",
+          "doc-634066890c1c26f0",
+          "doc-994893baa31daa52",
+          "doc-373e837665418bc9"
+        ],
+        "hybrid": [
+          "doc-91ffaed662beb8b8",
+          "doc-7d718f047f419750",
+          "doc-cdb635d4dca69998",
+          "doc-373e837665418bc9",
+          "doc-34ab3040f462c408",
+          "doc-73e52dad104a968d",
+          "doc-634066890c1c26f0",
+          "doc-92e5f002b005ba65",
+          "doc-fcd6999e810a29d8",
+          "doc-16dca3fda3120a79"
+        ],
+        "vector": [
+          "doc-34ab3040f462c408",
+          "doc-91ffaed662beb8b8",
+          "doc-cdb635d4dca69998",
+          "doc-16dca3fda3120a79",
+          "doc-373e837665418bc9",
+          "doc-7d718f047f419750",
+          "doc-73e52dad104a968d",
+          "doc-f92e10566a88e69b",
+          "doc-561fa83bfd05a5b3",
+          "doc-92e5f002b005ba65"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.2
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.2
+          }
+        }
+      },
+      "query_id": "qry-a4ca6131ebcc9230",
+      "rankings": {
+        "bm25": [
+          "doc-e9883cb73bfa06d0",
+          "doc-dfb217e507caae6d",
+          "doc-61db7a457fede1c9",
+          "doc-ea8ed763832e8996",
+          "doc-bbcbe752ef7dee9e",
+          "doc-561fa83bfd05a5b3",
+          "doc-f92e10566a88e69b",
+          "doc-6aedebecc3cfb1a7",
+          "doc-80d0c66a887e8b51",
+          "doc-fa0afa57781d76b5"
+        ],
+        "hybrid": [
+          "doc-61db7a457fede1c9",
+          "doc-e9883cb73bfa06d0",
+          "doc-561fa83bfd05a5b3",
+          "doc-dfb217e507caae6d",
+          "doc-634066890c1c26f0",
+          "doc-80d0c66a887e8b51",
+          "doc-bbcbe752ef7dee9e",
+          "doc-eba15d399e12203a",
+          "doc-bb416c322a705639",
+          "doc-ea8ed763832e8996"
+        ],
+        "vector": [
+          "doc-561fa83bfd05a5b3",
+          "doc-61db7a457fede1c9",
+          "doc-634066890c1c26f0",
+          "doc-bb416c322a705639",
+          "doc-e9883cb73bfa06d0",
+          "doc-80d0c66a887e8b51",
+          "doc-bd4e63d0e38c9f23",
+          "doc-9ded73901182cf9c",
+          "doc-b450c62ed37e0501",
+          "doc-f081204cf27b0765"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-a57111f30be9c988",
+      "rankings": {
+        "bm25": [
+          "doc-dbfa4d5f4cd6780a",
+          "doc-fa19d9cf439cb167",
+          "doc-6abb488242cd1560",
+          "doc-fcd6999e810a29d8",
+          "doc-9ded73901182cf9c",
+          "doc-647412681155459a",
+          "doc-ccae3a305aabfa5f",
+          "doc-f92e10566a88e69b",
+          "doc-b18669db0ef5018c",
+          "doc-6ee33007f80fcc68"
+        ],
+        "hybrid": [
+          "doc-fa19d9cf439cb167",
+          "doc-fcd6999e810a29d8",
+          "doc-9ded73901182cf9c",
+          "doc-b18669db0ef5018c",
+          "doc-a00d46e97dfdefbb",
+          "doc-eba15d399e12203a",
+          "doc-1ff70b08c91060b6",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-6abb488242cd1560",
+          "doc-647412681155459a"
+        ],
+        "vector": [
+          "doc-fa19d9cf439cb167",
+          "doc-a00d46e97dfdefbb",
+          "doc-fcd6999e810a29d8",
+          "doc-9ded73901182cf9c",
+          "doc-eba15d399e12203a",
+          "doc-bd4e63d0e38c9f23",
+          "doc-80d0c66a887e8b51",
+          "doc-86c8ded7d6929070",
+          "doc-b18669db0ef5018c",
+          "doc-fb83c0127a73a748"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-afae8038ccc08ce6",
+      "rankings": {
+        "bm25": [
+          "doc-80d0c66a887e8b51",
+          "doc-561fa83bfd05a5b3",
+          "doc-634066890c1c26f0",
+          "doc-7d718f047f419750",
+          "doc-61db7a457fede1c9",
+          "doc-3584a0561b43c2cf",
+          "doc-cdb635d4dca69998",
+          "doc-4ac973ea7a68014f",
+          "doc-f92e10566a88e69b",
+          "doc-ffe83e9d8feb3573"
+        ],
+        "hybrid": [
+          "doc-80d0c66a887e8b51",
+          "doc-561fa83bfd05a5b3",
+          "doc-634066890c1c26f0",
+          "doc-4ac973ea7a68014f",
+          "doc-cdb635d4dca69998",
+          "doc-61db7a457fede1c9",
+          "doc-7d718f047f419750",
+          "doc-783b98988963895b",
+          "doc-3584a0561b43c2cf",
+          "doc-b450c62ed37e0501"
+        ],
+        "vector": [
+          "doc-80d0c66a887e8b51",
+          "doc-561fa83bfd05a5b3",
+          "doc-4ac973ea7a68014f",
+          "doc-783b98988963895b",
+          "doc-634066890c1c26f0",
+          "doc-b450c62ed37e0501",
+          "doc-cdb635d4dca69998",
+          "doc-9ded73901182cf9c",
+          "doc-1673eec14560f3a3",
+          "doc-b456380aa5e6b979"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-b0e0ab7bf459cd52",
+      "rankings": {
+        "bm25": [
+          "doc-8e826b79e7f55d9f",
+          "doc-6e72e83fe2331727",
+          "doc-8cd7fb7b74a289d2",
+          "doc-d55df7cf08c0b6d8"
+        ],
+        "hybrid": [
+          "doc-8e826b79e7f55d9f",
+          "doc-8cd7fb7b74a289d2",
+          "doc-6e72e83fe2331727",
+          "doc-d55df7cf08c0b6d8",
+          "doc-b18669db0ef5018c",
+          "doc-141059be14b642cf",
+          "doc-b9e807ec69da220e",
+          "doc-cdb635d4dca69998",
+          "doc-bd53a7b604614ea4",
+          "doc-34ab3040f462c408"
+        ],
+        "vector": [
+          "doc-8e826b79e7f55d9f",
+          "doc-8cd7fb7b74a289d2",
+          "doc-d55df7cf08c0b6d8",
+          "doc-6e72e83fe2331727",
+          "doc-b18669db0ef5018c",
+          "doc-141059be14b642cf",
+          "doc-b9e807ec69da220e",
+          "doc-cdb635d4dca69998",
+          "doc-bd53a7b604614ea4",
+          "doc-34ab3040f462c408"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-b5ea82c74a1f915f",
+      "rankings": {
+        "bm25": [
+          "doc-a00d46e97dfdefbb",
+          "doc-1ff70b08c91060b6",
+          "doc-c3fba9998af841fe",
+          "doc-fa19d9cf439cb167",
+          "doc-bd4e63d0e38c9f23",
+          "doc-3cc7d48d20343742",
+          "doc-373e837665418bc9",
+          "doc-6ee33007f80fcc68",
+          "doc-eba15d399e12203a",
+          "doc-fcd6999e810a29d8"
+        ],
+        "hybrid": [
+          "doc-a00d46e97dfdefbb",
+          "doc-1ff70b08c91060b6",
+          "doc-fa19d9cf439cb167",
+          "doc-bd4e63d0e38c9f23",
+          "doc-c3fba9998af841fe",
+          "doc-3cc7d48d20343742",
+          "doc-fcd6999e810a29d8",
+          "doc-42e3259e8e775b5e",
+          "doc-f92e10566a88e69b",
+          "doc-561fa83bfd05a5b3"
+        ],
+        "vector": [
+          "doc-a00d46e97dfdefbb",
+          "doc-fa19d9cf439cb167",
+          "doc-1ff70b08c91060b6",
+          "doc-fcd6999e810a29d8",
+          "doc-bd4e63d0e38c9f23",
+          "doc-b18669db0ef5018c",
+          "doc-3cc7d48d20343742",
+          "doc-c3fba9998af841fe",
+          "doc-42e3259e8e775b5e",
+          "doc-bb416c322a705639"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-b770543b1e793a30",
+      "rankings": {
+        "bm25": [
+          "doc-9ded73901182cf9c",
+          "doc-bd4e63d0e38c9f23",
+          "doc-141059be14b642cf",
+          "doc-3cc7d48d20343742",
+          "doc-a6108eb1a5387a98",
+          "doc-9e523df11037d5d2",
+          "doc-a748b69d3c78798b",
+          "doc-cdb635d4dca69998",
+          "doc-6ee33007f80fcc68",
+          "doc-ac2d40a66e4d5949"
+        ],
+        "hybrid": [
+          "doc-9ded73901182cf9c",
+          "doc-bd4e63d0e38c9f23",
+          "doc-a6108eb1a5387a98",
+          "doc-9e523df11037d5d2",
+          "doc-a748b69d3c78798b",
+          "doc-3cc7d48d20343742",
+          "doc-141059be14b642cf",
+          "doc-671125a54cecbc3b",
+          "doc-b18669db0ef5018c",
+          "doc-61db7a457fede1c9"
+        ],
+        "vector": [
+          "doc-9ded73901182cf9c",
+          "doc-a6108eb1a5387a98",
+          "doc-9e523df11037d5d2",
+          "doc-bd4e63d0e38c9f23",
+          "doc-a748b69d3c78798b",
+          "doc-bb416c322a705639",
+          "doc-e9883cb73bfa06d0",
+          "doc-eba15d399e12203a",
+          "doc-3cc7d48d20343742",
+          "doc-d55df7cf08c0b6d8"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-b8c8edab605dd005",
+      "rankings": {
+        "bm25": [
+          "doc-7d718f047f419750",
+          "doc-cdb635d4dca69998",
+          "doc-b962d55f8fa219ae",
+          "doc-73e52dad104a968d",
+          "doc-5b83e0ccd598fd9c",
+          "doc-6aedebecc3cfb1a7",
+          "doc-a923b740b67980a6",
+          "doc-9e523df11037d5d2",
+          "doc-91ffaed662beb8b8",
+          "doc-92e5f002b005ba65"
+        ],
+        "hybrid": [
+          "doc-7d718f047f419750",
+          "doc-6aedebecc3cfb1a7",
+          "doc-cdb635d4dca69998",
+          "doc-b962d55f8fa219ae",
+          "doc-5b83e0ccd598fd9c",
+          "doc-ffe83e9d8feb3573",
+          "doc-9e523df11037d5d2",
+          "doc-80d0c66a887e8b51",
+          "doc-e873d7c858862d55",
+          "doc-34ab3040f462c408"
+        ],
+        "vector": [
+          "doc-7d718f047f419750",
+          "doc-6aedebecc3cfb1a7",
+          "doc-ffe83e9d8feb3573",
+          "doc-3584a0561b43c2cf",
+          "doc-5b83e0ccd598fd9c",
+          "doc-9e523df11037d5d2",
+          "doc-b962d55f8fa219ae",
+          "doc-cdb635d4dca69998",
+          "doc-783b98988963895b",
+          "doc-80d0c66a887e8b51"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-b8ea3b2b421e2305",
+      "rankings": {
+        "bm25": [
+          "doc-5bb0841304bf9371",
+          "doc-ac2d40a66e4d5949",
+          "doc-9dfab65276737deb",
+          "doc-b9e807ec69da220e",
+          "doc-16dca3fda3120a79",
+          "doc-364eb0468195fad7",
+          "doc-634066890c1c26f0",
+          "doc-a923b740b67980a6",
+          "doc-3584a0561b43c2cf",
+          "doc-ffe83e9d8feb3573"
+        ],
+        "hybrid": [
+          "doc-5bb0841304bf9371",
+          "doc-9dfab65276737deb",
+          "doc-ac2d40a66e4d5949",
+          "doc-b9e807ec69da220e",
+          "doc-a923b740b67980a6",
+          "doc-364eb0468195fad7",
+          "doc-16dca3fda3120a79",
+          "doc-3584a0561b43c2cf",
+          "doc-634066890c1c26f0",
+          "doc-f92e10566a88e69b"
+        ],
+        "vector": [
+          "doc-5bb0841304bf9371",
+          "doc-9dfab65276737deb",
+          "doc-ac2d40a66e4d5949",
+          "doc-b9e807ec69da220e",
+          "doc-a923b740b67980a6",
+          "doc-584a530dcf759bbd",
+          "doc-364eb0468195fad7",
+          "doc-3584a0561b43c2cf",
+          "doc-16dca3fda3120a79",
+          "doc-f92e10566a88e69b"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.3333333333333333
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-b9295a056f18bad0",
+      "rankings": {
+        "bm25": [
+          "doc-dfb217e507caae6d",
+          "doc-73e52dad104a968d",
+          "doc-f644fc0c04bacd9c",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-6abb488242cd1560",
+          "doc-373e837665418bc9",
+          "doc-b450c62ed37e0501",
+          "doc-4ac973ea7a68014f",
+          "doc-6e72e83fe2331727",
+          "doc-86c8ded7d6929070"
+        ],
+        "hybrid": [
+          "doc-6abb488242cd1560",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-44a1019e16996b96",
+          "doc-4ac973ea7a68014f",
+          "doc-86c8ded7d6929070",
+          "doc-a8166a552ab22936",
+          "doc-dfb217e507caae6d",
+          "doc-2c129ea40152a7cf",
+          "doc-73e52dad104a968d",
+          "doc-f644fc0c04bacd9c"
+        ],
+        "vector": [
+          "doc-44a1019e16996b96",
+          "doc-2c129ea40152a7cf",
+          "doc-6abb488242cd1560",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-a75a9a3c1d822f4a",
+          "doc-bd4e63d0e38c9f23",
+          "doc-584a530dcf759bbd",
+          "doc-340478b40c305b7d",
+          "doc-eba15d399e12203a",
+          "doc-b04fe615d8313e6f"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-bc5d4d4b00fe12c4",
+      "rankings": {
+        "bm25": [
+          "doc-2c129ea40152a7cf",
+          "doc-61db7a457fede1c9",
+          "doc-a923b740b67980a6",
+          "doc-dfb217e507caae6d",
+          "doc-5bb0841304bf9371",
+          "doc-f92e10566a88e69b",
+          "doc-b456380aa5e6b979",
+          "doc-16dca3fda3120a79",
+          "doc-6aedebecc3cfb1a7",
+          "doc-fb83c0127a73a748"
+        ],
+        "hybrid": [
+          "doc-2c129ea40152a7cf",
+          "doc-5bb0841304bf9371",
+          "doc-fb83c0127a73a748",
+          "doc-a923b740b67980a6",
+          "doc-6aedebecc3cfb1a7",
+          "doc-1673eec14560f3a3",
+          "doc-bd4e63d0e38c9f23",
+          "doc-61db7a457fede1c9",
+          "doc-994893baa31daa52",
+          "doc-a00d46e97dfdefbb"
+        ],
+        "vector": [
+          "doc-2c129ea40152a7cf",
+          "doc-994893baa31daa52",
+          "doc-5bb0841304bf9371",
+          "doc-a00d46e97dfdefbb",
+          "doc-ccae3a305aabfa5f",
+          "doc-fb83c0127a73a748",
+          "doc-783b98988963895b",
+          "doc-44a1019e16996b96",
+          "doc-f644fc0c04bacd9c",
+          "doc-584a530dcf759bbd"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.25
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.25
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-be7d7aad784efa93",
+      "rankings": {
+        "bm25": [
+          "doc-73e52dad104a968d",
+          "doc-cdb635d4dca69998",
+          "doc-a8166a552ab22936",
+          "doc-16dca3fda3120a79",
+          "doc-a6108eb1a5387a98",
+          "doc-24b462aced1f90b3",
+          "doc-dfb217e507caae6d",
+          "doc-a923b740b67980a6",
+          "doc-d55df7cf08c0b6d8",
+          "doc-f92e10566a88e69b"
+        ],
+        "hybrid": [
+          "doc-cdb635d4dca69998",
+          "doc-24b462aced1f90b3",
+          "doc-73e52dad104a968d",
+          "doc-16dca3fda3120a79",
+          "doc-a6108eb1a5387a98",
+          "doc-a8166a552ab22936",
+          "doc-dfb217e507caae6d",
+          "doc-72c1f4c9ca25f636",
+          "doc-7d718f047f419750",
+          "doc-91ffaed662beb8b8"
+        ],
+        "vector": [
+          "doc-24b462aced1f90b3",
+          "doc-cdb635d4dca69998",
+          "doc-16dca3fda3120a79",
+          "doc-72c1f4c9ca25f636",
+          "doc-a6108eb1a5387a98",
+          "doc-73e52dad104a968d",
+          "doc-91ffaed662beb8b8",
+          "doc-a8166a552ab22936",
+          "doc-7d718f047f419750",
+          "doc-e9883cb73bfa06d0"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-c0d917f82dd60ae7",
+      "rankings": {
+        "bm25": [
+          "doc-c3fba9998af841fe",
+          "doc-373e837665418bc9",
+          "doc-3ea259bb27e861d2",
+          "doc-ac2d40a66e4d5949",
+          "doc-bb416c322a705639",
+          "doc-634066890c1c26f0",
+          "doc-86c8ded7d6929070",
+          "doc-a8166a552ab22936"
+        ],
+        "hybrid": [
+          "doc-c3fba9998af841fe",
+          "doc-bb416c322a705639",
+          "doc-634066890c1c26f0",
+          "doc-3ea259bb27e861d2",
+          "doc-373e837665418bc9",
+          "doc-ccae3a305aabfa5f",
+          "doc-42e3259e8e775b5e",
+          "doc-ac2d40a66e4d5949",
+          "doc-1673eec14560f3a3",
+          "doc-1ff70b08c91060b6"
+        ],
+        "vector": [
+          "doc-c3fba9998af841fe",
+          "doc-bb416c322a705639",
+          "doc-ccae3a305aabfa5f",
+          "doc-42e3259e8e775b5e",
+          "doc-1673eec14560f3a3",
+          "doc-1ff70b08c91060b6",
+          "doc-a00d46e97dfdefbb",
+          "doc-634066890c1c26f0",
+          "doc-994893baa31daa52",
+          "doc-f644fc0c04bacd9c"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.2
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.2
+          }
+        }
+      },
+      "query_id": "qry-c8a07650caa699f7",
+      "rankings": {
+        "bm25": [
+          "doc-3584a0561b43c2cf",
+          "doc-9dfab65276737deb",
+          "doc-6aedebecc3cfb1a7",
+          "doc-4ac973ea7a68014f",
+          "doc-b9e807ec69da220e",
+          "doc-561fa83bfd05a5b3",
+          "doc-5b83e0ccd598fd9c",
+          "doc-b04fe615d8313e6f",
+          "doc-39e26c2f59f10e38",
+          "doc-5bb0841304bf9371"
+        ],
+        "hybrid": [
+          "doc-6aedebecc3cfb1a7",
+          "doc-3584a0561b43c2cf",
+          "doc-4ac973ea7a68014f",
+          "doc-b9e807ec69da220e",
+          "doc-783b98988963895b",
+          "doc-9dfab65276737deb",
+          "doc-5bb0841304bf9371",
+          "doc-42e3259e8e775b5e",
+          "doc-ac2d40a66e4d5949",
+          "doc-561fa83bfd05a5b3"
+        ],
+        "vector": [
+          "doc-783b98988963895b",
+          "doc-6aedebecc3cfb1a7",
+          "doc-4ac973ea7a68014f",
+          "doc-b9e807ec69da220e",
+          "doc-3584a0561b43c2cf",
+          "doc-edb5a938da5648da",
+          "doc-ac2d40a66e4d5949",
+          "doc-5bb0841304bf9371",
+          "doc-796bd79d62495e5f",
+          "doc-b450c62ed37e0501"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-c99755a165a64851",
+      "rankings": {
+        "bm25": [
+          "doc-364eb0468195fad7",
+          "doc-a4dedfefa055135a",
+          "doc-6e72e83fe2331727",
+          "doc-34ab3040f462c408",
+          "doc-634066890c1c26f0",
+          "doc-ccae3a305aabfa5f",
+          "doc-ea8ed763832e8996",
+          "doc-647412681155459a",
+          "doc-b962d55f8fa219ae",
+          "doc-b9e807ec69da220e"
+        ],
+        "hybrid": [
+          "doc-364eb0468195fad7",
+          "doc-634066890c1c26f0",
+          "doc-ccae3a305aabfa5f",
+          "doc-a4dedfefa055135a",
+          "doc-ea8ed763832e8996",
+          "doc-6e72e83fe2331727",
+          "doc-647412681155459a",
+          "doc-5bb0841304bf9371",
+          "doc-2c129ea40152a7cf",
+          "doc-34ab3040f462c408"
+        ],
+        "vector": [
+          "doc-364eb0468195fad7",
+          "doc-634066890c1c26f0",
+          "doc-ccae3a305aabfa5f",
+          "doc-2c129ea40152a7cf",
+          "doc-e9883cb73bfa06d0",
+          "doc-5bb0841304bf9371",
+          "doc-ea8ed763832e8996",
+          "doc-a4dedfefa055135a",
+          "doc-ac2d40a66e4d5949",
+          "doc-bd4e63d0e38c9f23"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-cb0a4ad5f99af0f6",
+      "rankings": {
+        "bm25": [
+          "doc-a923b740b67980a6",
+          "doc-bd4e63d0e38c9f23",
+          "doc-1673eec14560f3a3",
+          "doc-a8166a552ab22936",
+          "doc-b9e807ec69da220e",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-f644fc0c04bacd9c",
+          "doc-73e52dad104a968d",
+          "doc-24b462aced1f90b3",
+          "doc-4ff40268f956ee87"
+        ],
+        "hybrid": [
+          "doc-a923b740b67980a6",
+          "doc-b9e807ec69da220e",
+          "doc-bd4e63d0e38c9f23",
+          "doc-24b462aced1f90b3",
+          "doc-796bd79d62495e5f",
+          "doc-1673eec14560f3a3",
+          "doc-e873d7c858862d55",
+          "doc-a8166a552ab22936",
+          "doc-bd53a7b604614ea4",
+          "doc-783b98988963895b"
+        ],
+        "vector": [
+          "doc-b9e807ec69da220e",
+          "doc-a923b740b67980a6",
+          "doc-e873d7c858862d55",
+          "doc-bd53a7b604614ea4",
+          "doc-783b98988963895b",
+          "doc-24b462aced1f90b3",
+          "doc-6aedebecc3cfb1a7",
+          "doc-796bd79d62495e5f",
+          "doc-bd4e63d0e38c9f23",
+          "doc-604434eaed4f4d2e"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-ce46b27c983e0068",
+      "rankings": {
+        "bm25": [
+          "doc-141059be14b642cf",
+          "doc-9ded73901182cf9c",
+          "doc-eba15d399e12203a",
+          "doc-a748b69d3c78798b",
+          "doc-42e3259e8e775b5e",
+          "doc-796bd79d62495e5f",
+          "doc-671125a54cecbc3b",
+          "doc-bd4e63d0e38c9f23"
+        ],
+        "hybrid": [
+          "doc-141059be14b642cf",
+          "doc-9ded73901182cf9c",
+          "doc-eba15d399e12203a",
+          "doc-bd4e63d0e38c9f23",
+          "doc-796bd79d62495e5f",
+          "doc-671125a54cecbc3b",
+          "doc-42e3259e8e775b5e",
+          "doc-a748b69d3c78798b",
+          "doc-e9883cb73bfa06d0",
+          "doc-61db7a457fede1c9"
+        ],
+        "vector": [
+          "doc-141059be14b642cf",
+          "doc-bd4e63d0e38c9f23",
+          "doc-9ded73901182cf9c",
+          "doc-eba15d399e12203a",
+          "doc-e9883cb73bfa06d0",
+          "doc-61db7a457fede1c9",
+          "doc-f081204cf27b0765",
+          "doc-39e26c2f59f10e38",
+          "doc-994893baa31daa52",
+          "doc-bb416c322a705639"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.14285714285714285
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-d88ce5fd1acbe60f",
+      "rankings": {
+        "bm25": [
+          "doc-ffe83e9d8feb3573",
+          "doc-e873d7c858862d55",
+          "doc-bd4e63d0e38c9f23",
+          "doc-dfb217e507caae6d",
+          "doc-73e52dad104a968d",
+          "doc-34ab3040f462c408",
+          "doc-3cc7d48d20343742",
+          "doc-f92e10566a88e69b",
+          "doc-373e837665418bc9",
+          "doc-1673eec14560f3a3"
+        ],
+        "hybrid": [
+          "doc-e873d7c858862d55",
+          "doc-373e837665418bc9",
+          "doc-5b83e0ccd598fd9c",
+          "doc-bd4e63d0e38c9f23",
+          "doc-a8166a552ab22936",
+          "doc-72c1f4c9ca25f636",
+          "doc-584a530dcf759bbd",
+          "doc-ffe83e9d8feb3573",
+          "doc-b9e807ec69da220e",
+          "doc-dfb217e507caae6d"
+        ],
+        "vector": [
+          "doc-584a530dcf759bbd",
+          "doc-e873d7c858862d55",
+          "doc-b9e807ec69da220e",
+          "doc-a8166a552ab22936",
+          "doc-5b83e0ccd598fd9c",
+          "doc-a923b740b67980a6",
+          "doc-671125a54cecbc3b",
+          "doc-373e837665418bc9",
+          "doc-16dca3fda3120a79",
+          "doc-bd53a7b604614ea4"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-daafd4ff0274af90",
+      "rankings": {
+        "bm25": [
+          "doc-80d0c66a887e8b51",
+          "doc-fd0e52e60a131c43",
+          "doc-373e837665418bc9",
+          "doc-61db7a457fede1c9",
+          "doc-a00d46e97dfdefbb",
+          "doc-6ee33007f80fcc68",
+          "doc-9e523df11037d5d2",
+          "doc-6e72e83fe2331727",
+          "doc-8cd7fb7b74a289d2",
+          "doc-ffe83e9d8feb3573"
+        ],
+        "hybrid": [
+          "doc-80d0c66a887e8b51",
+          "doc-a00d46e97dfdefbb",
+          "doc-ffe83e9d8feb3573",
+          "doc-1673eec14560f3a3",
+          "doc-c3fba9998af841fe",
+          "doc-bd4e63d0e38c9f23",
+          "doc-fcd6999e810a29d8",
+          "doc-fd0e52e60a131c43",
+          "doc-373e837665418bc9",
+          "doc-561fa83bfd05a5b3"
+        ],
+        "vector": [
+          "doc-80d0c66a887e8b51",
+          "doc-fcd6999e810a29d8",
+          "doc-561fa83bfd05a5b3",
+          "doc-ffe83e9d8feb3573",
+          "doc-a00d46e97dfdefbb",
+          "doc-c3fba9998af841fe",
+          "doc-9ded73901182cf9c",
+          "doc-1673eec14560f3a3",
+          "doc-3584a0561b43c2cf",
+          "doc-3cc7d48d20343742"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-db0e3c4918fc9545",
+      "rankings": {
+        "bm25": [
+          "doc-42e3259e8e775b5e",
+          "doc-994893baa31daa52",
+          "doc-f644fc0c04bacd9c",
+          "doc-3ea259bb27e861d2"
+        ],
+        "hybrid": [
+          "doc-42e3259e8e775b5e",
+          "doc-994893baa31daa52",
+          "doc-f644fc0c04bacd9c",
+          "doc-39e26c2f59f10e38",
+          "doc-3ea259bb27e861d2",
+          "doc-c3fba9998af841fe",
+          "doc-6ee33007f80fcc68",
+          "doc-4ae3286cc237299f",
+          "doc-fcd6999e810a29d8",
+          "doc-86c8ded7d6929070"
+        ],
+        "vector": [
+          "doc-42e3259e8e775b5e",
+          "doc-994893baa31daa52",
+          "doc-39e26c2f59f10e38",
+          "doc-c3fba9998af841fe",
+          "doc-6ee33007f80fcc68",
+          "doc-4ae3286cc237299f",
+          "doc-fcd6999e810a29d8",
+          "doc-86c8ded7d6929070",
+          "doc-bd4e63d0e38c9f23",
+          "doc-f644fc0c04bacd9c"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-eb1e62b5991dd977",
+      "rankings": {
+        "bm25": [
+          "doc-373e837665418bc9",
+          "doc-a8166a552ab22936",
+          "doc-5b83e0ccd598fd9c",
+          "doc-3ea259bb27e861d2",
+          "doc-1ff70b08c91060b6",
+          "doc-a00d46e97dfdefbb",
+          "doc-72c1f4c9ca25f636",
+          "doc-86c8ded7d6929070",
+          "doc-c3fba9998af841fe",
+          "doc-7d718f047f419750"
+        ],
+        "hybrid": [
+          "doc-373e837665418bc9",
+          "doc-a8166a552ab22936",
+          "doc-5b83e0ccd598fd9c",
+          "doc-72c1f4c9ca25f636",
+          "doc-a00d46e97dfdefbb",
+          "doc-7d718f047f419750",
+          "doc-c3fba9998af841fe",
+          "doc-3ea259bb27e861d2",
+          "doc-1ff70b08c91060b6",
+          "doc-34ab3040f462c408"
+        ],
+        "vector": [
+          "doc-373e837665418bc9",
+          "doc-a8166a552ab22936",
+          "doc-5b83e0ccd598fd9c",
+          "doc-72c1f4c9ca25f636",
+          "doc-34ab3040f462c408",
+          "doc-16dca3fda3120a79",
+          "doc-a00d46e97dfdefbb",
+          "doc-9dfab65276737deb",
+          "doc-24b462aced1f90b3",
+          "doc-584a530dcf759bbd"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-eebac6803ed560ca",
+      "rankings": {
+        "bm25": [
+          "doc-7d718f047f419750",
+          "doc-6aedebecc3cfb1a7",
+          "doc-561fa83bfd05a5b3",
+          "doc-9dfab65276737deb",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-b456380aa5e6b979",
+          "doc-f644fc0c04bacd9c",
+          "doc-5bb0841304bf9371",
+          "doc-3ea259bb27e861d2",
+          "doc-39e26c2f59f10e38"
+        ],
+        "hybrid": [
+          "doc-6aedebecc3cfb1a7",
+          "doc-7d718f047f419750",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-39e26c2f59f10e38",
+          "doc-b962d55f8fa219ae",
+          "doc-340478b40c305b7d",
+          "doc-f644fc0c04bacd9c",
+          "doc-9e523df11037d5d2",
+          "doc-561fa83bfd05a5b3",
+          "doc-783b98988963895b"
+        ],
+        "vector": [
+          "doc-6aedebecc3cfb1a7",
+          "doc-7d718f047f419750",
+          "doc-783b98988963895b",
+          "doc-b962d55f8fa219ae",
+          "doc-39e26c2f59f10e38",
+          "doc-4ff40268f956ee87",
+          "doc-fcd6999e810a29d8",
+          "doc-340478b40c305b7d",
+          "doc-dbfa4d5f4cd6780a",
+          "doc-604434eaed4f4d2e"
+        ]
+      }
+    },
+    {
+      "domain": "linux",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.1
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.25
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.25
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 0.2
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.2
+          }
+        }
+      },
+      "query_id": "qry-f299c5ed08f02878",
+      "rankings": {
+        "bm25": [
+          "doc-141059be14b642cf",
+          "doc-bd4e63d0e38c9f23",
+          "doc-5b83e0ccd598fd9c",
+          "doc-7d718f047f419750",
+          "doc-cdb635d4dca69998",
+          "doc-73e52dad104a968d",
+          "doc-34ab3040f462c408",
+          "doc-a4dedfefa055135a",
+          "doc-d55df7cf08c0b6d8",
+          "doc-a8166a552ab22936"
+        ],
+        "hybrid": [
+          "doc-5b83e0ccd598fd9c",
+          "doc-7d718f047f419750",
+          "doc-cdb635d4dca69998",
+          "doc-a8166a552ab22936",
+          "doc-bd4e63d0e38c9f23",
+          "doc-373e837665418bc9",
+          "doc-ffe83e9d8feb3573",
+          "doc-9e523df11037d5d2",
+          "doc-9ded73901182cf9c",
+          "doc-b456380aa5e6b979"
+        ],
+        "vector": [
+          "doc-5b83e0ccd598fd9c",
+          "doc-7d718f047f419750",
+          "doc-cdb635d4dca69998",
+          "doc-ffe83e9d8feb3573",
+          "doc-a8166a552ab22936",
+          "doc-16dca3fda3120a79",
+          "doc-b962d55f8fa219ae",
+          "doc-373e837665418bc9",
+          "doc-3584a0561b43c2cf",
+          "doc-a923b740b67980a6"
+        ]
+      }
+    },
+    {
+      "domain": "databases",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-f2eb5d5ab63e3250",
+      "rankings": {
+        "bm25": [
+          "doc-b18669db0ef5018c",
+          "doc-a748b69d3c78798b",
+          "doc-647412681155459a",
+          "doc-3ea259bb27e861d2",
+          "doc-16dca3fda3120a79",
+          "doc-39e26c2f59f10e38",
+          "doc-61db7a457fede1c9",
+          "doc-8e826b79e7f55d9f",
+          "doc-141059be14b642cf",
+          "doc-4ae3286cc237299f"
+        ],
+        "hybrid": [
+          "doc-b18669db0ef5018c",
+          "doc-a748b69d3c78798b",
+          "doc-3ea259bb27e861d2",
+          "doc-141059be14b642cf",
+          "doc-61db7a457fede1c9",
+          "doc-39e26c2f59f10e38",
+          "doc-fcd6999e810a29d8",
+          "doc-4ae3286cc237299f",
+          "doc-c3fba9998af841fe",
+          "doc-647412681155459a"
+        ],
+        "vector": [
+          "doc-b18669db0ef5018c",
+          "doc-3ea259bb27e861d2",
+          "doc-a748b69d3c78798b",
+          "doc-b450c62ed37e0501",
+          "doc-141059be14b642cf",
+          "doc-ccae3a305aabfa5f",
+          "doc-a00d46e97dfdefbb",
+          "doc-bb416c322a705639",
+          "doc-6aedebecc3cfb1a7",
+          "doc-796bd79d62495e5f"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-f680d9e72b2f4aef",
+      "rankings": {
+        "bm25": [
+          "doc-fcd6999e810a29d8",
+          "doc-a75a9a3c1d822f4a",
+          "doc-a00d46e97dfdefbb",
+          "doc-fd0e52e60a131c43",
+          "doc-edb5a938da5648da",
+          "doc-ac2d40a66e4d5949",
+          "doc-ffe83e9d8feb3573",
+          "doc-ccae3a305aabfa5f",
+          "doc-39e26c2f59f10e38"
+        ],
+        "hybrid": [
+          "doc-fcd6999e810a29d8",
+          "doc-a75a9a3c1d822f4a",
+          "doc-a00d46e97dfdefbb",
+          "doc-ffe83e9d8feb3573",
+          "doc-ccae3a305aabfa5f",
+          "doc-1ff70b08c91060b6",
+          "doc-fd0e52e60a131c43",
+          "doc-5357c812caf1ca82",
+          "doc-edb5a938da5648da",
+          "doc-ac2d40a66e4d5949"
+        ],
+        "vector": [
+          "doc-fcd6999e810a29d8",
+          "doc-a75a9a3c1d822f4a",
+          "doc-a00d46e97dfdefbb",
+          "doc-1ff70b08c91060b6",
+          "doc-5357c812caf1ca82",
+          "doc-ffe83e9d8feb3573",
+          "doc-eba15d399e12203a",
+          "doc-bd4e63d0e38c9f23",
+          "doc-fa19d9cf439cb167",
+          "doc-42e3259e8e775b5e"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "lexical",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-f69912f0bc4b0bec",
+      "rankings": {
+        "bm25": [
+          "doc-dbfa4d5f4cd6780a",
+          "doc-604434eaed4f4d2e",
+          "doc-783b98988963895b",
+          "doc-b9e807ec69da220e",
+          "doc-c3fba9998af841fe",
+          "doc-8e826b79e7f55d9f",
+          "doc-ffe83e9d8feb3573",
+          "doc-44a1019e16996b96",
+          "doc-4ae3286cc237299f",
+          "doc-671125a54cecbc3b"
+        ],
+        "hybrid": [
+          "doc-dbfa4d5f4cd6780a",
+          "doc-604434eaed4f4d2e",
+          "doc-e873d7c858862d55",
+          "doc-7d718f047f419750",
+          "doc-783b98988963895b",
+          "doc-ffe83e9d8feb3573",
+          "doc-80d0c66a887e8b51",
+          "doc-a75a9a3c1d822f4a",
+          "doc-796bd79d62495e5f",
+          "doc-b9e807ec69da220e"
+        ],
+        "vector": [
+          "doc-dbfa4d5f4cd6780a",
+          "doc-604434eaed4f4d2e",
+          "doc-a75a9a3c1d822f4a",
+          "doc-796bd79d62495e5f",
+          "doc-340478b40c305b7d",
+          "doc-7d718f047f419750",
+          "doc-e873d7c858862d55",
+          "doc-eba15d399e12203a",
+          "doc-fcd6999e810a29d8",
+          "doc-f92e10566a88e69b"
+        ]
+      }
+    },
+    {
+      "domain": "programming",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          }
+        }
+      },
+      "query_id": "qry-f6a1c82c9e5ce9a6",
+      "rankings": {
+        "bm25": [
+          "doc-ccae3a305aabfa5f",
+          "doc-c3fba9998af841fe",
+          "doc-dfb217e507caae6d",
+          "doc-ea8ed763832e8996",
+          "doc-86c8ded7d6929070",
+          "doc-e873d7c858862d55",
+          "doc-bbcbe752ef7dee9e",
+          "doc-647412681155459a",
+          "doc-bd4e63d0e38c9f23",
+          "doc-a00d46e97dfdefbb"
+        ],
+        "hybrid": [
+          "doc-ccae3a305aabfa5f",
+          "doc-c3fba9998af841fe",
+          "doc-86c8ded7d6929070",
+          "doc-fcd6999e810a29d8",
+          "doc-a00d46e97dfdefbb",
+          "doc-2c129ea40152a7cf",
+          "doc-1673eec14560f3a3",
+          "doc-dfb217e507caae6d",
+          "doc-9e523df11037d5d2",
+          "doc-ea8ed763832e8996"
+        ],
+        "vector": [
+          "doc-ccae3a305aabfa5f",
+          "doc-2c129ea40152a7cf",
+          "doc-1673eec14560f3a3",
+          "doc-9e523df11037d5d2",
+          "doc-c3fba9998af841fe",
+          "doc-1ff70b08c91060b6",
+          "doc-634066890c1c26f0",
+          "doc-bb416c322a705639",
+          "doc-42e3259e8e775b5e",
+          "doc-6abb488242cd1560"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "kind": "paraphrase",
+      "per_query_metrics": {
+        "bm25": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "5": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          }
+        },
+        "hybrid": {
+          "1": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "10": {
+            "recall_at_k": 1.0,
+            "reciprocal_rank_at_k": 1.0
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 1.0
+          }
+        },
+        "vector": {
+          "1": {
+            "recall_at_k": 0.0,
+            "reciprocal_rank_at_k": 0.0
+          },
+          "10": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          },
+          "5": {
+            "recall_at_k": 0.5,
+            "reciprocal_rank_at_k": 0.5
+          }
+        }
+      },
+      "query_id": "qry-fea8576f39a5ef19",
+      "rankings": {
+        "bm25": [
+          "doc-dfb217e507caae6d",
+          "doc-f92e10566a88e69b",
+          "doc-a4dedfefa055135a",
+          "doc-fa0afa57781d76b5",
+          "doc-34ab3040f462c408",
+          "doc-a00d46e97dfdefbb",
+          "doc-ea8ed763832e8996",
+          "doc-3ea259bb27e861d2",
+          "doc-584a530dcf759bbd",
+          "doc-fcd6999e810a29d8"
+        ],
+        "hybrid": [
+          "doc-c3fba9998af841fe",
+          "doc-dfb217e507caae6d",
+          "doc-eba15d399e12203a",
+          "doc-796bd79d62495e5f",
+          "doc-a00d46e97dfdefbb",
+          "doc-86c8ded7d6929070",
+          "doc-bb416c322a705639",
+          "doc-f92e10566a88e69b",
+          "doc-a4dedfefa055135a",
+          "doc-bd4e63d0e38c9f23"
+        ],
+        "vector": [
+          "doc-bb416c322a705639",
+          "doc-c3fba9998af841fe",
+          "doc-bd4e63d0e38c9f23",
+          "doc-634066890c1c26f0",
+          "doc-eba15d399e12203a",
+          "doc-42e3259e8e775b5e",
+          "doc-561fa83bfd05a5b3",
+          "doc-9ded73901182cf9c",
+          "doc-796bd79d62495e5f",
+          "doc-f081204cf27b0765"
+        ]
+      }
+    }
+  ],
+  "schema_version": 1
+}
