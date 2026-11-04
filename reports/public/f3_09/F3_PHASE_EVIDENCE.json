@@ -1,0 +1,218 @@
+{
+  "audit_checks": [
+    "frozen_benchmark_and_qrels_sha256",
+    "pinned_f3_07_config",
+    "pinned_f3_02_model_metadata",
+    "all_80_queries_recomputed",
+    "all_retrieved_doc_ids_and_source_ids",
+    "aggregates_and_per_query_metric_consistency",
+    "rag_quote_fallback_and_abstention_synthetic_smoke"
+  ],
+  "audit_status": "PASS",
+  "benchmark_id": "f3.6-synthetic-retrieval-v1",
+  "benchmark_manifest_sha256": "a584868b8818552815151a85dfde714a762f14d959813e607bb4319cec70756c",
+  "comparison_config_sha256": "6682562919c46b608823689a34dfb5983ed671ad21e3ec844fbcacdb4e315fb7",
+  "comparison_sha256": "b1351e7448e52bed8e3476155c4e227d843815092c3a8061edee209633639557",
+  "comparison_source": "reports/public/f3_07/F3_07_comparison.json",
+  "counts": {
+    "documents": 88,
+    "qrels": 160,
+    "queries": 80
+  },
+  "group_metrics": {
+    "domain": {
+      "databases": {
+        "bm25": {
+          "mrr_at_5": 0.6975,
+          "n_queries": 20,
+          "recall_at_5": 0.625
+        },
+        "hybrid": {
+          "mrr_at_5": 0.8416666666666666,
+          "n_queries": 20,
+          "recall_at_5": 0.775
+        },
+        "vector": {
+          "mrr_at_5": 0.7666666666666667,
+          "n_queries": 20,
+          "recall_at_5": 0.65
+        }
+      },
+      "linux": {
+        "bm25": {
+          "mrr_at_5": 0.675,
+          "n_queries": 20,
+          "recall_at_5": 0.6
+        },
+        "hybrid": {
+          "mrr_at_5": 0.8141666666666667,
+          "n_queries": 20,
+          "recall_at_5": 0.775
+        },
+        "vector": {
+          "mrr_at_5": 0.9349999999999999,
+          "n_queries": 20,
+          "recall_at_5": 0.95
+        }
+      },
+      "programming": {
+        "bm25": {
+          "mrr_at_5": 0.7916666666666667,
+          "n_queries": 20,
+          "recall_at_5": 0.725
+        },
+        "hybrid": {
+          "mrr_at_5": 0.8766666666666667,
+          "n_queries": 20,
+          "recall_at_5": 0.8
+        },
+        "vector": {
+          "mrr_at_5": 0.9099999999999999,
+          "n_queries": 20,
+          "recall_at_5": 0.825
+        }
+      },
+      "systems": {
+        "bm25": {
+          "mrr_at_5": 0.725,
+          "n_queries": 20,
+          "recall_at_5": 0.6
+        },
+        "hybrid": {
+          "mrr_at_5": 0.7916666666666667,
+          "n_queries": 20,
+          "recall_at_5": 0.725
+        },
+        "vector": {
+          "mrr_at_5": 0.7891666666666667,
+          "n_queries": 20,
+          "recall_at_5": 0.725
+        }
+      }
+    },
+    "kind": {
+      "lexical": {
+        "bm25": {
+          "mrr_at_5": 0.9875,
+          "n_queries": 40,
+          "recall_at_5": 0.8875
+        },
+        "hybrid": {
+          "mrr_at_5": 1.0,
+          "n_queries": 40,
+          "recall_at_5": 0.9125
+        },
+        "vector": {
+          "mrr_at_5": 0.9833333333333334,
+          "n_queries": 40,
+          "recall_at_5": 0.9125
+        }
+      },
+      "paraphrase": {
+        "bm25": {
+          "mrr_at_5": 0.4570833333333334,
+          "n_queries": 40,
+          "recall_at_5": 0.3875
+        },
+        "hybrid": {
+          "mrr_at_5": 0.6620833333333334,
+          "n_queries": 40,
+          "recall_at_5": 0.625
+        },
+        "vector": {
+          "mrr_at_5": 0.7170833333333333,
+          "n_queries": 40,
+          "recall_at_5": 0.6625
+        }
+      }
+    }
+  },
+  "metrics_recomputed": {
+    "bm25": {
+      "1": {
+        "mrr_at_k": 0.65,
+        "n_queries": 80,
+        "recall_at_k": 0.325
+      },
+      "10": {
+        "mrr_at_k": 0.7290972222222222,
+        "n_queries": 80,
+        "recall_at_k": 0.73125
+      },
+      "5": {
+        "mrr_at_k": 0.7222916666666667,
+        "n_queries": 80,
+        "recall_at_k": 0.6375
+      }
+    },
+    "hybrid": {
+      "1": {
+        "mrr_at_k": 0.7625,
+        "n_queries": 80,
+        "recall_at_k": 0.38125
+      },
+      "10": {
+        "mrr_at_k": 0.8356398809523811,
+        "n_queries": 80,
+        "recall_at_k": 0.875
+      },
+      "5": {
+        "mrr_at_k": 0.8310416666666667,
+        "n_queries": 80,
+        "recall_at_k": 0.76875
+      }
+    },
+    "vector": {
+      "1": {
+        "mrr_at_k": 0.8,
+        "n_queries": 80,
+        "recall_at_k": 0.4
+      },
+      "10": {
+        "mrr_at_k": 0.8559374999999999,
+        "n_queries": 80,
+        "recall_at_k": 0.89375
+      },
+      "5": {
+        "mrr_at_k": 0.8502083333333333,
+        "n_queries": 80,
+        "recall_at_k": 0.7875
+      }
+    }
+  },
+  "model_metadata": {
+    "embedding_dim": 384,
+    "library_versions": {
+      "huggingface_hub": "2.4.0",
+      "torch": "2.14.1+cpu",
+      "transformers": "5.22.1"
+    },
+    "license": "apache-2.0",
+    "model_id": "sentence-transformers/paraphrase-MiniLM-L3-v2",
+    "model_manifest_sha256": "59cfd5c59c7e2e95cc670c80469809778691875b8f4fcd093914346af13ad7f5",
+    "normalize": true,
+    "numpy_version": "2.5.4",
+    "pooling": "masked_mean",
+    "revision": "4ca70771034acceecb2e72475f72050fcdde4ddc"
+  },
+  "per_query_disagreements": {
+    "hybrid": {
+      "better": 21,
+      "equal": 57,
+      "worse": 2
+    },
+    "vector": {
+      "better": 28,
+      "equal": 44,
+      "worse": 8
+    }
+  },
+  "phase": "F3",
+  "rag_synthetic_contract_smoke": {
+    "no_evidence_abstention": true,
+    "unsupported_generation_rejected": true,
+    "verifiable_quote": true
+  },
+  "schema_version": 1,
+  "scope": "Synthetic F3.6 benchmark; no production or LLM answer-quality claim"
+}
