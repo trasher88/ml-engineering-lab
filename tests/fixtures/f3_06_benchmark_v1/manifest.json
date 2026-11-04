@@ -1,0 +1,17 @@
+{
+  "benchmark_id": "f3.6-synthetic-retrieval-v1",
+  "counts": {
+    "documents": 88,
+    "qrels": 160,
+    "queries": 80
+  },
+  "files_sha256": {
+    "documents.jsonl": "a2b025dcacd312baaee79b5321141b957a7c594cc492dae10fa3e460d305213b",
+    "qrels.jsonl": "7a57f7c16562da692182a8a33f52e906b809495a60f32cfc005394b09e517a27",
+    "queries.jsonl": "abb010c0c6e8dbad9fed740e7dd5a512cdb79d30a003a7ea377eb0c06f02952e"
+  },
+  "freeze_date": "2026-11-04",
+  "provenance": "Author-created synthetic technical support examples. No external datasets or real relevance annotations.",
+  "relevance": "binary-document-level",
+  "schema_version": 1
+}

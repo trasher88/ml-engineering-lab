@@ -1,0 +1,80 @@
+{"domain":"linux","kind":"lexical","query_id":"qry-006ceb584f0f5aef","text":"tar extraction permission denied Linux archive restore"}
+{"domain":"linux","kind":"paraphrase","query_id":"qry-0084d212f624e8dd","text":"Why do system events appear several hours off even though the clock is synchronized?"}
+{"domain":"databases","kind":"paraphrase","query_id":"qry-035ed07ed08e8e40","text":"A database report scans millions of orders instead of using an index; how should I diagnose and fix it?"}
+{"domain":"databases","kind":"paraphrase","query_id":"qry-039fb78f3c85d12e","text":"Our deployment freezes data updates while a column changes; how should we minimize the outage?"}
+{"domain":"systems","kind":"paraphrase","query_id":"qry-052a446e94bbc535","text":"Most requests finish quickly yet some users wait much longer; which measurement exposes this tail?"}
+{"domain":"linux","kind":"lexical","query_id":"qry-06eed65f4f975eb7","text":"Linux broken symbolic link realpath target"}
+{"domain":"databases","kind":"lexical","query_id":"qry-08c00ad02335b764","text":"SQLite database is locked during concurrent writes"}
+{"domain":"databases","kind":"paraphrase","query_id":"qry-0a1ead4f4ca7a0b6","text":"One row becomes several after combining tables; how can I prevent accidental multiplication?"}
+{"domain":"linux","kind":"lexical","query_id":"qry-0bf91307f194a87c","text":"Cron job fails because PATH environment differs"}
+{"domain":"programming","kind":"paraphrase","query_id":"qry-0ede1b4eb47ec42d","text":"Why does a long running app keep its allocated objects after tasks are finished?"}
+{"domain":"programming","kind":"paraphrase","query_id":"qry-0fce1f593b78409c","text":"Two contributors edit the same lines and version control cannot combine their changes; how can I reconcile them?"}
+{"domain":"databases","kind":"lexical","query_id":"qry-10f7ebe134d2fbc6","text":"PostgreSQL max_connections reached and connection pool exhausted"}
+{"domain":"programming","kind":"lexical","query_id":"qry-111535d590eeece3","text":"JavaScript Promise rejection unhandled async catch"}
+{"domain":"programming","kind":"lexical","query_id":"qry-12aa958a0c85ddb0","text":"Git merge conflict markers resolve overlapping changes"}
+{"domain":"programming","kind":"lexical","query_id":"qry-16456ac9b52704dd","text":"Python mutable default argument list persists calls"}
+{"domain":"programming","kind":"lexical","query_id":"qry-16ea91108786e596","text":"Python asyncio event loop blocked time.sleep"}
+{"domain":"linux","kind":"lexical","query_id":"qry-1b62bcc828e74c5d","text":"Linux no space left on device inode exhaustion df -i"}
+{"domain":"programming","kind":"paraphrase","query_id":"qry-1d17963df556c0f8","text":"A lazy iterable works once and then yields nothing when a loop repeats; what happened?"}
+{"domain":"systems","kind":"lexical","query_id":"qry-220094b48ad3bbdf","text":"Nginx 502 Bad Gateway upstream connection refused"}
+{"domain":"systems","kind":"paraphrase","query_id":"qry-223d26e01a005177","text":"Why can one event trigger the same consumer action twice, and how do I guard against it?"}
+{"domain":"databases","kind":"paraphrase","query_id":"qry-24ab7272a31618fd","text":"Two database transactions wait on each other while updating rows; what should change?"}
+{"domain":"programming","kind":"lexical","query_id":"qry-26d8ebc93430e1df","text":"Mypy Optional None type narrowing Python"}
+{"domain":"systems","kind":"lexical","query_id":"qry-340638fddf58e509","text":"Distributed systems timeout retry storm end-to-end deadline"}
+{"domain":"programming","kind":"lexical","query_id":"qry-34aa12d16cece049","text":"Python generator exhausted second iteration empty"}
+{"domain":"programming","kind":"lexical","query_id":"qry-34e481f81c392284","text":"C++ std::move move semantics avoid deep copy"}
+{"domain":"systems","kind":"lexical","query_id":"qry-37282d3d1c37d8cc","text":"Kubernetes CrashLoopBackOff previous container logs"}
+{"domain":"linux","kind":"lexical","query_id":"qry-3d0d042933857fc5","text":"Linux timedatectl timezone logs wrong offset"}
+{"domain":"systems","kind":"lexical","query_id":"qry-40f33277d01f3709","text":"HTTPS TLS certificate expired browser warning renewal"}
+{"domain":"databases","kind":"lexical","query_id":"qry-4a0d8c0a5798d0e3","text":"How do I investigate a PostgreSQL slow query using EXPLAIN ANALYZE?"}
+{"domain":"databases","kind":"paraphrase","query_id":"qry-4db98997e2bb00fc","text":"How can identical selects inside one transaction observe new rows added by another transaction?"}
+{"domain":"systems","kind":"paraphrase","query_id":"qry-50941e52352e049c","text":"The process responds inside a container but not from my laptop; which network exposure setting is missing?"}
+{"domain":"programming","kind":"paraphrase","query_id":"qry-52da25450ff34fcf","text":"Why do unit tests share state depending on how a test resource is initialized?"}
+{"domain":"linux","kind":"paraphrase","query_id":"qry-56784c758ffd0baa","text":"A Linux background unit crashes immediately after boot; how can I see its original error?"}
+{"domain":"programming","kind":"lexical","query_id":"qry-5ab369d9482b18ab","text":"Python memory leak global cache tracemalloc references"}
+{"domain":"linux","kind":"lexical","query_id":"qry-5fa4df447d88929e","text":"Linux DNS resolution fails resolv.conf resolvectl"}
+{"domain":"databases","kind":"lexical","query_id":"qry-5fb4f947984d33b0","text":"Why does SQL JOIN produce duplicated customer records?"}
+{"domain":"linux","kind":"lexical","query_id":"qry-6342222565606971","text":"systemd service keeps restarting journalctl exit status"}
+{"domain":"programming","kind":"paraphrase","query_id":"qry-6432cc4725e3945d","text":"Why does a helper return items added by a completely different invocation?"}
+{"domain":"linux","kind":"paraphrase","query_id":"qry-66d5eb6c6dd5109c","text":"Hostnames cannot be reached but numeric addresses connect normally; what component should be debugged?"}
+{"domain":"databases","kind":"lexical","query_id":"qry-6e281be45a340e61","text":"How to replace slow SQL OFFSET LIMIT pagination?"}
+{"domain":"programming","kind":"lexical","query_id":"qry-6e2f1cdd7a547d1c","text":"pytest fixture scope session vs function test isolation"}
+{"domain":"databases","kind":"paraphrase","query_id":"qry-7530c5084955c673","text":"A secondary database returns outdated values after new records were committed; where do I investigate?"}
+{"domain":"databases","kind":"lexical","query_id":"qry-783d76ff5a63fbcd","text":"Schema migration ALTER TABLE lock blocks writes"}
+{"domain":"linux","kind":"paraphrase","query_id":"qry-78f23bc462cac014","text":"A filesystem shortcut exists but opening it says the destination cannot be found; how can I trace it?"}
+{"domain":"databases","kind":"paraphrase","query_id":"qry-82bb1f98684dc082","text":"Why does my service fail to get a database session when request traffic increases?"}
+{"domain":"programming","kind":"paraphrase","query_id":"qry-82e99981c19f2230","text":"A web payload serializer rejects a binary object; how should it be represented in structured text?"}
+{"domain":"linux","kind":"paraphrase","query_id":"qry-86be54234db62059","text":"Why does a nightly scheduled command not run although pasting it into my terminal succeeds?"}
+{"domain":"databases","kind":"lexical","query_id":"qry-946f33236c164c84","text":"How can I resolve PostgreSQL deadlock detected errors?"}
+{"domain":"systems","kind":"paraphrase","query_id":"qry-950ee111736dbf99","text":"Traffic stops reaching working servers because a routing device thinks they are unhealthy; what should be inspected?"}
+{"domain":"databases","kind":"paraphrase","query_id":"qry-999567a30487ab64","text":"Why do international names turn into garbled symbols after being saved in a relational database?"}
+{"domain":"systems","kind":"paraphrase","query_id":"qry-9a61976763ad142d","text":"A small network hiccup causes many duplicate service calls and widespread overload; what retry policy prevents that?"}
+{"domain":"databases","kind":"paraphrase","query_id":"qry-a4136f351c6750f2","text":"Why do parallel jobs compete for an embedded database file and fail to save records?"}
+{"domain":"linux","kind":"paraphrase","query_id":"qry-a4b73870ff665cb6","text":"Why is file creation failing when a filesystem still has plenty of free gigabytes?"}
+{"domain":"programming","kind":"paraphrase","query_id":"qry-a4ca6131ebcc9230","text":"How can a resource-owning object pass its buffer efficiently without duplicating the entire memory block?"}
+{"domain":"systems","kind":"paraphrase","query_id":"qry-a57111f30be9c988","text":"A cloud endpoint rejects bursts of calls and asks us to slow down; how should the client retry?"}
+{"domain":"linux","kind":"lexical","query_id":"qry-afae8038ccc08ce6","text":"Linux OOM killer terminated process memory cgroup"}
+{"domain":"databases","kind":"lexical","query_id":"qry-b0e0ab7bf459cd52","text":"MySQL utf8mb4 encoding mismatch inserts corrupted text"}
+{"domain":"systems","kind":"lexical","query_id":"qry-b5ea82c74a1f915f","text":"HTTP 429 Too Many Requests Retry-After rate limit"}
+{"domain":"databases","kind":"lexical","query_id":"qry-b770543b1e793a30","text":"Why is PostgreSQL read replica replication lag increasing?"}
+{"domain":"linux","kind":"lexical","query_id":"qry-b8c8edab605dd005","text":"Logrotate not rotating growing Linux log file"}
+{"domain":"systems","kind":"lexical","query_id":"qry-b8ea3b2b421e2305","text":"Docker container port publishing -p cannot access service"}
+{"domain":"programming","kind":"paraphrase","query_id":"qry-b9295a056f18bad0","text":"A static checker refuses to treat a possibly missing value as a guaranteed string; what should the code do?"}
+{"domain":"programming","kind":"paraphrase","query_id":"qry-bc5d4d4b00fe12c4","text":"A background web task fails without a handler for its rejected result; how do I surface the error?"}
+{"domain":"linux","kind":"paraphrase","query_id":"qry-be7d7aad784efa93","text":"A backup archive cannot unpack into its destination; how do file ownership and directory rights affect it?"}
+{"domain":"systems","kind":"lexical","query_id":"qry-c0d917f82dd60ae7","text":"Cache stampede expired key concurrent recomputation"}
+{"domain":"systems","kind":"paraphrase","query_id":"qry-c8a07650caa699f7","text":"Why does my orchestrator repeatedly restart an application container soon after launch?"}
+{"domain":"programming","kind":"lexical","query_id":"qry-c99755a165a64851","text":"Python json.dumps bytes not JSON serializable"}
+{"domain":"systems","kind":"paraphrase","query_id":"qry-cb0a4ad5f99af0f6","text":"A reverse proxy cannot talk to its backend and replies with a gateway error; where should I investigate?"}
+{"domain":"databases","kind":"lexical","query_id":"qry-ce46b27c983e0068","text":"Explain phantom reads under transaction isolation READ COMMITTED"}
+{"domain":"systems","kind":"paraphrase","query_id":"qry-d88ce5fd1acbe60f","text":"Secure connections suddenly fail due to outdated identity credentials on the server; how do I restore trust?"}
+{"domain":"linux","kind":"paraphrase","query_id":"qry-daafd4ff0274af90","text":"A server abruptly stops a worker when RAM usage peaks; where should I look for the reason?"}
+{"domain":"systems","kind":"lexical","query_id":"qry-db0e3c4918fc9545","text":"Queue at least once delivery duplicate messages idempotency"}
+{"domain":"linux","kind":"lexical","query_id":"qry-eb1e62b5991dd977","text":"SSH private key permissions too open chmod 600"}
+{"domain":"linux","kind":"paraphrase","query_id":"qry-eebac6803ed560ca","text":"An application keeps writing to an outdated log handle after the maintenance job runs; how should rotation work?"}
+{"domain":"linux","kind":"paraphrase","query_id":"qry-f299c5ed08f02878","text":"My Linux remote login rejects a credential file because other accounts may read it; what should I fix?"}
+{"domain":"databases","kind":"paraphrase","query_id":"qry-f2eb5d5ab63e3250","text":"Scrolling far into a large table becomes progressively slower; what pagination approach avoids skipped rows?"}
+{"domain":"systems","kind":"lexical","query_id":"qry-f680d9e72b2f4aef","text":"API latency p95 versus average response time"}
+{"domain":"systems","kind":"lexical","query_id":"qry-f69912f0bc4b0bec","text":"Load balancer health check readiness endpoint false failure"}
+{"domain":"programming","kind":"paraphrase","query_id":"qry-f6a1c82c9e5ce9a6","text":"Why do unrelated asynchronous requests freeze while one coroutine is waiting?"}
+{"domain":"systems","kind":"paraphrase","query_id":"qry-fea8576f39a5ef19","text":"Many users hit a shared item right after its cached value expires; how can we stop parallel rebuilds?"}
