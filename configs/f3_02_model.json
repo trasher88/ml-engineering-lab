@@ -1,0 +1,9 @@
+{
+  "model_id": "sentence-transformers/paraphrase-MiniLM-L3-v2",
+  "revision": "4ca70771034acceecb2e72475f72050fcdde4ddc",
+  "license": "apache-2.0",
+  "embedding_dim": 384,
+  "max_length": 128,
+  "pooling": "masked_mean",
+  "normalize": true
+}
