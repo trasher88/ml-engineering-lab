@@ -1,4 +1,4 @@
-# F1.1 - Project Foundation: Подготовка основы ML-проекта
+# F1.1 - Project Foundation: подготовка основы ML-проекта
 
 ## 1. Цель этапа:
 
