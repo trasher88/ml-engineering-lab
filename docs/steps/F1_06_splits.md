@@ -102,7 +102,7 @@ TfidfVectorizer(
 
 Для двух векторов `a` и `b` косинусное сходство определяется так:
 ```math
-\operatorname{cosine}(a,b) = \frac{a \cdot b}{\lVert a\rVert\,\lVert b\rVert}
+\mathrm{cosine}(a,b) = \frac{a \cdot b}{\lVert a\rVert \cdot \lVert b\rVert}
 ```
 
 По умолчанию `TfidfVectorizer` нормирует строки по L2. Поэтому **для полученных векторов** выражение `a · b` соответствует cosine similarity.
@@ -116,7 +116,7 @@ sims = (matrix[start:start + batch_size] @ matrix.T).tocoo()
 
 Для каждой пары **разных** записей проверить:
 ```math
-\operatorname{cosine}(i,j) \ge 0{,}92
+\mathrm{cosine}(i,j) \ge 0{,}92
 ```
 
 Чтобы не считать одну и ту же пару дважды, взять только случаи `i < j`. Проверку выполнить **отдельно для вопросов и для ответов**. Достаточно высокого сходства хотя бы в одном поле.
