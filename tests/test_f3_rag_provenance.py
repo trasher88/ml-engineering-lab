@@ -536,7 +536,7 @@ def test_docs_include_learning_files_section() -> None:
     """Учебный этап обязан объяснять, какие интерфейсы изучить."""
     path = PROJECT / "docs" / "steps" / "F3_08_rag_provenance.md"
     contents = path.read_text(encoding="utf-8")
-    assert "Файлы, с которыми стоит познакомиться" in contents
+    assert "## 9. Файлы этапа" in contents
     assert "extractive fallback" in contents.lower()
     assert "source_id" in contents
     assert "RAGPipeline" in contents
