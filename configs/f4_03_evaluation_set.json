@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "f4_03_ru_technical_v1",
+  "source_file": "data/evaluation/f4_03_ru_technical_v1.jsonl",
+  "instruction_source_file": "data/synthetic/f4_01_instruction_seed.jsonl",
+  "model_catalog_file": "configs/f4_02_model_selection.json",
+  "output_dir": "data/processed/f4_03",
+  "expected_cases": 32,
+  "domain_quotas": {
+    "python": 8,
+    "linux": 8,
+    "sql": 8,
+    "ml": 8
+  },
+  "instruction_source_sha256": "7ce6eb2629b0831feac771a4ee4dcb9e66c7901e074b9e957cbf50eaceda0225",
+  "model_catalog_sha256": "cc7ce92afdee39f7c82bc552b809457415399e512af3b266787699dc7afc40e7",
+  "evaluation_source_sha256": "50537bbdbd4c0a1598e4a2cf504f9385d0c07555f4bb75d08667f975488aaf4d"
+}
