@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "evaluation_config_file": "configs/f4_03_evaluation_set.json",
+  "model_catalog_file": "configs/f4_02_model_selection.json",
+  "output_dir": "data/processed/f4_04",
+  "model_id": "Qwen/Qwen2.5-0.5B",
+  "model_revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+  "tokenizer_revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+  "max_input_tokens": 384,
+  "max_new_tokens": 96,
+  "seed": 42,
+  "cpu_threads": 4,
+  "prefix": "Вопрос:\n",
+  "suffix": "\nОтвет:\n",
+  "smoke_ids": ["ev_py_01", "ev_ml_01"]
+}
