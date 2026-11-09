@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "dataset_file": "data/preferences/f4_08_dpo_pairs_v1.jsonl",
+  "instruction_config_file": "configs/f4_01_instruction_dataset.json",
+  "sft_config_file": "configs/f4_05_sft_lora.json",
+  "baseline_config_file": "configs/f4_04_base_model_evaluation.json",
+  "output_dir": "data/processed/f4_08",
+  "sft_profile": "cpu",
+  "seed": 42,
+  "beta": 0.1,
+  "max_prompt_tokens": 256,
+  "max_answer_tokens": 256,
+  "max_total_tokens": 512,
+  "cpu_threads": 4,
+  "profiles": {
+    "cpu": {"max_steps": 1, "train_pairs": 1, "validation_pairs": 1, "learning_rate": 0.00001},
+    "gpu": {"max_steps": 16, "train_pairs": 16, "validation_pairs": 4, "learning_rate": 0.00001}
+  }
+}
