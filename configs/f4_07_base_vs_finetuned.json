@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "baseline_config_file": "configs/f4_04_base_model_evaluation.json",
+  "sft_config_file": "configs/f4_05_sft_lora.json",
+  "sft_profile": "cpu",
+  "output_dir": "data/processed/f4_07"
+}
