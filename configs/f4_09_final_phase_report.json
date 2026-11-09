@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "output_dir": "data/processed/f4_09",
+  "profile": "cpu",
+  "instruction_config_file": "configs/f4_01_instruction_dataset.json",
+  "model_catalog_file": "configs/f4_02_model_selection.json",
+  "evaluation_config_file": "configs/f4_03_evaluation_set.json",
+  "baseline_config_file": "configs/f4_04_base_model_evaluation.json",
+  "sft_config_file": "configs/f4_05_sft_lora.json",
+  "visualization_config_file": "configs/f4_06_training_visualization.json",
+  "comparison_config_file": "configs/f4_07_base_vs_finetuned.json",
+  "dpo_config_file": "configs/f4_08_dpo_experiment.json"
+}
