@@ -199,7 +199,7 @@ test_used_for_selection = false
 
 Формула:
 ```math
-\operatorname{Accuracy}=\frac{\sum_i M_{ii}}{N},
+\mathrm{Accuracy} = \frac{\sum_i M_{ii}}{N}
 ```
 
 где `N` - сумма всех элементов матрицы.
@@ -214,7 +214,7 @@ test_used_for_selection = false
 Всего `N = 2 + 1 + 0 + 3 = 6` примеров. Правильно классифицировано `2 + 3 = 5`.
 
 ```math
-\operatorname{Accuracy}=5/6\approx0.8333.
+\mathrm{Accuracy} = \frac{5}{6} \approx 0.8333
 ```
 
 Если входной JSON для такой матрицы содержал бы `accuracy = 0.95`, F2.8 обнаружил бы расхождение.
@@ -222,7 +222,7 @@ test_used_for_selection = false
 ### 4.2. Macro F1: зачем проверять отдельно каждый класс
 Для каждого класса `c`:
 ```math
-F1_c=\frac{2TP_c}{2TP_c+FP_c+FN_c}.
+F_{1,c} = \frac{2TP_c}{2TP_c + FP_c + FN_c}
 ```
 
 Здесь:
@@ -232,7 +232,7 @@ F1_c=\frac{2TP_c}{2TP_c+FP_c+FN_c}.
 
 Затем выполняется усреднение по всем `C` классам:
 ```math
-\operatorname{MacroF1}=\frac{1}{C}\sum_{c=1}^{C}F1_c.
+\mathrm{MacroF1} = \frac{1}{C}\sum_{c=1}^{C} F_{1,c}
 ```
 
 Для учебной матрицы выше:
@@ -256,15 +256,15 @@ NW = only_neural_wrong
 
 Тогда должны выполняться три равенства:
 ```math
-BC+BW+CW+NW=N,
+BC + BW + CW + NW = N
 ```
 
 ```math
-\operatorname{Errors}_{Classical}=BW+CW,
+\mathrm{Errors}_{\mathrm{Classical}} = BW + CW
 ```
 
 ```math
-\operatorname{Errors}_{Neural}=BW+NW.
+\mathrm{Errors}_{\mathrm{Neural}} = BW + NW
 ```
 
 Для **10 учебных вопросов** получены следующие значения:
