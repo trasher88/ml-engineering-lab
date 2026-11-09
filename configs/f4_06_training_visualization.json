@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "sft_config_file": "configs/f4_05_sft_lora.json",
+  "output_dir": "data/processed/f4_06",
+  "chart_width": 920,
+  "chart_height": 310,
+  "max_steps": 10000
+}
