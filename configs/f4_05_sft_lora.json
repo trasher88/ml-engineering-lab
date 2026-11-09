@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "instruction_config_file": "configs/f4_01_instruction_dataset.json",
+  "evaluation_config_file": "configs/f4_03_evaluation_set.json",
+  "baseline_config_file": "configs/f4_04_base_model_evaluation.json",
+  "model_catalog_file": "configs/f4_02_model_selection.json",
+  "output_dir": "data/processed/f4_05",
+  "model_id": "Qwen/Qwen2.5-0.5B",
+  "model_revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+  "tokenizer_revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+  "seed": 42,
+  "max_total_tokens": 512,
+  "max_prompt_tokens": 256,
+  "max_answer_tokens": 256,
+  "cpu_threads": 4,
+  "lora": {
+    "rank": 8,
+    "alpha": 16,
+    "dropout": 0.0,
+    "target_modules": ["q_proj", "v_proj"]
+  },
+  "profiles": {
+    "cpu": {"max_steps": 1, "batch_size": 1, "gradient_accumulation": 1, "learning_rate": 0.0002, "train_limit": 1, "validation_limit": 1},
+    "gpu": {"max_steps": 24, "batch_size": 1, "gradient_accumulation": 4, "learning_rate": 0.0002, "train_limit": 56, "validation_limit": 12}
+  }
+}
