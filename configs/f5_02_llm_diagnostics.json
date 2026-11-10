@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "expected_cases": 32,
+  "expected_facts_per_case": 2,
+  "low_overlap_f1_threshold": 0.25,
+  "input_candidates": [
+    "data/processed/f4_07/cpu/human_review.jsonl",
+    "data/processed/f4_07/cpu/human_review.md",
+    "data/processed/f4_07/human_review.jsonl",
+    "data/processed/f4_07/human_review.md",
+    "reports/public/f4_07/human_review.jsonl",
+    "reports/public/f4_07/human_review.md"
+  ],
+  "outputs": {
+    "json": "reports/public/f5_02/F5_02_llm_diagnostics.json",
+    "markdown": "docs/reports/F5_02_LLM_DIAGNOSTICS.md"
+  }
+}
