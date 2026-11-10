@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "mode": "synthetic_demo",
+  "fixture_path": "tests/fixtures/f5_04_api_demo_v1.json",
+  "fixture_sha256": "2d0b580548c514f3f2ee7c3124978e8c37dda0dfeda97a5a6019f3cd89b3e04a",
+  "expected_labels": [
+    "linux",
+    "ml",
+    "python",
+    "sql"
+  ],
+  "expected_training_examples": 24,
+  "expected_documents": 12,
+  "bm25_k1": 1.5,
+  "bm25_b": 0.75,
+  "max_top_k": 5
+}
