@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "benchmark_id": "f5_03_synthetic_safety_v1",
+  "benchmark_file": "tests/fixtures/f5_03_safety_cases_v1.json",
+  "benchmark_sha256": "0fe958ff02c24ee2300c93f301044cfaf04933c830bae9d3e37fbd24a31db9c0",
+  "expected_primary": 16,
+  "expected_adversarial": 12,
+  "outputs": {
+    "json": "reports/public/f5_03/F5_03_safety_evidence.json",
+    "markdown": "docs/reports/F5_03_SAFETY_BENCHMARK.md"
+  }
+}
