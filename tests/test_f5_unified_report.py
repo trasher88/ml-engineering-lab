@@ -174,3 +174,50 @@ def test_output_path_traversal_rejected(tmp_path: Path):
     write_json(tmp_path / "configs/f5_01_unified_evaluation.json", config)
     with pytest.raises(EvaluationError):
         run(tmp_path, "configs/f5_01_unified_evaluation.json")
+
+
+def test_published_f2_f3_selectors_match_actual_saved_json_shapes(tmp_path: Path):
+    """Регрессия схем F2.6/F3.7: реальные имена полей, числа — фикстуры."""
+    root = Path(__file__).resolve().parents[1]
+    config_path = 'configs/f5_01_unified_evaluation.json'
+    dst = tmp_path / config_path
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    dst.write_bytes((root / config_path).read_bytes())
+    sources = {
+        'reports/classical.json': {'test': {'accuracy': .8, 'macro_f1': .75,
+                                            'macro_precision': .76, 'macro_recall': .74}},
+        'outputs/f2_6_diagnostics/metrics.json': {
+            'format_version': 1, 'best_val_macro_f1': .69, 'best_epoch': 5,
+            'epochs': 5, 'test': {'macro_f1': .99},
+            'history': [{'epoch': 5, 'val_accuracy': .7, 'val_macro_f1': .69}]},
+        'reports/public/f3_07/F3_07_comparison.json': {
+            'n_queries': 80, 'metrics': {
+                'bm25': {'5': {'recall_at_k': .4, 'mrr_at_k': .3}},
+                'vector': {'5': {'recall_at_k': .6, 'mrr_at_k': .45}},
+                'hybrid': {'5': {'recall_at_k': .5, 'mrr_at_k': .35}}}},
+        'data/processed/f4_06/cpu/summary.json': {
+            'optimizer_steps': 1, 'train_loss_last': 2.39,
+            'validation_loss_before': 2.28, 'validation_loss_after': 2.27,
+            'trainable_parameters': 540672, 'learning_rate_configured': .0002},
+    }
+    for path, content in sources.items():
+        write_json(tmp_path / path, content)
+    report = build_report(tmp_path)
+    assert report['status'] == 'PASS'
+    assert report['summary']['sources_with_metrics'] == 4
+    by_source = {src['source_id']: src for src in report['sources']}
+    f2 = by_source['f2_pytorch_diagnostics']
+    assert f2['split'] == 'validation'
+    assert not f2['missing_metrics']
+    assert {m['name']: m['value'] for m in f2['metrics']} == {
+        'macro_f1': .69, 'best_epoch': 5, 'epochs': 5,
+    }
+    f3 = by_source['f3_retrieval_comparison']
+    assert not f3['missing_metrics']
+    assert len(f3['metrics']) == 6
+    assert {m['name']: m['value'] for m in f3['metrics']} == {
+        'bm25_recall_at_5': .4, 'vector_recall_at_5': .6,
+        'hybrid_recall_at_5': .5, 'bm25_mrr_at_5': .3,
+        'vector_mrr_at_5': .45, 'hybrid_mrr_at_5': .35,
+    }
+    assert all('.5.' in m['selector'] for m in f3['metrics'])

@@ -66,49 +66,29 @@
       "phase": "F2",
       "task": "classification",
       "path": "outputs/f2_6_diagnostics/metrics.json",
-      "split": "test",
+      "split": "validation",
       "dataset": "f2_qa_source_labels",
       "protocol": "f2_06_diagnostics",
       "metrics": [
         {
-          "name": "accuracy",
-          "unit": "fraction",
-          "selectors": [
-            "test.accuracy",
-            "test.metrics.accuracy",
-            "metrics.test.accuracy",
-            "test_accuracy",
-            "test_metrics.accuracy"
-          ]
-        },
-        {
           "name": "macro_f1",
           "unit": "fraction",
           "selectors": [
-            "test.macro_f1",
-            "test.f1_macro",
-            "test.metrics.macro_f1",
-            "metrics.test.macro_f1",
-            "test_macro_f1",
-            "test_metrics.macro_f1"
+            "best_val_macro_f1"
           ]
         },
         {
-          "name": "macro_precision",
-          "unit": "fraction",
+          "name": "best_epoch",
+          "unit": "count",
           "selectors": [
-            "test.macro_precision",
-            "metrics.test.macro_precision",
-            "test_metrics.macro_precision"
+            "best_epoch"
           ]
         },
         {
-          "name": "macro_recall",
-          "unit": "fraction",
+          "name": "epochs",
+          "unit": "count",
           "selectors": [
-            "test.macro_recall",
-            "metrics.test.macro_recall",
-            "test_metrics.macro_recall"
+            "epochs"
           ]
         }
       ]
@@ -126,66 +106,42 @@
           "name": "bm25_recall_at_5",
           "unit": "fraction",
           "selectors": [
-            "summary.bm25.recall_at_5",
-            "summary.bm25.recall@5",
-            "metrics.bm25.recall_at_5",
-            "aggregate.bm25.recall_at_5",
-            "methods.bm25.metrics.recall_at_5",
-            "methods.bm25.recall_at_5"
+            "metrics.bm25.5.recall_at_k"
           ]
         },
         {
           "name": "vector_recall_at_5",
           "unit": "fraction",
           "selectors": [
-            "summary.vector.recall_at_5",
-            "summary.vector.recall@5",
-            "metrics.vector.recall_at_5",
-            "aggregate.vector.recall_at_5",
-            "methods.vector.metrics.recall_at_5",
-            "methods.vector.recall_at_5"
+            "metrics.vector.5.recall_at_k"
           ]
         },
         {
           "name": "hybrid_recall_at_5",
           "unit": "fraction",
           "selectors": [
-            "summary.hybrid.recall_at_5",
-            "summary.hybrid.recall@5",
-            "metrics.hybrid.recall_at_5",
-            "aggregate.hybrid.recall_at_5",
-            "methods.hybrid.metrics.recall_at_5",
-            "methods.hybrid.recall_at_5"
+            "metrics.hybrid.5.recall_at_k"
           ]
         },
         {
           "name": "bm25_mrr_at_5",
           "unit": "fraction",
           "selectors": [
-            "summary.bm25.mrr_at_5",
-            "metrics.bm25.mrr_at_5",
-            "aggregate.bm25.mrr_at_5",
-            "methods.bm25.metrics.mrr_at_5"
+            "metrics.bm25.5.mrr_at_k"
           ]
         },
         {
           "name": "vector_mrr_at_5",
           "unit": "fraction",
           "selectors": [
-            "summary.vector.mrr_at_5",
-            "metrics.vector.mrr_at_5",
-            "aggregate.vector.mrr_at_5",
-            "methods.vector.metrics.mrr_at_5"
+            "metrics.vector.5.mrr_at_k"
           ]
         },
         {
           "name": "hybrid_mrr_at_5",
           "unit": "fraction",
           "selectors": [
-            "summary.hybrid.mrr_at_5",
-            "metrics.hybrid.mrr_at_5",
-            "aggregate.hybrid.mrr_at_5",
-            "methods.hybrid.metrics.mrr_at_5"
+            "metrics.hybrid.5.mrr_at_k"
           ]
         }
       ]

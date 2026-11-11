@@ -1,0 +1,51 @@
+name: F5.7 MLflow Tracking CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/f5_07_mlflow.yml'
+      - 'configs/f5_07_mlflow_tracking.json'
+      - 'src/tracking_f5/**'
+      - 'scripts/f5_mlflow.py'
+      - 'tests/test_f5_mlflow.py'
+      - 'requirements-f5_07.txt'
+      - 'src/evaluation_f5/unified_report.py'
+      - 'configs/f5_01_unified_evaluation.json'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/f5_07_mlflow.yml'
+      - 'configs/f5_07_mlflow_tracking.json'
+      - 'src/tracking_f5/**'
+      - 'scripts/f5_mlflow.py'
+      - 'tests/test_f5_mlflow.py'
+      - 'requirements-f5_07.txt'
+      - 'src/evaluation_f5/unified_report.py'
+      - 'configs/f5_01_unified_evaluation.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mlflow-sqlite:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      F5_07_REQUIRE_MLFLOW: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: requirements-f5_07.txt
+      - name: Install pinned MLflow and pytest
+        run: python -m pip install -r requirements-f5_07.txt pytest
+      - name: SQLite MLflow integration and negative tests
+        run: python -m pytest tests/test_f5_mlflow.py -q -ra

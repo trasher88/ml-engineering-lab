@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "experiment_name": "ml-engineering-lab-f5-07-imported-evidence",
+  "f5_01_report": "reports/public/f5_01/F5_01_unified_evaluation.json",
+  "f5_01_config": "configs/f5_01_unified_evaluation.json",
+  "runs": [
+    {"id": "f1_classical", "source_id": "f1_classical_test", "required_metrics": ["macro_f1"], "metric_prefix": ""},
+    {"id": "f2_pytorch", "source_id": "f2_pytorch_diagnostics", "required_metrics": ["macro_f1"], "metric_prefix": ""},
+    {"id": "f3_bm25", "source_id": "f3_retrieval_comparison", "required_metrics": ["recall_at_5"], "metric_prefix": "bm25_"},
+    {"id": "f3_vector", "source_id": "f3_retrieval_comparison", "required_metrics": ["recall_at_5"], "metric_prefix": "vector_"},
+    {"id": "f3_hybrid", "source_id": "f3_retrieval_comparison", "required_metrics": ["recall_at_5"], "metric_prefix": "hybrid_"},
+    {"id": "f4_lora_sft", "source_id": "f4_training_visualization", "required_metrics": ["validation_loss_after"], "metric_prefix": ""}
+  ]
+}

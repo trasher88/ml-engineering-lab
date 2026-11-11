@@ -1,0 +1,2 @@
+# F5.7: полноценный MLflow + SQLite tracking + локальный UI (Python 3.13).
+mlflow==3.17.2
