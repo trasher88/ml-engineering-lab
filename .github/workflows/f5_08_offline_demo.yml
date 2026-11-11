@@ -1,0 +1,71 @@
+name: F5.8 Offline CLI Demo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/f5_08_offline_demo.yml'
+      - 'configs/f5_08_offline_demo.json'
+      - 'src/demo_f5/**'
+      - 'scripts/f5_offline_demo.py'
+      - 'tests/test_f5_offline_demo.py'
+      - 'src/api_f5/**'
+      - 'configs/f5_04_api.json'
+      - 'tests/fixtures/f5_04_api_demo_v1.json'
+      - 'src/evaluation_f5/unified_report.py'
+      - 'configs/f5_01_unified_evaluation.json'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/f5_08_offline_demo.yml'
+      - 'configs/f5_08_offline_demo.json'
+      - 'src/demo_f5/**'
+      - 'scripts/f5_offline_demo.py'
+      - 'tests/test_f5_offline_demo.py'
+      - 'src/api_f5/**'
+      - 'configs/f5_04_api.json'
+      - 'tests/fixtures/f5_04_api_demo_v1.json'
+      - 'src/evaluation_f5/unified_report.py'
+      - 'configs/f5_01_unified_evaluation.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-cli:
+    name: Local synthetic smoke without network calls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Python 3.13
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: requirements-f5_04.txt
+      - name: Install CPU dependencies before offline execution
+        run: python -m pip install -r requirements-f5_04.txt
+      - name: F5.8 contract and offline tests
+        run: python -m pytest tests/test_f5_offline_demo.py -q -ra
+      - name: One-command offline demo
+        run: python -m scripts.f5_offline_demo run --output-dir "$RUNNER_TEMP/f5_08_demo"
+      - name: Recompute and check immutable outputs
+        run: python -m scripts.f5_offline_demo check --output-dir "$RUNNER_TEMP/f5_08_demo"
+      - name: Upload demo reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: f5-08-offline-demo
+          path: ${{ runner.temp }}/f5_08_demo/
+          if-no-files-found: warn

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "demo_id": "f5_08_offline_synthetic_v1",
+  "fixture_id": "f5_04_api_synthetic_v1",
+  "fixture_sha256": "2d0b580548c514f3f2ee7c3124978e8c37dda0dfeda97a5a6019f3cd89b3e04a",
+  "cases": [
+    {"id": "classify_python", "task": "classify", "text": "Python enumerate start индекс", "expect": {"status": "predicted", "label": "python"}},
+    {"id": "classify_linux", "task": "classify", "text": "Linux chmod права доступа", "expect": {"status": "predicted", "label": "linux"}},
+    {"id": "classify_sql", "task": "classify", "text": "SQL SELECT WHERE таблица", "expect": {"status": "predicted", "label": "sql"}},
+    {"id": "classify_ml", "task": "classify", "text": "ML embeddings векторное представление", "expect": {"status": "predicted", "label": "ml"}},
+    {"id": "classify_unknown", "task": "classify", "text": "xyzunknowntoken93654", "expect": {"status": "no_features", "label": null}},
+    {"id": "search_sql", "task": "search", "text": "SQL HAVING GROUP BY", "top_k": 2, "expect": {"first_doc_id": "sql_02"}},
+    {"id": "search_linux", "task": "search", "text": "linux chmod права", "top_k": 2, "expect": {"first_doc_id": "linux_02"}},
+    {"id": "search_unknown", "task": "search", "text": "xyzunknowntoken93654", "top_k": 2, "expect": {"first_doc_id": null}},
+    {"id": "ask_python", "task": "ask", "text": "Python range правая граница", "expect": {"mode": "extractive_demo", "doc_id": "python_01"}},
+    {"id": "ask_unknown", "task": "ask", "text": "xyzunknowntoken93654", "expect": {"mode": "no_evidence", "doc_id": null}}
+  ]
+}
