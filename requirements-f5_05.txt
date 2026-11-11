@@ -1,0 +1,5 @@
+# F5.5: только runtime F5.4 (без pytest, httpx и GPU/LLM зависимостей).
+# Pinned top-level; транзитивные зависимости/образ пока не зафиксированы digest/lock.
+fastapi==0.128.2
+uvicorn==0.48.0
+scikit-learn==1.8.0

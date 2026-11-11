@@ -1,0 +1,15 @@
+# F5.5 deny-by-default. Docker не получает .git, модели, секреты, datasets и отчёты.
+**
+!Dockerfile
+!.dockerignore
+!requirements-f5_05.txt
+!src/
+!src/api_f5/
+!src/api_f5/__init__.py
+!src/api_f5/app.py
+!src/api_f5/demo_service.py
+!configs/
+!configs/f5_04_api.json
+!tests/
+!tests/fixtures/
+!tests/fixtures/f5_04_api_demo_v1.json
