@@ -1,0 +1,1083 @@
+[1mdiff --git a/configs/f5_02_llm_diagnostics.json b/configs/f5_02_llm_diagnostics.json[m
+[1mnew file mode 100644[m
+[1mindex 0000000..139aec5[m
+[1m--- /dev/null[m
+[1m+++ b/configs/f5_02_llm_diagnostics.json[m
+[36m@@ -0,0 +1,18 @@[m
+[32m+[m[32m{[m
+[32m+[m[32m  "schema_version": 1,[m
+[32m+[m[32m  "expected_cases": 32,[m
+[32m+[m[32m  "expected_facts_per_case": 2,[m
+[32m+[m[32m  "low_overlap_f1_threshold": 0.25,[m
+[32m+[m[32m  "input_candidates": [[m
+[32m+[m[32m    "data/processed/f4_07/cpu/human_review.jsonl",[m
+[32m+[m[32m    "data/processed/f4_07/cpu/human_review.md",[m
+[32m+[m[32m    "data/processed/f4_07/human_review.jsonl",[m
+[32m+[m[32m    "data/processed/f4_07/human_review.md",[m
+[32m+[m[32m    "reports/public/f4_07/human_review.jsonl",[m
+[32m+[m[32m    "reports/public/f4_07/human_review.md"[m
+[32m+[m[32m  ],[m
+[32m+[m[32m  "outputs": {[m
+[32m+[m[32m    "json": "reports/public/f5_02/F5_02_llm_diagnostics.json",[m
+[32m+[m[32m    "markdown": "docs/reports/F5_02_LLM_DIAGNOSTICS.md"[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[1mdiff --git a/docs/steps/F5_02_llm_diagnostics.md b/docs/steps/F5_02_llm_diagnostics.md[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b4682d8[m
+[1m--- /dev/null[m
+[1m+++ b/docs/steps/F5_02_llm_diagnostics.md[m
+[36m@@ -0,0 +1,217 @@[m
+[32m+[m[32m# F5.2 — LLM Evaluation & Diagnostics[m
+[32m+[m
+[32m+[m[32m## 1. Цель этапа[m
+[32m+[m
+[32m+[m[32m**Задача:** оценить сохранённые ответы Qwen Base и Qwen LoRA на одном наборе контрольных вопросов F4.3/F4.7, получить воспроизводимые автоматические *proxy-метрики*, обнаружить технические признаки некачественной генерации и отобразить покрытие экспертной рубрики. **Не** переобучать модель, не генерировать новые ответы и не приписывать текстовому сходству статус фактической правильности.[m
+[32m+[m
+[32m+[m[32mВходы: сохранённые ответы Base/LoRA, тексты эталонов, идентификаторы заданий, два критерия для каждого задания; при наличии — заполненные человеком оценки отдельных фактов. F4.3 зафиксировал 32 задания с 64 критериями, F4.7 сформировал пары Base/LoRA. F5.1 уже предоставляет отдельную отчётность по метрикам фаз; F5.2 дополняет её диагностикой ответов, не изменяя F5.1.[m
+[32m+[m
+[32m+[m[32mВыходы: `reports/public/f5_02/F5_02_llm_diagnostics.json` и `docs/reports/F5_02_LLM_DIAGNOSTICS.md`. Генератор не переносит в них исходные промпты, эталоны и тексты генераций. В отчёт входят агрегаты, допустимые `case_id`, сигналы диагностики и происхождение файла через SHA-256.[m
+[32m+[m
+[32m+[m[32mОграничения: CPU-first, Python 3.13+, только стандартная библиотека в runtime; `pytest` нужен для тестов. Модель и токенизатор Transformers не загружаются. Локальные файлы F4.7 **не включаются в ZIP**; их фактическое расположение определяется конфигурацией/`--input`.[m
+[32m+[m
+[32m+[m[32m## 2. Что реализовано[m
+[32m+[m
+[32m+[m[32mВсе новые файлы этапа (предыдущие фазы и `README.md` не изменяются):[m
+[32m+[m
+[32m+[m[32m| Файл | Назначение | Основные интерфейсы |[m
+[32m+[m[32m|---|---|---|[m
+[32m+[m[32m| `configs/f5_02_llm_diagnostics.json` | Контракт 32×2, допустимые источники, threshold, назначение отчётов | `input_candidates`, `expected_cases`, `outputs` |[m
+[32m+[m[32m| `src/evaluation_f5/llm_diagnostics.py` | Парсинг F4.7, строгая валидация, token overlap, сигналы, учёт экспертных баллов, отчёты | `load_cases`, `tokenize`, `overlap`, `evaluate`, `run` |[m
+[32m+[m[32m| `scripts/f5_llm_diagnostics.py` | PowerShell-совместимый CLI без обращения к сети и модели | `main`, `--input`, `--check`, `--require-expert` |[m
+[32m+[m[32m| `tests/test_f5_llm_diagnostics.py` | Контрактные unit/integration тесты на **искусственных** примерах, проверка отрицательных сценариев | `test_source_build_and_check`, `test_human_review_complete`, `test_proxies_never_count_as_expert` и др. |[m
+[32m+[m[32m| `docs/steps/F5_02_llm_diagnostics.md` | Учебно-техническое описание метода, интерфейса, проверки, ограничений | Девять обязательных разделов |[m
+[32m+[m
+[32m+[m[32mНикакие исходники, тесты, отчёты F1–F4 и файлы F5.1 не переписываются. Наличие `src/evaluation_f5/__init__.py`, поставленного в F5.1, является зависимостью пакета.[m
+[32m+[m
+[32m+[m[32m## 3. Последовательность реализации[m
+[32m+[m
+[32m+[m[32m### Шаг 1. Зафиксировать источник и область анализа[m
+[32m+[m
+[32m+[m[32m- **Действие:** указать путь к сохранённому F4.7 через `input_candidates` или `--input`.[m
+[32m+[m[32m- **Назначение:** исключить повторную генерацию ответов и смешивание разных runs.[m
+[32m+[m[32m- **Реализация:** `load_config()`, `_choose_input()`, `_path()` проверяют конфигурацию, существование, относительность и безопасность путей. При обнаружении нескольких допустимых входов без явного выбора выполняется отказ, а не автоматический выбор «самого свежего».[m
+[32m+[m[32m- **Результат:** точный относительный путь, `SHA-256` прочитанных байтов и формат источника, включённые в отчёт. При отсутствии источника — `FAIL`, без синтетической подмены.[m
+[32m+[m
+[32m+[m[32m### Шаг 2. Загрузить и нормализовать 32 пары ответов[m
+[32m+[m
+[32m+[m[32m- **Действие:** прочитать JSON/JSONL или Markdown-экспорт `human_review.md` из F4.7.[m
+[32m+[m[32m- **Назначение:** преобразовать разные разрешённые формы входа к общим полям.[m
+[32m+[m[32m- **Реализация:** `load_cases()` формирует объекты `Case(case_id, domain, question, reference, base, lora, fact_ids, raw_scores, reviewer)`. Для JSONL используются алиасы имен полей, перечисленные в `_normalize()`; для Markdown — явные секции `Вопрос`, `Данные`, `Эталон`, `Факты для проверки`, `Base`, `LoRA` и строки ``- `fact_id`: описание``.[m
+[32m+[m[32m- **Результат:** ровно 32 уникальных `case_id`, у каждого два различных идентификатора факта. Некорректная схема, двойные идентификаторы и неполный набор блокируют отчёт.[m
+[32m+[m
+[32m+[m[32m### Шаг 3. Вычислить token overlap независимо для Base и LoRA[m
+[32m+[m
+[32m+[m[32m- **Действие:** токенизировать каждый `reference`, `base`, `lora`; рассчитать precision, recall, F1, exact_match и длины токенизированных последовательностей.[m
+[32m+[m[32m- **Назначение:** получить воспроизводимую количественную характеристику **лексического совпадения** с эталоном без дополнительных inference-вызовов.[m
+[32m+[m[32m- **Реализация:** `tokenize()` применяет Unicode `casefold()` и регулярное выражение `\w+|[^\w\s]`; `overlap()` пересекает мультимножества токенов через `Counter`. Одинаковые токены учитываются с кратностями. Фиксированное значение при пустом знаменателе — 0.[m
+[32m+[m[32m- **Результат:** покейсные proxy-значения и отдельные средние F1 для каждой модели, без общей «оценки правильности».[m
+[32m+[m
+[32m+[m[32m### Шаг 4. Выделить диагностические признаки[m
+[32m+[m
+[32m+[m[32m- **Действие:** проверить пустой ответ, низкий token overlap, фрагменты меток шаблона, частичное эхо промпта и повторяющиеся четырёхграммы.[m
+[32m+[m[32m- **Назначение:** направить последующую ручную проверку на подозрительные случаи.[m
+[32m+[m[32m- **Реализация:** `_flags()` формирует `empty_response`, `low_reference_overlap`, `prompt_template_marker`, `possible_prompt_echo`, `repeated_fourgram`; порог низкого overlap по F1 = `0.25` и зафиксирован в конфигурации. `_repetition()` считает четырёхграммы и срабатывает при повторе одной четырёхграммы от 3 раз.[m
+[32m+[m[32m- **Результат:** флаги по `case_id` и агрегаты по Base/LoRA. Признаки **не означают** доказанную галлюцинацию или фактическую ошибку.[m
+[32m+[m
+[32m+[m[32m### Шаг 5. Разделить rubric coverage и реальную экспертную оценку[m
+[32m+[m
+[32m+[m[32m- **Действие:** сверить 64 идентификатора критериев и принять только явно введённые баллы `0`, `1`, `2` или `null`.[m
+[32m+[m[32m- **Назначение:** не заменять экспертный факт-чек автоматически вычисленным token F1.[m
+[32m+[m[32m- **Реализация:** `_fact_scores()` контролирует диапазон и соответствие ключей рубрики; `evaluate()` учитывает баллы **только при наличии непустого `reviewer_id`** в записи. Для всех остальных записей экспертные оценки выводятся как `null`/`NOT RATED`. Даже при наличии reviewer_id происхождение носит декларативный характер: квалификация и качество проверки автоматически не удостоверяются.[m
+[32m+[m[32m- **Результат:** `base_criteria_scored`, `lora_criteria_scored`, средние по фактически оценённым критериям, число полностью оценённых задач, число проигнорированных баллов без атрибуции.[m
+[32m+[m
+[32m+[m[32m### Шаг 6. Сопоставить Base и LoRA, не смешивая задачи[m
+[32m+[m
+[32m+[m[32m- **Действие:** сравнить ответы как строки (`answers_changed`) и сопоставить proxy-метрики на **одних и тех же** заданиях.[m
+[32m+[m[32m- **Назначение:** отделить факт изменения генерации от изменения её фактического качества.[m
+[32m+[m[32m- **Реализация:** `evaluate()` считает число изменившихся/неизменившихся пар и разницу средних token F1 (LoRA − Base); тесты проверяют независимость от экспертных баллов.[m
+[32m+[m[32m- **Результат:** `changed_pairs`, `unchanged_pairs`, `delta_token_f1_lora_minus_base`. Исторический ориентир F4.7 — 12/32 изменившихся ответов, **но** отчёт вычисляет число из текущих входов, без жёсткой подстановки 12.[m
+[32m+[m
+[32m+[m[32m### Шаг 7. Сформировать отчёты и проверить воспроизводимость[m
+[32m+[m
+[32m+[m[32m- **Действие:** сформировать два артефакта и сопоставить результат повторного запуска.[m
+[32m+[m[32m- **Назначение:** обеспечить проверяемую отчётность и не допустить тихой публикации другого прогона.[m
+[32m+[m[32m- **Реализация:** `run()` выполняет парсинг, расчёты и запись UTF-8/LF без случайных значений и временных меток; `--check` пересчитывает ожидаемый контент и сопоставляет байты с файлами. Выходы ограничены подкаталогами `reports/public/f5_02/` и `docs/reports/F5_02_*`.[m
+[32m+[m[32m- **Результат:** JSON+Markdown, возможность детектировать изменение источника или порчу отчёта без записи.[m
+[32m+[m
+[32m+[m[32m## 4. Алгоритм и математический пример[m
+[32m+[m
+[32m+[m[32mПусть `R` — мультимножество токенов эталона, `A` — мультимножество токенов ответа. Число совпадающих токенов с кратностями:[m
+[32m+[m
+[32m+[m[32m\[[m
+[32m+[m[32mM=\sum_{t\in V}\min\left(\operatorname{count}_R(t),\operatorname{count}_A(t)\right).[m
+[32m+[m[32m\][m
+[32m+[m
+[32m+[m[32mPrecision и Recall на уровне токенов:[m
+[32m+[m
+[32m+[m[32m\[[m
+[32m+[m[32mP=\frac{M}{|A|},\qquad R_{tok}=\frac{M}{|R|}.[m
+[32m+[m[32m\][m
+[32m+[m
+[32m+[m[32mГармоническое среднее:[m
+[32m+[m
+[32m+[m[32m\[[m
+[32m+[m[32mF1_{tok}=\frac{2PR_{tok}}{P+R_{tok}}.[m
+[32m+[m[32m\][m
+[32m+[m
+[32m+[m[32m**Учебный пример:** reference `a a b`; candidate `a b b`. При одинаковых длинах 3 токена пересечение с кратностями включает один `a` и один `b`: `M=2`; `P=2/3`, `R_tok=2/3`, `F1_tok=2/3 ≈ 0.6667`. `exact_match=false`. Это **не** результат Qwen; его воспроизводит `test_multiset_overlap_and_exact()`.[m
+[32m+[m
+[32m+[m[32mДля `N=32` заданий макро-агрегат отдельной модели:[m
+[32m+[m
+[32m+[m[32m\[[m
+[32m+[m[32m\overline{F1}_{tok}=\frac{1}{N}\sum_{i=1}^{N} F1_{tok,i},\quad[m
+[32m+[m[32m\Delta=\overline{F1}_{tok,LoRA}-\overline{F1}_{tok,Base}.[m
+[32m+[m[32m\][m
+[32m+[m
+[32m+[m[32mОдинаковая `token F1` возможна у фактически неправильного и правильного ответов; перефразирование правильного ответа может уменьшить overlap. В алгоритме отсутствует LLM-as-a-judge. Рубрика с двумя фактами на задание — **объект для выставления оценки человеком**, а не способ вывести correctness из лексики.[m
+[32m+[m
+[32m+[m[32mШкала ручной оценки факта при наличии review: `0` — неверно, `1` — частично, `2` — полностью; `null` — оценка не внесена. Среднее рассчитывается **только по фактически выставленным** значениям, поэтому неполное покрытие нельзя интерпретировать как общий успех модели. Чтобы экспертная часть имела `PASS`, для Base и LoRA должны быть оценены оба факта всех 32 задач и иметь `reviewer_id`.[m
+[32m+[m
+[32m+[m[32m## 5. Схема работы[m
+[32m+[m
+[32m+[m[32m```mermaid[m
+[32m+[m[32mflowchart TD[m
+[32m+[m[32m    A["F4.3: frozen 32 cases, 64 facts"] --> C["F4.7 export: human_review.md или JSONL"][m
+[32m+[m[32m    B["F4.7: 32 пары Base/LoRA"] --> C[m
+[32m+[m[32m    C --> D["load_cases: схема и целостность"][m
+[32m+[m[32m    D --> E["Unicode tokenizer + Counter"][m
+[32m+[m[32m    E --> F["Token precision / recall / F1"][m
+[32m+[m[32m    D --> G["Diagnostics: empty, echo, marker, repetition"][m
+[32m+[m[32m    D --> H["Rubric score validation"][m
+[32m+[m[32m    H --> I{"reviewer_id и полное покрытие?"}[m
+[32m+[m[32m    I -->|Нет| J["Expert PARTIAL / NOT RATED"][m
+[32m+[m[32m    I -->|Да| K["Human scores с декларацией источника"][m
+[32m+[m[32m    F --> L["JSON + Markdown"][m
+[32m+[m[32m    G --> L[m
+[32m+[m[32m    J --> L[m
+[32m+[m[32m    K --> L[m
+[32m+[m[32m    L --> M["--check: повторный расчёт и byte equality"][m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m**Граница ответственности:** F4.3 отвечает за фиксированные критерии, F4.7 — за сохранённые тексты двух моделей, F5.2 — за чтение, лексические proxy, технические сигналы и прозрачный учёт выставленных человеком оценок. Файлы F5.1/F4 не редактируются.[m
+[32m+[m
+[32m+[m[32m## 6. Локальная проверка PowerShell[m
+[32m+[m
+[32m+[m[32mВсе команды выполняются из корня `F:\DEVELOPMENT\ML\ml-engineering-lab` после распаковки ZIP. В стандартном запуске **не нужны** Transformers, PEFT, GPU и доступ в интернет.[m
+[32m+[m
+[32m+[m[32m```powershell[m
+[32m+[m[32mcd F:\DEVELOPMENT\ML\ml-engineering-lab[m
+[32m+[m
+[32m+[m[32m# Проверить контракт F5.2 без загрузки модели:[m
+[32m+[m[32m.\.venv\Scripts\python.exe -m pytest tests/test_f5_llm_diagnostics.py -q[m
+[32m+[m
+[32m+[m[32m# Доступная регрессия F5.1:[m
+[32m+[m[32m.\.venv\Scripts\python.exe -m pytest tests/test_f5_unified_report.py -q[m
+[32m+[m
+[32m+[m[32m# Генератор выбирает ровно один существующий F4.7 источник из config:[m
+[32m+[m[32m.\.venv\Scripts\python.exe -m scripts.f5_llm_diagnostics[m
+[32m+[m
+[32m+[m[32m# Проверить идентичность отчётов текущим исходным данным:[m
+[32m+[m[32m.\.venv\Scripts\python.exe -m scripts.f5_llm_diagnostics --check[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mЕсли вход лежит в другом месте, указать его **относительный путь** через `--input`. Дополнительно поддерживается поиск `human_review.*` в вложенных подкаталогах F4.7 внутри `data/processed`, `reports/public`, `outputs` и `artifacts`; если найдено несколько кандидатов, требуется `--input`. Пример для одного из путей конфигурации:[m
+[32m+[m
+[32m+[m[32m```powershell[m
+[32m+[m[32m.\.venv\Scripts\python.exe -m scripts.f5_llm_diagnostics --input data/processed/f4_07/cpu/human_review.md[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mДля просмотра фактического расположения файлов F4.7 без изменения данных:[m
+[32m+[m
+[32m+[m[32m```powershell[m
+[32m+[m[32mGet-ChildItem -Path data, reports -Recurse -File -ErrorAction SilentlyContinue |[m
+[32m+[m[32m  Where-Object { $_.Name -match 'human_review|f4_07' } |[m
+[32m+[m[32m  Select-Object -ExpandProperty FullName[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m**Ожидаемый успешный build:** `F5.2 PARTIAL: 32 cases, 64 criteria, ...; expert complete 0/32; mode=build` при отсутствии заполненной экспертной оценки. `PARTIAL` в данном случае не свидетельствует о падении программы; означает границу доказательств. После заполнения и атрибуции всех оценок ожидается `F5.2 PASS`. `--check` без расхождений возвращает код 0. Отсутствующий источник, нарушение схемы, дубликат или устаревший отчёт возвращают код 2.[m
+[32m+[m
+[32m+[m[32mСтатус тестов для данной поставки: **64 passed** при локальном запуске F5.1+F5.2 на синтетических fixture/временных каталогах, Python 3.13.5; это не запуск реальной модели Qwen и не проверка путей на пользовательском Windows checkout.[m
+[32m+[m
+[32m+[m[32m## 7. Что доказано тестами и какие ограничения остаются[m
+[32m+[m
+[32m+[m[32m**Подтверждено локальными тестами:**[m
+[32m+[m
+[32m+[m[32m- Корректный multiset token overlap, Unicode/casefold и защита от деления на ноль.[m
+[32m+[m[32m- Строгая проверка идентификаторов, числа задач, количества критериев и схемы ручных баллов.[m
+[32m+[m[32m- Парсинг JSON, JSONL и Markdown на **синтетических** тестовых экспортах с аналогичным контрактом.[m
+[32m+[m[32m- Детерминированная сборка и `--check`, обнаружение изменённого файла через SHA и побайтовое сравнение.[m
+[32m+[m[32m- Отсутствие исходных промптов/ответов в публикуемых JSON/MD.[m
+[32m+[m[32m- Неучёт баллов без `reviewer_id`, сохранение `null` для отсутствующих оценок, запрет объявления экспертного PASS при неполном покрытии.[m
+[32m+[m[32m- Изоляция unit-тестов от реальных весов LLM и сети.[m
+[32m+[m
+[32m+[m[32m**Не подтверждено:**[m
+[32m+[m
+[32m+[m[32m- Числовые token F1 на полном реальном F4.7 до запуска локального генератора с твоим текущим экспортом.[m
+[32m+[m[32m- Корректность **содержания** ответов, наличие/отсутствие hallucinations и качество обучения LoRA.[m
+[32m+[m[32m- Квалификация эксперта, достоверность вводимых вручную оценок и обобщаемость на внешние датасеты.[m
+[32m+[m[32m- Актуальная полная Windows-регрессия F1–F5 и идентичность конкретного локального source checkout.[m
+[32m+[m
+[32m+[m[32m**Ограничения данных/оборудования:** frozen F4.3 содержит 32 учебных задания и 64 критерия, размер мал; модель Qwen для F5.2 не требуется. Отчёт по одному набору не является доказательством production quality.[m
+[32m+[m
+[32m+[m[32m**Следующая проверка:** локально выполнить build/check на действительном F4.7 и сверить число изменившихся ответов с исходным F4.7 (ориентир 12/32). При необходимости выполнить независимую ручную разметку всех критериев и воспроизвести отчёт без изменения исходных генераций.[m
+[32m+[m
+[32m+[m[32m## 8. Основная мысль этапа[m
+[32m+[m
+[32m+[m[32mСохранённые ответы Base и LoRA необходимо оценивать по неизменному набору заданий. Загрузить фактический F4.7 export, проверить полноту 32 пар и список 64 критериев, привязать расчёты к SHA-256 конкретного входа. Нельзя объединять результаты разных runs при выборе отсутствующих источников.[m
+[32m+[m
+[32m+[m[32mToken overlap измеряет точность и полноту совпадения *токенов*, а не правильность ответа. Сначала подсчитать мультимножественное пересечение, затем precision, recall и F1 для каждой модели отдельно. После этого выделить эвристические флаги — эхо промпта, технические метки и повторяющиеся фрагменты — для ручной диагностики.[m
+[32m+[m
+[32m+[m[32mОценку выполнения критериев переносить только из явно заполненной человеком рубрики с атрибуцией reviewer_id; остальные баллы сохранять как отсутствующие. Сопоставление Base/LoRA должно хранить как число отличающихся ответов, так и значение proxy-дельты с ограничениями интерпретации. Сгенерированный отчёт необходимо воспроизводимо проверять командой `--check`; отсутствие данных не заменяется фиктивной метрикой.[m
+[32m+[m
+[32m+[m[32m## 9. Файлы, с которыми стоит познакомиться[m
+[32m+[m
+[32m+[m[32m| Порядок | Реальный путь / источник | Что изучить |[m
+[32m+[m[32m|---:|---|---|[m
+[32m+[m[32m| 1 | `configs/f5_02_llm_diagnostics.json` | Договорённость о 32×2, критерии выбора источника, порог, output-пути. |[m
+[32m+[m[32m| 2 | `src/evaluation_f5/llm_diagnostics.py` | `Case`, `_parse_md`, `_normalize`, `load_cases` — перевод сохранённого F4.7 в единую структуру. |[m
+[32m+[m[32m| 3 | `src/evaluation_f5/llm_diagnostics.py` | `tokenize`, `overlap`, `_flags`, `_repetition` — точные механизмы proxy и флагов. |[m
+[32m+[m[32m| 4 | `src/evaluation_f5/llm_diagnostics.py` | `_fact_scores`, `evaluate` — принципиальное отделение экспертной шкалы от лексического сходства. |[m
+[32m+[m[32m| 5 | `scripts/f5_llm_diagnostics.py` | `main`, ключи CLI, коды выхода, разделение build/check. |[m
+[32m+[m[32m| 6 | `tests/test_f5_llm_diagnostics.py` | Числовые примеры, отрицательные тесты, контроль отчёта, тест отсутствующих оценок. |[m
+[32m+[m[32m| 7 | `src/evaluation_f5/unified_report.py` | F5.1: разделение метрик по фазам, статус `PARTIAL`, SHA-256, проверка `--check`. |[m
+[32m+[m[32m| 8 | `configs/f5_01_unified_evaluation.json` | F5.1: почему нельзя усреднить classification, retrieval и LLM loss в единый показатель. |[m
+[32m+[m[32m| 9 | Экспорт `human_review.md` или `human_review.jsonl` из F4.7 (фактический путь указывается в `--input`) | Разметка F4.3, две генерации и два факта на случай; в ZIP не включается. |[m
+[32m+[m
+[32m+[m[32m**Для публикации:** коммитить только пять файлов F5.2. Сформированные отчёты F5.2 не добавлять в Git без отдельной проверки фактического входа и отсутствия спорных данных. `README.md` остаётся под ручным контролем владельца репозитория.[m
+[1mdiff --git a/scripts/f5_llm_diagnostics.py b/scripts/f5_llm_diagnostics.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d6cab16[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/f5_llm_diagnostics.py[m
+[36m@@ -0,0 +1,35 @@[m
+[32m+[m[32m"""CLI F5.2: анализ сохранённых F4.7 Base/LoRA ответов."""[m
+[32m+[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m
+[32m+[m[32mimport argparse[m
+[32m+[m[32mfrom pathlib import Path[m
+[32m+[m[32mimport sys[m
+[32m+[m
+[32m+[m[32mfrom src.evaluation_f5.llm_diagnostics import DiagnosticsError, run[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef main(argv: list[str] | None = None) -> int:[m
+[32m+[m[32m    parser = argparse.ArgumentParser(description="F5.2: LLM Evaluation & Diagnostics без загрузки модели")[m
+[32m+[m[32m    parser.add_argument("--root", type=Path, default=Path.cwd(), help="Корень репозитория")[m
+[32m+[m[32m    parser.add_argument("--config", default="configs/f5_02_llm_diagnostics.json", help="Путь к конфигурации от корня")[m
+[32m+[m[32m    parser.add_argument("--input", dest="input_path", default=None, help="Точный путь к JSON/JSONL/MD F4.7 от корня")[m
+[32m+[m[32m    parser.add_argument("--check", action="store_true", help="Сверить существующие выходы без записи")[m
+[32m+[m[32m    parser.add_argument("--require-expert", action="store_true", help="Не разрешать PARTIAL по экспертным оценкам")[m
+[32m+[m[32m    args = parser.parse_args(argv)[m
+[32m+[m[32m    try:[m
+[32m+[m[32m        report = run(args.root, config=args.config, input_path=args.input_path,[m
+[32m+[m[32m                     check=args.check, require_expert=args.require_expert)[m
+[32m+[m[32m    except (DiagnosticsError, OSError, UnicodeError) as exc:[m
+[32m+[m[32m        print(f"F5.2 FAIL: {exc}", file=sys.stderr)[m
+[32m+[m[32m        return 2[m
+[32m+[m[32m    s = report["summary"][m
+[32m+[m[32m    print(f"F5.2 {report['status']}: {s['cases']} cases, {s['criteria_total']} criteria, "[m
+[32m+[m[32m          f"{s['changed_pairs']} changed pairs, "[m
+[32m+[m[32m          f"expert complete {s['human_review']['complete_cases']}/{s['cases']}; "[m
+[32m+[m[32m          f"mode={'check' if args.check else 'build'}")[m
+[32m+[m[32m    return 0[m
+[32m+[m
+[32m+[m
+[32m+[m[32mif __name__ == "__main__":[m
+[32m+[m[32m    raise SystemExit(main())[m
+[1mdiff --git a/src/evaluation_f5/llm_diagnostics.py b/src/evaluation_f5/llm_diagnostics.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8c770ec[m
+[1m--- /dev/null[m
+[1m+++ b/src/evaluation_f5/llm_diagnostics.py[m
+[36m@@ -0,0 +1,441 @@[m
+[32m+[m[32m"""F5.2: воспроизводимая диагностика сохранённых Base/LoRA ответов.[m
+[32m+[m
+[32m+[m[32mToken overlap и диагностические флаги являются proxy, не экспертной оценкой.[m
+[32m+[m[32mВ отчёты не копируются тексты заданий, эталонов или генераций.[m
+[32m+[m[32m"""[m
+[32m+[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m
+[32m+[m[32mfrom collections import Counter[m
+[32m+[m[32mfrom dataclasses import dataclass[m
+[32m+[m[32mfrom hashlib import sha256[m
+[32m+[m[32mimport json[m
+[32m+[m[32mimport math[m
+[32m+[m[32mfrom pathlib import Path[m
+[32m+[m[32mimport re[m
+[32m+[m[32mfrom typing import Any[m
+[32m+[m
+[32m+[m
+[32m+[m[32mclass DiagnosticsError(ValueError):[m
+[32m+[m[32m    """Ошибка схемы, происхождения данных или запроса на публикацию."""[m
+[32m+[m
+[32m+[m
+[32m+[m[32m_TOKEN = re.compile(r"\w+|[^\w\s]", re.UNICODE)[m
+[32m+[m[32m_CASE_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{1,79}$")[m
+[32m+[m[32m_LABEL = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$")[m
+[32m+[m[32m_HEADER = re.compile(r"^##\s+(\S+)\s+[—-]\s+(\S+)\s*$", re.MULTILINE)[m
+[32m+[m[32m_FACT = re.compile(r"^-\s+`([A-Za-z0-9_-]+)`:\s*(.+)$")[m
+[32m+[m[32m_SECTION = re.compile(r"^\*\*(Вопрос|Данные|Эталон|Факты для проверки|Base|LoRA):\*\*\s*$", re.MULTILINE)[m
+[32m+[m[32m_MARKERS = re.compile(r"(?im)^\s*(?:вопрос|данные|ответ)\s*:")[m
+[32m+[m[32m_EXPECTED_KEYS = ("Вопрос", "Данные", "Эталон", "Факты для проверки", "Base", "LoRA")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _path(root: Path, name: str, purpose: str) -> Path:[m
+[32m+[m[32m    """Принять только путь относительно корня, не позволяя traversal/symlink escape."""[m
+[32m+[m[32m    if not isinstance(name, str) or not name or "\\" in name or name.startswith("/"):[m
+[32m+[m[32m        raise DiagnosticsError(f"{purpose}: необходим относительный POSIX-путь")[m
+[32m+[m[32m    parts = name.split("/")[m
+[32m+[m[32m    if any(part in {"", ".", ".."} or ":" in part or "\x00" in part for part in parts):[m
+[32m+[m[32m        raise DiagnosticsError(f"{purpose}: небезопасный путь")[m
+[32m+[m[32m    root = root.resolve()[m
+[32m+[m[32m    target = root.joinpath(*parts).resolve()[m
+[32m+[m[32m    if not target.is_relative_to(root):[m
+[32m+[m[32m        raise DiagnosticsError(f"{purpose}: выход за корень репозитория")[m
+[32m+[m[32m    return target[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _json_load(path: Path) -> Any:[m
+[32m+[m[32m    try:[m
+[32m+[m[32m        return json.loads(path.read_text(encoding="utf-8-sig"), parse_constant=lambda v: (_ for _ in ()).throw(DiagnosticsError(f"Недопустимая константа JSON: {v}")))[m
+[32m+[m[32m    except (OSError, UnicodeError, json.JSONDecodeError) as exc:[m
+[32m+[m[32m        raise DiagnosticsError(f"Невозможно прочитать JSON {path.name}: {exc}") from exc[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef load_config(root: Path, name: str = "configs/f5_02_llm_diagnostics.json") -> dict[str, Any]:[m
+[32m+[m[32m    cfg = _json_load(_path(root, name, "config"))[m
+[32m+[m[32m    if not isinstance(cfg, dict) or type(cfg.get("schema_version")) is not int or cfg["schema_version"] != 1:[m
+[32m+[m[32m        raise DiagnosticsError("config: ожидается schema_version=1")[m
+[32m+[m[32m    paths = cfg.get("input_candidates")[m
+[32m+[m[32m    if not isinstance(paths, list) or not paths or len(set(paths)) != len(paths):[m
+[32m+[m[32m        raise DiagnosticsError("config: необходим уникальный непустой input_candidates")[m
+[32m+[m[32m    for candidate in paths:[m
+[32m+[m[32m        if not candidate.endswith((".jsonl", ".json", ".md")):[m
+[32m+[m[32m            raise DiagnosticsError("input_candidates: поддерживаются json/jsonl/md")[m
+[32m+[m[32m        _path(root, candidate, "input_candidate")[m
+[32m+[m[32m    for key, dirname, ext in (("json", "reports/public/f5_02/", ".json"), ("markdown", "docs/reports/F5_02_", ".md")):[m
+[32m+[m[32m        outs = cfg.get("outputs")[m
+[32m+[m[32m        if not isinstance(outs, dict) or not isinstance(outs.get(key), str):[m
+[32m+[m[32m            raise DiagnosticsError(f"config.outputs.{key}: отсутствует")[m
+[32m+[m[32m        dest = outs[key][m
+[32m+[m[32m        if not dest.startswith(dirname) or not dest.endswith(ext):[m
+[32m+[m[32m            raise DiagnosticsError(f"config.outputs.{key}: путь вне разрешённой области")[m
+[32m+[m[32m        _path(root, dest, f"outputs.{key}")[m
+[32m+[m[32m    if set(cfg["outputs"]) != {"json", "markdown"} or cfg["outputs"]["json"] == cfg["outputs"]["markdown"]:[m
+[32m+[m[32m        raise DiagnosticsError("config.outputs: ожидаются только json и markdown")[m
+[32m+[m[32m    expected = cfg.get("expected_cases")[m
+[32m+[m[32m    facts = cfg.get("expected_facts_per_case")[m
+[32m+[m[32m    threshold = cfg.get("low_overlap_f1_threshold")[m
+[32m+[m[32m    if type(expected) is not int or expected < 1 or type(facts) is not int or facts < 1:[m
+[32m+[m[32m        raise DiagnosticsError("config: expected_cases/expected_facts_per_case должны быть положительными целыми")[m
+[32m+[m[32m    if isinstance(threshold, bool) or not isinstance(threshold, (float, int)) or not math.isfinite(threshold) or not 0 <= threshold <= 1:[m
+[32m+[m[32m        raise DiagnosticsError("config.low_overlap_f1_threshold: число от 0 до 1")[m
+[32m+[m[32m    return cfg[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _choose_input(root: Path, cfg: dict[str, Any], explicit: str | None) -> tuple[Path, str]:[m
+[32m+[m[32m    if explicit is not None:[m
+[32m+[m[32m        p = _path(root, explicit, "input")[m
+[32m+[m[32m        if not p.is_file() or p.suffix not in {".json", ".jsonl", ".md"}:[m
+[32m+[m[32m            raise DiagnosticsError(f"Явный input не найден или формат не поддерживается: {explicit}")[m
+[32m+[m[32m        return p, explicit[m
+[32m+[m[32m    found = [(c, _path(root, c, "input")) for c in cfg["input_candidates"] if _path(root, c, "input").is_file()][m
+[32m+[m[32m    if not found:[m
+[32m+[m[32m        # В старых checkout имя подкаталога CPU могло отличаться. Искать[m
+[32m+[m[32m        # только явно именованные review-экспорты внутри каталогов F4.7.[m
+[32m+[m[32m        for folder in ("data/processed", "reports/public", "outputs", "artifacts"):[m
+[32m+[m[32m            parent = _path(root, folder, "discovery")[m
+[32m+[m[32m            if not parent.is_dir():[m
+[32m+[m[32m                continue[m
+[32m+[m[32m            for discovered in parent.rglob("human_review.*"):[m
+[32m+[m[32m                if not discovered.is_file() or discovered.suffix not in {".json", ".jsonl", ".md"}:[m
+[32m+[m[32m                    continue[m
+[32m+[m[32m                relative = discovered.relative_to(root).as_posix()[m
+[32m+[m[32m                if not any(part.lower().startswith("f4_07") for part in discovered.relative_to(parent).parts):[m
+[32m+[m[32m                    continue[m
+[32m+[m[32m                if _path(root, relative, "discovered").is_file():[m
+[32m+[m[32m                    found.append((relative, discovered))[m
+[32m+[m[32m    if not found:[m
+[32m+[m[32m        raise DiagnosticsError("Не найден F4.7 input: передай --input или положи экспорт в один из input_candidates")[m
+[32m+[m[32m    # Не выбирать молча один из разных результатов, полученных в разных запусках.[m
+[32m+[m[32m    if len(found) > 1:[m
+[32m+[m[32m        raise DiagnosticsError("Найдено несколько входов F4.7: " + ", ".join(c for c, _ in found) + "; укажи --input")[m
+[32m+[m[32m    return found[0][1], found[0][0][m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _field(item: dict[str, Any], names: tuple[str, ...], name: str, *, required: bool = True) -> Any:[m
+[32m+[m[32m    present = [(n, item[n]) for n in names if n in item][m
+[32m+[m[32m    if not present:[m
+[32m+[m[32m        if required:[m
+[32m+[m[32m            raise DiagnosticsError(f"Отсутствует {name}: варианты {', '.join(names)}")[m
+[32m+[m[32m        return None[m
+[32m+[m[32m    if len(present) > 1 and any(value != present[0][1] for _, value in present[1:]):[m
+[32m+[m[32m        raise DiagnosticsError(f"Несогласованные альтернативы {name}")[m
+[32m+[m[32m    return present[0][1][m
+[32m+[m
+[32m+[m
+[32m+[m[32m@dataclass(frozen=True)[m
+[32m+[m[32mclass Case:[m
+[32m+[m[32m    case_id: str[m
+[32m+[m[32m    domain: str[m
+[32m+[m[32m    question: str[m
+[32m+[m[32m    reference: str[m
+[32m+[m[32m    base: str[m
+[32m+[m[32m    lora: str[m
+[32m+[m[32m    fact_ids: tuple[str, ...][m
+[32m+[m[32m    raw_scores: tuple[Any, Any][m
+[32m+[m[32m    reviewer: str | None[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _normalize(item: Any, index: int) -> Case:[m
+[32m+[m[32m    if not isinstance(item, dict):[m
+[32m+[m[32m        raise DiagnosticsError(f"Строка {index}: должен быть объект")[m
+[32m+[m[32m    case_id = _field(item, ("case_id", "id", "eval_id", "task_id"), "case_id")[m
+[32m+[m[32m    if not isinstance(case_id, str) or not _CASE_ID.fullmatch(case_id):[m
+[32m+[m[32m        raise DiagnosticsError(f"Строка {index}: некорректный case_id")[m
+[32m+[m[32m    domain = _field(item, ("domain", "category"), "domain")[m
+[32m+[m[32m    if not isinstance(domain, str) or not _LABEL.fullmatch(domain):[m
+[32m+[m[32m        raise DiagnosticsError(f"{case_id}: некорректный domain")[m
+[32m+[m[32m    question = _field(item, ("question", "prompt", "instruction"), "question")[m
+[32m+[m[32m    reference = _field(item, ("reference", "reference_answer", "expected_answer", "ground_truth"), "reference")[m
+[32m+[m[32m    base = _field(item, ("base_response", "base_answer", "base_text", "base_output"), "base")[m
+[32m+[m[32m    lora = _field(item, ("lora_response", "lora_answer", "lora_text", "lora_output", "sft_response"), "lora")[m
+[32m+[m[32m    for name, value in (("question", question), ("reference", reference), ("base", base), ("lora", lora)):[m
+[32m+[m[32m        if not isinstance(value, str) or (name in ("question", "reference") and not value.strip()):[m
+[32m+[m[32m            raise DiagnosticsError(f"{case_id}: некорректное текстовое поле {name}")[m
+[32m+[m[32m    facts = _field(item, ("facts", "criteria", "rubric_facts", "checkpoints"), "facts")[m
+[32m+[m[32m    if not isinstance(facts, list):[m
+[32m+[m[32m        raise DiagnosticsError(f"{case_id}: facts/criteria должен быть массивом")[m
+[32m+[m[32m    ids = [][m
+[32m+[m[32m    for fact in facts:[m
+[32m+[m[32m        fid = (fact.get("id") or fact.get("key")) if isinstance(fact, dict) else fact[m
+[32m+[m[32m        if not isinstance(fid, str) or not _LABEL.fullmatch(fid):[m
+[32m+[m[32m            raise DiagnosticsError(f"{case_id}: некорректный fact id")[m
+[32m+[m[32m        ids.append(fid)[m
+[32m+[m[32m    if len(set(ids)) != len(ids):[m
+[32m+[m[32m        raise DiagnosticsError(f"{case_id}: повторяются критерии")[m
+[32m+[m[32m    reviewer = _field(item, ("reviewer_id", "reviewer"), "reviewer", required=False)[m
+[32m+[m[32m    if reviewer is not None and (not isinstance(reviewer, str) or not reviewer.strip()):[m
+[32m+[m[32m        raise DiagnosticsError(f"{case_id}: reviewer_id должен быть непустой строкой")[m
+[32m+[m[32m    return Case(case_id, domain, question, reference, base, lora, tuple(ids),[m
+[32m+[m[32m                (_field(item, ("base_fact_scores",), "base_fact_scores", required=False),[m
+[32m+[m[32m                 _field(item, ("lora_fact_scores",), "lora_fact_scores", required=False)), reviewer)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _parse_md(text: str) -> list[dict[str, Any]]:[m
+[32m+[m[32m    """Разобрать экспорт human_review.md из F4.7; не оценивать факты автоматически."""[m
+[32m+[m[32m    headers = list(_HEADER.finditer(text))[m
+[32m+[m[32m    if not headers:[m
+[32m+[m[32m        raise DiagnosticsError("Markdown F4.7: не найдены разделы ## ev_* — domain")[m
+[32m+[m[32m    items = [][m
+[32m+[m[32m    for idx, match in enumerate(headers):[m
+[32m+[m[32m        chunk = text[match.end():headers[idx + 1].start() if idx + 1 < len(headers) else len(text)][m
+[32m+[m[32m        sections = list(_SECTION.finditer(chunk))[m
+[32m+[m[32m        found: dict[str, str] = {}[m
+[32m+[m[32m        for j, section in enumerate(sections):[m
+[32m+[m[32m            name = section.group(1)[m
+[32m+[m[32m            if name in found:[m
+[32m+[m[32m                raise DiagnosticsError(f"{match.group(1)}: дублирован раздел {name}")[m
+[32m+[m[32m            value = chunk[section.end():sections[j + 1].start() if j + 1 < len(sections) else len(chunk)][m
+[32m+[m[32m            # Разделитель между случаями не является содержимым ответа.[m
+[32m+[m[32m            found[name] = re.sub(r"\n\s*---\s*$", "", value).strip()[m
+[32m+[m[32m        if not all(k in found for k in _EXPECTED_KEYS):[m
+[32m+[m[32m            raise DiagnosticsError(f"{match.group(1)}: отсутствуют секции human_review.md")[m
+[32m+[m[32m        facts = [][m
+[32m+[m[32m        for line in found["Факты для проверки"].splitlines():[m
+[32m+[m[32m            f = _FACT.match(line.strip())[m
+[32m+[m[32m            if not f:[m
+[32m+[m[32m                raise DiagnosticsError(f"{match.group(1)}: неправильная строка факта")[m
+[32m+[m[32m            facts.append({"id": f.group(1), "description": f.group(2)})[m
+[32m+[m[32m        items.append({"case_id": match.group(1), "domain": match.group(2), "question": found["Вопрос"],[m
+[32m+[m[32m                      "reference": found["Эталон"], "base_response": found["Base"],[m
+[32m+[m[32m                      "lora_response": found["LoRA"], "facts": facts})[m
+[32m+[m[32m    return items[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef load_cases(path: Path) -> list[Case]:[m
+[32m+[m[32m    """Поддержать JSON/JSONL и штатный Markdown-экспорт F4.7."""[m
+[32m+[m[32m    try:[m
+[32m+[m[32m        raw = path.read_text(encoding="utf-8-sig")[m
+[32m+[m[32m    except (OSError, UnicodeError) as exc:[m
+[32m+[m[32m        raise DiagnosticsError(f"Невозможно прочитать F4.7: {exc}") from exc[m
+[32m+[m[32m    if path.suffix == ".md":[m
+[32m+[m[32m        items = _parse_md(raw)[m
+[32m+[m[32m    elif path.suffix == ".json":[m
+[32m+[m[32m        loaded = _json_load(path)[m
+[32m+[m[32m        items = loaded if isinstance(loaded, list) else loaded.get("cases") if isinstance(loaded, dict) else None[m
+[32m+[m[32m        if not isinstance(items, list):[m
+[32m+[m[32m            raise DiagnosticsError("F4.7 JSON: требуется массив или объект с cases[]")[m
+[32m+[m[32m    elif path.suffix == ".jsonl":[m
+[32m+[m[32m        items = [][m
+[32m+[m[32m        for line_num, line in enumerate(raw.splitlines(), 1):[m
+[32m+[m[32m            if not line.strip():[m
+[32m+[m[32m                continue[m
+[32m+[m[32m            try:[m
+[32m+[m[32m                items.append(json.loads(line, parse_constant=lambda v: (_ for _ in ()).throw(DiagnosticsError(f"Недопустимое JSONL число: {v}"))))[m
+[32m+[m[32m            except json.JSONDecodeError as exc:[m
+[32m+[m[32m                raise DiagnosticsError(f"F4.7 JSONL строка {line_num}: {exc}") from exc[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        raise DiagnosticsError("Неизвестный формат F4.7")[m
+[32m+[m[32m    cases = [_normalize(item, i) for i, item in enumerate(items, 1)][m
+[32m+[m[32m    ids = [case.case_id for case in cases][m
+[32m+[m[32m    if len(set(ids)) != len(ids):[m
+[32m+[m[32m        raise DiagnosticsError("Дублирован case_id в F4.7")[m
+[32m+[m[32m    return cases[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef tokenize(text: str) -> tuple[str, ...]:[m
+[32m+[m[32m    """Unicode токены: слова и одиночные знаки пунктуации, casefold."""[m
+[32m+[m[32m    return tuple(_TOKEN.findall(text.casefold()))[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef overlap(reference: str, candidate: str) -> dict[str, Any]:[m
+[32m+[m[32m    """Multiset overlap: слова с повторами учитываются через Counter."""[m
+[32m+[m[32m    a, b = tokenize(reference), tokenize(candidate)[m
+[32m+[m[32m    matches = sum((Counter(a) & Counter(b)).values())[m
+[32m+[m[32m    precision = matches / len(b) if b else 0.0[m
+[32m+[m[32m    recall = matches / len(a) if a else 0.0[m
+[32m+[m[32m    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0[m
+[32m+[m[32m    return {"precision": precision, "recall": recall, "f1": f1, "exact_match": a == b,[m
+[32m+[m[32m            "reference_token_count": len(a), "candidate_token_count": len(b)}[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _repetition(tokens: tuple[str, ...]) -> bool:[m
+[32m+[m[32m    if len(tokens) < 12:[m
+[32m+[m[32m        return False[m
+[32m+[m[32m    grams = Counter(tuple(tokens[i:i + 4]) for i in range(len(tokens) - 3))[m
+[32m+[m[32m    return max(grams.values(), default=0) >= 3[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _flags(case: Case, answer: str, score: dict[str, Any], threshold: float) -> list[str]:[m
+[32m+[m[32m    flags: list[str] = [][m
+[32m+[m[32m    if not answer.strip():[m
+[32m+[m[32m        flags.append("empty_response")[m
+[32m+[m[32m    if score["f1"] < threshold:[m
+[32m+[m[32m        flags.append("low_reference_overlap")[m
+[32m+[m[32m    if _MARKERS.search(answer):[m
+[32m+[m[32m        flags.append("prompt_template_marker")[m
+[32m+[m[32m    question_tokens = tokenize(case.question)[m
+[32m+[m[32m    answer_tokens = tokenize(answer)[m
+[32m+[m[32m    if len(question_tokens) >= 5:[m
+[32m+[m[32m        q = tuple(question_tokens[: min(8, len(question_tokens))])[m
+[32m+[m[32m        if any(answer_tokens[i:i + len(q)] == q for i in range(len(answer_tokens) - len(q) + 1)):[m
+[32m+[m[32m            flags.append("possible_prompt_echo")[m
+[32m+[m[32m    if _repetition(answer_tokens):[m
+[32m+[m[32m        flags.append("repeated_fourgram")[m
+[32m+[m[32m    return flags[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _fact_scores(raw: Any, facts: tuple[str, ...], case_id: str) -> list[int] | None:[m
+[32m+[m[32m    if raw is None:[m
+[32m+[m[32m        return None[m
+[32m+[m[32m    if isinstance(raw, dict):[m
+[32m+[m[32m        if set(raw) != set(facts):[m
+[32m+[m[32m            raise DiagnosticsError(f"{case_id}: неверные id в fact_scores")[m
+[32m+[m[32m        raw = [raw[fid] for fid in facts][m
+[32m+[m[32m    if not isinstance(raw, list) or len(raw) != len(facts):[m
+[32m+[m[32m        raise DiagnosticsError(f"{case_id}: fact_scores должен содержать значения для всех критериев")[m
+[32m+[m[32m    for value in raw:[m
+[32m+[m[32m        if value is not None and (type(value) is not int or value not in {0, 1, 2}):[m
+[32m+[m[32m            raise DiagnosticsError(f"{case_id}: оценки допустимы только 0/1/2/null")[m
+[32m+[m[32m    return raw[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef evaluate(cases: list[Case], source: str, fingerprint: str, cfg: dict[str, Any]) -> dict[str, Any]:[m
+[32m+[m[32m    """Возвратить только агрегаты и case_id: тексты в публичный отчёт не попадают."""[m
+[32m+[m[32m    expected = cfg["expected_cases"][m
+[32m+[m[32m    required_facts = cfg["expected_facts_per_case"][m
+[32m+[m[32m    if len(cases) != expected or any(len(c.fact_ids) != required_facts for c in cases):[m
+[32m+[m[32m        raise DiagnosticsError(f"F4.7: ожидается {expected} заданий по {required_facts} критерия, получено {len(cases)}")[m
+[32m+[m[32m    threshold = float(cfg["low_overlap_f1_threshold"])[m
+[32m+[m[32m    rows: list[dict[str, Any]] = [][m
+[32m+[m[32m    score_arrays: dict[str, list[float]] = {"base": [], "lora": []}[m
+[32m+[m[32m    human_values: dict[str, list[int]] = {"base": [], "lora": []}[m
+[32m+[m[32m    unreviewed = 0[m
+[32m+[m[32m    unattributed = 0[m
+[32m+[m[32m    changed = 0[m
+[32m+[m[32m    for c in cases:[m
+[32m+[m[32m        b, l = overlap(c.reference, c.base), overlap(c.reference, c.lora)[m
+[32m+[m[32m        bf, lf = _flags(c, c.base, b, threshold), _flags(c, c.lora, l, threshold)[m
+[32m+[m[32m        changed_here = c.base != c.lora[m
+[32m+[m[32m        changed += changed_here[m
+[32m+[m[32m        human: dict[str, Any] = {}[m
+[32m+[m[32m        for tag, raw in (("base", c.raw_scores[0]), ("lora", c.raw_scores[1])):[m
+[32m+[m[32m            scores = _fact_scores(raw, c.fact_ids, c.case_id)[m
+[32m+[m[32m            if scores is not None and not c.reviewer:[m
+[32m+[m[32m                unattributed += sum(value is not None for value in scores)[m
+[32m+[m[32m            validated = scores if c.reviewer is not None else None[m
+[32m+[m[32m            non_null = [x for x in validated or [] if x is not None][m
+[32m+[m[32m            human[tag] = {"scored": len(non_null), "total": len(c.fact_ids),[m
+[32m+[m[32m                          "mean_score": sum(non_null) / len(non_null) if non_null else None}[m
+[32m+[m[32m            human_values[tag].extend(non_null)[m
+[32m+[m[32m            score_arrays[tag].append((b if tag == "base" else l)["f1"])[m
+[32m+[m[32m        if not (human["base"]["scored"] == required_facts and human["lora"]["scored"] == required_facts):[m
+[32m+[m[32m            unreviewed += 1[m
+[32m+[m[32m        rows.append({"case_id": c.case_id, "domain": c.domain, "answers_changed": changed_here,[m
+[32m+[m[32m                     "token_overlap": {"base": b, "lora": l}, "diagnostic_flags": {"base": bf, "lora": lf},[m
+[32m+[m[32m                     "human_review": human})[m
+[32m+[m[32m    def mean(values: list[float | int]) -> float | None:[m
+[32m+[m[32m        return sum(values) / len(values) if values else None[m
+[32m+[m[32m    return {[m
+[32m+[m[32m        "schema_version": 1, "stage": "F5.2", "status": "PASS" if unreviewed == 0 else "PARTIAL",[m
+[32m+[m[32m        "source": {"path": source, "sha256": fingerprint, "format": Path(source).suffix.lstrip(".")},[m
+[32m+[m[32m        "protocol": {"expected_cases": expected, "facts_per_case": required_facts,[m
+[32m+[m[32m                     "tokenizer": "unicode_word_or_punctuation_casefold_v1", "overlap": "multiset_precision_recall_f1",[m
+[32m+[m[32m                     "low_overlap_f1_threshold": threshold, "expert_scale": "0_incorrect_1_partial_2_correct",[m
+[32m+[m[32m                     "human_provenance_rule": "requires_explicit_reviewer_id"},[m
+[32m+[m[32m        "summary": {"cases": len(cases), "criteria_total": len(cases) * required_facts,[m
+[32m+[m[32m                    "changed_pairs": changed, "unchanged_pairs": len(cases) - changed,[m
+[32m+[m[32m                    "average_token_f1_base": mean(score_arrays["base"]),[m
+[32m+[m[32m                    "average_token_f1_lora": mean(score_arrays["lora"]),[m
+[32m+[m[32m                    "delta_token_f1_lora_minus_base": mean(score_arrays["lora"]) - mean(score_arrays["base"]),[m
+[32m+[m[32m                    "flag_counts": {k: dict(sorted(Counter(flag for r in rows for flag in r["diagnostic_flags"][k]).items())) for k in ("base", "lora")},[m
+[32m+[m[32m                    "human_review": {"complete_cases": len(cases) - unreviewed,[m
+[32m+[m[32m                                     "unreviewed_cases": unreviewed,[m
+[32m+[m[32m                                     "unattributed_scores_ignored": unattributed,[m
+[32m+[m[32m                                     "base_criteria_scored": len(human_values["base"]),[m
+[32m+[m[32m                                     "lora_criteria_scored": len(human_values["lora"]),[m
+[32m+[m[32m                                     "base_average_score": mean(human_values["base"]),[m
+[32m+[m[32m                                     "lora_average_score": mean(human_values["lora"])}},[m
+[32m+[m[32m        "cases": rows,[m
+[32m+[m[32m        "limitations": [[m
+[32m+[m[32m            "Token overlap измеряет сходство токенов, а не фактическую корректность ответа.",[m
+[32m+[m[32m            "Flags — эвристические сигналы для разбора, не диагноз hallucination и не подтверждённые ошибки.",[m
+[32m+[m[32m            "Критерии рубрики перечислены для учёта покрытия; оценивание фактов требует человека.",[m
+[32m+[m[32m            "Оценки без reviewer_id игнорируются; указанное reviewer_id — декларация источника, не доказательство квалификации эксперта.",[m
+[32m+[m[32m            "Сравнение Base/LoRA по одному frozen набору без экспертного анализа не доказывает улучшение качества.",[m
+[32m+[m[32m            "Результаты не являются LLM-as-a-judge и не предназначены для вывода о безопасности/production readiness.",[m
+[32m+[m[32m        ],[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef to_json(report: dict[str, Any]) -> str:[m
+[32m+[m[32m    return json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n"[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _display(value: float | None) -> str:[m
+[32m+[m[32m    return "NOT RATED" if value is None else f"{value:.6f}"[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _markdown_safe(value: str) -> str:[m
+[32m+[m[32m    return value.replace("|", "\\|").replace("`", "\\`").replace("\n", " ")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef to_markdown(report: dict[str, Any]) -> str:[m
+[32m+[m[32m    summary = report["summary"][m
+[32m+[m[32m    human = summary["human_review"][m
+[32m+[m[32m    lines = ["# F5.2 — LLM Evaluation & Diagnostics", "",[m
+[32m+[m[32m             f"**Статус доказательств:** `{report['status']}`. Автоматические метрики — proxy; они не устанавливают factual correctness.", "",[m
+[32m+[m[32m             "## Источник и протокол", "",[m
+[32m+[m[32m             f"- Исходный файл: `{_markdown_safe(report['source']['path'])}`.",[m
+[32m+[m[32m             f"- SHA-256: `{report['source']['sha256']}`.",[m
+[32m+[m[32m             f"- Заданий: {summary['cases']}; проверяемых фактов: {summary['criteria_total']}.",[m
+[32m+[m[32m             "- Токенизация: Unicode-слова/пунктуация, casefold, multiset overlap.", "",[m
+[32m+[m[32m             "## Автоматические proxy-метрики", "",[m
+[32m+[m[32m             "| Показатель | Base | LoRA |", "|---|---:|---:|",[m
+[32m+[m[32m             f"| Средний token F1 | {_display(summary['average_token_f1_base'])} | {_display(summary['average_token_f1_lora'])} |",[m
+[32m+[m[32m             f"| Изменённых ответов (из {summary['cases']}) | — | {summary['changed_pairs']} |", "",[m
+[32m+[m[32m             f"Разница token F1 (LoRA − Base): **{summary['delta_token_f1_lora_minus_base']:+.6f}**. Положительная разница не означает улучшения correctness.", "",[m
+[32m+[m[32m             "## Диагностические сигналы", "",[m
+[32m+[m[32m             "| Flag | Base | LoRA |", "|---|---:|---:|" ][m
+[32m+[m[32m    flags = sorted(set(summary["flag_counts"]["base"]) | set(summary["flag_counts"]["lora"]))[m
+[32m+[m[32m    for flag in flags:[m
+[32m+[m[32m        lines.append(f"| `{flag}` | {summary['flag_counts']['base'].get(flag, 0)} | {summary['flag_counts']['lora'].get(flag, 0)} |")[m
+[32m+[m[32m    if not flags:[m
+[32m+[m[32m        lines.append("| Сигналов не выявлено | 0 | 0 |")[m
+[32m+[m[32m    lines.extend(["", "## Экспертная оценка по рубрике", "",[m
+[32m+[m[32m                  f"- Полностью оценённых случаев: **{human['complete_cases']}/{summary['cases']}**.",[m
+[32m+[m[32m                  f"- Неоценённых/частично оценённых случаев: **{human['unreviewed_cases']}**.",[m
+[32m+[m[32m                  f"- Оценок без reviewer_id, исключённых из подсчёта: **{human['unattributed_scores_ignored']}**.",[m
+[32m+[m[32m                  f"- Средняя оценка Base (0–2): **{_display(human['base_average_score'])}**.",[m
+[32m+[m[32m                  f"- Средняя оценка LoRA (0–2): **{_display(human['lora_average_score'])}**.", "",[m
+[32m+[m[32m                  "Отсутствующие экспертные баллы остаются `null`; система не выставляет их по сходству текста с эталоном.", "",[m
+[32m+[m[32m                  "## Покейсный аудит (без публикации текста)", "",[m
+[32m+[m[32m                  "| Case | Домен | Изменился текст | F1 Base | F1 LoRA | Флаги Base | Флаги LoRA |",[m[41m [m
+[32m+[m[32m                  "|---|---|---|---:|---:|---|---|" ])[m
+[32m+[m[32m    for r in report["cases"]:[m
+[32m+[m[32m        lines.append(f"| `{r['case_id']}` | `{r['domain']}` | {'да' if r['answers_changed'] else 'нет'} | "[m
+[32m+[m[32m                     f"{r['token_overlap']['base']['f1']:.4f} | {r['token_overlap']['lora']['f1']:.4f} | "[m
+[32m+[m[32m                     f"{', '.join(r['diagnostic_flags']['base']) or '—'} | {', '.join(r['diagnostic_flags']['lora']) or '—'} |")[m
+[32m+[m[32m    lines.extend(["", "## Ограничения", ""])[m
+[32m+[m[32m    lines.extend("- " + x for x in report["limitations"])[m
+[32m+[m[32m    lines.append("")[m
+[32m+[m[32m    return "\n".join(lines)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef run(root: Path, *, config: str = "configs/f5_02_llm_diagnostics.json", input_path: str | None = None,[m
+[32m+[m[32m        check: bool = False, require_expert: bool = False) -> dict[str, Any]:[m
+[32m+[m[32m    root = root.resolve()[m
+[32m+[m[32m    cfg = load_config(root, config)[m
+[32m+[m[32m    source, rel = _choose_input(root, cfg, input_path)[m
+[32m+[m[32m    cases = load_cases(source)[m
+[32m+[m[32m    report = evaluate(cases, rel, sha256(source.read_bytes()).hexdigest(), cfg)[m
+[32m+[m[32m    if require_expert and report["status"] != "PASS":[m
+[32m+[m[32m        raise DiagnosticsError("Экспертные оценки не покрывают все случаи; статус PARTIAL")[m
+[32m+[m[32m    artifacts = [(cfg["outputs"]["json"], to_json(report)), (cfg["outputs"]["markdown"], to_markdown(report))][m
+[32m+[m[32m    if check:[m
+[32m+[m[32m        for relative, content in artifacts:[m
+[32m+[m[32m            target = _path(root, relative, "output")[m
+[32m+[m[32m            if not target.is_file() or target.read_bytes() != content.encode("utf-8"):[m
+[32m+[m[32m                raise DiagnosticsError(f"Устаревший или отсутствующий отчёт: {relative}")[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        # Валидация каждого выходного пути перед любой записью.[m
+[32m+[m[32m        targets = [(_path(root, relative, "output"), content) for relative, content in artifacts][m
+[32m+[m[32m        for target, content in targets:[m
+[32m+[m[32m            target.parent.mkdir(parents=True, exist_ok=True)[m
+[32m+[m[32m            temporary = target.with_name(target.name + ".tmp")[m
+[32m+[m[32m            try:[m
+[32m+[m[32m                temporary.write_bytes(content.encode("utf-8"))[m
+[32m+[m[32m                temporary.replace(target)[m
+[32m+[m[32m            finally:[m
+[32m+[m[32m                temporary.unlink(missing_ok=True)[m
+[32m+[m[32m    return report[m
+[1mdiff --git a/tests/test_f5_llm_diagnostics.py b/tests/test_f5_llm_diagnostics.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0063ab0[m
+[1m--- /dev/null[m
+[1m+++ b/tests/test_f5_llm_diagnostics.py[m
+[36m@@ -0,0 +1,344 @@[m
+[32m+[m[32m"""F5.2: только маленькие искусственные тексты; ни одной загрузки весов."""[m
+[32m+[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m
+[32m+[m[32mimport hashlib[m
+[32m+[m[32mimport json[m
+[32m+[m[32mfrom pathlib import Path[m
+[32m+[m[32mimport re[m
+[32m+[m
+[32m+[m[32mimport pytest[m
+[32m+[m
+[32m+[m[32mfrom src.evaluation_f5.llm_diagnostics import ([m
+[32m+[m[32m    Case, DiagnosticsError, _fact_scores, _parse_md, _path, _repetition,[m
+[32m+[m[32m    evaluate, load_cases, load_config, overlap, run, to_json, tokenize,[m
+[32m+[m[32m)[m
+[32m+[m[32mfrom scripts.f5_llm_diagnostics import main[m
+[32m+[m
+[32m+[m
+[32m+[m[32mCONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "f5_02_llm_diagnostics.json"[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef setup_root(root: Path, *, reviewed: bool = False, use_markdown: bool = False) -> Path:[m
+[32m+[m[32m    config = root / "configs/f5_02_llm_diagnostics.json"[m
+[32m+[m[32m    config.parent.mkdir(parents=True, exist_ok=True)[m
+[32m+[m[32m    config.write_bytes(CONFIG_PATH.read_bytes())[m
+[32m+[m[32m    file = root / ("data/processed/f4_07/cpu/human_review.md" if use_markdown else "data/processed/f4_07/cpu/human_review.jsonl")[m
+[32m+[m[32m    file.parent.mkdir(parents=True, exist_ok=True)[m
+[32m+[m[32m    if use_markdown:[m
+[32m+[m[32m        sections = [][m
+[32m+[m[32m        for i in range(32):[m
+[32m+[m[32m            sections.append(f"## ev_py_{i:02d} — python\n\n**Вопрос:**\nКак проверить значение {i}?\n\n**Данные:**\n(нет)\n\n**Эталон:**\nВерное значение {i}\n\n**Факты для проверки:**\n- `value`: Верное значение\n- `context`: Контекст значения\n\n**Base:**\n\nЗначение {i}\n\n**LoRA:**\n\nЗначение {i} и ещё контекст\n\n---\n")[m
+[32m+[m[32m        file.write_text("\n".join(sections), encoding="utf-8")[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        data = [][m
+[32m+[m[32m        for i in range(32):[m
+[32m+[m[32m            row = {"case_id": f"ev_py_{i:02d}", "domain": "python", "question": f"Как проверить значение {i}?",[m
+[32m+[m[32m                   "reference": f"Верное значение {i}", "facts": ["value", "context"],[m
+[32m+[m[32m                   "base_response": f"Значение {i}", "lora_response": f"Значение {i} и ещё контекст"}[m
+[32m+[m[32m            if reviewed:[m
+[32m+[m[32m                row.update({"reviewer_id": "reviewer_01", "base_fact_scores": {"value": 1, "context": 0},[m
+[32m+[m[32m                            "lora_fact_scores": {"value": 2, "context": 1}})[m
+[32m+[m[32m            data.append(json.dumps(row, ensure_ascii=False))[m
+[32m+[m[32m        file.write_text("\n".join(data) + "\n", encoding="utf-8")[m
+[32m+[m[32m    return file[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_tokenization_unicode_punctuation() -> None:[m
+[32m+[m[32m    assert tokenize("ПрИвЕт, Python 3.13!") == ("привет", ",", "python", "3", ".", "13", "!")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_multiset_overlap_and_exact() -> None:[m
+[32m+[m[32m    score = overlap("a a b", "a b b")[m
+[32m+[m[32m    assert score["precision"] == pytest.approx(2/3)[m
+[32m+[m[32m    assert score["recall"] == pytest.approx(2/3)[m
+[32m+[m[32m    assert score["f1"] == pytest.approx(2/3)[m
+[32m+[m[32m    assert not score["exact_match"][m
+[32m+[m[32m    assert overlap("А Б", "а б")["exact_match"] is True[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_empty_overlap_no_nan() -> None:[m
+[32m+[m[32m    for ref, answer in (("abc", ""), ("", "abc"), ("", "")):[m
+[32m+[m[32m        score = overlap(ref, answer)[m
+[32m+[m[32m        assert score["f1"] == 0[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_repetition_only_4grams() -> None:[m
+[32m+[m[32m    assert _repetition(tuple("a b c d a b c d a b c d".split()))[m
+[32m+[m[32m    assert not _repetition(tuple("a b c d".split()))[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_source_build_and_check(tmp_path: Path) -> None:[m
+[32m+[m[32m    source = setup_root(tmp_path)[m
+[32m+[m[32m    r = run(tmp_path)[m
+[32m+[m[32m    assert r["status"] == "PARTIAL"[m
+[32m+[m[32m    assert r["source"]["sha256"] == hashlib.sha256(source.read_bytes()).hexdigest()[m
+[32m+[m[32m    assert r["summary"]["cases"] == 32[m
+[32m+[m[32m    assert r["summary"]["criteria_total"] == 64[m
+[32m+[m[32m    assert r["summary"]["changed_pairs"] == 32[m
+[32m+[m[32m    assert r["summary"]["human_review"]["unreviewed_cases"] == 32[m
+[32m+[m[32m    assert r["summary"]["human_review"]["base_average_score"] is None[m
+[32m+[m[32m    assert r["summary"]["human_review"]["base_criteria_scored"] == 0[m
+[32m+[m[32m    assert run(tmp_path, check=True) == r[m
+[32m+[m[32m    report = (tmp_path / "reports/public/f5_02/F5_02_llm_diagnostics.json").read_text(encoding="utf-8")[m
+[32m+[m[32m    assert "Как проверить значение" not in report[m
+[32m+[m[32m    assert "Верное значение" not in report[m
+[32m+[m[32m    assert "Значение 0 и" not in report[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_human_review_complete(tmp_path: Path) -> None:[m
+[32m+[m[32m    setup_root(tmp_path, reviewed=True)[m
+[32m+[m[32m    r = run(tmp_path, require_expert=True)[m
+[32m+[m[32m    assert r["status"] == "PASS"[m
+[32m+[m[32m    assert r["summary"]["human_review"]["complete_cases"] == 32[m
+[32m+[m[32m    assert r["summary"]["human_review"]["base_criteria_scored"] == 64[m
+[32m+[m[32m    assert r["summary"]["human_review"]["lora_average_score"] == pytest.approx(1.5)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_human_review_without_reviewer_disregarded(tmp_path: Path) -> None:[m
+[32m+[m[32m    p = setup_root(tmp_path)[m
+[32m+[m[32m    rows = [json.loads(x) for x in p.read_text(encoding="utf-8").splitlines()][m
+[32m+[m[32m    rows[0]["base_fact_scores"] = [2, 2][m
+[32m+[m[32m    rows[0]["lora_fact_scores"] = [2, 2][m
+[32m+[m[32m    p.write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in rows), encoding="utf-8")[m
+[32m+[m[32m    r = run(tmp_path)[m
+[32m+[m[32m    assert r["status"] == "PARTIAL"[m
+[32m+[m[32m    assert r["summary"]["human_review"]["unattributed_scores_ignored"] == 4[m
+[32m+[m[32m    assert r["summary"]["human_review"]["base_criteria_scored"] == 0[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_markdown_f47_export(tmp_path: Path) -> None:[m
+[32m+[m[32m    setup_root(tmp_path, use_markdown=True)[m
+[32m+[m[32m    r = run(tmp_path)[m
+[32m+[m[32m    assert r["summary"]["cases"] == 32[m
+[32m+[m[32m    assert r["summary"]["changed_pairs"] == 32[m
+[32m+[m[32m    assert r["source"]["format"] == "md"[m
+[32m+[m[32m    assert r["summary"]["human_review"]["unreviewed_cases"] == 32[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_json_top_level_cases(tmp_path: Path) -> None:[m
+[32m+[m[32m    p = setup_root(tmp_path)[m
+[32m+[m[32m    rows = [json.loads(x) for x in p.read_text(encoding="utf-8").splitlines()][m
+[32m+[m[32m    output = tmp_path / "reports/public/f4_07/human_review.json"[m
+[32m+[m[32m    output.parent.mkdir(parents=True)[m
+[32m+[m[32m    output.write_text(json.dumps({"cases": rows}, ensure_ascii=False), encoding="utf-8")[m
+[32m+[m[32m    report = run(tmp_path, input_path="reports/public/f4_07/human_review.json")[m
+[32m+[m[32m    assert report["summary"]["cases"] == 32[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_multi_candidate_requires_explicit_input(tmp_path: Path) -> None:[m
+[32m+[m[32m    p = setup_root(tmp_path)[m
+[32m+[m[32m    p2 = tmp_path / "data/processed/f4_07/human_review.jsonl"[m
+[32m+[m[32m    p2.parent.mkdir(parents=True, exist_ok=True)[m
+[32m+[m[32m    p2.write_bytes(p.read_bytes())[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError, match="несколько"):[m
+[32m+[m[32m        run(tmp_path)[m
+[32m+[m[32m    assert run(tmp_path, input_path="data/processed/f4_07/cpu/human_review.jsonl")["status"] == "PARTIAL"[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_missing_input_no_synthetic_output(tmp_path: Path) -> None:[m
+[32m+[m[32m    c = tmp_path / "configs/f5_02_llm_diagnostics.json"[m
+[32m+[m[32m    c.parent.mkdir(parents=True)[m
+[32m+[m[32m    c.write_bytes(CONFIG_PATH.read_bytes())[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError, match="Не найден"):[m
+[32m+[m[32m        run(tmp_path)[m
+[32m+[m[32m    assert not (tmp_path / "reports/public/f5_02").exists()[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_check_detects_changes(tmp_path: Path) -> None:[m
+[32m+[m[32m    p = setup_root(tmp_path)[m
+[32m+[m[32m    run(tmp_path)[m
+[32m+[m[32m    p.write_text(p.read_text(encoding="utf-8") + "\n", encoding="utf-8")[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError, match="Устаревший"):[m
+[32m+[m[32m        run(tmp_path, check=True)[m
+[32m+[m[32m    run(tmp_path)[m
+[32m+[m[32m    run(tmp_path, check=True)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_require_expert_blocks_before_write(tmp_path: Path) -> None:[m
+[32m+[m[32m    setup_root(tmp_path)[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError, match="PARTIAL"):[m
+[32m+[m[32m        run(tmp_path, require_expert=True)[m
+[32m+[m[32m    assert not (tmp_path / "reports/public/f5_02").exists()[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_invalid_source_count(tmp_path: Path) -> None:[m
+[32m+[m[32m    p = setup_root(tmp_path)[m
+[32m+[m[32m    p.write_text("\n".join(p.read_text(encoding="utf-8").splitlines()[:31]), encoding="utf-8")[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError, match="ожидается 32"):[m
+[32m+[m[32m        run(tmp_path)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_invalid_criteria_count(tmp_path: Path) -> None:[m
+[32m+[m[32m    p = setup_root(tmp_path)[m
+[32m+[m[32m    rows = p.read_text(encoding="utf-8").splitlines()[m
+[32m+[m[32m    rec = json.loads(rows[0]);rec["facts"] = ["value"][m
+[32m+[m[32m    rows[0] = json.dumps(rec, ensure_ascii=False)[m
+[32m+[m[32m    p.write_text("\n".join(rows), encoding="utf-8")[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError, match="по 2"):[m
+[32m+[m[32m        run(tmp_path)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_duplicate_case_id(tmp_path: Path) -> None:[m
+[32m+[m[32m    p = setup_root(tmp_path)[m
+[32m+[m[32m    lines = p.read_text(encoding="utf-8").splitlines()[m
+[32m+[m[32m    lines[1] = lines[0][m
+[32m+[m[32m    p.write_text("\n".join(lines), encoding="utf-8")[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError, match="Дублирован"):[m
+[32m+[m[32m        run(tmp_path)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m@pytest.mark.parametrize("value", [3, "2", 1.5, -1, True, float("nan")])[m
+[32m+[m[32mdef test_invalid_score_rejected(value: object) -> None:[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError):[m
+[32m+[m[32m        _fact_scores([value, 2], ("a", "b"), "case_x")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_score_null_allowed() -> None:[m
+[32m+[m[32m    assert _fact_scores({"x": None, "y": 2}, ("y", "x"), "case_x") == [2, None][m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_score_keys_must_match() -> None:[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError):[m
+[32m+[m[32m        _fact_scores({"x": 1, "z": 2}, ("x", "y"), "case_x")[m
+[32m+[m
+[32m+[m
+[32m+[m[32m@pytest.mark.parametrize("bad_path", ["../outside", "/tmp/data", "C:/outside", "a/./b", "a//b", "a\\b", "./test"])[m
+[32m+[m[32mdef test_unsafe_paths(tmp_path: Path, bad_path: str) -> None:[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError):[m
+[32m+[m[32m        _path(tmp_path, bad_path, "test")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_symlink_escape(tmp_path: Path) -> None:[m
+[32m+[m[32m    other = tmp_path.parent / "outside_f5_02_tmp"[m
+[32m+[m[32m    other.mkdir(exist_ok=True)[m
+[32m+[m[32m    link = tmp_path / "escape"[m
+[32m+[m[32m    try:[m
+[32m+[m[32m        link.symlink_to(other, target_is_directory=True)[m
+[32m+[m[32m    except (OSError, NotImplementedError):[m
+[32m+[m[32m        pytest.skip("Символьные ссылки недоступны")[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError):[m
+[32m+[m[32m        _path(tmp_path, "escape/secrets.json", "test")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_invalid_config_threshold(tmp_path: Path) -> None:[m
+[32m+[m[32m    setup_root(tmp_path)[m
+[32m+[m[32m    p = tmp_path / "configs/f5_02_llm_diagnostics.json"[m
+[32m+[m[32m    content = json.loads(p.read_text(encoding="utf-8"))[m
+[32m+[m[32m    content["low_overlap_f1_threshold"] = 1.5[m
+[32m+[m[32m    p.write_text(json.dumps(content), encoding="utf-8")[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError):[m
+[32m+[m[32m        load_config(tmp_path)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_invalid_config_output_path(tmp_path: Path) -> None:[m
+[32m+[m[32m    setup_root(tmp_path)[m
+[32m+[m[32m    p = tmp_path / "configs/f5_02_llm_diagnostics.json"[m
+[32m+[m[32m    content = json.loads(p.read_text(encoding="utf-8"))[m
+[32m+[m[32m    content["outputs"]["json"] = "reports/private/abc.json"[m
+[32m+[m[32m    p.write_text(json.dumps(content), encoding="utf-8")[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError):[m
+[32m+[m[32m        load_config(tmp_path)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_invalid_jsonl(tmp_path: Path) -> None:[m
+[32m+[m[32m    p = setup_root(tmp_path)[m
+[32m+[m[32m    p.write_text("{bad", encoding="utf-8")[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError, match="JSONL"):[m
+[32m+[m[32m        run(tmp_path)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_bad_jsonl_record(tmp_path: Path) -> None:[m
+[32m+[m[32m    p = setup_root(tmp_path)[m
+[32m+[m[32m    rows = p.read_text(encoding="utf-8").splitlines()[m
+[32m+[m[32m    rows[0] = json.dumps({"bad": "schema"})[m
+[32m+[m[32m    p.write_text("\n".join(rows), encoding="utf-8")[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError, match="case_id"):[m
+[32m+[m[32m        run(tmp_path)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_duplicate_section_md_rejected(tmp_path: Path) -> None:[m
+[32m+[m[32m    p = setup_root(tmp_path, use_markdown=True)[m
+[32m+[m[32m    s = p.read_text(encoding="utf-8").replace("**Base:**", "**Base:**\nhello\n**Base:**", 1)[m
+[32m+[m[32m    p.write_text(s, encoding="utf-8")[m
+[32m+[m[32m    with pytest.raises(DiagnosticsError, match="дублирован"):[m
+[32m+[m[32m        run(tmp_path)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_proxies_never_count_as_expert(tmp_path: Path) -> None:[m
+[32m+[m[32m    setup_root(tmp_path)[m
+[32m+[m[32m    report = run(tmp_path)[m
+[32m+[m[32m    assert report["summary"]["average_token_f1_base"] is not None[m
+[32m+[m[32m    assert report["summary"]["human_review"]["base_average_score"] is None[m
+[32m+[m[32m    assert report["status"] == "PARTIAL"[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_no_language_model_import_needed() -> None:[m
+[32m+[m[32m    import sys[m
+[32m+[m[32m    assert "transformers" not in sys.modules[m
+[32m+[m[32m    assert "torch" not in sys.modules[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_cli_build_check(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:[m
+[32m+[m[32m    setup_root(tmp_path)[m
+[32m+[m[32m    assert main(["--root", str(tmp_path)]) == 0[m
+[32m+[m[32m    assert main(["--root", str(tmp_path), "--check"]) == 0[m
+[32m+[m[32m    assert "F5.2 PARTIAL" in capsys.readouterr().out[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_cli_require_expert_failure(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:[m
+[32m+[m[32m    setup_root(tmp_path)[m
+[32m+[m[32m    assert main(["--root", str(tmp_path), "--require-expert"]) == 2[m
+[32m+[m[32m    assert "PARTIAL" in capsys.readouterr().err[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_cli_missing_source_failure(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:[m
+[32m+[m[32m    cfg = tmp_path / "configs/f5_02_llm_diagnostics.json"[m
+[32m+[m[32m    cfg.parent.mkdir(parents=True)[m
+[32m+[m[32m    cfg.write_bytes(CONFIG_PATH.read_bytes())[m
+[32m+[m[32m    assert main(["--root", str(tmp_path)]) == 2[m
+[32m+[m[32m    assert "Не найден" in capsys.readouterr().err[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_no_text_in_report(tmp_path: Path) -> None:[m
+[32m+[m[32m    setup_root(tmp_path, reviewed=True)[m
+[32m+[m[32m    report = to_json(run(tmp_path))[m
+[32m+[m[32m    assert "Контекст значения" not in report[m
+[32m+[m[32m    assert "Как проверить значение" not in report[m
+[32m+[m[32m    assert "Значение 0" not in report[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_markdown_parser_example() -> None:[m
+[32m+[m[32m    text = """# F4.7[m
+[32m+[m[32m## ev_py_01 — python[m
+[32m+[m[32m**Вопрос:**[m
+[32m+[m[32mЧто такое x?[m
+[32m+[m[32m**Данные:**[m
+[32m+[m[32m(нет)[m
+[32m+[m[32m**Эталон:**[m
+[32m+[m[32mx есть число[m
+[32m+[m[32m**Факты для проверки:**[m
+[32m+[m[32m- `fact_one`: первый[m
+[32m+[m[32m- `fact_two`: второй[m
+[32m+[m[32m**Base:**[m
+[32m+[m
+[32m+[m[32mx[m
+[32m+[m[32m**LoRA:**[m
+[32m+[m
+[32m+[m[32mx число[m
+[32m+[m[32m---[m
+[32m+[m[32m"""[m
+[32m+[m[32m    parsed = _parse_md(text)[m
+[32m+[m[32m    assert parsed[0]["facts"][0]["id"] == "fact_one"[m
+[32m+[m[32m    assert parsed[0]["lora_response"] == "x число"[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_nested_review_auto_discovery(tmp_path: Path) -> None:[m
+[32m+[m[32m    original = setup_root(tmp_path)[m
+[32m+[m[32m    nested = tmp_path / "outputs/f4_07_comparison/cpu-v2/human_review.jsonl"[m
+[32m+[m[32m    nested.parent.mkdir(parents=True, exist_ok=True)[m
+[32m+[m[32m    nested.write_bytes(original.read_bytes())[m
+[32m+[m[32m    original.unlink()[m
+[32m+
