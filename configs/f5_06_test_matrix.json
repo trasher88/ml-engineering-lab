@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "project": "ml-engineering-lab",
+  "scope": "F5.1-F5.6 CPU-only; no model download, GPU or Docker daemon",
+  "python_minor": "3.13",
+  "profiles": {
+    "unit": [
+      "tests/test_f5_unified_report.py",
+      "tests/test_f5_llm_diagnostics.py",
+      "tests/test_f5_safety_benchmark.py",
+      "tests/test_f5_ci_contract.py"
+    ],
+    "integration": [
+      "tests/test_f5_api.py",
+      "tests/test_f5_docker.py",
+      "tests/test_f5_ci_integration.py"
+    ],
+    "regression": [
+      "tests/test_f5_unified_report.py",
+      "tests/test_f5_llm_diagnostics.py",
+      "tests/test_f5_safety_benchmark.py",
+      "tests/test_f5_api.py",
+      "tests/test_f5_docker.py",
+      "tests/test_f5_ci_contract.py",
+      "tests/test_f5_ci_integration.py",
+      "tests/test_f5_ci_regression.py"
+    ]
+  },
+  "required_inputs": [
+    "src/api_f5/app.py",
+    "src/api_f5/demo_service.py",
+    "src/evaluation_f5/unified_report.py",
+    "src/evaluation_f5/llm_diagnostics.py",
+    "src/evaluation_f5/safety_benchmark.py",
+    "configs/f5_04_api.json",
+    "tests/fixtures/f5_04_api_demo_v1.json",
+    "tests/fixtures/f5_03_safety_cases_v1.json",
+    "requirements-f5_04.txt",
+    "requirements-f5_05.txt",
+    "Dockerfile",
+    "reports/public/f5_03/F5_03_safety_evidence.json",
+    "docs/steps/F5_01_unified_evaluation.md",
+    "docs/steps/F5_02_llm_diagnostics.md",
+    "docs/steps/F5_03_safety_benchmark.md",
+    "docs/steps/F5_04_fastapi.md",
+    "docs/steps/F5_05_docker_inference.md"
+  ]
+}

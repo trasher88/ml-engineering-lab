@@ -1,0 +1,85 @@
+name: F5.6 CPU Testing and CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/f5_06_ci.yml'
+      - 'configs/f5_*.json'
+      - 'scripts/f5_*.py'
+      - 'src/evaluation_f5/**'
+      - 'src/api_f5/**'
+      - 'src/testing_f5/**'
+      - 'tests/test_f5_*.py'
+      - 'tests/fixtures/f5_*.json'
+      - 'requirements-f5_04.txt'
+      - 'requirements-f5_05.txt'
+      - 'Dockerfile'
+      - '.dockerignore'
+      - 'docs/steps/F5_0*.md'
+      - 'reports/public/f5_03/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/f5_06_ci.yml'
+      - 'configs/f5_*.json'
+      - 'scripts/f5_*.py'
+      - 'src/evaluation_f5/**'
+      - 'src/api_f5/**'
+      - 'src/testing_f5/**'
+      - 'tests/test_f5_*.py'
+      - 'tests/fixtures/f5_*.json'
+      - 'requirements-f5_04.txt'
+      - 'requirements-f5_05.txt'
+      - 'Dockerfile'
+      - '.dockerignore'
+      - 'docs/steps/F5_0*.md'
+      - 'reports/public/f5_03/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: f5-06-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  f5-cpu:
+    name: F5 CPU regression
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Python 3.13
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: requirements-f5_04.txt
+      - name: Install CPU-only F5 dependencies
+        run: python -m pip install -r requirements-f5_04.txt
+      - name: Validate test matrix
+        run: python -m scripts.f5_ci plan
+      - name: CPU unit integration regression
+        run: python -m scripts.f5_ci run --profile regression --output "$RUNNER_TEMP/f5_06_ci_evidence.json"
+      - name: Check SHA-pinned evidence
+        run: python -m scripts.f5_ci check --evidence "$RUNNER_TEMP/f5_06_ci_evidence.json"
+      - name: Local process and TCP HTTP smoke
+        run: python -m scripts.f5_ci http-smoke
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: f5-06-ci-evidence
+          path: ${{ runner.temp }}/f5_06_ci_evidence.json
+          if-no-files-found: warn
