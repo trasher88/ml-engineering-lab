@@ -4,7 +4,7 @@
 
 Подготовить общий протокол публикации **уже вычисленных** показателей Фаз 1–4 без переобучения моделей, повторного запуска генерации, перенастройки retrieval и искусственного сведения разнородных метрик в общий score.
 
-Вход: сохранённые JSON-артефакты F1, F2, F3, F4, описанные в [configs/f5_01_unified_evaluation.json](../configs/f5_01_unified_evaluation.json). Выход: воспроизводимые отчёты `reports/public/f5_01/F5_01_unified_evaluation.json` и `docs/reports/F5_01_UNIFIED_EVALUATION.md`, генерируемые в пользовательском checkout.
+Вход: сохранённые JSON-артефакты F1, F2, F3, F4, описанные в `configs/f5_01_unified_evaluation.json]`. Выход: воспроизводимые отчёты `reports/public/f5_01/F5_01_unified_evaluation.json` и `docs/reports/F5_01_UNIFIED_EVALUATION.md`, генерируемые в пользовательском checkout.
 
 Единый протокол объединяет **происхождение, единицы измерения, название задачи, dataset/split, извлечённые численные значения и ограничения**. Он не означает объединение чисел Accuracy, Recall@5, MRR@5 и validation loss в один показатель качества.
 
