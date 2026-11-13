@@ -4,11 +4,23 @@
 
 Проект построен вокруг технических вопросов и ответов из **Stack Exchange**. Его цель - последовательно реализовать основные компоненты ML/AI-системы, научиться проверять результаты и понимать ограничения каждого подхода. Это **инженерная лаборатория**, а не готовый коммерческий продукт.
 
-## Масштаб: 
-- 5 фаз
-- 43 этапа
-- разработка на Python
-- локальные эксперименты преимущественно на CPU.
+## Проект состоит из 5 Фаз:
+**1. Data Engineering & Classical ML**
+Подготовка данных, preprocessing, feature engineering, train/validation/test split, построение baseline-моделей и оценка качества с использованием ML-метрик.
+
+**2. Deep Learning & PyTorch**
+Разработка нейросетевого классификатора на PyTorch: embeddings, forward pass, autograd, backpropagation, optimization, training loop, validation, checkpointing и анализ learning curves. Сравнение нейросетевой модели с классическим ML baseline.
+
+**3. Information Retrieval & RAG**
+Реализация поискового пайплайна: TF-IDF, BM25, pretrained embeddings, vector similarity search, hybrid retrieval с Reciprocal Rank Fusion (RRF). Сравнение методов поиска на фиксированном benchmark, оценка retrieval quality и реализация provenance для отслеживания источников.
+
+**4. LLM Integration & RAG Pipeline**
+Интеграция Transformer-based LLM с retrieval-компонентами, построение контекстно-зависимой генерации ответов на основе найденных документов и оценка качества grounded generation.
+
+**5. Production ML Engineering**
+Сборка воспроизводимого AI-сервиса с модульной архитектурой, API, автоматизированным тестированием, логированием и контролем качества.
+
+**Итоговая цель:** реализовать полноценный RAG-based AI Assistant, способный выполнять semantic search по собственной базе знаний, формировать grounded answers с указанием источников и работать как самостоятельная ML/LLM-система.
 
 ## Архитектура проекта
 <p align="center">
