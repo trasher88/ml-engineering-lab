@@ -1,7 +1,7 @@
 # ML Engineering Lab
 
 <p align="center">
-<img src="../docs/reports/All.png" alt="ML Engineering Lab" width="800">
+<img src="All.png" alt="ML Engineering Lab" width="800">
 </p>
 
 **Практический учебный проект по Machine Learning (машинному обучению), NLP (обработке естественного языка), LLM (больших языковых моделей) и ML Engineering (ML-инжерении):** от подготовки текстовых данных и построения классификатора до поиска информации, экспериментов с дообучением языковой модели, оценки и демонстрационного API.
