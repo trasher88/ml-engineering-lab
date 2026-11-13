@@ -73,30 +73,12 @@ ml-engineering-lab/
 
 ## Статус публикации
 ### Данные и классический ML
-1. [F1.1 - Основа ML-проекта](docs/steps/F1_01_project_foundation.md)
-2. [F1.2 - Выбор датасета](docs/steps/F1_02_dataset_selection.md)
-3. [F1.3 - Получение данных](docs/steps/F1_03_data_ingestion.md)
-4. [F1.4 - Очистка](docs/steps/F1_04_cleaning.md)
-5. [F1.5 - Разведочный анализ](docs/steps/F1_05_eda.md)
-6. [F1.6 - Split без утечки](docs/steps/F1_06_splits.md)
-7. [F1.7 - TF-IDF + Logistic Regression](docs/steps/F1_07_classical_baseline.md)
-8. [F1.8 - Анализ ошибок](docs/steps/F1_08_error_analysis.md)
-9. [F1.9 - Итоговый отчёт F1](docs/steps/F1_09_report.md)
-10. [**F1 - Итоги Фазы 1**](docs/reports/F1_PHASE_REPORT.md)
+[**F1 - Итоги Фазы 1**](docs/reports/F1_PHASE_REPORT.md)
 
 ### PyTorch и обучение нейросети
-1. [F2.1 - PyTorch: Tensor and autograd (Тензоры, вычислительный граф и градиенты)](docs/steps/F2_01_autograd.md)
-2. [F2.2 - Dataset, DataLoader и токенизация](docs/steps/F2_02_dataset_dataloader.md)
-3. [F2.3 - Embedding Classifier: Первая маленькая нейросетевая архитектура](docs/steps/F2_03_embedding_classifier.md)
-4. [F2.4 - Training Loop: обучение Embedding Classifier в PyTorch](docs/steps/F2_04_training_loop.md)
-5. [F2.5 - Validation & Checkpointing: Оценка и выбор лучшей нейросети](docs/steps/F2_05_validation_checkpointing.md)
-6. [F2.6 - Training Diagnostics & Visualization: Графики обучения](docs/steps/F2_06_training_diagnostics.md)
-7. [F2.7 - Classical ML vs Neural Network: Сравнение](docs/steps/F2_07_classical_vs_neural.md)
-8. [F2.8 - Final Phase Report: Сведение проверяемых результатов](docs/steps/F2_08_final_phase_report.md)
-9. [**F2 - Итоги Фазы 2**](docs/reports/F2_PHASE_REPORT.md)
+[**F2 - Итоги Фазы 2**](docs/reports/F2_PHASE_REPORT.md)
 
 ## Воспроизводимость и ограничения
-
 - Данные разделяются на train/validation/test; версии внешних ресурсов и контрольные суммы фиксируются в манифестах: [`data/raw/manifest.json`](data/raw/manifest.json), [`models/external_manifest.json`](models/external_manifest.json).
 - Retrieval-метрики рассчитаны по **silver-разметке**; это не экспертная проверка корректности сформированных ответов.
 - F4 включает минимальные реальные CPU-эксперименты SFT/LoRA и DPO, но **не подтверждает прирост качества LLM**. Экспертная оценка ответов не завершена.
