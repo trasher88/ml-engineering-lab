@@ -38,7 +38,7 @@
 | [F4 — LLM Fine-Tuning](docs/phases/F4.md) | 9 | Instruction dataset, Qwen2.5-0.5B, SFT + LoRA, учебный DPO | Реальные CPU-шаги обучения выполнены; рост качества ответов **не доказан** |
 | [F5 — Evaluation & ML Engineering](docs/phases/F5.md) | 8 | Сводная оценка, диагностика, safety, API, Docker, тесты, MLflow, CLI-demo | Инфраструктурные проверки пройдены на учебных сценариях |
 
-Подробное техническое описание отдельных этапов — в [`docs/steps/`](docs/steps/). Отчёты и проверочные материалы — в [`docs/reports/`](docs/reports/) и [`reports/public/`](reports/public/).
+Подробное техническое описание отдельных этапов — в [`docs/steps/`](https://github.com/trasher88/ml-engineering-lab/tree/main/docs/steps). Отчёты и проверочные материалы — в [`docs/reports/`](https://github.com/trasher88/ml-engineering-lab/tree/main/docs/reports) и [`reports/public/`](https://github.com/trasher88/ml-engineering-lab/tree/main/reports/public/).
 
 ## Ключевые результаты
 | Направление | Результат | Как интерпретировать |
