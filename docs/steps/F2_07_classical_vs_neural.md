@@ -3,6 +3,7 @@
 <p align="center">
 <img src="../reports/F2/F_27.png" alt="Classical ML vs Neural Network" width="800">
 </p>
+
 ## 1. Цель этапа:
 
 В Фазе 1 обучен классификатор технических вопросов с помощью **TF-IDF + Logistic Regression**. Это классический подход: TF-IDF преобразует текст в признаки, а Logistic Regression определяет одну из четырёх категорий вопроса.

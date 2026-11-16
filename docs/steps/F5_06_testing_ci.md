@@ -3,6 +3,7 @@
 <p align="center">
 <img src="../reports/F5/F_56.png" alt="Testing & CI" width="800">
 </p>
+
 ## 1. Цель этапа:
 
 **Задача F5.6** - создать проверяемую матрицу тестирования, отделить unit от integration и regression, зафиксировать происхождение проверяемых исходников и обеспечить запуск CPU-профиля в GitHub Actions. Входами служат существующие `src/`, `scripts/`, `configs/`, `tests/`, Docker-контракт и фиксированные открытые fixtures F5. Результатами служат код оркестратора, явно перечисленные профили тестирования, структурное evidence по pytest, реальный локальный HTTP smoke и отдельный GitHub Actions workflow.

@@ -3,6 +3,7 @@
 <p align="center">
 <img src="../reports/F4/F_47.png" alt="Direct Preference Optimization (DPO)" width="800">
 </p>
+
 ## 1. Цель этапа:
 
 **Цель F4.8:** реализовать и проверить воспроизводимый учебный конвейер preference optimization: сформировать датасет из 20 пар, проверить происхождение и split, реализовать scalar-эталон DPO-loss, вычисление настоящих sequence log-probabilities, один шаг оптимизации LoRA на CPU и независимую проверку сохранённых результатов.

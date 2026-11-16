@@ -3,6 +3,7 @@
 <p align="center">
 <img src="../reports/F3/F_31.png" alt="Self-Attention" width="800">
 </p>
+
 ## 1. Цель этапа:
 
 До F3.1 в Фазе 2 построена нейросеть для классификации технических текстов. Она умела получать текст и определять одну из четырёх категорий: `databases`, `linux`, `systems` или `programming`.
