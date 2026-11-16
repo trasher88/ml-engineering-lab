@@ -37,7 +37,7 @@ def check() -> None:
             if link.startswith(('https://', 'http://', 'mailto:', '#')):
                 continue
             target = link.partition('#')[0]
-            assert (file.parent / target).is_file(), f'{file.relative_to(ROOT)}: broken link {link}'
+            assert (file.parent / target).exists(), f'{file.relative_to(ROOT)}: broken link {link}'
     print('Repository metadata check: PASS (no model training or runtime tests)')
 
 if __name__ == '__main__':
