@@ -1,10 +1,11 @@
 # F3.6 - Frozen Retrieval Benchmark: пошаговая реализация
 
+<p align="center">
+<img src="../reports/F3/F_36.png" alt="Frozen Retrieval Benchmark" width="800">
+</p>
 ## 1. Цель этапа
 
-В F3.3–F3.5 сформированы BM25, точный Vector Search и Hybrid RRF. Все три метода способны выдать ранжированный список `doc_id`, однако высокий BM25/cosine/RRF score сам по себе не означает, что найден полезный документ.
-
-![Frozen Retrieval Benchmark](../reports/F3/F_36.png "Frozen Retrieval Benchmark")
+В F3.3-F3.5 сформированы BM25, точный Vector Search и Hybrid RRF. Все три метода способны выдать ранжированный список `doc_id`, однако высокий BM25/cosine/RRF score сам по себе не означает, что найден полезный документ.
 
 **Задача F3.6:** подготовить фиксированный корпус с явной разметкой `query_id → релевантные doc_id`, формально определить **Recall@K** и **MRR@K** и защитить данные от незаметных изменений. Отделить поисковые алгоритмы от независимого механизма оценки.
 

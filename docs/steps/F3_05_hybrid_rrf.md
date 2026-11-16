@@ -1,10 +1,12 @@
 # F3.5 - Hybrid Search и Reciprocal Rank Fusion: пошаговая реализация
 
-## 1. Цель этапа
+<p align="center">
+<img src="../reports/F3/F_35.png" alt="Hybrid Search" width="800">
+</p>
+
+## 1. Цель этапа:
 
 В F3.3 реализован поиск документов по совпадениям терминов (BM25). В F3.4 реализован точный поиск по cosine similarity dense embeddings. Оба алгоритма возвращают ранжированные списки, но их числовые оценки принадлежат **разным шкалам**.
-
-![Hybrid Search](../reports/F3/F_35.png "Hybrid Search")
 
 **Задача F3.5:** объединить лексическую и векторную выдачи в один `top-k`, сохранив идентификаторы документов и источников. Применить **Reciprocal Rank Fusion (RRF)**: использовать позиции кандидатов вместо непосредственного сложения BM25 score и cosine score.
 
@@ -100,7 +102,6 @@ BM25 score зависит от TF/IDF, длины текста и состава
 Fusion вычисляет до двух вкладов на документ и сортирует до `2P` элементов: время `O(P log P)`, дополнительная память `O(P)`. Однако суммарное время запроса включает исходный поиск: у точного VectorIndex сохраняется стоимость `O(ND)`.
 
 ## 5. Схема вычислений
-
 ```mermaid
 flowchart TD
     Q[Один пользовательский запрос] --> T[query_text]
@@ -163,14 +164,14 @@ cd F:\DEVELOPMENT\ML\ml-engineering-lab
 
 ## 9. Файлы этапа
 
-| Порядок | Файл | На что смотреть в коде |
-|---|---|---|
-| 1 | `scripts/hybrid_search_demo.py` | Входные ранги двух методов и итоговая выдача. |
-| 2 | `src/transformers_f3/hybrid_search.py` | `HybridSearcher.__init__()`: проверка ID, параметров и соответствия индексов. |
-| 3 | `src/transformers_f3/hybrid_search.py` | `search()`: объединение кандидатов, `math.fsum`, сортировка по score и ID. |
-| 4 | `tests/test_f3_hybrid_search.py` | Ручные дроби RRF, пустые выдачи, веса, изменение пула и неверные ID. |
-| 5 | `src/transformers_f3/bm25.py` | Происхождение BM25 ranks — модуль F3.3. |
-| 6 | `src/transformers_f3/vector_search.py` | Cosine ranks и `source_id` — модуль F3.4. |
-| 7 | `src/transformers_f3/embeddings.py` | Формирование query embedding до вызова HybridSearcher — модуль F3.2. |
+| Порядок | Файл                                   | На что смотреть в коде                                                        |
+| ------- | -------------------------------------- | ----------------------------------------------------------------------------- |
+| 1       | `scripts/hybrid_search_demo.py`        | Входные ранги двух методов и итоговая выдача.                                 |
+| 2       | `src/transformers_f3/hybrid_search.py` | `HybridSearcher.__init__()`: проверка ID, параметров и соответствия индексов. |
+| 3       | `src/transformers_f3/hybrid_search.py` | `search()`: объединение кандидатов, `math.fsum`, сортировка по score и ID.    |
+| 4       | `tests/test_f3_hybrid_search.py`       | Ручные дроби RRF, пустые выдачи, веса, изменение пула и неверные ID.          |
+| 5       | `src/transformers_f3/bm25.py`          | Происхождение BM25 ranks — модуль F3.3.                                       |
+| 6       | `src/transformers_f3/vector_search.py` | Cosine ranks и `source_id` — модуль F3.4.                                     |
+| 7       | `src/transformers_f3/embeddings.py`    | Формирование query embedding до вызова HybridSearcher — модуль F3.2.          |
 
 **Итог F3.5:** получена единая гибридная выдача без смешивания несопоставимых scores и без заявлений о качестве на реальных данных.
