@@ -274,9 +274,25 @@ def test_proxies_never_count_as_expert(tmp_path: Path) -> None:
 
 
 def test_no_language_model_import_needed() -> None:
+    """Check F5.2 imports in a fresh interpreter, independently of test order."""
+    import subprocess
     import sys
-    assert "transformers" not in sys.modules
-    assert "torch" not in sys.modules
+
+    probe = (
+        "import sys\n"
+        "import src.evaluation_f5.llm_diagnostics\n"
+        "import scripts.f5_llm_diagnostics\n"
+        "assert 'transformers' not in sys.modules\n"
+        "assert 'torch' not in sys.modules\n"
+    )
+    result = subprocess.run(
+        [sys.executable, "-c", probe],
+        cwd=Path(__file__).resolve().parents[1],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    assert result.returncode == 0, result.stderr
 
 
 def test_cli_build_check(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
