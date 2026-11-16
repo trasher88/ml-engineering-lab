@@ -13,21 +13,45 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Python 3.12
+
+      - name: Python 3.13
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.13'
+
+      - name: Verify Python version
+        run: |
+          python --version
+          python -c "import sys; assert sys.version_info[:2] == (3, 13)"
+
       - name: Install existing F1 test dependencies
         run: python -m pip install -r requirements-error-analysis.txt
+
       - name: Install pinned CPU-only PyTorch
         run: python -m pip install 'torch==2.14.1+cpu' --extra-index-url https://download.pytorch.org/whl/cpu
+
       - name: Install F5 API dependencies
         run: python -m pip install -r requirements-f5_04.txt
+
       - name: Build F4.1 instruction dataset
         run: python scripts/f4_instruction_dataset.py
+
       - name: Verify F4.1 instruction dataset
         run: python scripts/f4_instruction_dataset.py --verify
+
+      - name: Build F4.3 evaluation set
+        run: python scripts/f4_evaluation_set.py
+
+      - name: Verify F4.3 evaluation set
+        run: python scripts/f4_evaluation_set.py --verify
+
+      - name: Validate F4.7 and F5.6 plans
+        run: |
+          python scripts/f4_base_vs_finetuned.py --plan
+          python -m scripts.f5_ci plan
+
       - name: Run full offline regression suite including F2.1
         run: python -m pytest -q
+
       - name: F2.1 independent CLI smoke test
         run: python -m src.pytorch_f2.autograd_demo --check
