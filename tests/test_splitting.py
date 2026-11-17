@@ -1,6 +1,5 @@
 # Назначение файла: F1.6: проверки групп близких дубликатов и отсутствия утечек между выборками.
 
-"""F1.6 offline tests: synthetic Q&A only; no raw Stack Exchange material."""
 from __future__ import annotations
 
 import copy
