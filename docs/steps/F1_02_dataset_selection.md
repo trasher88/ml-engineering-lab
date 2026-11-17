@@ -285,4 +285,4 @@ Dataset provenance: PASS; sources=4; selected=3066; seed=42
 | 7       | [`.github/workflows/foundation-tests.yml`](../../.github/workflows/foundation-tests.yml) | Как проверки F1.2 включены в уже существующий CI, не требующий скачивать Q&A.                                                                       |
 | 8       | [`docs/DATA_PROVENANCE.md`](../DATA_PROVENANCE.md)                                       | Подробное описание происхождения датасета, лицензионных оговорок и причин исключения чужих текстов из публичной публикации.                         |
 
-**Итог F1.2:** Появился проверяемый контракт исходного датасета.
+**Итог F1.2:** Появился проверяемый контракт исходного датасета (Data Contract).
