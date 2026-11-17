@@ -1,11 +1,6 @@
 # Назначение файла: F1.6: CLI для группового разделения очищенного корпуса.
 # Сохраняет train/val/test локально и аудит без исходных текстов.
 
-"""F1.6: offline, grouped train/val/test split of cleaned F1.4 JSONL.
-
-Run: python -m scripts.split_data --expect-rows 3040
-All text-bearing artifacts remain local and excluded from Git.
-"""
 from __future__ import annotations
 
 import argparse
