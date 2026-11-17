@@ -1,11 +1,7 @@
 # Назначение файла: F1.9: верификация локальных аудит-файлов и генерация отчёта F1.
 # В публичный Markdown включаются только агрегированные сведения.
 
-"""F1.9: aggregate-only final report, validated against local F1.4–F1.8 audits.
 
-No source Q&A, record IDs, model weights or row-level predictions are read
-into the output report. Test split byte hashes are checked by the CLI wrapper.
-"""
 from __future__ import annotations
 
 from collections import Counter
