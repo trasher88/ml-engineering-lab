@@ -1,12 +1,6 @@
 # Назначение файла: F1.6: группировка лексически похожих Q&A и разделение train/val/test.
 # Алгоритм защищает от пересечений найденных групп, но не всех смысловых перефразировок.
 
-"""F1.6: group near-duplicate technical Q&A before train/val/test split.
-
-Based on the original project's char_wb TF-IDF (3..5 grams), union-find,
-and StratifiedGroupKFold workflow. No user text is logged or included in
-aggregate reports. This is a lexical heuristic, not semantic deduplication.
-"""
 from __future__ import annotations
 
 from collections import Counter
