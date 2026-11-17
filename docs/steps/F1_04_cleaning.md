@@ -162,6 +162,7 @@ min(len(item["context"].split()), len(item["answer"].split())) < min_words
 | `short_removed`      | Сколько отклонено из-за длины вопроса или ответа.                 |
 | `output_rows`        | Сколько записей осталось после очистки.                           |
 
+
 В конце `clean_records()` проверяется арифметическая согласованность:
 ```math
 \text{input\_rows} =
