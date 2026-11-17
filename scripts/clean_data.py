@@ -1,11 +1,6 @@
 # Назначение файла: F1.4: CLI для очистки subset и записи агрегированного аудита.
 # Не загружает данные из сети; исходные тексты не попадают в отчёт.
 
-"""F1.4: clean the F1.3 local subset without accessing the network.
-
-Run: python -m scripts.clean_data --expect-input 3066 --expect-output 3040
-No user-generated Q&A are printed; text outputs stay in ignored local paths.
-"""
 from __future__ import annotations
 
 import argparse
