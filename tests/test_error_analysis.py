@@ -1,6 +1,6 @@
 # Назначение файла: F1.8: проверки анализа зафиксированных прогнозов без реальных вопросов.
 
-"""F1.8 offline tests — all examples are invented, no Stack Exchange texts."""
+
 from __future__ import annotations
 
 import copy
