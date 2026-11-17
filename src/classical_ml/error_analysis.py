@@ -1,11 +1,7 @@
 # Назначение файла: F1.8: анализ сохранённых предсказаний без повторного обучения.
 # Формирует агрегированные метрики, матрицу ошибок и список ID без текстов Q&A.
 
-"""F1.8: text-free analysis of frozen F1.7 predictions.
 
-This module never loads a trained joblib model, refits TF-IDF, or copies Q&A
-contexts into public-facing report objects. Case IDs are local-only artifacts.
-"""
 from __future__ import annotations
 
 from collections import Counter
