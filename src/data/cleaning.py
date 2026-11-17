@@ -1,11 +1,6 @@
 # Назначение файла: F1.4: детерминированная очистка технических текстов и фильтрация записей.
 # Близкие дубликаты здесь не группируются: это отдельный этап F1.6.
 
-"""F1.4: deterministic text cleaning from the original ML Engineering Lab.
-
-Keep this stage separate from near-duplicate grouping and train/val/test
-allocation (F1.6). No input examples are logged or committed.
-"""
 from __future__ import annotations
 
 import html
