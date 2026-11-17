@@ -1,10 +1,10 @@
 # Назначение файла: F1.3: скачивание архивов по закреплённому манифесту и воспроизводимый отбор Q&A.
 # Сверяет SHA-256, поддерживает offline-режим; исходные тексты остаются локально.
 
-"""F1.3: reproduce the pinned technical Q&A subset from verified source files.
+"""F1.3: воспроизвести зафиксированный поднабор технических вопросов и ответов (Q&A) на основе проверенных исходных файлов.
 
-No downloaded Q&A or derivatives belong in the public Git repository.
-The historical manifest produced in the original run is a *read-only input*.
+Загруженные вопросы и ответы, а также производные от них материалы, не должны размещаться в публичном Git-репозитории.
+Исторический манифест, созданный в ходе первоначального запуска, является входным файлом, доступным только для чтения.
 """
 from __future__ import annotations
 
