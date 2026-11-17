@@ -1,11 +1,7 @@
 # Назначение файла: F1.8: CLI анализа ошибок уже обученной модели.
 # Сопоставляет источники и агрегирует ошибки, не выполняя fit.
 
-"""F1.8: offline, post-training analysis of stored F1.7 test predictions.
 
-Does not load serialized models or train. Results contain aggregate metrics;
-case-level IDs are stored only in a gitignored file for local review.
-"""
 from __future__ import annotations
 
 import argparse
