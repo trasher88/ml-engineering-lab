@@ -1,11 +1,7 @@
 # Назначение файла: F1.7: TF-IDF + Logistic Regression и оценка на отложенных выборках.
 # Векторизатор и классификатор обучаются только на train.
 
-"""F1.7 baseline: fit TF-IDF and classifier on train exclusively.
 
-The validation/test sets are never passed to .fit().  Pure functions here
-are useful for offline synthetic-data tests, without proprietary Q&A data.
-"""
 from __future__ import annotations
 
 from collections import Counter
