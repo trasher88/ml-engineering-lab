@@ -1,10 +1,10 @@
 # Назначение файла: F1.2: проверка неизменяемых метаданных датасета Stack Exchange.
 # Без флага --verify-files проверяется манифест, а не содержимое gzip-архивов.
 
-"""Offline validation of the pinned Stack Exchange dataset manifest (F1.2).
+"""Автономная проверка манифеста зафиксированного набора данных Stack Exchange (F1.2).
 
-This module reads metadata only. It does not download or redistribute Q&A.
-To validate downloaded raw files by SHA-256, use --verify-files after F1.3.
+Модуль считывает только метаданные. Он не выполняет загрузку или повторное распространение материалов вопросов и ответов (Q&A).
+Для проверки загруженных исходных файлов по алгоритму SHA-256 используйте параметр --verify-files после выполнения этапа F1.3.
 """
 from __future__ import annotations
 
