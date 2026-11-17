@@ -1,6 +1,5 @@
 # Назначение файла: F1.7: проверка модели и метрик на синтетических вопросах; без настоящих Q&A.
 
-"""F1.7 offline tests: synthetic labels and text, no downloaded dataset."""
 from __future__ import annotations
 
 import copy
