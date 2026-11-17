@@ -1,11 +1,7 @@
 # Назначение файла: F1.5: описательная статистика очищенного корпуса без публикации текстов.
 # Разбиение на train/validation/test и поиск близких дубликатов здесь не выполняются.
 
-"""F1.5: text-free, reproducible descriptive statistics for cleaned Q&A.
 
-Split-aware analysis is intentionally deferred to F1.6. The API does not
-include examples or any text-derived n-grams in its returned summaries.
-"""
 from __future__ import annotations
 
 from collections import Counter
