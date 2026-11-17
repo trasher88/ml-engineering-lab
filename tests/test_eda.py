@@ -1,6 +1,5 @@
 # Назначение файла: F1.5: проверки агрегатов и графиков EDA на синтетическом корпусе.
 
-"""F1.5: deterministic EDA with synthetic records only (never remote data)."""
 from __future__ import annotations
 
 import copy
