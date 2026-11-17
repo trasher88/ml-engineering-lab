@@ -1,6 +1,5 @@
 # Назначение файла: F1.4: проверки нормализации, фильтрации и аудита очистки на выдуманных записях.
 
-"""F1.4: synthetic-only deterministic cleaning tests. No dataset download."""
 from __future__ import annotations
 
 import copy
