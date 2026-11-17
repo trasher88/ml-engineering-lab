@@ -1,11 +1,6 @@
 # Назначение файла: F1.5: CLI для статистики и графиков по очищенным вопросам.
 # Сохраняет агрегаты, а не строки датасета.
 
-"""F1.5 EDA on locally cleaned data; emits aggregate-only JSON and charts.
-
-Run: python -m scripts.eda_data --expect-rows 3040
-The original texts are never logged, serialized to reports or checked in.
-"""
 from __future__ import annotations
 
 import argparse
