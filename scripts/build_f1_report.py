@@ -1,13 +1,7 @@
 # Назначение файла: F1.9: CLI построения и проверки итогового Markdown-отчёта.
 # Сверяет локальные аудиты; --check проверяет существующий файл без перезаписи.
 
-"""F1.9: rebuild a public-safe report from local, aggregate-only F1 audits.
 
-Usage:
-  python -m scripts.build_f1_report --expect-rows 3040 --expect-test 608
-  python -m scripts.build_f1_report --check
-No network, model fitting, or source Q&A in the generated Markdown.
-"""
 from __future__ import annotations
 
 import argparse
