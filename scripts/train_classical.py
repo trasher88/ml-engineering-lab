@@ -1,11 +1,7 @@
 # Назначение файла: F1.7: CLI обучения фиксированного classical baseline.
 # Проверяет разбиение и сохраняет модель/предсказания только локально.
 
-"""F1.7: train a fixed classical baseline from locally prepared F1.6 splits.
 
-Run from repository root: python -m scripts.train_classical --expect-test 608
-Training does not download data; outputs stay local and are not for GitHub.
-"""
 from __future__ import annotations
 
 import argparse
