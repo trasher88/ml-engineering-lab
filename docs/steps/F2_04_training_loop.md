@@ -365,6 +365,6 @@ F2.4 Training Loop CHECK: PASS
 | 5 | [`src/pytorch_f2/training_loop.py`](../../src/pytorch_f2/training_loop.py) | `EpochResult`: какие значения сохраняются после эпохи и почему они отделены от исходных данных. |
 | 6 | [`tests/test_training_loop.py`](../../tests/test_training_loop.py) | Проверки изменения весов, ненулевых градиентов, PAD, взвешенного loss, воспроизводимости, val/test isolation и неправильных данных. |
 | 7 | [`src/pytorch_f2/embedding_classifier.py`](../../src/pytorch_f2/embedding_classifier.py) | `EmbeddingClassifier.forward()`: откуда берутся `logits`, которые поступают в CrossEntropyLoss. Код из F2.3. |
-| 8 | [`src/pytorch_f2/data_pipeline.py`](../../`src/pytorch_f2/data_pipeline.py) | `prepare_data()` и `make_loader()`: формирование train-only Dataset, батчей и воспроизводимого порядка. Код из F2.2. |
+| 8 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | `prepare_data()` и `make_loader()`: формирование train-only Dataset, батчей и воспроизводимого порядка. Код из F2.2. |
 
 **Итог F2.4:** реализован собственный цикл обучения: определены функции ошибок, вычисление градиентов, обновление весов, расчёт статистики эпохи и границы train-only обучения.
