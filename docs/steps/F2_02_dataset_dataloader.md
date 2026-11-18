@@ -309,14 +309,14 @@ F2.2 Dataset/DataLoader CHECK: PASS
 
 | Порядок | Файл | На что смотреть в коде |
 |---|---|---|
-| 1 | `scripts/pytorch_batches.py` | `synthetic_splits()` и `run()`: откуда берутся примеры, как запускаются `prepare_data()`/`make_loader()`, какие агрегаты выводятся без раскрытия текстов. |
-| 2 | `src/pytorch_f2/data_pipeline.py` | `read_f1_splits()` и `validate_splits()`: чтение готовых JSONL, проверка полей, ID, group_id и набора классов. |
-| 3 | `src/pytorch_f2/data_pipeline.py` | `tokenize()`: `casefold()`, Unicode-регулярное выражение и обработка пустого/неверного текста. |
-| 4 | `src/pytorch_f2/data_pipeline.py` | `build_vocab()`, `Vocabulary.__post_init__()` и `encode()`: частоты train, порядок ID, служебные токены, `<UNK>`, сохранение BOS/EOS при обрезке. |
-| 5 | `src/pytorch_f2/data_pipeline.py` | `QuestionDataset.__len__()` и `__getitem__()`: перевод одной записи в `input_ids`, `label`, `sample_id` без padding. |
-| 6 | `src/pytorch_f2/data_pipeline.py` | `collate_questions()`: матрица PAD, булева маска, формы тензоров и проверка соответствия последовательностей меткам. |
-| 7 | `src/pytorch_f2/data_pipeline.py` | `prepare_data()` и `make_loader()`: единые отображения для трёх Dataset, batch size, seed, shuffle и `num_workers=0`. |
-| 8 | `tests/test_pytorch_data.py` | Проверки детерминизма, leakage, повреждённых данных, типов/форм, padding и CLI; отдельно посмотри тесты на частичный последний батч. |
-| 9 | `src/pytorch_f2/embedding_classifier.py` | Следующий этап F2.3: как `input_ids` и `attention_mask` используются в `nn.Embedding` и masked pooling. **Этот файл не создавался и не изменялся в F2.2.** |
+| 1 | [`scripts/pytorch_batches.py`](../../`scripts/pytorch_batches.py) | `synthetic_splits()` и `run()`: откуда берутся примеры, как запускаются `prepare_data()`/`make_loader()`, какие агрегаты выводятся без раскрытия текстов. |
+| 2 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | `read_f1_splits()` и `validate_splits()`: чтение готовых JSONL, проверка полей, ID, group_id и набора классов. |
+| 3 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | `tokenize()`: `casefold()`, Unicode-регулярное выражение и обработка пустого/неверного текста. |
+| 4 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | `build_vocab()`, `Vocabulary.__post_init__()` и `encode()`: частоты train, порядок ID, служебные токены, `<UNK>`, сохранение BOS/EOS при обрезке. |
+| 5 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | `QuestionDataset.__len__()` и `__getitem__()`: перевод одной записи в `input_ids`, `label`, `sample_id` без padding. |
+| 6 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | `collate_questions()`: матрица PAD, булева маска, формы тензоров и проверка соответствия последовательностей меткам. |
+| 7 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | `prepare_data()` и `make_loader()`: единые отображения для трёх Dataset, batch size, seed, shuffle и `num_workers=0`. |
+| 8 | [`tests/test_pytorch_data.py`](../../tests/test_pytorch_data.py) | Проверки детерминизма, leakage, повреждённых данных, типов/форм, padding и CLI; отдельно посмотри тесты на частичный последний батч. |
+| 9 | [`src/pytorch_f2/embedding_classifier.py`](../../src/pytorch_f2/embedding_classifier.py) | Следующий этап F2.3: как `input_ids` и `attention_mask` используются в `nn.Embedding` и masked pooling. **Этот файл не создавался и не изменялся в F2.2.** |
 
 **Итог F2.2:** реализован проверяемый pipeline преобразования текстовых записей F1 в числовые батчи PyTorch. Разбиение train/validation/test сохранено без изменений.
