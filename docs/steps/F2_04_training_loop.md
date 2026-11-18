@@ -346,13 +346,6 @@ F2.4 Training Loop CHECK: PASS
 - Training Loop не обращается к val/test для обновления параметров.
 - На контролируемом синтетическом примере training loss уменьшился между первой и второй эпохами.
 
-**Не подтверждается:**
-- что уменьшение training loss означает хорошее качество на новых вопросах;
-- что F2.4 получил validation Accuracy/Macro F1 или лучший checkpoint;
-- что в F2.4 оценивался test-набор;
-- что одинаковый seed гарантирует побитно одинаковые результаты на разных устройствах и версиях PyTorch;
-- что две учебные эпохи - оптимальное количество для реального датасета.
-
 **Ограничения:** на этом этапе реализован CPU-only training loop; нет validation, early stopping, сохранения лучшей модели, мониторинга переобучения и полноценного сравнения с baseline. Эти задачи сознательно вынесены в F2.5–F2.7.
 
 ## 8. Основная мысль раздела
@@ -365,13 +358,13 @@ F2.4 Training Loop CHECK: PASS
 
 | Порядок | Файл | На что смотреть в коде |
 |---|---|---|
-| 1 | `scripts/pytorch_training.py` | `run()`: выбор синтетического или локального режима, `prepare_data()`, создание модели, вызов `make_loader()` и `train_epochs()`, агрегированный JSON. |
-| 2 | `src/pytorch_f2/training_loop.py` | `train_one_epoch()`: `model.train()`, очистка градиентов, `forward`, `CrossEntropyLoss`, `backward`, `optimizer.step`, сбор статистики. **Главная функция F2.4.** |
-| 3 | `src/pytorch_f2/training_loop.py` | `train_epochs()`: проверка гиперпараметров, создание одного AdamW, вызовы обучения по эпохам и проверка результатов. |
-| 4 | `src/pytorch_f2/training_loop.py` | `_validate_batch()` и `_validate_hyperparameters()`: формы, типы, метки и запрет некорректных параметров. |
-| 5 | `src/pytorch_f2/training_loop.py` | `EpochResult`: какие значения сохраняются после эпохи и почему они отделены от исходных данных. |
-| 6 | `tests/test_training_loop.py` | Проверки изменения весов, ненулевых градиентов, PAD, взвешенного loss, воспроизводимости, val/test isolation и неправильных данных. |
-| 7 | `src/pytorch_f2/embedding_classifier.py` | `EmbeddingClassifier.forward()`: откуда берутся `logits`, которые поступают в CrossEntropyLoss. Код из F2.3. |
-| 8 | `src/pytorch_f2/data_pipeline.py` | `prepare_data()` и `make_loader()`: формирование train-only Dataset, батчей и воспроизводимого порядка. Код из F2.2. |
+| 1 | [`scripts/pytorch_training.py`](../../scripts/pytorch_training.py) | `run()`: выбор синтетического или локального режима, `prepare_data()`, создание модели, вызов `make_loader()` и `train_epochs()`, агрегированный JSON. |
+| 2 | [`src/pytorch_f2/training_loop.py`](../../src/pytorch_f2/training_loop.py) | `train_one_epoch()`: `model.train()`, очистка градиентов, `forward`, `CrossEntropyLoss`, `backward`, `optimizer.step`, сбор статистики. **Главная функция F2.4.** |
+| 3 | [`src/pytorch_f2/training_loop.py`](../../src/pytorch_f2/training_loop.py) | `train_epochs()`: проверка гиперпараметров, создание одного AdamW, вызовы обучения по эпохам и проверка результатов. |
+| 4 | [`src/pytorch_f2/training_loop.py`](../../src/pytorch_f2/training_loop.py) | `_validate_batch()` и `_validate_hyperparameters()`: формы, типы, метки и запрет некорректных параметров. |
+| 5 | [`src/pytorch_f2/training_loop.py`](../../src/pytorch_f2/training_loop.py) | `EpochResult`: какие значения сохраняются после эпохи и почему они отделены от исходных данных. |
+| 6 | [`tests/test_training_loop.py`](../../tests/test_training_loop.py) | Проверки изменения весов, ненулевых градиентов, PAD, взвешенного loss, воспроизводимости, val/test isolation и неправильных данных. |
+| 7 | [`src/pytorch_f2/embedding_classifier.py`](../../src/pytorch_f2/embedding_classifier.py) | `EmbeddingClassifier.forward()`: откуда берутся `logits`, которые поступают в CrossEntropyLoss. Код из F2.3. |
+| 8 | [`src/pytorch_f2/data_pipeline.py`](../../`src/pytorch_f2/data_pipeline.py) | `prepare_data()` и `make_loader()`: формирование train-only Dataset, батчей и воспроизводимого порядка. Код из F2.2. |
 
 **Итог F2.4:** реализован собственный цикл обучения: определены функции ошибок, вычисление градиентов, обновление весов, расчёт статистики эпохи и границы train-only обучения.
