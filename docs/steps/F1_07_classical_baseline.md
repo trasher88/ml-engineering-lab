@@ -520,6 +520,22 @@ $predictions.test | Select-Object -First 5 id, true, predicted
 | Test Accuracy       |            **0.8783** | Доля верных прогнозов по всем 608 Test-записям             |
 | Test Weighted F1    |            **0.8787** | Средняя F1 с весами по количеству истинных записей классов |
 
+<p align="center">
+<img src="../reports/F1/f1/F1_07_confusion_matrix.png" alt="F1_07_confusion_matrix.png" width="600">
+</p>
+
+<p align="center">
+<img src="../reports/F1/f1/F1_07_metric_calculations.png" alt="F1_07_metric_calculations.png" width="600">
+</p>
+
+<p align="center">
+<img src="../reports/F1/f1/F1_07_metrics_by_class.png" alt="F1_07_metrics_by_class.png" width="600">
+</p>
+
+<p align="center">
+<img src="../reports/F1/f1/F1_07_quality_overview.png" alt="F1_07_quality_overview.png" width="600">
+</p>
+
 Это **исторические**, а не заново вычисленные здесь метрики. В F1.6 зафиксировано изменение числа найденных связей между первоначальным экспериментом (**535**) и контрольным Windows-запуском (**536**). Даже если размеры итоговых выборок одинаковые, их состав и результат обучения могут отличаться. Версии `scikit-learn` тоже способны влиять на численные детали.
 
 **Правильное действие:** сравнить новый `reports/classical.json` с историческими ориентирами, а при расхождении сначала проверить SHA-256, конфигурацию и состав выборок. Не менять код или гиперпараметры ради совпадения с исторической цифрой и тем более не подбирать их по Test.
