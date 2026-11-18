@@ -30,12 +30,11 @@
 
 | Файл | Что реализовано и для чего |
 |---|---|
-| `src/pytorch_f2/data_pipeline.py` | Реализованы `tokenize()`, `Vocabulary`, `build_vocab()`, `QuestionDataset`, `collate_questions()`, `prepare_data()`, `make_loader()` и чтение готового F1 split. **Это основной рабочий код F2.2.** |
-| `scripts/pytorch_batches.py` | Реализован отдельный запуск для проверки pipeline на синтетических примерах либо на локальных JSONL из F1. Скрипт выводит только агрегаты, формы и признаки корректности, не печатает реальные тексты и ID. |
-| `tests/test_pytorch_data.py` | Добавлены проверки токенизации, словаря, специальной разметки, обрезки, паддинга, масок, меток классов, порядка выдачи, границ split и CLI. |
-| `docs/steps/F2_02_dataset_dataloader.md` | Описаны задача, последовательность разработки, расчёты, проверки и ограничения. Документ используется для технического разбора этапа. |
-| `requirements-pytorch-data.txt` | Указан минимальный профиль библиотек для запуска компонента в составе проекта. |
-| `.github/workflows/f2-data-pipeline.yml` | Добавлена отдельная CPU-проверка новых тестов, тестов F2.1 и синтетической демонстрации в GitHub Actions. |
+| [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | Реализованы `tokenize()`, `Vocabulary`, `build_vocab()`, `QuestionDataset`, `collate_questions()`, `prepare_data()`, `make_loader()` и чтение готового F1 split. **Это основной рабочий код F2.2.** |
+| [`scripts/pytorch_batches.py`](../../scripts/pytorch_batches.py) | Реализован отдельный запуск для проверки pipeline на синтетических примерах либо на локальных JSONL из F1. Скрипт выводит только агрегаты, формы и признаки корректности, не печатает реальные тексты и ID. |
+| [`tests/test_pytorch_data.py`](../../tests/test_pytorch_data.py) | Добавлены проверки токенизации, словаря, специальной разметки, обрезки, паддинга, масок, меток классов, порядка выдачи, границ split и CLI. |
+| [`requirements-pytorch-data.txt`](../../requirements-pytorch-data.txt) | Указан минимальный профиль библиотек для запуска компонента в составе проекта. |
+| [`.github/workflows/f2-data-pipeline.yml`](../../.github/workflows/f2-data-pipeline.yml) | Добавлена отдельная CPU-проверка новых тестов, тестов F2.1 и синтетической демонстрации в GitHub Actions. |
 
 **Важно:** F1 split не пересоздавался, размеры выборок не изменялись, Logistic Regression не переобучалась, исходные тексты вопросов не публиковались.
 
