@@ -338,9 +338,8 @@ Get-FileHash reports/data_eda_audit.json -Algorithm SHA256
 
 
 <p align="center">
-<img src="[../reports/F1/F_15.png](https://github.com/trasher88/ml-engineering-lab/blob/main/docs/reports/F1/f1/class_distribution.png)" alt="class_distribution" width="800">
+<img src="../reports/F1/f1/class_distribution.png" alt="class_distribution" width="800">
 </p>
-
 
 Отдельный методологический нюанс: здесь **исследование всего очищенного датасета до split**, чтобы увидеть общие свойства источника. Это допустимо как описательный аудит, но любые решения по выбору или настройке модели, которые могут использовать свойства отложенных примеров, требуют осторожности: при построении обучаемых преобразований F1.7 используется только Train, а Validation/Test остаются ограниченными по назначению.
 
