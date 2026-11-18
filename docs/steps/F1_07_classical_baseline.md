@@ -527,17 +527,17 @@ $predictions.test | Select-Object -First 5 id, true, predicted
 
 ## Как вычисляются Precision, Recall и F1
 <p align="center">
-<img src="../reports/F1/f1/F1_07_metric_calculations.png" alt="F1_07_metric_calculations.png" width="600">
+<img src="../reports/F1/f1/F1_07_metric_calculations.png" alt="F1_07_metric_calculations.png" width="800">
 </p>
 
 ## Precision, Recall и F1 по классам
 <p align="center">
-<img src="../reports/F1/f1/F1_07_metrics_by_class.png" alt="F1_07_metrics_by_class.png" width="600">
+<img src="../reports/F1/f1/F1_07_metrics_by_class.png" alt="F1_07_metrics_by_class.png" width="800">
 </p>
 
 ## Сводка качества классификатора
 <p align="center">
-<img src="../reports/F1/f1/F1_07_quality_overview.png" alt="F1_07_quality_overview.png" width="600">
+<img src="../reports/F1/f1/F1_07_quality_overview.png" alt="F1_07_quality_overview.png" width="800">
 </p>
 
 Это **исторические**, а не заново вычисленные здесь метрики. В F1.6 зафиксировано изменение числа найденных связей между первоначальным экспериментом (**535**) и контрольным Windows-запуском (**536**). Даже если размеры итоговых выборок одинаковые, их состав и результат обучения могут отличаться. Версии `scikit-learn` тоже способны влиять на численные детали.
