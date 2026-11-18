@@ -520,18 +520,22 @@ $predictions.test | Select-Object -First 5 id, true, predicted
 | Test Accuracy       |            **0.8783** | Доля верных прогнозов по всем 608 Test-записям             |
 | Test Weighted F1    |            **0.8787** | Средняя F1 с весами по количеству истинных записей классов |
 
+## Матрица ошибок
 <p align="center">
-<img src="../reports/F1/f1/F1_07_confusion_matrix.png" alt="F1_07_confusion_matrix.png" width="600">
+<img src="../reports/F1/f1/F1_07_confusion_matrix.png" alt="F1_07_confusion_matrix.png" width="800">
 </p>
 
+## Как вычисляются Precision, Recall и F1
 <p align="center">
 <img src="../reports/F1/f1/F1_07_metric_calculations.png" alt="F1_07_metric_calculations.png" width="600">
 </p>
 
+## Precision, Recall и F1 по классам
 <p align="center">
 <img src="../reports/F1/f1/F1_07_metrics_by_class.png" alt="F1_07_metrics_by_class.png" width="600">
 </p>
 
+## Сводка качества классификатора
 <p align="center">
 <img src="../reports/F1/f1/F1_07_quality_overview.png" alt="F1_07_quality_overview.png" width="600">
 </p>
