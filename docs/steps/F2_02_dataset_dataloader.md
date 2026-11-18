@@ -309,7 +309,7 @@ F2.2 Dataset/DataLoader CHECK: PASS
 
 | Порядок | Файл | На что смотреть в коде |
 |---|---|---|
-| 1 | [`scripts/pytorch_batches.py`](../../../`scripts/pytorch_batches.py) | `synthetic_splits()` и `run()`: откуда берутся примеры, как запускаются `prepare_data()`/`make_loader()`, какие агрегаты выводятся без раскрытия текстов. |
+| 1 | [`scripts/pytorch_batches.py`](../`scripts/pytorch_batches.py) | `synthetic_splits()` и `run()`: откуда берутся примеры, как запускаются `prepare_data()`/`make_loader()`, какие агрегаты выводятся без раскрытия текстов. |
 | 2 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | `read_f1_splits()` и `validate_splits()`: чтение готовых JSONL, проверка полей, ID, group_id и набора классов. |
 | 3 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | `tokenize()`: `casefold()`, Unicode-регулярное выражение и обработка пустого/неверного текста. |
 | 4 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | `build_vocab()`, `Vocabulary.__post_init__()` и `encode()`: частоты train, порядок ID, служебные токены, `<UNK>`, сохранение BOS/EOS при обрезке. |
