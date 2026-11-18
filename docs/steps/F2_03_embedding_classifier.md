@@ -366,14 +366,14 @@ F2.3 Embedding Classifier CHECK: PASS
 
 | Порядок | Файл | На что смотреть в коде |
 |---|---|---|
-| 1 | `scripts/pytorch_classifier.py` | `run()`: вызовы `prepare_data()`/`make_loader()`, сбор батча, создание модели, запуск `model(input_ids, mask)` и проверка результатов без обучения. |
-| 2 | `src/pytorch_f2/embedding_classifier.py` | `EmbeddingClassifier.__init__()`: четыре параметра архитектуры, слои `nn.Embedding`, `nn.Linear`, `nn.ReLU`, `padding_idx=PAD_ID`. |
-| 3 | `src/pytorch_f2/embedding_classifier.py` | `masked_mean_pool()`: `masked_fill`, суммирование по оси токенов, деление на число `True` в маске; отдельно проверяется защиту от пустой последовательности. |
-| 4 | `src/pytorch_f2/embedding_classifier.py` | `EmbeddingClassifier.forward()`: контракт `[B,L]`, проверка нулевых PAD и правого padding, точные последовательные преобразования до logits. |
-| 5 | `tests/test_embedding_classifier.py` | `test_known_weights_yield_expected_logits`, `test_pooling_ignores_masked_vectors_exactly`, `test_extra_padding_has_no_effect_on_logits`: математический эталон и независимость от padding. |
-| 6 | `tests/test_embedding_classifier.py` | Проверки `backward()`, нулевого градиента PAD-строки, неверных форм/ID/масок, детерминизма и совместимости с F2.2. |
-| 7 | `src/pytorch_f2/data_pipeline.py` | **Уже существующий код F2.2**: `prepare_data()`, `QuestionDataset`, `collate_questions()`, `make_loader()` — откуда берутся `input_ids`, маски и размеры словаря/классов. |
-| 8 | `configs/local_cpu/lab.yaml` | **Уже существующая конфигурация**: `vocab_size`, `max_length`, `batch_size`, `embedding_dim`, `hidden_dim`, `seed`; как они задают форму и количество параметров. |
-| 9 | `src/pytorch_f2/training_loop.py` | **Следующий этап F2.4**, не часть F2.3: как готовые logits позже используются для расчёта loss и обновления весов. |
+| 1 | [`scripts/pytorch_classifier.py`](../../scripts/pytorch_classifier.py) | `run()`: вызовы `prepare_data()`/`make_loader()`, сбор батча, создание модели, запуск `model(input_ids, mask)` и проверка результатов без обучения. |
+| 2 | [`src/pytorch_f2/embedding_classifier.py`](../../src/pytorch_f2/embedding_classifier.py) | `EmbeddingClassifier.__init__()`: четыре параметра архитектуры, слои `nn.Embedding`, `nn.Linear`, `nn.ReLU`, `padding_idx=PAD_ID`. |
+| 3 | [`src/pytorch_f2/embedding_classifier.py`](../../src/pytorch_f2/embedding_classifier.py) | `masked_mean_pool()`: `masked_fill`, суммирование по оси токенов, деление на число `True` в маске; отдельно проверяется защиту от пустой последовательности. |
+| 4 | [`src/pytorch_f2/embedding_classifier.py`](../../src/pytorch_f2/embedding_classifier.py) | `EmbeddingClassifier.forward()`: контракт `[B,L]`, проверка нулевых PAD и правого padding, точные последовательные преобразования до logits. |
+| 5 | [`tests/test_embedding_classifier.py`](../../tests/test_embedding_classifier.py) | `test_known_weights_yield_expected_logits`, `test_pooling_ignores_masked_vectors_exactly`, `test_extra_padding_has_no_effect_on_logits`: математический эталон и независимость от padding. |
+| 6 | [`tests/test_embedding_classifier.py`](../../tests/test_embedding_classifier.py) | Проверки `backward()`, нулевого градиента PAD-строки, неверных форм/ID/масок, детерминизма и совместимости с F2.2. |
+| 7 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | **Уже существующий код F2.2**: `prepare_data()`, `QuestionDataset`, `collate_questions()`, `make_loader()` — откуда берутся `input_ids`, маски и размеры словаря/классов. |
+| 8 | [`configs/local_cpu/lab.yaml`](../../) | **Уже существующая конфигурация**: `vocab_size`, `max_length`, `batch_size`, `embedding_dim`, `hidden_dim`, `seed`; как они задают форму и количество параметров. |
+| 9 | [`src/pytorch_f2/training_loop.py`](../../) | **Следующий этап F2.4**, не часть F2.3: как готовые logits позже используются для расчёта loss и обновления весов. |
 
 **Итог F2.3:** реализована проверяемая архитектура классификатора на PyTorch, совместимая с батчами F2.2. Подготовлена основа для обучения в F2.4.
