@@ -479,15 +479,15 @@ Get-FileHash docs/reports/F2_PHASE_REPORT.md -Algorithm SHA256
 
 | Порядок | Файл | На что смотреть в коде |
 |---:|---|---|
-| 1 | `scripts/build_f2_report.py` | `main()` и `run()`: разница между `--self-check` и реальным режимом, пути агрегатов, вызовы проверок и запись `F2_PHASE_REPORT.md`. Флаг `--update-readme` не применяется в штатном сценарии. |
-| 2 | `src/pytorch_f2/final_report.py` | `validate_comparison()`: проверка источника, split, протокола F1/F2, списка классов, парных ошибок и победителя по Macro F1. |
-| 3 | `src/pytorch_f2/final_report.py` | `_metric_row()`: независимый пересчёт Accuracy и Macro F1 из confusion matrix; почему одно сохранённое число недостаточно. |
-| 4 | `src/pytorch_f2/final_report.py` | `validate_diagnostics()`: проверка истории эпох и отличия эксперимента F2.6 от checkpoint F2.7. |
-| 5 | `src/pytorch_f2/final_report.py` | `build_from_artifacts()`, `verify_source_fingerprints()`, `render_final_report()`: как проверяются файлы, SHA-256 и создаётся итоговый текст. |
-| 6 | `src/pytorch_f2/training_diagnostics.py` | `verify_export()`: проверка согласованности `history.csv`, `metrics.json` и PNG по контрольным суммам. Этот код создан ранее, в F2.6. |
-| 7 | `src/pytorch_f2/model_comparison.py` | Как F2.7 получает общие метрики и парные ошибки по одним и тем же test-ID до передачи агрегатов в F2.8. |
-| 8 | `tests/test_final_report.py` | Тесты испорченных метрик, хешей, split, PNG/CSV, запрет переноса приватного текста, повторяемость генерации и CLI self-check. |
-| 9 | `.github/workflows/f2-final-report.yml` | Как CI запускает тесты F2.8 и синтетическую проверку без необходимости хранить приватные обучающие данные в репозитории. |
-| 10 | `docs/reports/F2_PHASE_REPORT.md` | Как выглядит сформированный публичный итог: архитектура, этапы, метрики, парные ошибки и ограничения. Убедись, что открыт **перегенерированный реальный отчёт**, а не предварительный вариант из поставки. |
+| 1 | [`scripts/build_f2_report.py`](../../scripts/build_f2_report.py) | `main()` и `run()`: разница между `--self-check` и реальным режимом, пути агрегатов, вызовы проверок и запись `F2_PHASE_REPORT.md`. Флаг `--update-readme` не применяется в штатном сценарии. |
+| 2 | [`src/pytorch_f2/final_report.py`](../../src/pytorch_f2/final_report.py) | `validate_comparison()`: проверка источника, split, протокола F1/F2, списка классов, парных ошибок и победителя по Macro F1. |
+| 3 | [`src/pytorch_f2/final_report.py`](../../src/pytorch_f2/final_report.py) | `_metric_row()`: независимый пересчёт Accuracy и Macro F1 из confusion matrix; почему одно сохранённое число недостаточно. |
+| 4 | [`src/pytorch_f2/final_report.py`](../../src/pytorch_f2/final_report.py) | `validate_diagnostics()`: проверка истории эпох и отличия эксперимента F2.6 от checkpoint F2.7. |
+| 5 | [`src/pytorch_f2/final_report.py`](../../src/pytorch_f2/final_report.py) | `build_from_artifacts()`, `verify_source_fingerprints()`, `render_final_report()`: как проверяются файлы, SHA-256 и создаётся итоговый текст. |
+| 6 | [`src/pytorch_f2/training_diagnostics.py`](../../src/pytorch_f2/training_diagnostics.py) | `verify_export()`: проверка согласованности `history.csv`, `metrics.json` и PNG по контрольным суммам. Этот код создан ранее, в F2.6. |
+| 7 | [`src/pytorch_f2/model_comparison.py`](../../src/pytorch_f2/model_comparison.py) | Как F2.7 получает общие метрики и парные ошибки по одним и тем же test-ID до передачи агрегатов в F2.8. |
+| 8 | [`tests/test_final_report.py`](../../tests/test_final_report.py) | Тесты испорченных метрик, хешей, split, PNG/CSV, запрет переноса приватного текста, повторяемость генерации и CLI self-check. |
+| 9 | [`.github/workflows/f2-final-report.yml`](../../.github/workflows/f2-final-report.yml) | Как CI запускает тесты F2.8 и синтетическую проверку без необходимости хранить приватные обучающие данные в репозитории. |
+| 10 | [`docs/reports/F2_PHASE_REPORT.md`](../../docs/reports/F2_PHASE_REPORT.md) | Как выглядит сформированный публичный итог: архитектура, этапы, метрики, парные ошибки и ограничения. Убедись, что открыт **перегенерированный реальный отчёт**, а не предварительный вариант из поставки. |
 
 **Итог F2.8:** сформирован воспроизводимый контур итоговой отчётности: источник каждого результата прослеживается до проверенных агрегатов и контрольных сумм.
