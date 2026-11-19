@@ -27,12 +27,11 @@
 
 | Файл | Что реализовано и для чего |
 |---|---|
-| `src/pytorch_f2/validation_checkpoint.py` | **Основная реализация F2.5:** проверка val-загрузчика, вычисление loss/Accuracy/Macro F1, выбор лучшей эпохи, сохранение checkpoint, контроль метаданных и восстановление весов. |
-| `scripts/pytorch_validation.py` | **Наглядный запуск:** собирает F2.2 DataLoader и F2.3 модель, запускает F2.4 обучение вместе с validation, печатает историю эпох, номер лучшей эпохи и результат восстановления. Поддерживает синтетические и локальные данные F1. |
-| `tests/test_validation_checkpoint.py` | Автоматические проверки метрик, границ train/val/test, правила выбора эпохи, неизменности весов при validation, корректности checkpoint и обработки повреждённых данных. |
-| `docs/steps/F2_05_validation_checkpointing.md` | Этот учебный материал: что и зачем реализовано, как работает алгоритм и как проверить результат. |
-| `requirements-pytorch-validation.txt` | Отдельный профиль зависимостей F2.5. Сам алгоритм описан в Python-модулях выше. |
-| `.github/workflows/f2-validation-checkpoint.yml` | Лёгкая CPU-проверка автоматических тестов F2.5 в GitHub Actions. |
+| [`src/pytorch_f2/validation_checkpoint.py`](../../src/pytorch_f2/validation_checkpoint.py) | **Основная реализация F2.5:** проверка val-загрузчика, вычисление loss/Accuracy/Macro F1, выбор лучшей эпохи, сохранение checkpoint, контроль метаданных и восстановление весов. |
+| [`scripts/pytorch_validation.py`](../../scripts/pytorch_validation.py) | **Наглядный запуск:** собирает F2.2 DataLoader и F2.3 модель, запускает F2.4 обучение вместе с validation, печатает историю эпох, номер лучшей эпохи и результат восстановления. Поддерживает синтетические и локальные данные F1. |
+| [`tests/test_validation_checkpoint.py`](../../tests/test_validation_checkpoint.py) | Автоматические проверки метрик, границ train/val/test, правила выбора эпохи, неизменности весов при validation, корректности checkpoint и обработки повреждённых данных. |
+| [`requirements-pytorch-validation.txt`](../../requirements-pytorch-validation.txt) | Отдельный профиль зависимостей F2.5. Сам алгоритм описан в Python-модулях выше. |
+| [`.github/workflows/f2-validation-checkpoint.yml`](../../.github/workflows/f2-validation-checkpoint.yml) | Лёгкая CPU-проверка автоматических тестов F2.5 в GitHub Actions. |
 
 **Связь с предыдущими этапами:** F2.2 даёт три готовые выборки и словарь; F2.3 - `EmbeddingClassifier`; F2.4 - функцию `train_one_epoch()`, которая действительно обновляет параметры. F2.5 добавляет к этому процессу **оценку, выбор и восстановление**, но не меняет сами алгоритмы предыдущих этапов.
 
