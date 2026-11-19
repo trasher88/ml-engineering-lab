@@ -387,14 +387,14 @@ F2.5 Validation/Checkpoint CHECK: PASS
 
 | Порядок | Файл | На что обратить внимание |
 |---|---|---|
-| 1 | `scripts/pytorch_validation.py` | `run()` и `main()`: как собираются F2.2 DataLoader и F2.3 модель, разделяются train/val, выбирается путь checkpoint и формируется история эпох. |
-| 2 | `src/pytorch_f2/validation_checkpoint.py` | `evaluate_validation()`: режим `eval`, `inference_mode`, суммирование потерь, построение confusion matrix и восстановление прежнего режима модели. |
-| 3 | `src/pytorch_f2/validation_checkpoint.py` | `_scores_from_confusion()`: откуда берутся Accuracy и Macro F1, что происходит при нулевом знаменателе. |
-| 4 | `src/pytorch_f2/validation_checkpoint.py` | `fit_with_validation()`: повторение «train → val», строгий критерий улучшения `macro_f1 > best_score`, история и номер лучшей эпохи. |
-| 5 | `src/pytorch_f2/validation_checkpoint.py` | `vocabulary_fingerprint()` и `_save_checkpoint()`: хеширование `token_to_id`, копирование тензоров на CPU, временный файл и `os.replace()`. |
-| 6 | `src/pytorch_f2/validation_checkpoint.py` | `restore_best_checkpoint()`: проверки версии формата, словаря, классов, архитектуры и строгая загрузка `state_dict`. |
-| 7 | `tests/test_validation_checkpoint.py` | Тесты матрицы ошибок, невозможности оценивать train/test вместо val, выбора первой лучшей эпохи, повторяемости и испорченных checkpoint. |
-| 8 | `src/pytorch_f2/training_loop.py` | `train_one_epoch()`: как F2.5 использует уже реализованное обучение F2.4, не меняя его алгоритм. |
-| 9 | `src/pytorch_f2/data_pipeline.py` и `src/pytorch_f2/embedding_classifier.py` | Как формируются выборки, `input_ids`/маски и `logits`, которые передаются в validation. |
+| 1 | [`scripts/pytorch_validation.py`](../../scripts/pytorch_validation.py) | `run()` и `main()`: как собираются F2.2 DataLoader и F2.3 модель, разделяются train/val, выбирается путь checkpoint и формируется история эпох. |
+| 2 | [`src/pytorch_f2/validation_checkpoint.py`](../../src/pytorch_f2/validation_checkpoint.py) | `evaluate_validation()`: режим `eval`, `inference_mode`, суммирование потерь, построение confusion matrix и восстановление прежнего режима модели. |
+| 3 | [`src/pytorch_f2/validation_checkpoint.py`](../../src/pytorch_f2/validation_checkpoint.py) | `_scores_from_confusion()`: откуда берутся Accuracy и Macro F1, что происходит при нулевом знаменателе. |
+| 4 | [`src/pytorch_f2/validation_checkpoint.py`](../../src/pytorch_f2/validation_checkpoint.py) | `fit_with_validation()`: повторение «train → val», строгий критерий улучшения `macro_f1 > best_score`, история и номер лучшей эпохи. |
+| 5 | [`src/pytorch_f2/validation_checkpoint.py`](../../src/pytorch_f2/validation_checkpoint.py) | `vocabulary_fingerprint()` и `_save_checkpoint()`: хеширование `token_to_id`, копирование тензоров на CPU, временный файл и `os.replace()`. |
+| 6 | [`src/pytorch_f2/validation_checkpoint.py`](../../src/pytorch_f2/validation_checkpoint.py) | `restore_best_checkpoint()`: проверки версии формата, словаря, классов, архитектуры и строгая загрузка `state_dict`. |
+| 7 | [`tests/test_validation_checkpoint.py`](../../tests/test_validation_checkpoint.py) | Тесты матрицы ошибок, невозможности оценивать train/test вместо val, выбора первой лучшей эпохи, повторяемости и испорченных checkpoint. |
+| 8 | [`src/pytorch_f2/training_loop.py`](../../src/pytorch_f2/training_loop.py) | `train_one_epoch()`: как F2.5 использует уже реализованное обучение F2.4, не меняя его алгоритм. |
+| 9 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) и `src/pytorch_f2/embedding_classifier.py` | Как формируются выборки, `input_ids`/маски и `logits`, которые передаются в validation. |
 
 **Итог F2.5:** создан проверяемый механизм выбора и восстановления лучшего состояния модели по validation Macro F1 без использования test для настройки.
