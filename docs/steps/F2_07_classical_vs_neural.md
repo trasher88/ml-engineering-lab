@@ -192,7 +192,7 @@ outputs/f2_7_comparison/
 ### 4.2. Accuracy и Macro F1
 **Accuracy** - доля вопросов с правильной меткой:
 ```math
-\operatorname{Accuracy}=\frac{1}{N}\sum_{i=1}^{N}\mathbf{1}(\hat y_i=y_i).
+\mathrm{Accuracy} = \frac{1}{N}\sum_{i=1}^{N}\mathbf{1}(\hat{y}_i = y_i)
 ```
 
 Например, 4 правильных ответа из 5 дают `Accuracy = 0.8`.
