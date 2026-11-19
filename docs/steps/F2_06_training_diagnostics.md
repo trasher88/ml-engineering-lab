@@ -251,7 +251,7 @@ flowchart TD
     V --> F
     F --> B[Проверка границ и корректности normalize_history]
     B --> C[Одна нормализованная история]
-    C --> D[]
+    C --> D["CSV с историей"]
     C --> E[metrics.json]
     C --> G[Графики train loss, val loss, val Macro F1]
     C --> H[Эвристика interpret_history]
