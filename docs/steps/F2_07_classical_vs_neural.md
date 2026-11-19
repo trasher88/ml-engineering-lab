@@ -213,7 +213,7 @@ F1_k=\frac{2P_kR_k}{P_k+R_k} = \frac{2TP_k}{2TP_k+FP_k+FN_k}.
 
 **Macro F1** - среднее по всем классам с равными весами:
 ```math
-\operatorname{MacroF1}=\frac{1}{C}\sum_{k=1}^{C}F1_k.
+\mathrm{MacroF1} = \frac{1}{C}\sum_{k=1}^{C}F1_k
 ```
 
 Её нельзя получить только из общей Accuracy. Нужны ошибки **по каждому классу**.
@@ -221,16 +221,20 @@ F1_k=\frac{2P_kR_k}{P_k+R_k} = \frac{2TP_k}{2TP_k+FP_k+FN_k}.
 ### 4.3. Сопоставление числовых метрик
 В коде разность всегда имеет одно и то же направление:
 ```math
-\Delta\operatorname{Accuracy} = \operatorname{Accuracy}_{neural} - \operatorname{Accuracy}_{classical},
+\Delta\mathrm{Accuracy} =
+\mathrm{Accuracy}_{\mathrm{neural}} -
+\mathrm{Accuracy}_{\mathrm{classical}}
 ```
 
 ```math
-\Delta\operatorname{MacroF1} = \operatorname{MacroF1}_{neural} - \operatorname{MacroF1}_{classical}.
+\Delta\mathrm{MacroF1} =
+\mathrm{MacroF1}_{\mathrm{neural}} -
+\mathrm{MacroF1}_{\mathrm{classical}}
 ```
 
 Например, если **в учебном примере** baseline имеет Accuracy `0.80`, а нейросеть `0.60`, то:
 ```math
-\Delta\operatorname{Accuracy}=0.60-0.80=-0.20.
+\Delta\mathrm{Accuracy} = 0.60 - 0.80 = -0.20
 ```
 
 Это **минус 20 процентных пунктов** Accuracy, а не «нейросеть ошибается на 20% чаще». Для относительного изменения потребовался бы другой расчёт.
@@ -263,7 +267,7 @@ prediction_disagreements = 3
 
 Поэтому:
 ```math
-\Delta\operatorname{Accuracy}=0.40-0.60=-0.20.
+\Delta\mathrm{Accuracy} = 0.40 - 0.60 = -0.20
 ```
 
 В этом примере `prediction_disagreements = 3`, хотя общая численность ошибок по обеим моделям равна пяти (`2` ошибки Classical + `3` ошибки Neural): это **разные способы подсчёта**.
