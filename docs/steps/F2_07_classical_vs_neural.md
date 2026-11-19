@@ -461,15 +461,15 @@ Get-Content outputs/f2_7_study_real/comparison.md -Encoding UTF8
 
 | Порядок | Файл | На что смотреть в коде |
 |---:|---|---|
-| 1 | `scripts/pytorch_comparison.py` | `run()` — последовательность «проверить F1 → восстановить F2 → проверить validation → получить test-предсказания → сохранить отчёт»; различия `synthetic` и реального режима. |
-| 2 | `src/pytorch_f2/model_comparison.py` | `verify_classical_artifacts()` и `sha256_file()` — как удостоверяемся, что F1-предсказания получены на том же наборе данных. |
-| 3 | `src/pytorch_f2/model_comparison.py` | `_aligned_predictions()` — зачем нужен `id`, почему нельзя полагаться на порядок сохранённых строк и как обнаруживаются дубликаты или чужие метки. |
-| 4 | `src/pytorch_f2/validation_checkpoint.py` | `restore_best_checkpoint()` и `evaluate_validation()` — проверка лучшей модели и повторное подтверждение validation Macro F1. |
-| 5 | `src/pytorch_f2/model_comparison.py` | `predict_pytorch_test()` — `SequentialSampler`, `drop_last=False`, `torch.inference_mode()`, `argmax` и восстановление режима модели. |
-| 6 | `src/classical_ml/train.py` | `classification_metrics()` — общие определения Accuracy, Macro F1, Weighted F1 и матрицы ошибок для обеих моделей. |
-| 7 | `src/pytorch_f2/model_comparison.py` | `compare_on_test()` — две одинаково рассчитанные метрики, разницы Neural − Classical, четыре категории парных ошибок и выбор победителя по Macro F1. |
-| 8 | `src/pytorch_f2/model_comparison.py` | `save_aggregate_report()` — что попадает в `comparison.json`/`comparison.md` и почему исходные тексты/ID исключены. |
-| 9 | `src/pytorch_f2/data_pipeline.py` | `prepare_data()` и `make_loader()` — как используется фиксированный split, train-only словарь и последовательный test-загрузчик. |
-| 10 | `tests/test_model_comparison.py` | Тесты целостности SHA, испорченных метрик, ID, парного разбиения ошибок, воспроизводимости и запрета повторного обучения в реальном режиме. |
+| 1 | [`scripts/pytorch_comparison.py`](../../) | `run()` — последовательность «проверить F1 → восстановить F2 → проверить validation → получить test-предсказания → сохранить отчёт»; различия `synthetic` и реального режима. |
+| 2 | [`src/pytorch_f2/model_comparison.py`](../../src/pytorch_f2/model_comparison.py) | `verify_classical_artifacts()` и `sha256_file()` — как удостоверяемся, что F1-предсказания получены на том же наборе данных. |
+| 3 | [`src/pytorch_f2/model_comparison.py](../../src/pytorch_f2/model_comparison.py) | `_aligned_predictions()` — зачем нужен `id`, почему нельзя полагаться на порядок сохранённых строк и как обнаруживаются дубликаты или чужие метки. |
+| 4 | [`src/pytorch_f2/validation_checkpoint.py`](../../src/pytorch_f2/validation_checkpoint.py) | `restore_best_checkpoint()` и `evaluate_validation()` — проверка лучшей модели и повторное подтверждение validation Macro F1. |
+| 5 | [`src/pytorch_f2/model_comparison.py`](../../src/pytorch_f2/model_comparison.py) | `predict_pytorch_test()` — `SequentialSampler`, `drop_last=False`, `torch.inference_mode()`, `argmax` и восстановление режима модели. |
+| 6 | [`src/classical_ml/train.py`](../../src/classical_ml/train.py) | `classification_metrics()` — общие определения Accuracy, Macro F1, Weighted F1 и матрицы ошибок для обеих моделей. |
+| 7 | [`src/pytorch_f2/model_comparison.py`](../../src/pytorch_f2/model_comparison.py) | `compare_on_test()` — две одинаково рассчитанные метрики, разницы Neural − Classical, четыре категории парных ошибок и выбор победителя по Macro F1. |
+| 8 | [`src/pytorch_f2/model_comparison.py`](../../src/pytorch_f2/model_comparison.py) | `save_aggregate_report()` — что попадает в `comparison.json`/`comparison.md` и почему исходные тексты/ID исключены. |
+| 9 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) | `prepare_data()` и `make_loader()` — как используется фиксированный split, train-only словарь и последовательный test-загрузчик. |
+| 10 | [`tests/test_model_comparison.py`](../../tests/test_model_comparison.py) | Тесты целостности SHA, испорченных метрик, ID, парного разбиения ошибок, воспроизводимости и запрета повторного обучения в реальном режиме. |
 
 **Итог F2.7:** реализована воспроизводимая методика сравнения двух моделей на одинаковом test-наборе с выравниванием по ID и анализом пересечений ошибок.
