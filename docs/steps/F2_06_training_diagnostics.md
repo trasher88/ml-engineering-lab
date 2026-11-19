@@ -400,13 +400,13 @@ Invoke-Item outputs/f2_6_study_synthetic/validation_macro_f1.png
 
 | Порядок | Файл | Что конкретно изучить |
 |---|---|---|
-| 1 | `scripts/pytorch_diagnostics.py` | `main()` и `run()`: какие есть CLI-параметры, как запускается F2.5, зачем используется временный checkpoint и куда передаётся готовая история. |
-| 2 | `src/pytorch_f2/validation_checkpoint.py` | `fit_with_validation()` и структура истории: какие train/validation-метрики появляются после эпохи, почему `best_epoch` определяется по `val_macro_f1`. Этот файл создан в F2.5. |
-| 3 | `src/pytorch_f2/training_diagnostics.py` | `normalize_history()`: контроль границ выборок, допустимых чисел, последовательности эпох и согласованности checkpoint. |
-| 4 | `src/pytorch_f2/training_diagnostics.py` | `interpret_history()`: четыре возможных диагностических сигнала, сравнение первой/последней эпох и ограничения такой эвристики. |
-| 5 | `src/pytorch_f2/training_diagnostics.py` | `_csv_bytes()` и `_plot()`: один список точек, колонки CSV, построение Matplotlib-графиков и вертикальная отметка лучшей эпохи. |
-| 6 | `src/pytorch_f2/training_diagnostics.py` | `export_diagnostics()`, `_report_markdown()` и `verify_export()`: состав файлов, запись агрегатов, вычисление SHA-256, сверка PNG и CSV с JSON. |
-| 7 | `tests/test_training_diagnostics.py` | Проверки повреждённых данных и графиков, пропущенных эпох, некорректного best checkpoint, синтетического CLI и сохранности старого файла весов. |
-| 8 | `src/pytorch_f2/training_loop.py` | Откуда берётся train loss и почему он агрегируется с учётом фактического числа примеров в батче. Файл создан в F2.4. |
+| 1 | [`scripts/pytorch_diagnostics.py`](../../scripts/pytorch_diagnostics.py) | `main()` и `run()`: какие есть CLI-параметры, как запускается F2.5, зачем используется временный checkpoint и куда передаётся готовая история. |
+| 2 | [`src/pytorch_f2/validation_checkpoint.py`](../../src/pytorch_f2/validation_checkpoint.py) | `fit_with_validation()` и структура истории: какие train/validation-метрики появляются после эпохи, почему `best_epoch` определяется по `val_macro_f1`. Этот файл создан в F2.5. |
+| 3 | [`src/pytorch_f2/training_diagnostics.py`](../../src/pytorch_f2/training_diagnostics.py) | `normalize_history()`: контроль границ выборок, допустимых чисел, последовательности эпох и согласованности checkpoint. |
+| 4 | [`src/pytorch_f2/training_diagnostics.py`](../../src/pytorch_f2/training_diagnostics.py) | `interpret_history()`: четыре возможных диагностических сигнала, сравнение первой/последней эпох и ограничения такой эвристики. |
+| 5 | [`src/pytorch_f2/training_diagnostics.py`](../../src/pytorch_f2/training_diagnostics.py) | `_csv_bytes()` и `_plot()`: один список точек, колонки CSV, построение Matplotlib-графиков и вертикальная отметка лучшей эпохи. |
+| 6 | [`src/pytorch_f2/training_diagnostics.py`](../../src/pytorch_f2/training_diagnostics.py) | `export_diagnostics()`, `_report_markdown()` и `verify_export()`: состав файлов, запись агрегатов, вычисление SHA-256, сверка PNG и CSV с JSON. |
+| 7 | [`tests/test_training_diagnostics.py`](../../tests/test_training_diagnostics.py) | Проверки повреждённых данных и графиков, пропущенных эпох, некорректного best checkpoint, синтетического CLI и сохранности старого файла весов. |
+| 8 | [`src/pytorch_f2/training_loop.py`](../../src/pytorch_f2/training_loop.py) | Откуда берётся train loss и почему он агрегируется с учётом фактического числа примеров в батче. Файл создан в F2.4. |
 
 **Итог F2.6:** обеспечен анализ хода обучения по проверяемым числам, согласованным таблицам и графикам с разграничением сигналов и доказанных фактов.
