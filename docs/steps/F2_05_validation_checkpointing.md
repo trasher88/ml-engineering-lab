@@ -395,6 +395,6 @@ F2.5 Validation/Checkpoint CHECK: PASS
 | 6 | [`src/pytorch_f2/validation_checkpoint.py`](../../src/pytorch_f2/validation_checkpoint.py) | `restore_best_checkpoint()`: проверки версии формата, словаря, классов, архитектуры и строгая загрузка `state_dict`. |
 | 7 | [`tests/test_validation_checkpoint.py`](../../tests/test_validation_checkpoint.py) | Тесты матрицы ошибок, невозможности оценивать train/test вместо val, выбора первой лучшей эпохи, повторяемости и испорченных checkpoint. |
 | 8 | [`src/pytorch_f2/training_loop.py`](../../src/pytorch_f2/training_loop.py) | `train_one_epoch()`: как F2.5 использует уже реализованное обучение F2.4, не меняя его алгоритм. |
-| 9 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) и `src/pytorch_f2/embedding_classifier.py` | Как формируются выборки, `input_ids`/маски и `logits`, которые передаются в validation. |
+| 9 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) и [`src/pytorch_f2/embedding_classifier.py`](../../src/pytorch_f2/embedding_classifier.py) | Как формируются выборки, `input_ids`/маски и `logits`, которые передаются в validation. |
 
 **Итог F2.5:** создан проверяемый механизм выбора и восстановления лучшего состояния модели по validation Macro F1 без использования test для настройки.
