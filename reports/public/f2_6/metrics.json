@@ -1,0 +1,77 @@
+{
+  "format_version": 1,
+  "source": "local_f1_split",
+  "split_counts": {
+    "train": 1824,
+    "val": 608,
+    "test": 608
+  },
+  "trained_split": "train",
+  "selection_split": "val",
+  "test_evaluated": false,
+  "selection_metric": "val_macro_f1",
+  "best_epoch": 5,
+  "best_val_macro_f1": 0.78225166,
+  "epochs": 5,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.30109648,
+      "val_loss": 1.16153201,
+      "val_accuracy": 0.57072368,
+      "val_macro_f1": 0.56863232
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.92538027,
+      "val_loss": 0.83396388,
+      "val_accuracy": 0.67927632,
+      "val_macro_f1": 0.67949097
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.58414136,
+      "val_loss": 0.68509117,
+      "val_accuracy": 0.71875,
+      "val_macro_f1": 0.71778554
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.38098096,
+      "val_loss": 0.61729512,
+      "val_accuracy": 0.75986842,
+      "val_macro_f1": 0.76453851
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.25403546,
+      "val_loss": 0.60337965,
+      "val_accuracy": 0.77796053,
+      "val_macro_f1": 0.78225166
+    }
+  ],
+  "parameters": {
+    "seed": 42,
+    "batch_size": 32,
+    "max_length": 128,
+    "max_vocab_size": 12000,
+    "embedding_dim": 48,
+    "hidden_dim": 48,
+    "learning_rate": 0.003,
+    "weight_decay": 0.01
+  },
+  "interpretation": {
+    "signal": "no_clear_overfitting_signal",
+    "train_loss_change": -1.04706102,
+    "val_loss_change": -0.55815236,
+    "val_macro_f1_change": 0.21361934,
+    "best_epoch": 5,
+    "caveat": "Эвристика по train/val-кривым; не оценка test и не доказательство причин."
+  },
+  "history_csv_sha256": "7609addab091dfdf4c28b1123d80a1540ff32604adcf52c6a2cb5d277269d274",
+  "images_sha256": {
+    "training_loss.png": "66fc3a3ad016610ba810f0e9e07ce4b2781a3db728f86a8ede6170f9ed71b682",
+    "validation_loss.png": "ce9de2d0d6b102cec31c4a335899d90aa089ffe1b6e2d6049b2b1837b2e5ce8a",
+    "validation_macro_f1.png": "8910b426337200e854b6f5f356a5c0d8f09037b4da5d88001b2ed794dfd50abe"
+  }
+}
