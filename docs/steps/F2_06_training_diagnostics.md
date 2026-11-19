@@ -334,8 +334,6 @@ analysis.md
 Import-Csv outputs/f2_6_study_synthetic/history.csv | Format-Table
 ```
 
-[history](https://github.com/trasher88/ml-engineering-lab/blob/main/reports/public/f2_6/history.csv)
-
 Прочитать техническую интерпретацию:
 ```powershell
 Get-Content outputs/f2_6_study_synthetic/analysis.md -Encoding UTF8
@@ -351,15 +349,15 @@ Invoke-Item outputs/f2_6_study_synthetic/validation_macro_f1.png
 **На что смотреть:** значения точек соответствуют строкам CSV; вертикальная пунктирная линия отмечает `best_epoch` из `metrics.json`. Это **лучшая validation Macro F1**, а не обязательно минимальная validation loss.
 
 <p align="center">
-<img src="../reports/public/f2_6/training_loss.png" alt="training_loss" width="600">
+<img src="../../reports/public/f2_6/training_loss.png" alt="training_loss" width="600">
 </p>
 
 <p align="center">
-<img src="../reports/public/f2_6/validation_loss.png" alt="validation_loss.png" width="600">
+<img src="../../reports/public/f2_6/validation_loss.png" alt="validation_loss.png" width="600">
 </p>
 
 <p align="center">
-<img src="../reports/public/f2_6/validation_macro_f1.png" alt="validation_macro_f1.png" width="600">
+<img src="../../reports/public/f2_6/validation_macro_f1.png" alt="validation_macro_f1.png" width="600">
 </p>
 
 ### 6.5. Отдельно проверить сохранённый экспорт
