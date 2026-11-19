@@ -242,7 +242,6 @@ outputs/f2_6_diagnostics/
 
 
 ## 5. Схема: как F2.5 передаёт историю в F2.6
-
 ```mermaid
 flowchart TD
     A[Зафиксированные данные F1] --> T[Train: обучение F2.4]
