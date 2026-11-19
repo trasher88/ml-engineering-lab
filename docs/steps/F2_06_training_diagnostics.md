@@ -93,7 +93,7 @@
 Это **учебный пример структуры**, а не измерение, полученное на исходном датасете.
 
 Этот список используется сразу в нескольких местах:
-- `_csv_bytes(...)` - записывает `history.csv`;
+- `_csv_bytes(...)` - записывает ``;
 - `_plot(...)` - строит три PNG-графика;
 - `_report_markdown(...)` - составляет таблицу эпох для `analysis.md`;
 - `metrics.json` - хранит ту же историю в машиночитаемом виде.
@@ -134,7 +134,7 @@
 Функция `export_diagnostics(...)` создаёт локальную папку с шестью файлами:
 ```text
 outputs/f2_6_diagnostics/
-├── history.csv
+├── 
 ├── metrics.json
 ├── training_loss.png
 ├── validation_loss.png
@@ -143,7 +143,7 @@ outputs/f2_6_diagnostics/
 ```
 
 Назначение файлов различается:
-- `history.csv` - исходные числовые точки, одна строка на эпоху.
+- `` - исходные числовые точки, одна строка на эпоху.
 - `metrics.json` - те же точки, границы train/val/test, номер лучшей эпохи, диагностический сигнал, разрешённые гиперпараметры и SHA-256 файлов.
 - `*.png` - графики тех же значений, пригодные для просмотра.
 - `analysis.md` - короткая автоматическая интерпретация конкретного запуска, **не путать с учебным документом `docs/steps/F2_06_training_diagnostics.md`**.
@@ -157,7 +157,7 @@ outputs/f2_6_diagnostics/
 
 Эта функция:
 1. Загружает `metrics.json` и проверяет версию формата.
-2. Читает `history.csv` и пересчитывает его SHA-256.
+2. Читает `` и пересчитывает его SHA-256.
 3. Сверяет **точные байты CSV** с повторной сериализацией истории из JSON.
 4. Проверяет PNG-сигнатуру каждого графика.
 5. Сверяет SHA-256 фактических PNG-файлов с хешами из JSON.
@@ -252,7 +252,7 @@ flowchart TD
     V --> F
     F --> B[Проверка границ и корректности normalize_history]
     B --> C[Одна нормализованная история]
-    C --> D[history.csv]
+    C --> D[]
     C --> E[metrics.json]
     C --> G[Графики train loss, val loss, val Macro F1]
     C --> H[Эвристика interpret_history]
@@ -322,7 +322,7 @@ Get-ChildItem outputs/f2_6_study_synthetic
 
 Ожидаемые **имена**:
 ```text
-history.csv
+
 metrics.json
 training_loss.png
 validation_loss.png
@@ -334,6 +334,8 @@ analysis.md
 ```powershell
 Import-Csv outputs/f2_6_study_synthetic/history.csv | Format-Table
 ```
+
+[history](https://github.com/trasher88/ml-engineering-lab/blob/main/reports/public/f2_6/history.csv)
 
 Прочитать техническую интерпретацию:
 ```powershell
@@ -348,6 +350,18 @@ Invoke-Item outputs/f2_6_study_synthetic/validation_macro_f1.png
 ```
 
 **На что смотреть:** значения точек соответствуют строкам CSV; вертикальная пунктирная линия отмечает `best_epoch` из `metrics.json`. Это **лучшая validation Macro F1**, а не обязательно минимальная validation loss.
+
+<p align="center">
+<img src="../reports/public/f2_6/training_loss.png" alt="training_loss" width="600">
+</p>
+
+<p align="center">
+<img src="../reports/public/f2_6/validation_loss.png" alt="validation_loss.png" width="600">
+</p>
+
+<p align="center">
+<img src="../reports/public/f2_6/validation_macro_f1.png" alt="validation_macro_f1.png" width="600">
+</p>
 
 ### 6.5. Отдельно проверить сохранённый экспорт
 ```powershell
@@ -382,7 +396,7 @@ Invoke-Item outputs/f2_6_study_synthetic/validation_macro_f1.png
 - история для графиков берётся из F2.5 и проверяется до экспорта;
 - `train` используется для обновления весов, `validation` — для оценки и выбора checkpoint, `test` не оценивается;
 - все три изображения получают точки из единой нормализованной истории;
-- `history.csv` и `metrics.json` согласованы;
+- `` и `metrics.json` согласованы;
 - целостность экспортированных CSV и PNG контролируется по содержимому и SHA-256;
 - неправильные значения, повреждённые данные и несогласованная лучшая эпоха отклоняются;
 - временный checkpoint F2.6 не перезаписывает основной checkpoint F2.5;
