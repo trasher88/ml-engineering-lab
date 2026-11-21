@@ -77,45 +77,76 @@ N=3,\qquad df(\mathrm{postgres})=2,\qquad avgdl=\frac{3+2+2}{3}=\frac{7}{3}.
 
 ### 4.2. Инверсная документная частота
 Используется положительный сглаженный вариант IDF:
-```math
-\operatorname{IDF}(t)=\ln\left(1+\frac{N-df(t)+0.5}{df(t)+0.5}\right).
+```math id="c6uval"
+\mathrm{IDF}(t) =
+\ln\left(
+1 + \frac{N - \mathrm{df}(t) + 0.5}
+{\mathrm{df}(t) + 0.5}
+\right)
 ```
 
 Для `postgres`:
-```math
-\operatorname{IDF}(\mathrm{postgres})=\ln\left(1+\frac{3-2+0.5}{2+0.5}\right)
-=\ln(1.6)\approx0.470004.
+```math id="xwrwqb"
+\mathrm{IDF}(\mathrm{postgres}) =
+\ln\left(
+1 + \frac{3 - 2 + 0.5}{2 + 0.5}
+\right)
+= \ln(1.6) \approx 0.470004
 ```
 
 Другие варианты определения IDF могут давать иные значения; сравнение численных scores между разными формулами BM25 без учёта варианта некорректно.
 
 ### 4.3. Формула Okapi BM25
-```math
-\operatorname{BM25}(q,d)=\sum_{t\in\operatorname{unique}(q)}
-\operatorname{IDF}(t)\,
-\frac{tf(t,d)(k_1+1)}{tf(t,d)+k_1\left(1-b+b\frac{|d|}{avgdl}\right)}.
+```math id="936ydi"
+\mathrm{BM25}(q,d) =
+\sum_{t \in \mathrm{unique}(q)}
+\mathrm{IDF}(t)
+\cdot
+\frac{
+\mathrm{tf}(t,d)(k_1+1)
+}{
+\mathrm{tf}(t,d)
++
+k_1\left(
+1-b+b\frac{|d|}{\mathrm{avgdl}}
+\right)
+}
 ```
 `k1` задаёт насыщение от повторов, `b` регулирует нормализацию длины документа. Результат зависит от состава корпуса: при добавлении новых документов меняются `df` и `avgdl`.
 
 ### 4.4. Ручной расчёт для двух кандидатов
 Для `d1` с `tf=2`, `|d|=3`:
-```math
-\mathrm{norm}_{d1}=1.5\left(0.25+0.75\frac{3}{7/3}\right)\approx1.821429.
+```math id="aqpkaq"
+\mathrm{norm}_{d1} =
+1.5\left(
+0.25 + 0.75\frac{3}{7/3}
+\right)
+\approx 1.821429
 ```
 
-```math
-\operatorname{BM25}(\mathrm{postgres},d1)=0.470004\frac{2\cdot2.5}{2+1.821429}
-\approx0.614958.
+```math id="rq3k6o"
+\mathrm{BM25}(\mathrm{postgres},d1) =
+0.470004
+\cdot
+\frac{2 \cdot 2.5}{2 + 1.821429}
+\approx 0.614958
 ```
 
 Для `d2` с `tf=1`, `|d|=2`:
-```math
-\mathrm{norm}_{d2}=1.5\left(0.25+0.75\frac{2}{7/3}\right)\approx1.339286.
+```math id="zhpdrx"
+\mathrm{norm}_{d2} =
+1.5\left(
+0.25 + 0.75\frac{2}{7/3}
+\right)
+\approx 1.339286
 ```
 
-```math
-\operatorname{BM25}(\mathrm{postgres},d2)=0.470004\frac{1\cdot2.5}{1+1.339286}
-\approx0.502294.
+```math id="zku0ki"
+\mathrm{BM25}(\mathrm{postgres},d2) =
+0.470004
+\cdot
+\frac{1 \cdot 2.5}{1 + 1.339286}
+\approx 0.502294
 ```
 Итог: `d1 → d2`; `d3` не возвращается. При добавлении в запрос слова `index` появляется дополнительный положительный вклад у `d1`.
 
