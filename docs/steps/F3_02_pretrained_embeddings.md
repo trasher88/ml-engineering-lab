@@ -104,7 +104,9 @@ e=\frac{[2,4]+[6,8]+0\cdot[900,900]}{2}=[4,6].
 Для `e=[3,4]` норма равна `5`, результат `[0.6,0.8]`.
 
 ```math
-\operatorname{cosine}(u,v)=\frac{u\cdot v}{\lVert u\rVert_2\lVert v\rVert_2}=\widehat u\cdot\widehat v.
+\mathrm{cosine}(u,v) =
+\frac{u \cdot v}{\lVert u \rVert_2 \lVert v \rVert_2}
+= \hat{u} \cdot \hat{v}
 ```
 
 Cosine score может принимать значения от `−1` до `1`, но **не является вероятностью релевантности**. Вывод о полезности документов потребует независимой разметки на F3.6.
