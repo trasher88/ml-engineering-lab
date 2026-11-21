@@ -180,13 +180,13 @@ cd F:\DEVELOPMENT\ML\ml-engineering-lab
 
 | Порядок | Файл | На что смотреть в коде |
 |---|---|---|
-| 1 | `scripts/embedding_demo.py` | Синтетический и pretrained-режимы; вывод размеров, норм и cosine без подмены реальной оценки. |
-| 2 | `src/transformers_f3/embeddings.py` | `masked_mean_pooling()` и `l2_normalize()`: операции над тензорами и обработка граничных случаев. |
-| 3 | `src/transformers_f3/embeddings.py` | `PretrainedTextEncoder.encode()`: tokenizer, `eval`, `inference_mode`, порядок батчей, тип результата. |
-| 4 | `configs/f3_02_model.json` | Pinned модель, ревизия, параметры max_length/pooling/normalize и лицензия. |
-| 5 | `src/transformers_f3/model_cache.py` | Manifest, SHA-256, локальная загрузка safetensors и защита от сетевых обращений. |
-| 6 | `tests/test_f3_embeddings.py` | Эталон `[4,6]`, границы размерностей, padding и L2. |
-| 7 | `tests/test_f3_model_cache.py` | Невалидные revision, license, hash и проверка отсутствия HTTP в offline-тестах. |
-| 8 | `src/transformers_f3/attention.py` | Связь контекстного encoder с математикой Self-Attention из F3.1; исходник предыдущего этапа. |
+| 1 | [`scripts/embedding_demo.py`](../../scripts/embedding_demo.py) | Синтетический и pretrained-режимы; вывод размеров, норм и cosine без подмены реальной оценки. |
+| 2 | [`src/transformers_f3/embeddings.py`](../../src/transformers_f3/embeddings.py) | `masked_mean_pooling()` и `l2_normalize()`: операции над тензорами и обработка граничных случаев. |
+| 3 | [`src/transformers_f3/embeddings.py`](../../src/transformers_f3/embeddings.py) | `PretrainedTextEncoder.encode()`: tokenizer, `eval`, `inference_mode`, порядок батчей, тип результата. |
+| 4 | [`configs/f3_02_model.json`](../../configs/f3_02_model.json) | Pinned модель, ревизия, параметры max_length/pooling/normalize и лицензия. |
+| 5 | [`src/transformers_f3/model_cache.py`](../../src/transformers_f3/model_cache.py) | Manifest, SHA-256, локальная загрузка safetensors и защита от сетевых обращений. |
+| 6 | [`tests/test_f3_embeddings.py`](../../tests/test_f3_embeddings.py) | Эталон `[4,6]`, границы размерностей, padding и L2. |
+| 7 | [`tests/test_f3_model_cache.py`](../../tests/test_f3_model_cache.py) | Невалидные revision, license, hash и проверка отсутствия HTTP в offline-тестах. |
+| 8 | [`src/transformers_f3/attention.py`](../../src/transformers_f3/attention.py) | Связь контекстного encoder с математикой Self-Attention из F3.1; исходник предыдущего этапа. |
 
 **Итог F3.2:** подготовлен воспроизводимый компонент получения векторов текста для дальнейшего точного и гибридного поиска; независимое качество retrieval пока не установлено.
