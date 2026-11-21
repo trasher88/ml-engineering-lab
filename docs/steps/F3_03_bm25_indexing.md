@@ -215,11 +215,11 @@ cd F:\DEVELOPMENT\ML\ml-engineering-lab
 
 | Порядок | Файл | На что смотреть в коде |
 |---|---|---|
-| 1 | `scripts/bm25_demo.py` | Небольшой корпус, postings и числовые scores для запроса. |
-| 2 | `src/transformers_f3/bm25.py` | `tokenize()`: NFKC, casefold, сохранение повторов. |
-| 3 | `src/transformers_f3/bm25.py` | `BM25Index.__init__()`: DF, TF, длины, `avgdl` и inverted index. |
-| 4 | `src/transformers_f3/bm25.py` | `_term_contribution()`, `score()` и `search()`: формула и детерминированная выдача. |
-| 5 | `tests/test_f3_bm25.py` | Ручной расчёт, независимый brute-force, Unicode, ties и ошибки. |
-| 6 | `src/transformers_f3/embeddings.py` | Для сравнения: dense embeddings F3.2 создаются по другой математической схеме и не участвуют в F3.3. |
+| 1 | [`scripts/bm25_demo.py`](../../scripts/bm25_demo.py) | Небольшой корпус, postings и числовые scores для запроса. |
+| 2 | [`src/transformers_f3/bm25.py`](../../src/transformers_f3/bm25.py) | `tokenize()`: NFKC, casefold, сохранение повторов. |
+| 3 | [`src/transformers_f3/bm25.py`](../../src/transformers_f3/bm25.py) | `BM25Index.__init__()`: DF, TF, длины, `avgdl` и inverted index. |
+| 4 | [`src/transformers_f3/bm25.py`](../../src/transformers_f3/bm25.py) | `_term_contribution()`, `score()` и `search()`: формула и детерминированная выдача. |
+| 5 | [`tests/test_f3_bm25.py`](../../tests/test_f3_bm25.py) | Ручной расчёт, независимый brute-force, Unicode, ties и ошибки. |
+| 6 | [`src/transformers_f3/embeddings.py`](../../src/transformers_f3/embeddings.py) | Для сравнения: dense embeddings F3.2 создаются по другой математической схеме и не участвуют в F3.3. |
 
 **Итог F3.3:** реализован воспроизводимый лексический поисковый компонент, пригодный в качестве baseline при сравнении с dense и гибридными методами.
