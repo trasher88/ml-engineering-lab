@@ -16,10 +16,9 @@
 
 | Файл | Что реализовано и зачем |
 |---|---|
-| `src/transformers_f3/vector_search.py` | `VectorIndex`, `VectorHit`, проверка ID и матрицы, устойчивое L2-нормирование, точное cosine, `score()`, `search()` и сохранение provenance. |
-| `scripts/vector_search_demo.py` | Два режима: ручной числовой эталон и пример с уже закешированным encoder F3.2 без скачивания модели. |
-| `tests/test_f3_vector_search.py` | Проверки cosine, форм, нулевых/нечисловых векторов, порогов, ties, изменения исходного массива и source ID. |
-| `docs/steps/F3_04_vector_search_numpy.md` | Контракты векторов и источников, пошаговая математика, схема и локальные проверки. |
+| [`src/transformers_f3/vector_search.py`](../../src/transformers_f3/vector_search.py) | `VectorIndex`, `VectorHit`, проверка ID и матрицы, устойчивое L2-нормирование, точное cosine, `score()`, `search()` и сохранение provenance. |
+| [`scripts/vector_search_demo.py`](../../scripts/vector_search_demo.py) | Два режима: ручной числовой эталон и пример с уже закешированным encoder F3.2 без скачивания модели. |
+| [`tests/test_f3_vector_search.py`](../../tests/test_f3_vector_search.py) | Проверки cosine, форм, нулевых/нечисловых векторов, порогов, ties, изменения исходного массива и source ID. |
 
 Модули F3.2 и F3.3 не заменяются: dense encoding, lexical indexing и поиск по векторной матрице остаются отдельными ответственностями.
 
