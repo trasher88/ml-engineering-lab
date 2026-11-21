@@ -64,8 +64,10 @@
 
 Затем cosine вычисляется как скалярное произведение нормированных векторов:
 ```math
-\operatorname{cosine}(q,d)=\frac{q^\top d}{\lVert q\rVert_2\lVert d\rVert_2}
-=\sum_{j=1}^{D}\widehat q_j\widehat d_j.
+\mathrm{cosine}(q,d) =
+\frac{q^\top d}{\lVert q \rVert_2 \lVert d \rVert_2}
+=
+\sum_{j=1}^{D} \widehat{q}_j \widehat{d}_j
 ```
 
 **Различие с обычным dot product:** для `[1,0]` и `[100,0]` скалярное произведение равно `100`, а cosine - `1`. Вектора направлены одинаково несмотря на разные длины.
@@ -90,8 +92,9 @@ s=\widehat X\widehat q\in\mathbb{R}^{N}.
 
 Для `near`:
 ```math
-q^\top d=1\cdot3+0\cdot4=3,\qquad
-\operatorname{cosine}(q,d)=\frac{3}{1\cdot5}=0.6.
+q^\top d = 1 \cdot 3 + 0 \cdot 4 = 3,
+\qquad
+\mathrm{cosine}(q,d) = \frac{3}{1 \cdot 5} = 0.6
 ```
 
 При `top_k=3` последовательность: `same → near → orthogonal`. При `min_score=0.7` остаётся `same`. Эти числа заданы вручную и **не подтверждают семантическое качество encoder**.
