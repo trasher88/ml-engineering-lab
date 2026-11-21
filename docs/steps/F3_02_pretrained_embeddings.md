@@ -18,13 +18,12 @@
 
 | Файл | Назначение и реализованный механизм |
 |---|---|
-| `configs/f3_02_model.json` | Зафиксированы `model_id`, полный commit SHA, лицензия, размерность embedding, максимальная длина и параметры pooling/нормализации. |
-| `src/transformers_f3/embeddings.py` | Реализованы `ModelSpec`, `masked_mean_pooling()`, `l2_normalize()` и `PretrainedTextEncoder.encode()` с проверками форм, чисел и режима inference. |
-| `src/transformers_f3/model_cache.py` | Реализованы проверка remote metadata, разрешённая загрузка snapshot, SHA-256 manifest, offline-проверка кеша и безопасная загрузка локальной модели. |
-| `scripts/embedding_demo.py` | Предусмотрены синтетическая демонстрация интерфейса и режим с уже доступным предобученным encoder. |
-| `tests/test_f3_embeddings.py` | Проверены формулы pooling/нормировки, инвариант padding, размеры батчей, граничные значения и режим без градиентов. |
-| `tests/test_f3_model_cache.py` | Проверены pinning модели, отказ при повреждении кеша, проверки лицензии/SHA, отсутствие неразрешённой загрузки и работа с подставными HTTP-интерфейсами в тестах. |
-| `docs/steps/F3_02_pretrained_embeddings.md` | Зафиксированы задача, вычислительный процесс, математические эталоны, границы проверок и команды локального запуска. |
+| [`configs/f3_02_model.json`](../../configs/f3_02_model.json) | Зафиксированы `model_id`, полный commit SHA, лицензия, размерность embedding, максимальная длина и параметры pooling/нормализации. |
+| [`src/transformers_f3/embeddings.py`](../../src/transformers_f3/embeddings.py) | Реализованы `ModelSpec`, `masked_mean_pooling()`, `l2_normalize()` и `PretrainedTextEncoder.encode()` с проверками форм, чисел и режима inference. |
+| [`src/transformers_f3/model_cache.py`](../../src/transformers_f3/model_cache.py) | Реализованы проверка remote metadata, разрешённая загрузка snapshot, SHA-256 manifest, offline-проверка кеша и безопасная загрузка локальной модели. |
+| [`scripts/embedding_demo.py`](../../scripts/embedding_demo.py) | Предусмотрены синтетическая демонстрация интерфейса и режим с уже доступным предобученным encoder. |
+| [`tests/test_f3_embeddings.py`](../../tests/test_f3_embeddings.py) | Проверены формулы pooling/нормировки, инвариант padding, размеры батчей, граничные значения и режим без градиентов. |
+| [`tests/test_f3_model_cache.py`](../../tests/test_f3_model_cache.py) | Проверены pinning модели, отказ при повреждении кеша, проверки лицензии/SHA, отсутствие неразрешённой загрузки и работа с подставными HTTP-интерфейсами в тестах. |
 
 Файлы F2.3 и F3.1 не заменяются: F3.2 использует готовую предобученную архитектуру, а не подставляет в неё собственные необученные веса Self-Attention.
 
