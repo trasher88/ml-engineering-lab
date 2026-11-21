@@ -170,12 +170,12 @@ cd F:\DEVELOPMENT\ML\ml-engineering-lab
 
 | Порядок | Файл | На что смотреть в коде |
 |---|---|---|
-| 1 | `scripts/vector_search_demo.py` | Ручная геометрия и сохранение связи с `source_id`. |
-| 2 | `src/transformers_f3/vector_search.py` | `_unit_rows`: устойчивая нормировка и проверка входных чисел. |
-| 3 | `src/transformers_f3/vector_search.py` | `VectorIndex.__init__()`: копирование массива, проверка IDs, создание внутренней матрицы. |
-| 4 | `src/transformers_f3/vector_search.py` | `search()` и `score()`: NumPy matvec, порог, топ-k и детерминированность. |
-| 5 | `tests/test_f3_vector_search.py` | Границы норм, запросы другого D, ties и сохранность исходного массива. |
-| 6 | `src/transformers_f3/embeddings.py` | Выход `[N,384]` от encoder F3.2; файл предыдущего этапа. |
-| 7 | `src/transformers_f3/bm25.py` | Сопоставление лексического scoring и cosine без смешения шкал. |
+| 1 | [`scripts/vector_search_demo.py`](../../scripts/vector_search_demo.py) | Ручная геометрия и сохранение связи с `source_id`. |
+| 2 | [`src/transformers_f3/vector_search.py`](../../src/transformers_f3/vector_search.py) | `_unit_rows`: устойчивая нормировка и проверка входных чисел. |
+| 3 | [`src/transformers_f3/vector_search.py`](../../src/transformers_f3/vector_search.py) | `VectorIndex.__init__()`: копирование массива, проверка IDs, создание внутренней матрицы. |
+| 4 | [`src/transformers_f3/vector_search.py`](../../src/transformers_f3/vector_search.py) | `search()` и `score()`: NumPy matvec, порог, топ-k и детерминированность. |
+| 5 | [`tests/test_f3_vector_search.py`](../../tests/test_f3_vector_search.py) | Границы норм, запросы другого D, ties и сохранность исходного массива. |
+| 6 | [`src/transformers_f3/embeddings.py`](../../src/transformers_f3/embeddings.py) | Выход `[N,384]` от encoder F3.2; файл предыдущего этапа. |
+| 7 | [`src/transformers_f3/bm25.py`](../../src/transformers_f3/bm25.py) | Сопоставление лексического scoring и cosine без смешения шкал. |
 
 **Итог F3.4:** получен независимый математически проверяемый dense ranker; объединение с BM25 выполняется на F3.5.
