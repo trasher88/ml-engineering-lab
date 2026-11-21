@@ -16,10 +16,9 @@
 
 | Файл | Что реализовано и зачем |
 |---|---|
-| `src/transformers_f3/hybrid_search.py` | `HybridSearcher`, `HybridHit`, проверка состава индексов, создание union кандидатов, взвешенная формула RRF, стабильный top-k. |
-| `scripts/hybrid_search_demo.py` | Синтетическая выдача BM25/Vector, итоговые ранги и диагностические scores; отдельный pretrained-режим при наличии кеша. |
-| `tests/test_f3_hybrid_search.py` | Числовой эталон RRF, несовпадение ID корпусов, влияние параметров, ties, empty/OOV и CLI smoke. |
-| `docs/steps/F3_05_hybrid_rrf.md` | Пошаговое объяснение объединения рангов, схемы вычислений и границ тестов. |
+| [`src/transformers_f3/hybrid_search.py`](../../src/transformers_f3/hybrid_search.py) | `HybridSearcher`, `HybridHit`, проверка состава индексов, создание union кандидатов, взвешенная формула RRF, стабильный top-k. |
+| [`scripts/hybrid_search_demo.py`](../../scripts/hybrid_search_demo.py) | Синтетическая выдача BM25/Vector, итоговые ранги и диагностические scores; отдельный pretrained-режим при наличии кеша. |
+| [`tests/test_f3_hybrid_search.py`](../../tests/test_f3_hybrid_search.py) | Числовой эталон RRF, несовпадение ID корпусов, влияние параметров, ties, empty/OOV и CLI smoke. |
 
 Готовые `BM25Index` и `VectorIndex` используются без пересчёта их внутренних формул и без переобучения embeddings.
 
