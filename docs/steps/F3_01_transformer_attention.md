@@ -299,6 +299,6 @@ padding query has zero output: True
 | 4 | [`src/transformers_f3/attention.py`](../../src/transformers_f3/attention.py) | `SelfAttention.__init__()` и `forward()`: три `nn.Linear` и вызов математической функции. |
 | 5 | [`tests/test_f3_attention.py`](../../tests/test_f3_attention.py) | Ручной числовой эталон, сравнение с PyTorch SDPA, проверки masking, градиентов, неверных входов и CLI. |
 | 6 | [`src/transformers_f3/__init__.py`](../../src/transformers_f3/__init__.py) | Какие функции и классы экспортируются из пакета для внешнего использования. |
-| 7 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) и [`src/pytorch_f2/embedding_classifier.py](../../src/pytorch_f2/data_pipeline.py) | Как F2 получает токены, padding mask и embeddings; чем `masked mean pooling` отличается от контекстных векторов F3.1. Эти файлы уже существовали и в F3.1 не менялись. |
+| 7 | [`src/pytorch_f2/data_pipeline.py`](../../src/pytorch_f2/data_pipeline.py) и [src/pytorch_f2/embedding_classifier.py](../../src/pytorch_f2/data_pipeline.py) | Как F2 получает токены, padding mask и embeddings; чем `masked mean pooling` отличается от контекстных векторов F3.1. Эти файлы уже существовали и в F3.1 не менялись. |
 
 **Итог F3.1:** показано происхождение Q/K/V, расчёт весов внимания, формирование новых векторов и роль масок; корректность подтверждена независимыми эталонами и тестами. Это основа для понимания предобученных Transformer-моделей в последующих этапах.
