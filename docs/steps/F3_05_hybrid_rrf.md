@@ -61,9 +61,10 @@ BM25 score зависит от TF/IDF, длины текста и состава
 ### 4.1. Формула RRF
 Пусть `R_b(d)` и `R_v(d)` - позиции документа в двух исходных списках. Вклад отсутствующей позиции принимается равным `0`:
 ```math
-\operatorname{RRF}(d)=
-\mathbf{1}_{d\in L_b}\frac{w_b}{k+R_b(d)}+
-\mathbf{1}_{d\in L_v}\frac{w_v}{k+R_v(d)}.
+\mathrm{RRF}(d) =
+\mathbf{1}_{d \in L_b}\frac{w_b}{k + R_b(d)}
++
+\mathbf{1}_{d \in L_v}\frac{w_v}{k + R_v(d)}
 ```
 
 Здесь `L_b`, `L_v` - не более `P` кандидатов, `k=60`, положительные веса `w_b`, `w_v`. Это score для ранжирования, **не вероятность релевантности**.
@@ -84,13 +85,16 @@ BM25 score зависит от TF/IDF, длины текста и состава
 ### 4.3. Влияние весов
 Если увеличить `vector_weight` до `2.0`:
 ```math
-\operatorname{RRF}(\mathrm{shared})=\frac{1}{62}+\frac{2}{62}
-=\frac{3}{62}\approx0.04838710.
+\mathrm{RRF}(\mathrm{shared}) =
+\frac{1}{62} + \frac{2}{62}
+= \frac{3}{62}
+\approx 0.04838710
 ```
 
 ```math
-\operatorname{RRF}(\mathrm{lexical})=\frac{1}{61}+\frac{2}{63}
-\approx0.04813947.
+\mathrm{RRF}(\mathrm{lexical}) =
+\frac{1}{61} + \frac{2}{63}
+\approx 0.04813947
 ```
 
 Теперь `shared` оказывается выше `lexical`. Этот пример иллюстрирует чувствительность ранжирования к конфигурации, а не рекомендацию устанавливать вес `2.0` в оценочном эксперименте.
