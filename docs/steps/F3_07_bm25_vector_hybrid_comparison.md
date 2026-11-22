@@ -203,7 +203,8 @@ Get-Content configs\f3_07_comparison.json -Encoding UTF8
 Test-Path reports\public\f3_07\F3_07_comparison.json
 Get-Content reports\public\f3_07\F3_07_comparison.json -Encoding UTF8 | Select-Object -First 30
 ```
-Наличие файла само по себе не доказывает корректность; дальнейшая независимая проверка этого JSON выполняется на F3.9.
+
+[Результаты отчетов](https://github.com/trasher88/ml-engineering-lab/blob/main/reports/public/f3_07/F3_07_comparison.md)
 
 ### 6.6. Полная регрессия
 ```powershell
@@ -225,14 +226,14 @@ Get-Content reports\public\f3_07\F3_07_comparison.json -Encoding UTF8 | Select-O
 
 | Порядок | Файл | На что смотреть в коде |
 |---|---|---|
-| 1 | `configs/f3_07_comparison.json` | Зафиксированные K, BM25, RRF, candidate pool и batch size. |
-| 2 | `src/transformers_f3/retrieval_comparison.py` | `ComparisonConfig`, SHA конфигурации и проверки входных данных. |
-| 3 | `src/transformers_f3/retrieval_comparison.py` | `generate_rankings()`: создание списков без qrels. |
-| 4 | `src/transformers_f3/retrieval_comparison.py` | `compare_benchmark()` и `build_markdown_report()`: независимые метрики и интерпретация. |
-| 5 | `scripts/retrieval_comparison.py` | Разница synthetic и pretrained режимов, формирование MD/JSON. |
-| 6 | `tests/test_f3_retrieval_comparison.py` | Полнота 80 queries, неиспользование qrels при поиске, проверка outputs. |
-| 7 | `src/transformers_f3/retrieval_benchmark.py` | `evaluate_rankings()`: единые определения Recall/MRR из F3.6. |
-| 8 | `src/transformers_f3/embeddings.py` | Pinned pretrained embeddings и размерность 384. |
-| 9 | `src/transformers_f3/hybrid_search.py` | RRF по позициям кандидатов, а не по величинам BM25/cosine. |
+| 1 | [`configs/f3_07_comparison.json`](../../configs/f3_07_comparison.json) | Зафиксированные K, BM25, RRF, candidate pool и batch size. |
+| 2 | [`src/transformers_f3/retrieval_comparison.py`](../../src/transformers_f3/retrieval_comparison.py) | `ComparisonConfig`, SHA конфигурации и проверки входных данных. |
+| 3 | [`src/transformers_f3/retrieval_comparison.py`](../../src/transformers_f3/retrieval_comparison.py) | `generate_rankings()`: создание списков без qrels. |
+| 4 | [`src/transformers_f3/retrieval_comparison.py`](../../src/transformers_f3/retrieval_comparison.py) | `compare_benchmark()` и `build_markdown_report()`: независимые метрики и интерпретация. |
+| 5 | [`scripts/retrieval_comparison.py`](../../scripts/retrieval_comparison.py) | Разница synthetic и pretrained режимов, формирование MD/JSON. |
+| 6 | [`tests/test_f3_retrieval_comparison.py`](../../tests/test_f3_retrieval_comparison.py) | Полнота 80 queries, неиспользование qrels при поиске, проверка outputs. |
+| 7 | [`src/transformers_f3/retrieval_benchmark.py`](../../src/transformers_f3/retrieval_benchmark.py) | `evaluate_rankings()`: единые определения Recall/MRR из F3.6. |
+| 8 | [`src/transformers_f3/embeddings.py`](../../src/transformers_f3/embeddings.py) | Pinned pretrained embeddings и размерность 384. |
+| 9 | [`src/transformers_f3/hybrid_search.py`](../../src/transformers_f3/hybrid_search.py) | RRF по позициям кандидатов, а не по величинам BM25/cosine. |
 
 **Итог F3.7:** подготовлен воспроизводимый протокол сопоставления поисковых методов; конкретные результаты необходимо подтверждать артефактом реального эксперимента.
