@@ -180,13 +180,13 @@ Get-Content configs\f3_08_rag.json -Encoding UTF8
 
 | Порядок | Файл | На что смотреть в коде |
 |---|---|---|
-| 1 | `scripts/rag_provenance_demo.py` | Доступные режимы, исходный вопрос, цитата и fallback. |
-| 2 | `configs/f3_08_rag.json` | Число документов, 220-символьное ограничение, суммарный бюджет 600, размер пула. |
-| 3 | `src/transformers_f3/rag_provenance.py` | `RAGPipeline`: BM25/Hybrid, извлечение цитат, сбор Evidence. |
-| 4 | `src/transformers_f3/rag_provenance.py` | `verify_evidence()`: `text[start:end]`, SHA и source ID. |
-| 5 | `src/transformers_f3/rag_provenance.py` | `GenerationRequest`, `GenerationDraft`, `verified_quote`/`extractive_fallback`/`no_evidence`. |
-| 6 | `tests/test_f3_rag_provenance.py` | Неизвестный citation ID, неподтверждённый текст, fallback, Unicode и бюджеты. |
-| 7 | `src/transformers_f3/hybrid_search.py` | RRF и возвращаемые source IDs — код предыдущего этапа. |
-| 8 | `src/transformers_f3/retrieval_comparison.py` | Граница выбора документов и последующей оценки по qrels. |
+| 1 | [`scripts/rag_provenance_demo.py`](../../scripts/rag_provenance_demo.py) | Доступные режимы, исходный вопрос, цитата и fallback. |
+| 2 | [`configs/f3_08_rag.json`](../../configs/f3_08_rag.json) | Число документов, 220-символьное ограничение, суммарный бюджет 600, размер пула. |
+| 3 | [`src/transformers_f3/rag_provenance.py`](../../src/transformers_f3/rag_provenance.py) | `RAGPipeline`: BM25/Hybrid, извлечение цитат, сбор Evidence. |
+| 4 | [`src/transformers_f3/rag_provenance.py`](../../src/transformers_f3/rag_provenance.py) | `verify_evidence()`: `text[start:end]`, SHA и source ID. |
+| 5 | [`src/transformers_f3/rag_provenance.py`](../../src/transformers_f3/rag_provenance.py) | `GenerationRequest`, `GenerationDraft`, `verified_quote`/`extractive_fallback`/`no_evidence`. |
+| 6 | [`tests/test_f3_rag_provenance.py`](../../tests/test_f3_rag_provenance.py) | Неизвестный citation ID, неподтверждённый текст, fallback, Unicode и бюджеты. |
+| 7 | [`src/transformers_f3/hybrid_search.py`](../../src/transformers_f3/hybrid_search.py) | RRF и возвращаемые source IDs — код предыдущего этапа. |
+| 8 | [`src/transformers_f3/retrieval_comparison.py`](../../src/transformers_f3/retrieval_comparison.py) | Граница выбора документов и последующей оценки по qrels. |
 
 **Итог F3.8:** построен ограниченный офлайн-конвейер поиска и подтверждения буквального происхождения цитат без обучения LLM.
