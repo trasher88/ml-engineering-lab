@@ -16,11 +16,10 @@
 
 | Файл | Что реализовано и зачем |
 |---|---|
-| `src/transformers_f3/rag_provenance.py` | `RAGPipeline`, `Evidence`, `GenerationRequest`, `GenerationDraft`, поиск и выбор цитат, `verify_evidence()`, проверка генераторного текста, fallback и `no_evidence`. |
-| `configs/f3_08_rag.json` | Ограничения числа документов, цитат, контекстного бюджета и пула кандидатов. |
-| `scripts/rag_provenance_demo.py` | Синтетический offline-проход BM25/Hybrid, демонстрация provenance, недоказанного draft и fallback. |
-| `tests/test_f3_rag_provenance.py` | Точность символьных диапазонов и SHA, валидность source IDs, бюджеты, режимы ответа, ошибка генератора и Windows CLI smoke. |
-| `docs/steps/F3_08_rag_provenance.md` | Техническое описание маршрута retrieval → evidence → generation interface → verified quote/fallback. |
+| [`src/transformers_f3/rag_provenance.py`](../../src/transformers_f3/rag_provenance.py) | `RAGPipeline`, `Evidence`, `GenerationRequest`, `GenerationDraft`, поиск и выбор цитат, `verify_evidence()`, проверка генераторного текста, fallback и `no_evidence`. |
+| [`configs/f3_08_rag.json`](../../configs/f3_08_rag.json) | Ограничения числа документов, цитат, контекстного бюджета и пула кандидатов. |
+| [`scripts/rag_provenance_demo.py`](../../scripts/rag_provenance_demo.py) | Синтетический offline-проход BM25/Hybrid, демонстрация provenance, недоказанного draft и fallback. |
+| [`tests/test_f3_rag_provenance.py`](../../tests/test_f3_rag_provenance.py) | Точность символьных диапазонов и SHA, валидность source IDs, бюджеты, режимы ответа, ошибка генератора и Windows CLI smoke. |
 
 Модули F3.3–F3.5 вызываются как готовые компоненты. Веса encoder F3.2 F3.8 не скачивает; для hybrid требуется передать готовый `VectorIndex` и query embedding.
 
