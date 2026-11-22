@@ -64,45 +64,87 @@
 ### 4.1. BM25
 Лексический ранжировщик использует терминальные частоты и длины:
 ```math
-\operatorname{BM25}(q,d)=\sum_{t\in\operatorname{unique}(q)}
-\operatorname{IDF}(t)\frac{tf(t,d)(k_1+1)}{tf(t,d)+k_1(1-b+b|d|/avgdl)}.
+\mathrm{BM25}(q,d) =
+\sum_{t \in \mathrm{unique}(q)}
+\mathrm{IDF}(t)
+\cdot
+\frac{
+\mathrm{tf}(t,d)(k_1+1)
+}{
+\mathrm{tf}(t,d) +
+k_1\left(1-b+b\frac{|d|}{\mathrm{avgdl}}\right)
+}
 ```
 Значения `k1=1.5`, `b=0.75` закреплены заранее. Отсутствие совпадений даёт пустой top-k, а не искусственные нулевые документы.
 
 ### 4.2. Dense cosine
 ```math
-\operatorname{cosine}(q,d)=\frac{e_q^\top e_d}{\lVert e_q\rVert_2\lVert e_d\rVert_2}.
+\mathrm{cosine}(q,d) =
+\frac{
+e_q^\top e_d
+}{
+\lVert e_q \rVert_2 \lVert e_d \rVert_2
+}
 ```
 Для L2-нормированных векторов достаточно `e_q · e_d`. Для каждого запроса выполняется точный поиск по всем 88 векторам без ANN. Cosine score не является вероятностью полезности.
 
 ### 4.3. RRF
 Для документа `d` сложить вклады исходных рангов, причём отсутствие документа даёт ноль:
 ```math
-\operatorname{RRF}(d)=\mathbf{1}_{d\in L_B}\frac{1}{60+r_B(d)}+
-\mathbf{1}_{d\in L_V}\frac{1}{60+r_V(d)}.
+\mathrm{RRF}(d) =
+\mathbf{1}_{d \in L_B}
+\frac{1}{60+r_B(d)}
++
+\mathbf{1}_{d \in L_V}
+\frac{1}{60+r_V(d)}
 ```
 **Числовой пример:** документ A имеет BM25 rank 1 и Vector rank 3; B имеет BM25 rank 2 и Vector rank 1:
 ```math
-\operatorname{RRF}(A)=\frac{1}{61}+\frac{1}{63}\approx0.032266,
-\qquad\operatorname{RRF}(B)=\frac{1}{62}+\frac{1}{61}\approx0.032522.
+\mathrm{RRF}(A) =
+\frac{1}{61}+\frac{1}{63}
+\approx 0.032266
 ```
+
+```math
+\mathrm{RRF}(B) =
+\frac{1}{62}+\frac{1}{61}
+\approx 0.032522
+```
+
 По данному примеру B должен оказаться выше A, даже если его BM25 rank хуже.
 
 ### 4.4. Метрики на фиксированной разметке
 ```math
-\operatorname{Recall@K}(q)=\frac{|Rel(q)\cap TopK(q)|}{|Rel(q)|}.
+\mathrm{Recall@K}(q) =
+\frac{
+|\mathrm{Rel}(q) \cap \mathrm{TopK}(q)|
+}{
+|\mathrm{Rel}(q)|
+}
 ```
 
 ```math
-\operatorname{RR@K}(q)=\begin{cases}
-1/r_q,&\text{если первый релевантный документ находится в первых K позициях};\\
-0,&\text{если попаданий нет}.
+\mathrm{RR@K}(q) =
+\begin{cases}
+\frac{1}{r_q}, &
+\text{если первый релевантный документ находится в первых K позициях}, \\
+0, &
+\text{если попаданий нет}.
 \end{cases}
 ```
 
 ```math
-\operatorname{MacroRecall@K}=\frac{1}{80}\sum_{q=1}^{80}\operatorname{Recall@K}(q),\qquad
-\operatorname{MRR@K}=\frac{1}{80}\sum_{q=1}^{80}\operatorname{RR@K}(q).
+\mathrm{MacroRecall@K} =
+\frac{1}{80}
+\sum_{q=1}^{80}
+\mathrm{Recall@K}(q)
+```
+
+```math
+\mathrm{MRR@K} =
+\frac{1}{80}
+\sum_{q=1}^{80}
+\mathrm{RR@K}(q)
 ```
 
 **Эталон:** релевантны `{a,c}`, выдача `[b,a,c]` - Recall@1=0, Recall@2=0.5, Recall@3=1; MRR@1=0, MRR@2=0.5, MRR@3=0.5. Второе найденное попадание повышает Recall, но не MRR.
