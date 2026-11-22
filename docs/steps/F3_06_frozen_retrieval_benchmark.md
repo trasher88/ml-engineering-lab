@@ -69,17 +69,24 @@ a584868b8818552815151a85dfde714a762f14d959813e607bb4319cec70756c
 ### 4.1. Recall@K одного запроса
 Для множества релевантных документов `Rel(q)` и первых `K` выдачи `TopK(q)`:
 ```math
-\operatorname{Recall@K}(q)=\frac{|\operatorname{TopK}(q)\cap\operatorname{Rel}(q)|}{|\operatorname{Rel}(q)|}.
+\mathrm{Recall@K}(q) =
+\frac{
+|\mathrm{TopK}(q) \cap \mathrm{Rel}(q)|
+}{
+|\mathrm{Rel}(q)|
+}
 ```
 
 **Пример:** релевантны `{a,c}`, выдача `[b,a,c]`. Тогда `Recall@1=0`, `Recall@2=1/2=0.5`, `Recall@3=2/2=1`.
 
 ### 4.2. Reciprocal Rank@K
 ```math
-\operatorname{RR@K}(q)=
+\mathrm{RR@K}(q) =
 \begin{cases}
-1/r_{\mathrm{first}}(q),&\text{если первое релевантное попадание находится в top-K};\\
-0,&\text{если релевантных попаданий в top-K нет}.
+\frac{1}{r_{\mathrm{first}}(q)}, &
+\text{если первое релевантное попадание находится в top-K}, \\
+0, &
+\text{если релевантных попаданий в top-K нет}.
 \end{cases}
 ```
 
@@ -87,15 +94,23 @@ a584868b8818552815151a85dfde714a762f14d959813e607bb4319cec70756c
 
 ### 4.3. Макроусреднение
 ```math
-\operatorname{MacroRecall@K}=\frac{1}{Q}\sum_{q=1}^{Q}\operatorname{Recall@K}(q),\qquad
-\operatorname{MRR@K}=\frac{1}{Q}\sum_{q=1}^{Q}\operatorname{RR@K}(q).
+\mathrm{MacroRecall@K} =
+\frac{1}{Q}
+\sum_{q=1}^{Q} \mathrm{Recall@K}(q),
+\qquad
+\mathrm{MRR@K} =
+\frac{1}{Q}
+\sum_{q=1}^{Q} \mathrm{RR@K}(q)
 ```
 
 В замороженном наборе `Q=80`, однако оценочная функция поддерживает тестовые примеры другого размера.
 
 **Дополнительный числовой эталон:** для `q1` релевантны `a,c`, `top-2=[b,a]`: Recall@2=0.5, RR@2=0.5. Для `q2` релевантен `d`, `top-2=[d,b]`: обе величины равны 1.
 ```math
-\operatorname{MacroRecall@2}=\operatorname{MRR@2}=\frac{0.5+1}{2}=0.75.
+\mathrm{MacroRecall@2} =
+\mathrm{MRR@2} =
+\frac{0.5+1}{2} =
+0.75
 ```
 
 Здесь оба запроса получают одинаковый вес независимо от числа релевантных документов. Микроусреднение по суммарному количеству qrels было бы другой метрикой.
