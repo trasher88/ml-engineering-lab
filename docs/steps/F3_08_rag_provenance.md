@@ -68,9 +68,10 @@
 ### 4.1. Поиск исходных фрагментов
 F3.8 не меняет формулы уже созданных индексов. BM25 возвращает лексические scores, Hybrid - RRF scores, вычисленные по рангам:
 ```math
-\operatorname{RRF}(d)=
-\mathbf{1}_{d\in L_b}\frac{w_b}{k+r_b(d)}+
-\mathbf{1}_{d\in L_v}\frac{w_v}{k+r_v(d)}.
+\mathrm{RRF}(d) =
+\mathbf{1}_{d \in L_b}\frac{w_b}{k+r_b(d)}
++
+\mathbf{1}_{d \in L_v}\frac{w_v}{k+r_v(d)}
 ```
 Наличие большего score определяет порядок кандидатов, но не является вероятностью корректного ответа.
 
@@ -84,12 +85,16 @@ assert text[4:7] == "def"
 
 ### 4.3. Формальный контракт Evidence
 ```math
-\operatorname{quote}=\operatorname{document.text}[\operatorname{start}:\operatorname{end}].
+\mathrm{quote} =
+\mathrm{document.text}[\mathrm{start}:\mathrm{end}]
 ```
 
 ```math
-\operatorname{SHA256}(\operatorname{UTF8}(\operatorname{document.text}))
-=\operatorname{document\_sha256}.
+\mathrm{SHA256}\left(
+\mathrm{UTF8}(\mathrm{document.text})
+\right)
+=
+\mathrm{document\_sha256}
 ```
 Два равенства дополняются проверкой `doc_id`/`source_id`; одно совпадение короткой цитаты не подтверждает происхождение.
 
