@@ -196,15 +196,15 @@ Get-Content reports\public\f3_09\F3_PHASE_EVIDENCE.json -Encoding UTF8 | Select-
 
 | Порядок | Файл | На что смотреть в коде |
 |---|---|---|
-| 1 | `scripts/f3_phase_report.py` | Граница synthetic smoke и реального финального отчёта. |
-| 2 | `src/transformers_f3/phase_report.py` | `validate_comparison()`: SHA/ID, проверка полноты ранжирований и пересчёт метрик. |
-| 3 | `src/transformers_f3/phase_report.py` | `build_phase_markdown()`: представление прошедших аудит данных. |
-| 4 | `tests/test_f3_phase_report.py` | Подмена benchmark, model metadata, ranked lists, метрик, UTF-8 и повторяемость. |
-| 5 | `src/transformers_f3/retrieval_benchmark.py` | F3.6 `load_frozen_benchmark()` и `evaluate_rankings()`: независимый эталон. |
-| 6 | `src/transformers_f3/retrieval_comparison.py` | F3.7 `result_as_dict`: структура сохранённых поисковых результатов. |
-| 7 | `src/transformers_f3/embeddings.py` | F3.2 `ModelSpec`: ожидаемые параметры модели. |
-| 8 | `src/transformers_f3/rag_provenance.py` | F3.8 `Evidence`, `verify_evidence`, fallback/no_evidence. |
-| 9 | `docs/reports/F3_PHASE_REPORT.md` | После успешного реального аудита: проверенные таблицы и ограничения. |
-| 10 | `reports/public/f3_09/F3_PHASE_EVIDENCE.json` | После успешного реального аудита: структурированное evidence и SHA. |
+| 1 | [`scripts/f3_phase_report.py`](../../scripts/f3_phase_report.py) | Граница synthetic smoke и реального финального отчёта. |
+| 2 | [`src/transformers_f3/phase_report.py`](../../src/transformers_f3/phase_report.py) | `validate_comparison()`: SHA/ID, проверка полноты ранжирований и пересчёт метрик. |
+| 3 | [`src/transformers_f3/phase_report.py`](../../src/transformers_f3/phase_report.py) | `build_phase_markdown()`: представление прошедших аудит данных. |
+| 4 | [`tests/test_f3_phase_report.py`](../../tests/test_f3_phase_report.py) | Подмена benchmark, model metadata, ranked lists, метрик, UTF-8 и повторяемость. |
+| 5 | [`src/transformers_f3/retrieval_benchmark.py`](../../src/transformers_f3/retrieval_benchmark.py) | F3.6 `load_frozen_benchmark()` и `evaluate_rankings()`: независимый эталон. |
+| 6 | [`src/transformers_f3/retrieval_comparison.py`](../../src/transformers_f3/retrieval_comparison.py) | F3.7 `result_as_dict`: структура сохранённых поисковых результатов. |
+| 7 | [`src/transformers_f3/embeddings.py`](../../src/transformers_f3/embeddings.py) | F3.2 `ModelSpec`: ожидаемые параметры модели. |
+| 8 | [`src/transformers_f3/rag_provenance.py`](../../src/transformers_f3/rag_provenance.py) | F3.8 `Evidence`, `verify_evidence`, fallback/no_evidence. |
+| 9 | [`docs/reports/F3_PHASE_REPORT.md`](../../docs/reports/F3_PHASE_REPORT.md) | После успешного реального аудита: проверенные таблицы и ограничения. |
+| 10 | [`reports/public/f3_09/F3_PHASE_EVIDENCE.json`](../../reports/public/f3_09/F3_PHASE_EVIDENCE.json) | После успешного реального аудита: структурированное evidence и SHA. |
 
 **Итог F3.9:** подготовлен проверяемый итог Фазы 3 с жёстким разделением алгоритмических проверок, измерений pretrained retrieval и синтетической проверки provenance.
