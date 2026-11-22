@@ -69,23 +69,28 @@
 ### 4.1. Повторный расчёт Recall@K
 Пусть `R(q)` - множество положительных qrels, а `TopK(q)` - первые `K` сохранённых ranked `doc_id`:
 ```math
-\operatorname{Recall@K}(q)=\frac{|R(q)\cap TopK(q)|}{|R(q)|}.
+\mathrm{Recall@K}(q) =
+\frac{|R(q) \cap \mathrm{TopK}(q)|}{|R(q)|}
 ```
 Результат вычисляется по **сохранённому порядку** документов. Сам score BM25, cosine и RRF в формулу не входит.
 
 ### 4.2. Повторный расчёт Reciprocal Rank
 ```math
-\operatorname{RR@K}(q)=
+\mathrm{RR@K}(q) =
 \begin{cases}
-1/r_1(q),&\text{если первое релевантное попадание имеет позицию }r_1(q)\le K;\\
-0,&\text{если в top-K попаданий нет}.
+\frac{1}{r_1(q)}, & \text{если первое релевантное попадание имеет позицию } r_1(q) \le K, \\
+0, & \text{если в top-K попаданий нет}.
 \end{cases}
 ```
 
 ### 4.3. Макроусреднение по всем запросам
 ```math
-\operatorname{MacroRecall@K}=\frac{1}{N}\sum_{q=1}^{N}\operatorname{Recall@K}(q),\qquad
-\operatorname{MRR@K}=\frac{1}{N}\sum_{q=1}^{N}\operatorname{RR@K}(q),\quad N=80.
+\mathrm{MacroRecall@K} =
+\frac{1}{N}\sum_{q=1}^{N}\mathrm{Recall@K}(q),
+\qquad
+\mathrm{MRR@K} =
+\frac{1}{N}\sum_{q=1}^{N}\mathrm{RR@K}(q),
+\quad N=80
 ```
 
 **Числовой эталон:** релевантны `{d1,d2}`, выдача `[d3,d4,d1,d5,d2]`.
@@ -103,7 +108,11 @@
 
 Разницу Recall@5 между Hybrid и BM25 выражать в **процентных пунктах**:
 ```math
-\Delta_{pp}=100\left(\operatorname{Recall@5}_{Hybrid}-\operatorname{Recall@5}_{BM25}\right).
+\Delta_{\mathrm{pp}} =
+100\left(
+\mathrm{Recall@5}_{\mathrm{Hybrid}} -
+\mathrm{Recall@5}_{\mathrm{BM25}}
+\right)
 ```
 Например, `0.70 − 0.60 = 0.10` соответствует **10 процентным пунктам**, а не 10% относительного прироста. Это лишь математический пример, не объявленная метрика реального запуска.
 
