@@ -182,13 +182,13 @@ Get-Content tests\fixtures\f3_06_benchmark_v1\manifest.json -Encoding UTF8
 
 | Порядок | Файл | На что смотреть в коде |
 |---|---|---|
-| 1 | `scripts/retrieval_benchmark_demo.py` | Различие загрузки frozen-данных и ручной проверки метрик. |
-| 2 | `tests/fixtures/f3_06_benchmark_v1/documents.jsonl` | `doc_id` и `source_id`; пара фрагментов одной темы. |
-| 3 | `tests/fixtures/f3_06_benchmark_v1/queries.jsonl` | Lexical и paraphrase вопросы по доменам. |
-| 4 | `tests/fixtures/f3_06_benchmark_v1/qrels.jsonl` | Пары query–doc с `relevance=1`, отсутствие «зашитых» ответов в ранжировщике. |
-| 5 | `tests/fixtures/f3_06_benchmark_v1/manifest.json` | Версия, размеры и SHA-256 источников. |
-| 6 | `src/transformers_f3/retrieval_benchmark.py` | `load_frozen_benchmark()` и проверка source/ID/версий. |
-| 7 | `src/transformers_f3/retrieval_benchmark.py` | `evaluate_rankings()`: Recall/MRR, `K`, нулевые результаты, полный набор запросов. |
-| 8 | `tests/test_f3_retrieval_benchmark.py` | Ручные эталоны, проверки хешей, недопустимых qrels и Unicode/CRLF. |
+| 1 | [`scripts/retrieval_benchmark_demo.py`](../../scripts/retrieval_benchmark_demo.py) | Различие загрузки frozen-данных и ручной проверки метрик. |
+| 2 | [`tests/fixtures/f3_06_benchmark_v1/documents.jsonl`](../../tests/fixtures/f3_06_benchmark_v1/documents.jsonl) | `doc_id` и `source_id`; пара фрагментов одной темы. |
+| 3 | [`tests/fixtures/f3_06_benchmark_v1/queries.jsonl`](../../tests/fixtures/f3_06_benchmark_v1/queries.jsonl) | Lexical и paraphrase вопросы по доменам. |
+| 4 | [`tests/fixtures/f3_06_benchmark_v1/qrels.jsonl`](../../tests/fixtures/f3_06_benchmark_v1/qrels.jsonl) | Пары query–doc с `relevance=1`, отсутствие «зашитых» ответов в ранжировщике. |
+| 5 | [`tests/fixtures/f3_06_benchmark_v1/manifest.json`](../../tests/fixtures/f3_06_benchmark_v1/manifest.json) | Версия, размеры и SHA-256 источников. |
+| 6 | [`src/transformers_f3/retrieval_benchmark.py`](../../src/transformers_f3/retrieval_benchmark.py) | `load_frozen_benchmark()` и проверка source/ID/версий. |
+| 7 | [`src/transformers_f3/retrieval_benchmark.py`](../../src/transformers_f3/retrieval_benchmark.py) | `evaluate_rankings()`: Recall/MRR, `K`, нулевые результаты, полный набор запросов. |
+| 8 | [`tests/test_f3_retrieval_benchmark.py`](../../tests/test_f3_retrieval_benchmark.py) | Ручные эталоны, проверки хешей, недопустимых qrels и Unicode/CRLF. |
 
 **Итог F3.6:** получена стандартизированная процедура проверки выдач с известными ограничениями синтетической разметки.
