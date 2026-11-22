@@ -16,12 +16,11 @@
 
 | Файл | Что реализовано и зачем |
 |---|---|
-| `src/transformers_f3/phase_report.py` | `validate_comparison()` с проверками benchmark, config, рангов и метрик; формирование финального Markdown и структурированного evidence. |
-| `scripts/f3_phase_report.py` | Разделение synthetic smoke и аудита настоящего F3.7 JSON; блокировка публикации при недостаточном evidence. |
-| `tests/test_f3_phase_report.py` | Тесты подмены метрик, source ID, SHA, версии encoder, ранжирования и идемпотентного экспорта. |
-| `docs/reports/F3_PHASE_REPORT.md` | Выходной Markdown-отчёт после успешного аудита реального эксперимента. |
-| `reports/public/f3_09/F3_PHASE_EVIDENCE.json` | Компактная машиночитаемая фиксация проверенных метрик, настроек и SHA. |
-| `docs/steps/F3_09_final_phase_report.md` | Технический материал по аудиту, алгоритмам сверки и ограничениям интерпретации. |
+| [`src/transformers_f3/phase_report.py`](../../src/transformers_f3/phase_report.py) | `validate_comparison()` с проверками benchmark, config, рангов и метрик; формирование финального Markdown и структурированного evidence. |
+| [`scripts/f3_phase_report.py`](../../scripts/f3_phase_report.py) | Разделение synthetic smoke и аудита настоящего F3.7 JSON; блокировка публикации при недостаточном evidence. |
+| [`tests/test_f3_phase_report.py`](../../tests/test_f3_phase_report.py) | Тесты подмены метрик, source ID, SHA, версии encoder, ранжирования и идемпотентного экспорта. |
+| [`reports/public/f3_09/F3_PHASE_EVIDENCE.json`](../../reports/public/f3_09/F3_PHASE_EVIDENCE.json) | Компактная машиночитаемая фиксация проверенных метрик, настроек и SHA. |
+| [`docs/steps/F3_09_final_phase_report.md`](../../docs/steps/F3_09_final_phase_report.md) | Технический материал по аудиту, алгоритмам сверки и ограничениям интерпретации. |
 
 Входами служат **готовые**, ранее полученные файлы: frozen corpus F3.6, `configs/f3_07_comparison.json`, `configs/f3_02_model.json`, `reports/public/f3_07/F3_07_comparison.json` и код контрактов F3.8.
 
