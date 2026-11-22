@@ -16,14 +16,13 @@
 
 | Файл | Что реализовано и зачем |
 |---|---|
-| `tests/fixtures/f3_06_benchmark_v1/documents.jsonl` | **88** синтетических технических фрагментов с `doc_id`, `source_id`, `domain`, `text`. |
-| `tests/fixtures/f3_06_benchmark_v1/queries.jsonl` | **80** запросов с `query_id`, `domain`, `kind`, `text`; две формулировки для каждой из 40 тем. |
-| `tests/fixtures/f3_06_benchmark_v1/qrels.jsonl` | **160** положительных бинарных отношений `query_id` — `doc_id` (по два релевантных фрагмента на запрос). |
-| `tests/fixtures/f3_06_benchmark_v1/manifest.json` | Версия набора, агрегаты, SHA-256 JSONL и сведения о происхождении синтетики. |
-| `src/transformers_f3/retrieval_benchmark.py` | `load_frozen_benchmark()`, валидация ID/qrels/хешей, `evaluate_rankings()`, dataclass результата. |
-| `scripts/retrieval_benchmark_demo.py` | Демонстрация чтения frozen-набора и ручной арифметики метрик без поисковых моделей. |
-| `tests/test_f3_retrieval_benchmark.py` | Проверки математики Recall/MRR, полноты запросов, нетронутости корпуса, CRLF/LF и ошибок структуры. |
-| `docs/steps/F3_06_frozen_retrieval_benchmark.md` | Описание данных, формул, проверки и ограничений synthetic benchmark. |
+| [`tests/fixtures/f3_06_benchmark_v1/documents.jsonl`](../../tests/fixtures/f3_06_benchmark_v1/documents.jsonl) | **88** синтетических технических фрагментов с `doc_id`, `source_id`, `domain`, `text`. |
+| [`tests/fixtures/f3_06_benchmark_v1/queries.jsonl`](../../tests/fixtures/f3_06_benchmark_v1/queries.jsonl) | **80** запросов с `query_id`, `domain`, `kind`, `text`; две формулировки для каждой из 40 тем. |
+| [`tests/fixtures/f3_06_benchmark_v1/qrels.jsonl`](../../tests/fixtures/f3_06_benchmark_v1/qrels.jsonl) | **160** положительных бинарных отношений `query_id` — `doc_id` (по два релевантных фрагмента на запрос). |
+| [`tests/fixtures/f3_06_benchmark_v1/manifest.json`](../../tests/fixtures/f3_06_benchmark_v1/manifest.json) | Версия набора, агрегаты, SHA-256 JSONL и сведения о происхождении синтетики. |
+| [`src/transformers_f3/retrieval_benchmark.py`](../../src/transformers_f3/retrieval_benchmark.py) | `load_frozen_benchmark()`, валидация ID/qrels/хешей, `evaluate_rankings()`, dataclass результата. |
+| [`scripts/retrieval_benchmark_demo.py`](../../scripts/retrieval_benchmark_demo.py) | Демонстрация чтения frozen-набора и ручной арифметики метрик без поисковых моделей. |
+| [`tests/test_f3_retrieval_benchmark.py`](../../tests/test_f3_retrieval_benchmark.py) | Проверки математики Recall/MRR, полноты запросов, нетронутости корпуса, CRLF/LF и ошибок структуры. |
 
 **Состав версии v1:** 88 фрагментов, 40 источников с двумя связанными фрагментами, 8 отвлекающих документов, 80 запросов и 160 qrels. Четыре домена: `databases`, `linux`, `systems`, `programming`; в каждом 20 запросов (10 прямых, 10 перефразированных).
 
