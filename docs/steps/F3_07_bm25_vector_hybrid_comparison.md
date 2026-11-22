@@ -16,10 +16,10 @@
 
 | Файл | Что реализовано и зачем |
 |---|---|
-| [`configs/f3_07_comparison.json`](../../) | До оценки закреплены список `K`, BM25, RRF, размер candidate pool и batch size; конфигурация защищена SHA в коде. |
-| [`src/transformers_f3/retrieval_comparison.py`](../../) | `ComparisonConfig`, независимое построение рангов, применение qrels только на этапе оценки, групповые метрики и формирование отчёта. |
-| [`scripts/retrieval_comparison.py`](../../) | Режимы синтетической проверки и реального CPU inference на проверенном кеше F3.2, сохранение отчётных файлов. |
-| [`tests/test_f3_retrieval_comparison.py`](../../) | Инварианты метрик, полнота query IDs, недопущение утечки qrels в ранжирование, формат результатов и Windows-кодировка. |
+| [`configs/f3_07_comparison.json`](../../configs/f3_07_comparison.json) | До оценки закреплены список `K`, BM25, RRF, размер candidate pool и batch size; конфигурация защищена SHA в коде. |
+| [`src/transformers_f3/retrieval_comparison.py`](../../src/transformers_f3/retrieval_comparison.py) | `ComparisonConfig`, независимое построение рангов, применение qrels только на этапе оценки, групповые метрики и формирование отчёта. |
+| [`scripts/retrieval_comparison.py`](../../scripts/retrieval_comparison.py) | Режимы синтетической проверки и реального CPU inference на проверенном кеше F3.2, сохранение отчётных файлов. |
+| [`tests/test_f3_retrieval_comparison.py`](../../tests/test_f3_retrieval_comparison.py) | Инварианты метрик, полнота query IDs, недопущение утечки qrels в ранжирование, формат результатов и Windows-кодировка. |
 
 Используются `BM25Index`, `VectorIndex`, `HybridSearcher`, `PretrainedTextEncoder` и `evaluate_rankings()`. Изменение алгоритмов предшествующих этапов не требуется.
 
