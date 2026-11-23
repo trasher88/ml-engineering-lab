@@ -11,12 +11,12 @@
 
 | Файл                                        | Назначение                      | Реальные функции и данные                                                                                                                                |
 | ------------------------------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `configs/f4_08_dpo_experiment.json`         | Фиксирует эксперимент           | Источник предпочтений, зависимость от F4.1/F4.4/F4.5, `beta=0.1`, `seed=42`, token budgets, CPU/GPU профили                                              |
-| `data/preferences/f4_08_dpo_pairs_v1.jsonl` | Пары предпочтений               | 16 train + 4 validation, по одной группе на pair, поля `prompt`, `chosen`, `rejected`, `rationale`, `split`, `source_id`, `group_id`, `domain`, `origin` |
-| `src/llm_f4/dpo_experiment.py`              | Основной алгоритм               | `load_config`, `load_preferences`, `make_plan`, `dpo_loss`, `tokenize_pair`, `completion_logprob`, `torch_dpo_loss`, `run_real`, `verify_run`            |
-| `scripts/f4_dpo_experiment.py`              | Командный интерфейс             | `--plan`, `--math-demo`, `--torch-smoke`, `--run cpu/gpu`, `--verify cpu/gpu`, явное `--allow-download`                                                  |
-| `tests/test_f4_dpo_experiment.py`           | Автоматическая проверка         | Scalar-эталоны, Torch autograd, отбрасывание повреждённых данных/конфигураций, split leakage, Windows CLI                                                |
-| `docs/steps/F4_08_dpo_experiment.md`        | Учебно-техническая документация | Последовательность разработки, формулы, примеры, схема, PowerShell, ограничения и путеводитель по исходникам                                             |
+| [`configs/f4_08_dpo_experiment.json`](../../configs/f4_08_dpo_experiment.json)         | Фиксирует эксперимент           | Источник предпочтений, зависимость от F4.1/F4.4/F4.5, `beta=0.1`, `seed=42`, token budgets, CPU/GPU профили                                              |
+| [`data/preferences/f4_08_dpo_pairs_v1.jsonl`](../../data/preferences/f4_08_dpo_pairs_v1.jsonl) | Пары предпочтений               | 16 train + 4 validation, по одной группе на pair, поля `prompt`, `chosen`, `rejected`, `rationale`, `split`, `source_id`, `group_id`, `domain`, `origin` |
+| [`src/llm_f4/dpo_experiment.py`](../../src/llm_f4/dpo_experiment.py)              | Основной алгоритм               | `load_config`, `load_preferences`, `make_plan`, `dpo_loss`, `tokenize_pair`, `completion_logprob`, `torch_dpo_loss`, `run_real`, `verify_run`            |
+| [`scripts/f4_dpo_experiment.py`](../../scripts/f4_dpo_experiment.py)              | Командный интерфейс             | `--plan`, `--math-demo`, `--torch-smoke`, `--run cpu/gpu`, `--verify cpu/gpu`, явное `--allow-download`                                                  |
+| [`tests/test_f4_dpo_experiment.py`](../../tests/test_f4_dpo_experiment.py)           | Автоматическая проверка         | Scalar-эталоны, Torch autograd, отбрасывание повреждённых данных/конфигураций, split leakage, Windows CLI                                                |
+
 **Данные.** Все 20 `chosen` дословно совпадают с `response` соответствующей записи F4.1. Поле `prompt` использует тот же шаблон `Вопрос:\n...\nОтвет:\n`, что применяется в F4.4/F4.5. `rejected` - отдельно написанный ошибочный, но тематически связанный ответ: например, утверждение, что изменяемый аргумент функции Python создаётся при каждом вызове (неверно), противопоставлено правильному объяснению. `rationale` показывает, *почему* выбранный ответ предпочтительнее. Это **авторский синтетический учебный набор**, а не реальные человеческие оценки outputs модели. Он не предназначен для утверждений о масштабируемости DPO.
 
 Распределение пар:
@@ -326,15 +326,15 @@ GPU-профиль не использует QLoRA/bitsandbytes; необход�
 
 | Порядок | Файл | На какие функции, структуры и проверки смотреть |
 |---|---|---|
-| 1 | `data/preferences/f4_08_dpo_pairs_v1.jsonl` | Сопоставить реальные `prompt`, `chosen`, `rejected`, `rationale`, `source_id`, `group_id`, `split` |
-| 2 | `configs/f4_08_dpo_experiment.json` | Почему beta=0.1, какие бюджеты на токены и как разделены CPU/GPU профили |
-| 3 | `src/llm_f4/dpo_experiment.py` | `load_preferences`, `make_plan`: все инварианты и происхождение данных |
-| 4 | `src/llm_f4/dpo_experiment.py` | `dpo_loss` и `torch_dpo_loss`: scalar-эталон против differentiable loss |
-| 5 | `src/llm_f4/dpo_experiment.py` | `tokenize_pair` и `completion_logprob`: `labels=-100`, сдвиг и сумма логвероятностей |
-| 6 | `src/llm_f4/dpo_experiment.py` | `_model_and_tokenizer`, `run_real`: исходный F4.5 adapter, предвычисление reference, optimizer, checkpoint |
-| 7 | `src/llm_f4/dpo_experiment.py` | `verify_run`: SHA-256, проверка числа шагов, исходного SFT и адаптера |
-| 8 | `scripts/f4_dpo_experiment.py` | Как различаются `--plan`, `--math-demo`, `--torch-smoke`, `--run`, `--verify` |
-| 9 | `tests/test_f4_dpo_experiment.py` | Числовые тесты, negative tests, ошибки источников, provenance, Windows codec |
+| 1 | [`data/preferences/f4_08_dpo_pairs_v1.jsonl`](../../`data/preferences/f4_08_dpo_pairs_v1.jsonl) | Сопоставить реальные `prompt`, `chosen`, `rejected`, `rationale`, `source_id`, `group_id`, `split` |
+| 2 | [`configs/f4_08_dpo_experiment.json`](../../configs/f4_08_dpo_experiment.json) | Почему beta=0.1, какие бюджеты на токены и как разделены CPU/GPU профили |
+| 3 | [`src/llm_f4/dpo_experiment.py`](../../src/llm_f4/dpo_experiment.py) | `load_preferences`, `make_plan`: все инварианты и происхождение данных |
+| 4 | [`src/llm_f4/dpo_experiment.py`](../../src/llm_f4/dpo_experiment.py) | `dpo_loss` и `torch_dpo_loss`: scalar-эталон против differentiable loss |
+| 5 | [`src/llm_f4/dpo_experiment.py`](../../src/llm_f4/dpo_experiment.py) | `tokenize_pair` и `completion_logprob`: `labels=-100`, сдвиг и сумма логвероятностей |
+| 6 | [`src/llm_f4/dpo_experiment.py`](../../src/llm_f4/dpo_experiment.py) | `_model_and_tokenizer`, `run_real`: исходный F4.5 adapter, предвычисление reference, optimizer, checkpoint |
+| 7 | [`src/llm_f4/dpo_experiment.py`](../../src/llm_f4/dpo_experiment.py) | `verify_run`: SHA-256, проверка числа шагов, исходного SFT и адаптера |
+| 8 | [`scripts/f4_dpo_experiment.py`](../../scripts/f4_dpo_experiment.py) | Как различаются `--plan`, `--math-demo`, `--torch-smoke`, `--run`, `--verify` |
+| 9 | [`tests/test_f4_dpo_experiment.py`](../../tests/test_f4_dpo_experiment.py) | Числовые тесты, negative tests, ошибки источников, provenance, Windows codec |
 
 
 **Итог F4.7**: Документация интерфейсов для дальнейшего развития: [Hugging Face TRL DPOTrainer](https://huggingface.co/docs/trl/dpo_trainer) и [PEFT LoRA](https://huggingface.co/docs/peft/main/package_reference/lora). В текущей поставке TRL **не требуется**: реализована учебная формула DPO непосредственно через PyTorch, чтобы не зависеть от меняющегося интерфейса Trainer и иметь прозрачные числовые эталоны.
