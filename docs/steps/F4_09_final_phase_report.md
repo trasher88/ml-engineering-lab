@@ -17,11 +17,10 @@
 
 | Файл                                     | Назначение                          | Что изучить внутри                                                                             |
 | ---------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `configs/f4_09_final_phase_report.json`  | Фиксирует контракт сборки           | Пути F4.1-F4.8, `cpu`, место записи результата                                                 |
-| `src/llm_f4/final_phase_report.py`       | Верификатор и составитель отчёта    | `load_config`, `plan`, `collect_verified`, `render_markdown`, `build_report`, `verify_report`  |
-| `scripts/f4_final_phase_report.py`       | Командный интерфейс                 | `--plan`, `--build cpu`, `--verify cpu`; вывод результатов без ML-зависимостей                 |
-| `tests/test_f4_final_phase_report.py`    | Автоматическая проверка контрактов  | Фикстуры, отсутствие ложных выводов, проверка SHA, перезапись, повреждение и Windows-кодировки |
-| `docs/steps/F4_09_final_phase_report.md` | Текущий учебно-технический документ | Последовательность, математика, ограничения и интерпретация                                    |
+| [`configs/f4_09_final_phase_report.json`](../../configs/f4_09_final_phase_report.json)  | Фиксирует контракт сборки           | Пути F4.1-F4.8, `cpu`, место записи результата                                            |
+| [`src/llm_f4/final_phase_report.py`](../../src/llm_f4/final_phase_report.py)       | Верификатор и составитель отчёта    | `load_config`, `plan`, `collect_verified`, `render_markdown`, `build_report`, `verify_report`  |
+| [`scripts/f4_final_phase_report.py`](../../scripts/f4_final_phase_report.py)       | Командный интерфейс                 | `--plan`, `--build cpu`, `--verify cpu`; вывод результатов без ML-зависимостей                 |
+| [`tests/test_f4_final_phase_report.py`](../../tests/test_f4_final_phase_report.py)    | Автоматическая проверка контрактов  | Фикстуры, отсутствие ложных выводов, проверка SHA, перезапись, повреждение и Windows-кодировки |                               |
 
 ## 3. Последовательность реализации
 
@@ -309,13 +308,13 @@ notepad data\processed\f4_09\cpu\final_report.md
 
 | Очерёдность | Файл                                    | Что именно изучить                                                                             |
 | ----------: | --------------------------------------- | ---------------------------------------------------------------------------------------------- |
-|           1 | `configs/f4_09_final_phase_report.json` | Контракт модели, зависимостей и зафиксированного CPU-профиля                                   |
-|           2 | `src/llm_f4/final_phase_report.py`      | `load_config()` и `plan()` — различие между существующим и верифицированным источником         |
-|           3 | `src/llm_f4/final_phase_report.py`      | `collect_verified()` — как связываются F4.1–F4.8 и не допускается подмена модели или адаптера  |
-|           4 | `src/llm_f4/final_phase_report.py`      | `_read_optional_human_score()` — почему `null` не равен нулевой оценке                         |
-|           5 | `src/llm_f4/final_phase_report.py`      | `render_markdown()` — формулы и интерпретация ограничений                                      |
-|           6 | `src/llm_f4/final_phase_report.py`      | `build_report()` и `verify_report()` — SHA, атомарная запись и повторная сборка                |
-|           7 | `scripts/f4_final_phase_report.py`      | Порядок запуска CLI и различие PLAN/BUILD/VERIFY                                               |
-|           8 | `tests/test_f4_final_phase_report.py`   | Искусственные фикстуры, проверка инвариантов, отказ от фиктивного качества, ошибки целостности |
+|           1 | [`configs/f4_09_final_phase_report.json`](../../configs/f4_09_final_phase_report.json) | Контракт модели, зависимостей и зафиксированного CPU-профиля                                   |
+|           2 | [`src/llm_f4/final_phase_report.py`](../../src/llm_f4/final_phase_report.py)      | `load_config()` и `plan()` — различие между существующим и верифицированным источником         |
+|           3 | [`src/llm_f4/final_phase_report.py`](../../src/llm_f4/final_phase_report.py)     | `collect_verified()` — как связываются F4.1–F4.8 и не допускается подмена модели или адаптера  |
+|           4 | [`src/llm_f4/final_phase_report.py`](../../src/llm_f4/final_phase_report.py)      | `_read_optional_human_score()` — почему `null` не равен нулевой оценке                         |
+|           5 | [`src/llm_f4/final_phase_report.py`](../../src/llm_f4/final_phase_report.py)      | `render_markdown()` — формулы и интерпретация ограничений                                      |
+|           6 | [`src/llm_f4/final_phase_report.py`](../../src/llm_f4/final_phase_report.py)      | `build_report()` и `verify_report()` — SHA, атомарная запись и повторная сборка                |
+|           7 | [`scripts/f4_final_phase_report.py`](../../src/llm_f4/final_phase_report.py)      | Порядок запуска CLI и различие PLAN/BUILD/VERIFY                                               |
+|           8 | [`tests/test_f4_final_phase_report.py`](../../tests/test_f4_final_phase_report.py)   | Искусственные фикстуры, проверка инвариантов, отказ от фиктивного качества, ошибки целостности |
 
 **Итог F4.9:** не добавляет новую модель; этап формирует проверяемое техническое описание всей Фазы 4. Это позволяет рассказывать о проекте на собеседовании через исходные данные, протокол, вычисления, результаты и ограничения - без преувеличения эффективности обучения.
