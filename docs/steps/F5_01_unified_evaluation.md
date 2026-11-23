@@ -18,12 +18,11 @@ F1/F2 используют классификацию источников те�
 
 | Новый файл | Основные сущности | Назначение |
 |---|---|---|
-| `src/evaluation_f5/__init__.py` | Экспорт `build_report`, `render_markdown`, `serialize_json` | Публичный интерфейс пакета F5.1 |
-| `src/evaluation_f5/unified_report.py` | `EvaluationError`, `SourceResult`, `build_report()`, `render_markdown()`, `run()`, `numeric_paths()` | Загрузка, типизация, проверка и отчётность без ML-зависимостей |
-| `scripts/f5_unified_report.py` | `main()` | CLI: сборка, проверка, диагностика JSON selectors |
-| `configs/f5_01_unified_evaluation.json` | `sources[]`, `metrics[]`, `selectors[]`, `outputs` | Декларативное сопоставление реальных артефактов с точными полями метрик |
-| `tests/test_f5_unified_report.py` | Контрактные pytest-тесты | Синтетические фикстуры; проверки полноты, чисел, SHA, идемпотентности, CLI, безопасности путей |
-| `docs/steps/F5_01_unified_evaluation.md` | Девять разделов | Учебно-техническое объяснение реализованного алгоритма и проверки |
+| [`src/evaluation_f5/__init__.py`](../../src/evaluation_f5/__init__.py) | Экспорт `build_report`, `render_markdown`, `serialize_json` | Публичный интерфейс пакета F5.1 |
+| [`src/evaluation_f5/unified_report.py`](../../src/evaluation_f5/unified_report.py) | `EvaluationError`, `SourceResult`, `build_report()`, `render_markdown()`, `run()`, `numeric_paths()` | Загрузка, типизация, проверка и отчётность без ML-зависимостей |
+| [`scripts/f5_unified_report.py`](../../scripts/f5_unified_report.py) | `main()` | CLI: сборка, проверка, диагностика JSON selectors |
+| [`configs/f5_01_unified_evaluation.json`](../../configs/f5_01_unified_evaluation.json) | `sources[]`, `metrics[]`, `selectors[]`, `outputs` | Декларативное сопоставление реальных артефактов с точными полями метрик |
+| [`tests/test_f5_unified_report.py`](../../tests/test_f5_unified_report.py) | Контрактные pytest-тесты | Синтетические фикстуры; проверки полноты, чисел, SHA, идемпотентности, CLI, безопасности путей |
 
 ### Связь с предыдущими этапами
 
@@ -216,15 +215,15 @@ cd F:\DEVELOPMENT\ML\ml-engineering-lab
 
 | Порядок | Файл | Изучить |
 |---:|---|---|
-| 1 | `configs/f5_01_unified_evaluation.json` | `sources`, `metrics`, `selectors`, `units`, provenance; связь входных JSON со split и протоколами |
-| 2 | `src/evaluation_f5/unified_report.py` | `_safe_path()`, `_resolve_selector()`, `_metric_value()`, `build_report()`, `run()` |
-| 3 | `tests/test_f5_unified_report.py` | Изолированные fixtures, метрики, SHA, отсутствие общего score, частичные источники и безопасность путей |
-| 4 | `scripts/f5_unified_report.py` | CLI и отличия режимов `build`, `check`, `inspect-paths`, `require-complete` |
-| 5 | `src/reporting/f1.py` | Источники и инварианты F1; отличие готового фазового аудита от объединения метрик |
-| 6 | `reports/classical.json` | Фактическая структура метрик F1 на локальном checkout |
-| 7 | `src/pytorch_f2/final_report.py` | Итоговые метрики и ограничения F2; независимость отчётности от обучения |
-| 8 | `src/transformers_f3/retrieval_benchmark.py` | `evaluate_rankings()` и определения Recall@K / MRR@K |
-| 9 | `src/transformers_f3/phase_report.py` | Аудит provenance/rankings F3.9 до экспорта метрик |
-| 10 | `src/llm_f4/final_phase_report.py` | Проверка provenance F4.9 и границы утверждений о качестве |
-| 11 | `data/processed/f4_06/cpu/summary.json` | `optimizer_steps`, `validation_loss_before/after`, диагностические значения и пределы интерпретации |
+| 1 | [`configs/f5_01_unified_evaluation.json`](../../configs/f5_01_unified_evaluation.json) | `sources`, `metrics`, `selectors`, `units`, provenance; связь входных JSON со split и протоколами |
+| 2 | [`src/evaluation_f5/unified_report.py`](../../src/evaluation_f5/unified_report.py) | `_safe_path()`, `_resolve_selector()`, `_metric_value()`, `build_report()`, `run()` |
+| 3 | [`tests/test_f5_unified_report.py`](../../tests/test_f5_unified_report.py) | Изолированные fixtures, метрики, SHA, отсутствие общего score, частичные источники и безопасность путей |
+| 4 | [`scripts/f5_unified_report.py`](../../scripts/f5_unified_report.py) | CLI и отличия режимов `build`, `check`, `inspect-paths`, `require-complete` |
+| 5 | [`src/reporting/f1.py`](../../src/reporting/f1.py) | Источники и инварианты F1; отличие готового фазового аудита от объединения метрик |
+| 6 | [`reports/classical.json`](../../reports/classical.json) | Фактическая структура метрик F1 на локальном checkout |
+| 7 | [`src/pytorch_f2/final_report.py`](../../src/pytorch_f2/final_report.py) | Итоговые метрики и ограничения F2; независимость отчётности от обучения |
+| 8 | [`src/transformers_f3/retrieval_benchmark.py`](../../src/transformers_f3/retrieval_benchmark.py) | `evaluate_rankings()` и определения Recall@K / MRR@K |
+| 9 | [`src/transformers_f3/phase_report.py`](../../src/transformers_f3/phase_report.py) | Аудит provenance/rankings F3.9 до экспорта метрик |
+| 10 | [`src/llm_f4/final_phase_report.py`](../../src/llm_f4/final_phase_report.py) | Проверка provenance F4.9 и границы утверждений о качестве |
+| 11 | [`data/processed/f4_06/cpu/summary.json`](../../data/processed/f4_06/cpu/summary.json) | `optimizer_steps`, `validation_loss_before/after`, диагностические значения и пределы интерпретации |
 
