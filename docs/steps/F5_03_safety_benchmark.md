@@ -14,14 +14,13 @@
 
 | Новый файл | Назначение | Ключевые функции/связи |
 |---|---|---|
-| `configs/f5_03_safety_benchmark.json` | Версия, замороженный SHA-256, размеры групп и разрешённые выходы | Контракт `schema_version=1`, `benchmark_sha256`, `expected_primary=16`, `expected_adversarial=12` |
-| `tests/fixtures/f5_03_safety_cases_v1.json` | 28 полностью искусственных проверочных случаев | `case_id`, `suite`, `user_prompt`, `untrusted_context`, `expected_decision`, `forbidden_markers` |
-| `src/evaluation_f5/safety_benchmark.py` | Загрузка, проверки целостности, локальный gate, расчёт критериев, построение отчёта | `Case`, `Prediction`, `load_config`, `load_cases`, `reference_guard`, `load_predictions`, `evaluate`, `run` |
-| `scripts/f5_safety_benchmark.py` | Пользовательский интерфейс из корня репозитория | `main`, `--root`, `--predictions`, `--system-id`, `--check` |
-| `tests/test_f5_safety_benchmark.py` | Unit, negative, integration и CLI-тесты F5.3 | Проверка 28 эталонных случаев, внешнего JSONL, утечек, отказов, checksum и idempotence |
-| `docs/steps/F5_03_safety_benchmark.md` | Девятираздельное техническое описание этапа | Протокол, алгоритм, математика, проверка, ограничения |
-| `reports/public/f5_03/F5_03_safety_evidence.json` | Проверяемые агрегаты **только reference-rule-gate** | 28 `per_case` записей без текстов ответов; input SHA-256 |
-| `docs/reports/F5_03_SAFETY_BENCHMARK.md` | Публичная читаемая сводка **только reference-rule-gate** | 16/16 + 12/12 contract PASS; доказательность PARTIAL |
+| [`configs/f5_03_safety_benchmark.json`](../../configs/f5_03_safety_benchmark.json) | Версия, замороженный SHA-256, размеры групп и разрешённые выходы | Контракт `schema_version=1`, `benchmark_sha256`, `expected_primary=16`, `expected_adversarial=12` |
+| [`tests/fixtures/f5_03_safety_cases_v1.json`](../../tests/fixtures/f5_03_safety_cases_v1.json) | 28 полностью искусственных проверочных случаев | `case_id`, `suite`, `user_prompt`, `untrusted_context`, `expected_decision`, `forbidden_markers` |
+| [`src/evaluation_f5/safety_benchmark.py`](../../src/evaluation_f5/safety_benchmark.py) | Загрузка, проверки целостности, локальный gate, расчёт критериев, построение отчёта | `Case`, `Prediction`, `load_config`, `load_cases`, `reference_guard`, `load_predictions`, `evaluate`, `run` |
+| [`scripts/f5_safety_benchmark.py`](../../scripts/f5_safety_benchmark.py) | Пользовательский интерфейс из корня репозитория | `main`, `--root`, `--predictions`, `--system-id`, `--check` |
+| [`tests/test_f5_safety_benchmark.py`](../../tests/test_f5_safety_benchmark.py) | Unit, negative, integration и CLI-тесты F5.3 | Проверка 28 эталонных случаев, внешнего JSONL, утечек, отказов, checksum и idempotence |
+| [`reports/public/f5_03/F5_03_safety_evidence.json`](../../reports/public/f5_03/F5_03_safety_evidence.json) | Проверяемые агрегаты **только reference-rule-gate** | 28 `per_case` записей без текстов ответов; input SHA-256 |
+| [`docs/reports/F5_03_SAFETY_BENCHMARK.md`](../../docs/reports/F5_03_SAFETY_BENCHMARK.md) | Публичная читаемая сводка **только reference-rule-gate** | 16/16 + 12/12 contract PASS; доказательность PARTIAL |
 
 Существующие файлы F1-F4, F5.1, F5.2 и `README.md` не изменяются. Публикуемые отчёты не содержат запросов, вымышленных секретов, retrieved content, ответов модели или локальных абсолютных путей.
 
@@ -257,16 +256,16 @@ F5.3 PARTIAL / contract PASS: primary 16/16, adversarial 12/12, mode=reference_r
 
 | Порядок | Файл                                              | Что изучить                                                                                                 |
 | ------: | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-|       1 | `tests/fixtures/f5_03_safety_cases_v1.json`       | Структура `case_id`/`expected_decision`, 16+12, маркеры и недоверенный контекст                             |
-|       2 | `configs/f5_03_safety_benchmark.json`             | Контракт frozen fixture, SHA-256, допустимые выходные пути                                                  |
-|       3 | `src/evaluation_f5/safety_benchmark.py`           | `Case`, `Prediction`; `_repo_path`, `load_config`, `load_cases` - минимальная защита от некорректного input |
-|       4 | `src/evaluation_f5/safety_benchmark.py`           | `reference_guard` - намеренно узкий baseline, а не LLM; `load_predictions` - строгое сопоставление 28 ID    |
-|       5 | `src/evaluation_f5/safety_benchmark.py`           | `evaluate` — четыре независимых условия и бинарный агрегат; `run` - provenance и `--check`                  |
-|       6 | `scripts/f5_safety_benchmark.py`                  | Аргументы CLI, коды завершения и режим внешних результатов                                                  |
-|       7 | `tests/test_f5_safety_benchmark.py`               | Проверки подмены benchmark, утечек маркеров, ошибок отказов, отсутствующих ответов, idempotence             |
-|       8 | `reports/public/f5_03/F5_03_safety_evidence.json` | Реальные итоги **reference gate**, причины ошибок и SHA входных данных, без текстов                         |
-|       9 | `docs/reports/F5_03_SAFETY_BENCHMARK.md`          | Отдельные таблицы по двум наборам, формулировки области применимости                                        |
-|      10 | `src/evaluation_f5/llm_diagnostics.py`            | F5.2 `evaluate`/`run`: отличие proxy-качества текста от contract-safety                                     |
-|      11 | `src/evaluation_f5/unified_report.py`             | F5.1: типизация метрик, разделение задач, принцип доказательной отчётности                                  |
-|      12 | `src/transformers_f3/rag_provenance.py`           | F3.8: трактовка retrieved content как источника данных, не как авторитетной инструкции                      |
+|       1 | [`tests/fixtures/f5_03_safety_cases_v1.json`](../../tests/fixtures/f5_03_safety_cases_v1.json)       | Структура `case_id`/`expected_decision`, 16+12, маркеры и недоверенный контекст                             |
+|       2 | [`configs/f5_03_safety_benchmark.json`](../../configs/f5_03_safety_benchmark.json)             | Контракт frozen fixture, SHA-256, допустимые выходные пути                                                  |
+|       3 | [`src/evaluation_f5/safety_benchmark.py`](../../src/evaluation_f5/safety_benchmark.py)           | `Case`, `Prediction`; `_repo_path`, `load_config`, `load_cases` - минимальная защита от некорректного input |
+|       4 | [`src/evaluation_f5/safety_benchmark.py`](../../src/evaluation_f5/safety_benchmark.py)           | `reference_guard` - намеренно узкий baseline, а не LLM; `load_predictions` - строгое сопоставление 28 ID    |
+|       5 | [`src/evaluation_f5/safety_benchmark.py`](../../src/evaluation_f5/safety_benchmark.py)           | `evaluate` — четыре независимых условия и бинарный агрегат; `run` - provenance и `--check`                  |
+|       6 | [`scripts/f5_safety_benchmark.py`](../../scripts/f5_safety_benchmark.py)                  | Аргументы CLI, коды завершения и режим внешних результатов                                                  |
+|       7 | [`tests/test_f5_safety_benchmark.py`](../../tests/test_f5_safety_benchmark.py)               | Проверки подмены benchmark, утечек маркеров, ошибок отказов, отсутствующих ответов, idempotence             |
+|       8 | [`reports/public/f5_03/F5_03_safety_evidence.json`](../../reports/public/f5_03/F5_03_safety_evidence.json) | Реальные итоги **reference gate**, причины ошибок и SHA входных данных, без текстов                         |
+|       9 | [`docs/reports/F5_03_SAFETY_BENCHMARK.md`](../../docs/reports/F5_03_SAFETY_BENCHMARK.md)          | Отдельные таблицы по двум наборам, формулировки области применимости                                        |
+|      10 | [`src/evaluation_f5/llm_diagnostics.py`](../../src/evaluation_f5/llm_diagnostics.py)            | F5.2 `evaluate`/`run`: отличие proxy-качества текста от contract-safety                                     |
+|      11 | [`src/evaluation_f5/unified_report.py`](../../src/evaluation_f5/unified_report.py)             | F5.1: типизация метрик, разделение задач, принцип доказательной отчётности                                  |
+|      12 | [`src/transformers_f3/rag_provenance.py`](../../src/transformers_f3/rag_provenance.py)           | F3.8: трактовка retrieved content как источника данных, не как авторитетной инструкции                      |
 
