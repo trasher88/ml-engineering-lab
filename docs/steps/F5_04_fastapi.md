@@ -12,15 +12,15 @@
 
 | Файл | Назначение | Ключевые функции / связи |
 |---|---|---|
-| `configs/f5_04_api.json` | Неизменяемый режим `synthetic_demo`, пути, checksum, параметры BM25, ограничения | `fixture_sha256`, `bm25_k1=1.5`, `bm25_b=0.75`, `max_top_k=5` |
-| `tests/fixtures/f5_04_api_demo_v1.json` | Разрешённые искусственные данные | 24 `training_examples` и 12 `documents`; четыре метки `linux/ml/python/sql`, `synthetic://` source IDs |
-| `src/api_f5/__init__.py` | Публичный экспорт фабрики приложения | `create_app` |
-| `src/api_f5/demo_service.py` | Валидация данных, классификация, BM25, извлечение цитаты | `load_demo()`, `DemoEngine.classify()`, `search()`, `ask()`, `tokens()` |
-| `src/api_f5/app.py` | REST API, Pydantic схемы, OpenAPI | `create_app()`, модели request/response, `/health`, `/classify`, `/search`, `/ask` |
-| `scripts/f5_api.py` | CLI сервера и проверок реального HTTP | `main()`, `run_http_smoke()`, команды `serve`, `smoke` |
-| `tests/test_f5_api.py` | Unit, negative, ASGI и реальный TCP HTTP | `TestClient`, `subprocess.Popen`, 8 HTTP smoke assertions, negative input tests |
-| `requirements-f5_04.txt` | Изолированный перечень зависимостей HTTP-этапа | `fastapi`, `uvicorn`, `httpx`, `scikit-learn`, `pytest`; не меняет общий lock |
-| `docs/steps/F5_04_fastapi.md` | Девятираздельный учебно-технический документ | Код, алгоритмы, схема, точные PowerShell-команды, результаты и пределы проверки |
+| [`configs/f5_04_api.json`](../../configs/f5_04_api.json) | Неизменяемый режим `synthetic_demo`, пути, checksum, параметры BM25, ограничения | `fixture_sha256`, `bm25_k1=1.5`, `bm25_b=0.75`, `max_top_k=5` |
+| [`tests/fixtures/f5_04_api_demo_v1.json`](../../tests/fixtures/f5_04_api_demo_v1.json) | Разрешённые искусственные данные | 24 `training_examples` и 12 `documents`; четыре метки `linux/ml/python/sql`, `synthetic://` source IDs |
+| [`src/api_f5/__init__.py`](../../src/api_f5/__init__.py) | Публичный экспорт фабрики приложения | `create_app` |
+| [`src/api_f5/demo_service.py`](../../src/api_f5/demo_service.py) | Валидация данных, классификация, BM25, извлечение цитаты | `load_demo()`, `DemoEngine.classify()`, `search()`, `ask()`, `tokens()` |
+| [`src/api_f5/app.py`](../../src/api_f5/app.py) | REST API, Pydantic схемы, OpenAPI | `create_app()`, модели request/response, `/health`, `/classify`, `/search`, `/ask` |
+| [`scripts/f5_api.py`](../../scripts/f5_api.py) | CLI сервера и проверок реального HTTP | `main()`, `run_http_smoke()`, команды `serve`, `smoke` |
+| [`tests/test_f5_api.py`](../../tests/test_f5_api.py) | Unit, negative, ASGI и реальный TCP HTTP | `TestClient`, `subprocess.Popen`, 8 HTTP smoke assertions, negative input tests |
+| [`requirements-f5_04.txt`](../../requirements-f5_04.txt) | Изолированный перечень зависимостей HTTP-этапа | `fastapi`, `uvicorn`, `httpx`, `scikit-learn`, `pytest`; не меняет общий lock |
+
 
 ## 3. Последовательность реализации
 
@@ -260,13 +260,13 @@ Invoke-RestMethod -Uri 'http://127.0.0.1:8000/ask' -Method Post -ContentType 'ap
 
 | Порядок | Файл                                           | Что изучить                                                                                                                     |
 | ------: | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-|       1 | `tests/fixtures/f5_04_api_demo_v1.json`        | Отличие synthetic train-данных от test/benchmark; `doc_id` и `source_id`                                                        |
-|       2 | `configs/f5_04_api.json`                       | Заморозка версии/корпуса SHA-256, `bm25_k1`, `bm25_b`, ограничения                                                              |
-|       3 | `src/api_f5/demo_service.py`                   | `load_demo()` как контракт данных; `DemoEngine.classify()` (TF-IDF/softmax), `search()` (BM25), `ask()` (extractive provenance) |
-|       4 | `src/api_f5/app.py`                            | `create_app()`, `ClassifyRequest`, `SearchRequest`, `AskRequest`, `response_model`, регистрация роутов и OpenAPI                |
-|       5 | `scripts/f5_api.py`                            | `main()` и `run_http_smoke()` - TCP-сервер, клиент, статусные коды, ошибки                                                      |
-|       6 | `tests/test_f5_api.py`                         | `test_real_tcp_http_smoke()`, negative HTTP 422, контроль формулы BM25, quote SHA, startup errors                               |
-|       7 | `src/classical_ml/train.py` (F1)               | Отличие реального train/test baseline F1 от синтетического маленького `DemoEngine` F5.4; F1 код не импортируется                |
-|       8 | `src/transformers_f3/bm25.py` (F3.3)           | Отдельная реализация BM25 F3: индекс, кэширование статистик, детерминированный ranking; не подключена к demo                    |
-|       9 | `src/transformers_f3/rag_provenance.py` (F3.8) | Цитаты, источник и extractive fallback в RAG; в F5.4 сделан самостоятельный ограниченный пример                                 |
-|      10 | `src/evaluation_f5/safety_benchmark.py` (F5.3) | Разница между контрактным тестом и доказательством безопасности настоящего inference; будущие возможности интеграции            |
+|       1 | [`tests/fixtures/f5_04_api_demo_v1.json`](../../tests/fixtures/f5_04_api_demo_v1.json)        | Отличие synthetic train-данных от test/benchmark; `doc_id` и `source_id`                                                        |
+|       2 | [`configs/f5_04_api.json`](../../configs/f5_04_api.json)                       | Заморозка версии/корпуса SHA-256, `bm25_k1`, `bm25_b`, ограничения                                                              |
+|       3 | [`src/api_f5/demo_service.py`](../../src/api_f5/demo_service.py)                   | `load_demo()` как контракт данных; `DemoEngine.classify()` (TF-IDF/softmax), `search()` (BM25), `ask()` (extractive provenance) |
+|       4 | [`src/api_f5/app.py`](../../src/api_f5/app.py)                            | `create_app()`, `ClassifyRequest`, `SearchRequest`, `AskRequest`, `response_model`, регистрация роутов и OpenAPI                |
+|       5 | [`scripts/f5_api.py`](../../scripts/f5_api.py)                            | `main()` и `run_http_smoke()` - TCP-сервер, клиент, статусные коды, ошибки                                                      |
+|       6 | [`tests/test_f5_api.py`](../../tests/test_f5_api.py)                         | `test_real_tcp_http_smoke()`, negative HTTP 422, контроль формулы BM25, quote SHA, startup errors                               |
+|       7 | [`src/classical_ml/train.py`](../../src/classical_ml/train.py) (F1)               | Отличие реального train/test baseline F1 от синтетического маленького `DemoEngine` F5.4; F1 код не импортируется                |
+|       8 | [`src/transformers_f3/bm25.py`](../../src/transformers_f3/bm25.py) (F3.3)           | Отдельная реализация BM25 F3: индекс, кэширование статистик, детерминированный ranking; не подключена к demo                    |
+|       9 | [`src/transformers_f3/rag_provenance.py`](../../src/transformers_f3/rag_provenance.py) (F3.8) | Цитаты, источник и extractive fallback в RAG; в F5.4 сделан самостоятельный ограниченный пример                                 |
+|      10 | [`src/evaluation_f5/safety_benchmark.py`](../../src/evaluation_f5/safety_benchmark.py) (F5.3) | Разница между контрактным тестом и доказательством безопасности настоящего inference; будущие возможности интеграции            |
