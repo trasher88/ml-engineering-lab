@@ -21,11 +21,10 @@
 
 | Файл | Назначение | Что именно реализовано |
 |---|---|---|
-| `configs/f4_02_model_selection.json` | Зафиксированное решение | Версия схемы, основной и резервный checkpoint, полные `revision` и `tokenizer_revision`, архитектура, лицензия, языки, параметры decoder, `sequence_length=512`, `batch_size=1`, лимит CPU RAM 8 GiB, FP32 и минимальные версии библиотек. |
-| `src/llm_f4/model_selection.py` | Алгоритм и валидатор выбора | `ModelCandidate`, `Requirements`, `ModelCatalog`, `load_catalog()`, `count_parameters()`, `kv_cache_bytes()`, `resource_estimate()`, `assess_candidate()`, `runtime_report()`, `create_report()`, `write_report()`, `verify_report()`, `probe_tokenizer()`. |
-| `scripts/f4_model_selection.py` | Демонстрация / CLI | Стандартный выбор с выводом причин, `--write-report`, `--verify-report`, явный `--probe-tokenizer`, контролируемый `--allow-download`, ASCII-совместимая справка для Windows. |
-| `tests/test_f4_model_selection.py` | Проверки | Точные числовые эталоны параметров и KV cache, сбои при некорректных revision/архитектуре/языках, CPU-бюджет, наличие библиотек, целостность отчёта, заглушка внешнего токенизатора, кодировки Windows. |
-| `docs/steps/F4_02_model_selection.md` | Учебное объяснение | Мотивация выбора, реальные параметры моделей, алгоритм расчёта ресурсов, пошаговая реализация, схема, команды PowerShell и честные ограничения. |
+| [`configs/f4_02_model_selection.json`](../../configs/f4_02_model_selection.json) | Зафиксированное решение | Версия схемы, основной и резервный checkpoint, полные `revision` и `tokenizer_revision`, архитектура, лицензия, языки, параметры decoder, `sequence_length=512`, `batch_size=1`, лимит CPU RAM 8 GiB, FP32 и минимальные версии библиотек. |
+| [`src/llm_f4/model_selection.py`](../../src/llm_f4/model_selection.py) | Алгоритм и валидатор выбора | `ModelCandidate`, `Requirements`, `ModelCatalog`, `load_catalog()`, `count_parameters()`, `kv_cache_bytes()`, `resource_estimate()`, `assess_candidate()`, `runtime_report()`, `create_report()`, `write_report()`, `verify_report()`, `probe_tokenizer()`. |
+| [`scripts/f4_model_selection.py`](../../scripts/f4_model_selection.py) | Демонстрация / CLI | Стандартный выбор с выводом причин, `--write-report`, `--verify-report`, явный `--probe-tokenizer`, контролируемый `--allow-download`, ASCII-совместимая справка для Windows. |
+| [`tests/test_f4_model_selection.py`](../../tests/test_f4_model_selection.p) | Проверки | Точные числовые эталоны параметров и KV cache, сбои при некорректных revision/архитектуре/языках, CPU-бюджет, наличие библиотек, целостность отчёта, заглушка внешнего токенизатора, кодировки Windows. |
 
 Файлы F4.1 и завершённых Фаз 1–3 остаются без изменений. В поставку F4.2 не включаются веса, новый корпус данных или `README.md`. Результат стандартного CLI является анализом метаданных, а не запуском LLM.
 
@@ -346,10 +345,9 @@ PASS означает соответствие выбранных метадан
 
 | Порядок | Файл | Что именно изучить |
 |---|---|---|
-| 1 | `configs/f4_02_model_selection.json` | Параметры реальных моделей, pinned ревизии, критерии выбора, отличие русского requirements от альтернативы SmolLM2. |
-| 2 | `src/llm_f4/model_selection.py` | `ModelCandidate`, `load_catalog()`, архитектурные проверки, `count_parameters()`, `kv_cache_bytes()`, `assess_candidate()`, `create_report()` и границы `probe_tokenizer()`. |
-| 3 | `tests/test_f4_model_selection.py` | Вывод числа 494032768, независимый расчёт 12MiB, изменение revision, несовпадение EOS, Windows subprocess и отказ незадекларированного скачивания. |
-| 4 | `scripts/f4_model_selection.py` | Как последовательно создаётся отчёт, выводятся причины выбора и отдельно запускается tokenizer probe. |
-| 5 | `docs/steps/F4_02_model_selection.md` | Числовые примеры, связь с F4.1, порядок реализации, ограничения подтверждённых результатов. |
+| 1 | [`configs/f4_02_model_selection.json`](../../) | Параметры реальных моделей, pinned ревизии, критерии выбора, отличие русского requirements от альтернативы SmolLM2. |
+| 2 | [`src/llm_f4/model_selection.py`](../../) | `ModelCandidate`, `load_catalog()`, архитектурные проверки, `count_parameters()`, `kv_cache_bytes()`, `assess_candidate()`, `create_report()` и границы `probe_tokenizer()`. |
+| 3 | [`tests/test_f4_model_selection.py`](../../) | Вывод числа 494032768, независимый расчёт 12MiB, изменение revision, несовпадение EOS, Windows subprocess и отказ незадекларированного скачивания. |
+| 4 | [`scripts/f4_model_selection.py`](../../) | Как последовательно создаётся отчёт, выводятся причины выбора и отдельно запускается tokenizer probe. |
 
 **Итог F4.2:** выбран и зафиксирован `Qwen/Qwen2.5-0.5B` Base, проверены метаданные, теоретический ресурсный профиль и работа реального токенизатора.
