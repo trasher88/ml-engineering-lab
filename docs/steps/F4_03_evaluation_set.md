@@ -357,21 +357,10 @@ Get-Content data\processed\f4_03\prompts.jsonl -Encoding UTF8 -TotalCount 2
 
 | Файл                                          | Что именно изучить                                                                                                                                                                        |
 | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`data/evaluation/f4_03_ru_technical_v1.jsonl`](../../) | Первые 2-3 записи `ev_py_01`, `ev_lx_01`, `ev_ml_01`: форма вопроса, эталон, `required_facts`, `aliases`, `review_checks`; причины запрета передачи эталона в модельный промпт.           |
-| [`configs/f4_03_evaluation_set.json`](../../)           | Идентификатор frozen benchmark, квоты, расположение F4.1/F4.2, три SHA-256 и назначение `output_dir`.                                                                                     |
-| [`src/llm_f4/evaluation_set.py`](../../)                | `load_config()`, `load_cases()`, `validate_cases()`, `_ngram_similarity()`, `model_prompt()`, `prepare_artifacts()`, `export_artifacts()`, `verify_artifacts()`, `score_manual_grades()`. |
-| [`scripts/f4_evaluation_set.py`](../../)                | Как `argparse` связывает команду с реальными функциями и почему статус `NOT RUN` обязателен.                                                                                              |
-| [`tests/test_f4_evaluation_set.py`](../../)             | Проверки на дубли/утечки, отсутствие gold в экспортированном JSONL, независимые эталоны формулы 0/1/2, Windows encoding, BUILD/VERIFY.                                                    |
-
-**Рекомендуемый порядок изучения:**
-1. Прочитать 3-4 исходных eval-задания, вручную назвать два обязательных факта ответа.
-2. Открыть конфигурацию и понять, зачем закреплены **три** исходных файла, а не только сам evaluation JSONL.
-3. Пройти `load_cases() → validate_cases()` и сравнить выводы `_prompt_key()` и `_ngram_similarity()`.
-4. Разобрать `model_prompt()`: проверить, что на вход F4.4 сможет уйти только вопрос.
-5. Изучить `prepare_artifacts() → export_artifacts() → verify_artifacts()` и проверить SHA из манифеста.
-6. Разобрать `score_manual_grades()` и **самостоятельно** посчитать пример `g=(2,0)` и `g=(1,2)`.
-7. Посмотреть тесты: почему проверка `lexical_coverage()` специально показывает возможность ложного «совпадения» у неверного ответа.
-8. Запустить PowerShell и убедиться, что фиксированный benchmark не вызывает ни модель, ни процесс обучения.
-
+| [`data/evaluation/f4_03_ru_technical_v1.jsonl`](../../data/evaluation/f4_03_ru_technical_v1.jsonl) | Первые 2-3 записи `ev_py_01`, `ev_lx_01`, `ev_ml_01`: форма вопроса, эталон, `required_facts`, `aliases`, `review_checks`; причины запрета передачи эталона в модельный промпт.           |
+| [`configs/f4_03_evaluation_set.json`](../../configs/f4_03_evaluation_set.json)           | Идентификатор frozen benchmark, квоты, расположение F4.1/F4.2, три SHA-256 и назначение `output_dir`.                                                                                     |
+| [`src/llm_f4/evaluation_set.py`](../../src/llm_f4/evaluation_set.py)                | `load_config()`, `load_cases()`, `validate_cases()`, `_ngram_similarity()`, `model_prompt()`, `prepare_artifacts()`, `export_artifacts()`, `verify_artifacts()`, `score_manual_grades()`. |
+| [`scripts/f4_evaluation_set.py`](../../scripts/f4_evaluation_set.py)                | Как `argparse` связывает команду с реальными функциями и почему статус `NOT RUN` обязателен.                                                                                              |
+| [`tests/test_f4_evaluation_set.py`](../../tests/test_f4_evaluation_set.py)             | Проверки на дубли/утечки, отсутствие gold в экспортированном JSONL, независимые эталоны формулы 0/1/2, Windows encoding, BUILD/VERIFY.                                                    |
 
 **Итог F4.3:** объяснить, почему успешные unit-тесты `score_manual_grades()` **не подтверждают качество Qwen**. Тесты проверяют арифметику на искусственно заданных баллах. Оценка модели требует реальной генерации ответов и независимого экспертного оценивания по тем же критериям.
