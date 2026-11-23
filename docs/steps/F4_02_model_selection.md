@@ -24,7 +24,7 @@
 | [`configs/f4_02_model_selection.json`](../../configs/f4_02_model_selection.json) | Зафиксированное решение | Версия схемы, основной и резервный checkpoint, полные `revision` и `tokenizer_revision`, архитектура, лицензия, языки, параметры decoder, `sequence_length=512`, `batch_size=1`, лимит CPU RAM 8 GiB, FP32 и минимальные версии библиотек. |
 | [`src/llm_f4/model_selection.py`](../../src/llm_f4/model_selection.py) | Алгоритм и валидатор выбора | `ModelCandidate`, `Requirements`, `ModelCatalog`, `load_catalog()`, `count_parameters()`, `kv_cache_bytes()`, `resource_estimate()`, `assess_candidate()`, `runtime_report()`, `create_report()`, `write_report()`, `verify_report()`, `probe_tokenizer()`. |
 | [`scripts/f4_model_selection.py`](../../scripts/f4_model_selection.py) | Демонстрация / CLI | Стандартный выбор с выводом причин, `--write-report`, `--verify-report`, явный `--probe-tokenizer`, контролируемый `--allow-download`, ASCII-совместимая справка для Windows. |
-| [`tests/test_f4_model_selection.py`](../../tests/test_f4_model_selection.p) | Проверки | Точные числовые эталоны параметров и KV cache, сбои при некорректных revision/архитектуре/языках, CPU-бюджет, наличие библиотек, целостность отчёта, заглушка внешнего токенизатора, кодировки Windows. |
+| [`tests/test_f4_model_selection.py`](../../tests/test_f4_model_selection.py) | Проверки | Точные числовые эталоны параметров и KV cache, сбои при некорректных revision/архитектуре/языках, CPU-бюджет, наличие библиотек, целостность отчёта, заглушка внешнего токенизатора, кодировки Windows. |
 
 Файлы F4.1 и завершённых Фаз 1–3 остаются без изменений. В поставку F4.2 не включаются веса, новый корпус данных или `README.md`. Результат стандартного CLI является анализом метаданных, а не запуском LLM.
 
