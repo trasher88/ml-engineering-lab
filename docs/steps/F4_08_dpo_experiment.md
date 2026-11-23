@@ -326,7 +326,7 @@ GPU-профиль не использует QLoRA/bitsandbytes; необход�
 
 | Порядок | Файл | На какие функции, структуры и проверки смотреть |
 |---|---|---|
-| 1 | [`data/preferences/f4_08_dpo_pairs_v1.jsonl`](../../`data/preferences/f4_08_dpo_pairs_v1.jsonl) | Сопоставить реальные `prompt`, `chosen`, `rejected`, `rationale`, `source_id`, `group_id`, `split` |
+| 1 | [`data/preferences/f4_08_dpo_pairs_v1.jsonl`](../../data/preferences/f4_08_dpo_pairs_v1.jsonl) | Сопоставить реальные `prompt`, `chosen`, `rejected`, `rationale`, `source_id`, `group_id`, `split` |
 | 2 | [`configs/f4_08_dpo_experiment.json`](../../configs/f4_08_dpo_experiment.json) | Почему beta=0.1, какие бюджеты на токены и как разделены CPU/GPU профили |
 | 3 | [`src/llm_f4/dpo_experiment.py`](../../src/llm_f4/dpo_experiment.py) | `load_preferences`, `make_plan`: все инварианты и происхождение данных |
 | 4 | [`src/llm_f4/dpo_experiment.py`](../../src/llm_f4/dpo_experiment.py) | `dpo_loss` и `torch_dpo_loss`: scalar-эталон против differentiable loss |
