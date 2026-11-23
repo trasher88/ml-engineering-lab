@@ -12,11 +12,10 @@
 
 | Файл | Назначение | Основные интерфейсы |
 |---|---|---|
-| `configs/f5_02_llm_diagnostics.json` | Контракт 32×2, допустимые источники, threshold, назначение отчётов | `input_candidates`, `expected_cases`, `outputs` |
-| `src/evaluation_f5/llm_diagnostics.py` | Парсинг F4.7, строгая валидация, token overlap, сигналы, учёт экспертных баллов, отчёты | `load_cases`, `tokenize`, `overlap`, `evaluate`, `run` |
-| `scripts/f5_llm_diagnostics.py` | PowerShell-совместимый CLI без обращения к сети и модели | `main`, `--input`, `--check`, `--require-expert` |
-| `tests/test_f5_llm_diagnostics.py` | Контрактные unit/integration тесты на **искусственных** примерах, проверка отрицательных сценариев | `test_source_build_and_check`, `test_human_review_complete`, `test_proxies_never_count_as_expert` и др. |
-| `docs/steps/F5_02_llm_diagnostics.md` | Учебно-техническое описание метода, интерфейса, проверки, ограничений | Девять обязательных разделов |
+| [`configs/f5_02_llm_diagnostics.json`](../../configs/f5_02_llm_diagnostics.json) | Контракт 32×2, допустимые источники, threshold, назначение отчётов | `input_candidates`, `expected_cases`, `outputs` |
+| [`src/evaluation_f5/llm_diagnostics.py`](../../src/evaluation_f5/llm_diagnostics.py) | Парсинг F4.7, строгая валидация, token overlap, сигналы, учёт экспертных баллов, отчёты | `load_cases`, `tokenize`, `overlap`, `evaluate`, `run` |
+| [`scripts/f5_llm_diagnostics.py`](../../scripts/f5_llm_diagnostics.py) | PowerShell-совместимый CLI без обращения к сети и модели | `main`, `--input`, `--check`, `--require-expert` |
+| [`tests/test_f5_llm_diagnostics.py`](../../tests/test_f5_llm_diagnostics.py) | Контрактные unit/integration тесты на **искусственных** примерах, проверка отрицательных сценариев | `test_source_build_and_check`, `test_human_review_complete`, `test_proxies_never_count_as_expert` и др. |
 
 Никакие исходники, тесты, отчёты F1–F4 и файлы F5.1 не переписываются. Наличие `src/evaluation_f5/__init__.py`, поставленного в F5.1, является зависимостью пакета.
 
@@ -226,13 +225,13 @@ Get-ChildItem -Path data, reports -Recurse -File -ErrorAction SilentlyContinue |
 
 | Порядок | Реальный путь / источник                                                                              | Что изучить                                                                                      |
 | ------: | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-|       1 | `configs/f5_02_llm_diagnostics.json`                                                                  | Договорённость о 32×2, критерии выбора источника, порог, output-пути.                            |
-|       2 | `src/evaluation_f5/llm_diagnostics.py`                                                                | `Case`, `_parse_md`, `_normalize`, `load_cases` - перевод -сохранённого F4.7 в единую структуру. |
-|       3 | `src/evaluation_f5/llm_diagnostics.py`                                                                | `tokenize`, `overlap`, `_flags`, `_repetition` - точные механизмы proxy и флагов.                |
-|       4 | `src/evaluation_f5/llm_diagnostics.py`                                                                | `_fact_scores`, `evaluate` - принципиальное отделение экспертной шкалы от лексического сходства. |
-|       5 | `scripts/f5_llm_diagnostics.py`                                                                       | `main`, ключи CLI, коды выхода, разделение build/check.                                          |
-|       6 | `tests/test_f5_llm_diagnostics.py`                                                                    | Числовые примеры, отрицательные тесты, контроль отчёта, тест отсутствующих оценок.               |
-|       7 | `src/evaluation_f5/unified_report.py`                                                                 | F5.1: разделение метрик по фазам, статус `PARTIAL`, SHA-256, проверка `--check`.                 |
-|       8 | `configs/f5_01_unified_evaluation.json`                                                               | F5.1: почему нельзя усреднить classification, retrieval и LLM loss в единый показатель.          |
+|       1 | [`configs/f5_02_llm_diagnostics.json`](../../configs/f5_02_llm_diagnostics.json)                      | Договорённость о 32×2, критерии выбора источника, порог, output-пути.                            |
+|       2 | [`src/evaluation_f5/llm_diagnostics.py`](../../src/evaluation_f5/llm_diagnostics.py)                  | `Case`, `_parse_md`, `_normalize`, `load_cases` - перевод -сохранённого F4.7 в единую структуру. |
+|       3 | [`src/evaluation_f5/llm_diagnostics.py`](../../src/evaluation_f5/llm_diagnostics.py)                  | `tokenize`, `overlap`, `_flags`, `_repetition` - точные механизмы proxy и флагов.                |
+|       4 | [`src/evaluation_f5/llm_diagnostics.py`](../../src/evaluation_f5/llm_diagnostics.py)                  | `_fact_scores`, `evaluate` - принципиальное отделение экспертной шкалы от лексического сходства. |
+|       5 | [`scripts/f5_llm_diagnostics.py`](../../scripts/f5_llm_diagnostics.py)                                | `main`, ключи CLI, коды выхода, разделение build/check.                                |
+|       6 | [`tests/test_f5_llm_diagnostics.py`](../../tests/test_f5_llm_diagnostics.py)                                                                    | Числовые примеры, отрицательные тесты, контроль отчёта, тест отсутствующих оценок.               |
+|       7 | [`src/evaluation_f5/unified_report.py`](../../src/evaluation_f5/unified_report.py)                                                                 | F5.1: разделение метрик по фазам, статус `PARTIAL`, SHA-256, проверка `--check`.                 |
+|       8 | [`configs/f5_01_unified_evaluation.json`](../../configs/f5_01_unified_evaluation.json)                                                               | F5.1: почему нельзя усреднить classification, retrieval и LLM loss в единый показатель.          |
 |       9 | Экспорт `human_review.md` или `human_review.jsonl` из F4.7 (фактический путь указывается в `--input`) | Разметка F4.3, две генерации и два факта на случай; в ZIP не включается.                         |
 
