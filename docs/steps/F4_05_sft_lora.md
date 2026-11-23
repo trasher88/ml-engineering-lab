@@ -24,7 +24,7 @@
 | Новый файл | Назначение | Что конкретно реализовано |
 |---|---|---|
 | [`configs/f4_05_sft_lora.json`](../../configs/f4_05_sft_lora.json) | Фиксация эксперимента | Пути утверждённых F4.1/F4.2/F4.3/F4.4, SHA checkpoint, длины токенов, LoRA rank/alpha/target modules, два профиля запуска, параметры optimizer. |
-| [`src/llm_f4/sft_lora.py`](../../`src/llm_f4/sft_lora.py) | Алгоритм и контракты | `load_config()`, `make_plan()`, `format_prompt()`, `encode_sample()`, `collate_rows()`, `supervised_token_count()`, `lora_delta()`, `torch_smoke()`, `run_real()`, `verify_run()`. |
+| [`src/llm_f4/sft_lora.py`](../../src/llm_f4/sft_lora.py) | Алгоритм и контракты | `load_config()`, `make_plan()`, `format_prompt()`, `encode_sample()`, `collate_rows()`, `supervised_token_count()`, `lora_delta()`, `torch_smoke()`, `run_real()`, `verify_run()`. |
 | [`scripts/f4_sft_lora.py`](../../scripts/f4_sft_lora.py) | Воспроизводимый CLI | Режимы `--plan`, `--torch-smoke`, `--run cpu`, `--run gpu`, `--verify cpu/gpu`, разрешение скачивания только через `--allow-download`; корректная обработка ошибок. |
 | [`tests/test_f4_sft_lora.py`](../../tests/test_f4_sft_lora.py) | Автоматическая проверка | Инварианты train/validation/test, ограничения model revision, точные числовые результаты LoRA, маскирование loss, размеры батча, контракты CLI и Windows-кодировки, отклонение фиктивных результатов. |
 
