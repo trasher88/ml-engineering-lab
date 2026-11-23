@@ -14,11 +14,11 @@
 
 | Файл | Назначение | Что именно реализовано |
 |---|---|---|
-| `configs/f4_04_base_model_evaluation.json` | Неизменяемый протокол | Путь к F4.2 и F4.3, ID и SHA ревизий модели/токенизатора, бюджет 384 входных + 96 новых токенов, seed=42, 4 CPU-потока, точный шаблон `Вопрос:/Ответ:`, два smoke-кейса и каталог результатов. |
-| `src/llm_f4/base_model_evaluation.py` | Основной конвейер | `load_config`, `load_prompts`, `selection`, `formatted_prompt`, `RealCPUGenerator`, `execute`, `verify`, `_execute_inner`, `template_grades`, `score_grades`, `real_runtime`: контракты, загрузка модели, генерация, журнал, манифест, проверка, ручная оценка. |
-| `scripts/f4_base_model_evaluation.py` | Запускаемая CLI-демонстрация | `--plan`, `--run smoke`, `--run full`, `--allow-download`, `--resume`, `--verify smoke/full`, `--grades-template`, `--score-grades FILE`. По умолчанию — безопасный план без загрузки весов. |
-| `tests/test_f4_base_model_evaluation.py` | CPU-независимые unit-тесты | Сверка ревизий, формы источников, недопуск gold в prompt, подсчёт ресурсов и длины, целостность ответов, имитация прерывания и resume, обработка ошибок, экспертная арифметика, Windows CLI; **подставной генератор** используется только для тестов, он не является Qwen. |
-| `docs/steps/F4_04_base_model_evaluation.md` | Учебно-техническая документация | Последовательность действий, формулы, числовые примеры, Mermaid-схемы, протокол реального запуска, ожидаемые результаты, ограничения и технические выводы. |
+| [`configs/f4_04_base_model_evaluation.json`](../../configs/f4_04_base_model_evaluation.json) | Неизменяемый протокол | Путь к F4.2 и F4.3, ID и SHA ревизий модели/токенизатора, бюджет 384 входных + 96 новых токенов, seed=42, 4 CPU-потока, точный шаблон `Вопрос:/Ответ:`, два smoke-кейса и каталог результатов. |
+| [`src/llm_f4/base_model_evaluation.py`](../../src/llm_f4/base_model_evaluation.py) | Основной конвейер | `load_config`, `load_prompts`, `selection`, `formatted_prompt`, `RealCPUGenerator`, `execute`, `verify`, `_execute_inner`, `template_grades`, `score_grades`, `real_runtime`: контракты, загрузка модели, генерация, журнал, манифест, проверка, ручная оценка. |
+| [`scripts/f4_base_model_evaluation.py`](../../scripts/f4_base_model_evaluation.py) | Запускаемая CLI-демонстрация | `--plan`, `--run smoke`, `--run full`, `--allow-download`, `--resume`, `--verify smoke/full`, `--grades-template`, `--score-grades FILE`. По умолчанию — безопасный план без загрузки весов. |
+| [`tests/test_f4_base_model_evaluation.py`](../../tests/test_f4_base_model_evaluation.py) | CPU-независимые unit-тесты | Сверка ревизий, формы источников, недопуск gold в prompt, подсчёт ресурсов и длины, целостность ответов, имитация прерывания и resume, обработка ошибок, экспертная арифметика, Windows CLI; **подставной генератор** используется только для тестов, он не является Qwen. |
+
 
 Исходная поставка F4.4 содержит **пять файлов этапа**. При исправлении только документации заменить исключительно `docs/steps/F4_04_base_model_evaluation.md`. `README.md` и исходный код оставить без изменений. Исключить из поставки документации веса, кеш Hugging Face, результаты генерации, данные экспертного оценивания, виртуальное окружение и файлы других этапов.
 
@@ -184,8 +184,10 @@ x = (x_1, x_2, \ldots, x_T)
 Causal LM оценивает вероятности следующего токена, опираясь только на предыдущие:
 ```math
 p(x_{T+1}=k \mid x_1,\ldots,x_T)
-= \operatorname{softmax}(z)_k
-= \frac{e^{z_k}}{\sum_{j=1}^{V} e^{z_j}}
+=
+\mathrm{softmax}(z)_k
+=
+\frac{e^{z_k}}{\sum_{j=1}^{V}e^{z_j}}
 ```
 
 Здесь \(T\) - число входных токенов, \(V\) - размер словаря, \(z_j\) - logit для кандидата \(j\), а \(p\) - вероятность токена после softmax.
@@ -244,10 +246,11 @@ S_{\mathrm{macro}} = \frac{1}{N}\sum_{i=1}^{N} s_i
 ### 4.5. Отличие loss и perplexity от экспертной оценки
 Можно оценивать likelihood текста через отрицательную log-likelihood и perplexity:
 ```math
-\mathrm{PPL} = \exp\left(
+\mathrm{PPL} =
+\exp\left(
 -\frac{1}{T}
 \sum_{t=1}^{T}
-\log p(x_t \mid x_{<t})
+\log p(x_t \mid x_{1:t-1})
 \right)
 ```
 Но для самостоятельной качественной задачи *ответить на инструкцию* это не эквивалент экспертного ответа. В F4.4 не выполняется teacher-forced проход по эталонам; **PPL не заявляется**, поскольку соответствующий расчёт не реализован. Сырые ответы и отдельная ручная рубрика - честная основа для сравнения F4.7.
@@ -471,12 +474,11 @@ Get-Content data\processed\f4_04\full\manifest.json -Encoding UTF8
 
 | Рекомендуемый порядок | Файл | Что именно стоит изучить |
 |---|---|---|
-| 1 | `configs/f4_04_base_model_evaluation.json` | Почему модель и tokenizer revision одинаковы, зачем `max_input_tokens`, `max_new_tokens`, seed, шаблон и фиксированный smoke; связь с F4.2. |
-| 2 | `src/llm_f4/base_model_evaluation.py` | `load_config()` и `load_prompts()` — привязка к F4.3 и предотвращение утечки; затем `selection()`, `formatted_prompt()`. |
-| 3 | `src/llm_f4/base_model_evaluation.py` | `RealCPUGenerator.__init__()` — безопасная загрузка Base; `RealCPUGenerator.generate()` — токенизация, greedy, `inference_mode`, срез ответа после токенов входа. |
-| 4 | `src/llm_f4/base_model_evaluation.py` | `_execute_inner()` — порядок генерации и журнал; `profile_context()`, `_validate_result()`, `verify()` — происхождение и проверка; `template_grades()` и `score_grades()` — разделение инференса и экспертной оценки. |
-| 5 | `scripts/f4_base_model_evaluation.py` | Все режимы CLI, особенно отличие plan, smoke, full, verify, resume, scoring; явный флаг скачивания. |
-| 6 | `tests/test_f4_base_model_evaluation.py` | Как fake backend доказывает корректность конвейера, не подменяя настоящую модель; отрицательные сценарии SHA, JSON, Windows, resume и баллов. |
-| 7 | `docs/steps/F4_04_base_model_evaluation.md` | Сопоставить фактический вывод с ожидаемыми инвариантами и сформулировать проверяемый технический результат. |
+| 1 | [`configs/f4_04_base_model_evaluation.json`](../../configs/f4_04_base_model_evaluation.json) | Почему модель и tokenizer revision одинаковы, зачем `max_input_tokens`, `max_new_tokens`, seed, шаблон и фиксированный smoke; связь с F4.2. |
+| 2 | [`src/llm_f4/base_model_evaluation.py`](../../src/llm_f4/base_model_evaluation.py) | `load_config()` и `load_prompts()` — привязка к F4.3 и предотвращение утечки; затем `selection()`, `formatted_prompt()`. |
+| 3 | [`src/llm_f4/base_model_evaluation.py`](../../src/llm_f4/base_model_evaluation.py) | `RealCPUGenerator.__init__()` — безопасная загрузка Base; `RealCPUGenerator.generate()` — токенизация, greedy, `inference_mode`, срез ответа после токенов входа. |
+| 4 | [`src/llm_f4/base_model_evaluation.py`](../../src/llm_f4/base_model_evaluation.py) | `_execute_inner()` — порядок генерации и журнал; `profile_context()`, `_validate_result()`, `verify()` — происхождение и проверка; `template_grades()` и `score_grades()` — разделение инференса и экспертной оценки. |
+| 5 | [`scripts/f4_base_model_evaluation.py`](../../scripts/f4_base_model_evaluation.py) | Все режимы CLI, особенно отличие plan, smoke, full, verify, resume, scoring; явный флаг скачивания. |
+| 6 | [`tests/test_f4_base_model_evaluation.py`](../../tests/test_f4_base_model_evaluation.py) | Как fake backend доказывает корректность конвейера, не подменяя настоящую модель; отрицательные сценарии SHA, JSON, Windows, resume и баллов. |
 
 **Итог F4.4:**  *измерение исходного поведения предобученной Causal LM*, а не обучение. Успешная генерация - это проверка механизма, а качество ответов - самостоятельная экспертная задача. Это разделение следует сохранять при переходе к F4.5 (SFT + LoRA) и F4.7 (Base vs Fine-Tuned).
