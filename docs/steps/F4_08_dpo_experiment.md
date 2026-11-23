@@ -155,7 +155,7 @@ m = \beta\left(d_{\theta} - d_{\mathrm{ref}}\right)
 ```math
 \mathcal{L}_{\mathrm{DPO}}
 = -\log \sigma(m)
-= \operatorname{softplus}(-m)
+= \mathrm{softplus}(-m)
 ```
 
 Где `σ(m)=1/(1+e^(−m))` - sigmoid. Минимизация loss увеличивает предпочтение `chosen` относительно `rejected` **с поправкой на reference**. Положительный margin говорит об относительном изменении log-odds по сравнению с reference, но сам по себе не является оценкой корректности ответа.
