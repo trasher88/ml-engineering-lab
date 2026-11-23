@@ -23,11 +23,10 @@
 
 | Новый файл | Назначение | Что конкретно реализовано |
 |---|---|---|
-| `configs/f4_05_sft_lora.json` | Фиксация эксперимента | Пути утверждённых F4.1/F4.2/F4.3/F4.4, SHA checkpoint, длины токенов, LoRA rank/alpha/target modules, два профиля запуска, параметры optimizer. |
-| `src/llm_f4/sft_lora.py` | Алгоритм и контракты | `load_config()`, `make_plan()`, `format_prompt()`, `encode_sample()`, `collate_rows()`, `supervised_token_count()`, `lora_delta()`, `torch_smoke()`, `run_real()`, `verify_run()`. |
-| `scripts/f4_sft_lora.py` | Воспроизводимый CLI | Режимы `--plan`, `--torch-smoke`, `--run cpu`, `--run gpu`, `--verify cpu/gpu`, разрешение скачивания только через `--allow-download`; корректная обработка ошибок. |
-| `tests/test_f4_sft_lora.py` | Автоматическая проверка | Инварианты train/validation/test, ограничения model revision, точные числовые результаты LoRA, маскирование loss, размеры батча, контракты CLI и Windows-кодировки, отклонение фиктивных результатов. |
-| `docs/steps/F4_05_sft_lora.md` | Учебная документация | Порядок работы алгоритма, математика SFT и LoRA, схема, команды PowerShell, проверяемые результаты и ограничения. |
+| [`configs/f4_05_sft_lora.json`](../../configs/f4_05_sft_lora.json) | Фиксация эксперимента | Пути утверждённых F4.1/F4.2/F4.3/F4.4, SHA checkpoint, длины токенов, LoRA rank/alpha/target modules, два профиля запуска, параметры optimizer. |
+| [`src/llm_f4/sft_lora.py`](../../`src/llm_f4/sft_lora.py) | Алгоритм и контракты | `load_config()`, `make_plan()`, `format_prompt()`, `encode_sample()`, `collate_rows()`, `supervised_token_count()`, `lora_delta()`, `torch_smoke()`, `run_real()`, `verify_run()`. |
+| [`scripts/f4_sft_lora.py`](../../scripts/f4_sft_lora.py) | Воспроизводимый CLI | Режимы `--plan`, `--torch-smoke`, `--run cpu`, `--run gpu`, `--verify cpu/gpu`, разрешение скачивания только через `--allow-download`; корректная обработка ошибок. |
+| [`tests/test_f4_sft_lora.py`](../../tests/test_f4_sft_lora.py) | Автоматическая проверка | Инварианты train/validation/test, ограничения model revision, точные числовые результаты LoRA, маскирование loss, размеры батча, контракты CLI и Windows-кодировки, отклонение фиктивных результатов. |
 
 F4.5 содержит исходники, тесты, конфигурацию и учебную документацию. 
 
@@ -410,6 +409,7 @@ GPU-профиль предусматривает 56 train и 12 validation пр
 | Изменение validation loss | **−0,00654459 (−0,2860%)** | Наблюдение одного эксперимента, не тенденция |
 | Gradient norm до clipping | **3,52239037** | Не является самостоятельной оценкой качества |
 | Learning rate в конфигурации | **0,0002** | Настройка оптимизатора, не измеренная покадровая скорость |
+
 Числовые значения относятся **только к подтверждённому CPU-профилю**. Успешный один шаг подтверждает градиентное обновление LoRA и сохранение артефактов, но не качество ответов на независимых заданиях.
 
 
@@ -432,14 +432,14 @@ GPU-профиль предусматривает 56 train и 12 validation пр
 
 | Порядок изучения | Файл                           | Что именно стоит изучить                                                                                                        |
 | ---------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| 1                | `configs/f4_05_sft_lora.json`  | Почему ограничен контекст и выбраны LoRA rank/alpha, почему CPU/GPU отдельно, откуда берутся версионные зависимости.            |
-| 2                | `src/llm_f4/sft_lora.py`       | `load_config()` и `make_plan()` - проверка неизменности source, отсутствие data leakage, проверка holdout.                      |
-| 3                | `src/llm_f4/sft_lora.py`       | `format_prompt()`, `encode_sample()` - построение supervised target, `-100` и EOS; `collate_rows()` — attention_mask и padding. |
-| 4                | `src/llm_f4/sft_lora.py`       | `lora_delta()` и `torch_smoke()` - математика низкого ранга и настоящий autograd без большой модели.                            |
-| 5                | `src/llm_f4/sft_lora.py`       | `run_real()` - подготовка Qwen, заморозка Base, PEFT, AdamW, train/validation, сохранение адаптера.                             |
-| 6                | `src/llm_f4/sft_lora.py`       | `verify_run()` - инварианты сохранённого реального опыта и SHA-256.                                                             |
-| 7                | `scripts/f4_sft_lora.py`       | Различия `--plan`, `--torch-smoke`, `--run cpu/gpu`, `--verify`; какой режим допускает download.                                |
-| 8                | `tests/test_f4_sft_lora.py`    | Точные числовые эталоны, тесты маскирования, недопустимые конфигурации, Windows CLI.                                            |
-| 9                | `docs/steps/F4_05_sft_lora.md` | Сопоставить функции, формулы, реальные результаты и ограничения.                                                                |
+| 1                | [`configs/f4_05_sft_lora.json`](../../configs/f4_05_sft_lora.json)  | Почему ограничен контекст и выбраны LoRA rank/alpha, почему CPU/GPU отдельно, откуда берутся версионные зависимости.            |
+| 2                | [`src/llm_f4/sft_lora.py`](../../src/llm_f4/sft_lora.py)       | `load_config()` и `make_plan()` - проверка неизменности source, отсутствие data leakage, проверка holdout.                      |
+| 3                | [`src/llm_f4/sft_lora.py`](../../src/llm_f4/sft_lora.py)       | `format_prompt()`, `encode_sample()` - построение supervised target, `-100` и EOS; `collate_rows()` — attention_mask и padding. |
+| 4                | [`src/llm_f4/sft_lora.py`](../../src/llm_f4/sft_lora.py)       | `lora_delta()` и `torch_smoke()` - математика низкого ранга и настоящий autograd без большой модели.                            |
+| 5                | [`src/llm_f4/sft_lora.py](../../src/llm_f4/sft_lora.py)`       | `run_real()` - подготовка Qwen, заморозка Base, PEFT, AdamW, train/validation, сохранение адаптера.                             |
+| 6                | [`src/llm_f4/sft_lora.py`](../../src/llm_f4/sft_lora.py)       | `verify_run()` - инварианты сохранённого реального опыта и SHA-256.                                                             |
+| 7                | [`scripts/f4_sft_lora.py`](../../src/llm_f4/sft_lora.py)       | Различия `--plan`, `--torch-smoke`, `--run cpu/gpu`, `--verify`; какой режим допускает download.                                |
+| 8                | [`tests/test_f4_sft_lora.py`](../../tests/test_f4_sft_lora.py)    | Точные числовые эталоны, тесты маскирования, недопустимые конфигурации, Windows CLI.                                            |
+
 
 **Итог F4.5:** unit-тесты F4.5 подтверждают свойства *реализации*, `--run` с последующим `--verify` - *факт выполнения обучения*, а независимая рубрика F4.7 должна оценивать *изменение качества ответов*. Это три разных утверждения.
