@@ -204,9 +204,8 @@ counts[candidate] += 1
 ### 4.3. SHA-256 как стабильный порядок и проверка целостности
 Каждому `group_id` сопоставляется ключ
 ```math
-h(g) = \operatorname{SHA256}
-\left(
-\operatorname{UTF8}(\text{seed} + \text{":"} + g)
+h(g) = \mathrm{SHA256}\left(
+\mathrm{UTF8}(\text{seed} + \text{":"} + g)
 \right)
 ```
 Группы сортируются по `h(g)` и последовательно занимают заранее вычисленные квоты. Это **детерминированное псевдослучайное упорядочивание**, а не криптографическое обещание независимости распределения задач. Оно не зависит от `PYTHONHASHSEED`, расположения строк или ОС. Если изменить seed или состав групп, состав split может измениться; в будущих экспериментах его следует заморозить.
@@ -214,12 +213,12 @@ h(g) = \operatorname{SHA256}
 В manifest отдельно сохраняется:
 ```math
 H_{\mathrm{source}} =
-\operatorname{SHA256}(\text{байты исходного JSONL})
+\mathrm{SHA256}(\text{байты исходного JSONL})
 ```
 
 ```math
 H_{\mathrm{train}} =
-\operatorname{SHA256}(\text{байты train.jsonl})
+\mathrm{SHA256}(\text{байты train.jsonl})
 ```
 
 Аналогично вычисляются `H_validation`, `H_test`. Из них нельзя восстановить исходные тексты; однако хеш **не заменяет** лицензионный контроль и не доказывает истинность ответов.
@@ -357,14 +356,13 @@ PASS подтверждает, что подготовка данных и пр�
 
 | Порядок | Файл | Что конкретно изучить |
 |---:|---|---|
-| 1 | `data/synthetic/f4_01_instruction_seed.jsonl` | Посмотреть пары `a/b`, общий `group_id`, пример с `input`, поля `origin` и `response`. |
-| 2 | `configs/f4_01_instruction_dataset.json` | Понять связь seed, процентов и путей с результатом BUILD. |
-| 3 | `src/llm_f4/instruction_dataset.py` | `InstructionExample` / `SplitConfig`: определение проверяемого контракта. |
-| 4 | `src/llm_f4/instruction_dataset.py` | `load_examples()` / `validate_examples()` / `normalized_prompt()`: правила отклонения некорректных данных. |
-| 5 | `src/llm_f4/instruction_dataset.py` | `allocate_group_counts()` / `split_examples()` / `validate_splits()`: проверка непересечения выборок. |
-| 6 | `src/llm_f4/instruction_dataset.py` | `create_artifacts()` / `export_artifacts()` / `verify_artifacts()`: каноническая сериализация и расчёт SHA-256. |
-| 7 | `scripts/f4_instruction_dataset.py` | `main()`: путь от конфигурации до BUILD/VERIFY и чтение одного примера. |
-| 8 | `tests/test_f4_instruction_dataset.py` | Тесты `test_group_leak_rejected`, `test_source_content_mutation_rejected`, `test_export_and_verify_are_byte_identical` и параметризацию. |
-| 9 | `docs/steps/F4_01_instruction_dataset.md` | Связать исполненный код, числовые примеры, вывод программы и ограничения в одну историю. |
+| 1 | [`data/synthetic/f4_01_instruction_seed.jsonl`](../../data/synthetic/f4_01_instruction_seed.jsonl) | Посмотреть пары `a/b`, общий `group_id`, пример с `input`, поля `origin` и `response`. |
+| 2 | [`configs/f4_01_instruction_dataset.json`](../../configs/f4_01_instruction_dataset.json) | Понять связь seed, процентов и путей с результатом BUILD. |
+| 3 | [`src/llm_f4/instruction_dataset.py`](../../src/llm_f4/instruction_dataset.py) | `InstructionExample` / `SplitConfig`: определение проверяемого контракта. |
+| 4 | [`src/llm_f4/instruction_dataset.py`](../../src/llm_f4/instruction_dataset.py) | `load_examples()` / `validate_examples()` / `normalized_prompt()`: правила отклонения некорректных данных. |
+| 5 | [`src/llm_f4/instruction_dataset.py`](../../src/llm_f4/instruction_dataset.py) | `allocate_group_counts()` / `split_examples()` / `validate_splits()`: проверка непересечения выборок. |
+| 6 | [`src/llm_f4/instruction_dataset.py`](../../src/llm_f4/instruction_dataset.py) | `create_artifacts()` / `export_artifacts()` / `verify_artifacts()`: каноническая сериализация и расчёт SHA-256. |
+| 7 | [`scripts/f4_instruction_dataset.py`](../../scripts/f4_instruction_dataset.py) | `main()`: путь от конфигурации до BUILD/VERIFY и чтение одного примера. |
+| 8 | [`tests/test_f4_instruction_dataset.py`](../../tests/test_f4_instruction_dataset.py) | Тесты `test_group_leak_rejected`, `test_source_content_mutation_rejected`, `test_export_and_verify_are_byte_identical` и параметризацию. |
 
 **Итог F4.1:** реализована воспроизводимая подготовка и проверка instruction dataset.
