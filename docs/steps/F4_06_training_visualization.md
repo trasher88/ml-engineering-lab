@@ -309,6 +309,6 @@ Start-Process (Resolve-Path 'data\processed\f4_06\cpu\report.html').Path
 |       4 | [`src/llm_f4/training_visualization.py`](../../src/llm_f4/training_visualization.py)      | `parse_metrics()` → `validate_source()` → `render_files()` → `build_report()` → `verify_report()`; в чём заключается защита от фиктивных результатов.    |
 |       5 | [`scripts/f4_training_visualization.py`](../../scripts/f4_training_visualization.py)      | Какие режимы доступны и почему только `--build` генерирует отчёт из реального запуска.                                                                   |
 |       6 | [`tests/test_f4_training_visualization.py`](../../tests/test_f4_training_visualization.py)   | Независимые числовые примеры, запрет линии для одного шага, проверка раздельных источников LR и loss, обнаружение искажений.                             |
-|       7 | [`data/processed/f4_06/cpu/report.html`](../../data/processed/f4_06/cpu/report.html)      | Открыть после подтверждённого локального BUILD/VERIFY; сопоставить таблицу и SVG с `summary.json` и манифестом F4.5.                                     |
+
 
 **Итог F4.6:** этот отчёт отслеживает **ход обучения**, но не содержит оценки правильности ответов. Для F4.7 потребуется использовать одни и те же вопросы, декодирование и критерии F4.3 для Base и Fine-Tuned; нельзя выдавать изменение loss за результат такой оценки.
