@@ -14,11 +14,12 @@
 
 | Файл                                    | Назначение                                  | Что в нём реализовано                                                                                                                                                |
 | --------------------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `configs/f4_07_base_vs_finetuned.json`  | Фиксирует источники и профиль               | Пути к F4.4/F4.5, профиль обученного адаптера `cpu`, отдельный каталог результатов F4.7                                                                              |
-| `src/llm_f4/base_vs_finetuned.py`       | Проверяемый конвейер                        | `load_config`, `plan`, `_require_sources`, `RealAdapterGenerator`, `run`, `verify`, `paired_rows`, `compare`, `verify_comparison`, `grades_template`, `score_grades` |
-| `scripts/f4_base_vs_finetuned.py`       | Командный интерфейс                         | `--plan`, `--run`, `--resume`, `--compare`, `--verify`, `--grades-template`, `--score-grades`                                                                        |
-| `tests/test_f4_base_vs_finetuned.py`    | Контрактные, отрицательные и числовые тесты | Отдельный временный репозиторий с **TEST-DOUBLE** генератором, проверка неизменности provenance, сопоставления 32 заданий и ручной рубрики                           |
-| `docs/steps/F4_07_base_vs_finetuned.md` | Данная методичка                            | Последовательность реализации, интерфейсы, числовой пример, PowerShell, проверенные и непроверенные свойства                                                         |
+| [`configs/f4_07_base_vs_finetuned.json`](../../configs/f4_07_base_vs_finetuned.json)  | Фиксирует источники и профиль               | Пути к F4.4/F4.5, профиль обученного адаптера `cpu`, отдельный каталог результатов F4.7                                                                              |
+| [`src/llm_f4/base_vs_finetuned.py`](../../src/llm_f4/base_vs_finetuned.py)       | Проверяемый конвейер                        | `load_config`, `plan`, `_require_sources`, `RealAdapterGenerator`, `run`, `verify`, `paired_rows`, `compare`, `verify_comparison`, `grades_template`, `score_grades` |
+| [`scripts/f4_base_vs_finetuned.py`](../../scripts/f4_base_vs_finetuned.py)       | Командный интерфейс                         | `--plan`, `--run`, `--resume`, `--compare`, `--verify`, `--grades-template`, `--score-grades`                                                                        |
+| [`tests/test_f4_base_vs_finetuned.py`](../../tests/test_f4_base_vs_finetuned.py)    | Контрактные, отрицательные и числовые тесты | Отдельный временный репозиторий с **TEST-DOUBLE** генератором, проверка неизменности provenance, сопоставления 32 заданий и ручной рубрики                           |
+
+
 ## 3. Последовательность реализации
 
 ### Шаг 1. Зафиксировать совместимость конфигураций F4.4 и F4.5
@@ -144,8 +145,8 @@ W' = W + \frac{\alpha}{r}BA
 На каждом шаге модель выбирает наиболее вероятный следующий токен:
 ```math
 \hat{y}_t =
-\underset{v \in V}{\operatorname{argmax}}\;
-P(v \mid x, \hat{y}_{<t}; \theta)
+\underset{v \in V}{\mathrm{argmax}}\;
+P(v \mid x, \hat{y}_{1:t-1}; \theta)
 ```
 
 `x` - одинаковый входной prompt, `V` - словарь токенизатора, `θ` - параметры Base или Base+LoRA, `t` - позиция генерации. У Base и LoRA должны совпадать `x`, токенизатор и настройки `do_sample=False`, `num_beams=1`, `max_new_tokens=96`.
@@ -422,14 +423,14 @@ Get-Content data\processed\f4_07\full\manual_comparison.json -Encoding UTF8
 
 | Файл                                                                  | Что именно изучить                                                                           |
 | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `configs/f4_07_base_vs_finetuned.json`                                | Ссылки на F4.4/F4.5 и независимость каталога F4.7                                            |
-| `scripts/f4_base_vs_finetuned.py`                                     | Разделение PLAN/RUN/VERIFY/COMPARE/HUMAN SCORE, запреты на неявную загрузку и перезапись     |
-| `src/llm_f4/base_vs_finetuned.py` → `load_config`, `plan`             | Совпадение model ID/revision, метаданные и ограничения перед запуском                        |
-| `src/llm_f4/base_vs_finetuned.py` → `_require_sources`, `_context`    | Доказуемая цепочка F4.3/F4.4/F4.5, SHA и pinned runtime                                      |
-| `src/llm_f4/base_vs_finetuned.py` → `RealAdapterGenerator`            | Как PEFT подключает сохранённый LoRA-адаптер к тому же Qwen Base                             |
-| `src/llm_f4/base_vs_finetuned.py` → `_execute`, `verify`              | Последовательная генерация, журнал, `--resume`, повторное вычисление манифеста               |
-| `src/llm_f4/base_vs_finetuned.py` → `paired_rows`, `compare`          | Проверка `case_id` и prompt hash, сравнение текстов без оценки истинности                    |
-| `src/llm_f4/base_vs_finetuned.py` → `grades_template`, `score_grades` | Отложенное подключение эталонов, проверка ручных оценок, macro/delta                         |
-| `tests/test_f4_base_vs_finetuned.py`                                  | Отрицательные тесты и математические эталоны, разница между TEST-DOUBLE и реальным inference |
+| [`configs/f4_07_base_vs_finetuned.json`](../../configs/f4_07_base_vs_finetuned.json)                                | Ссылки на F4.4/F4.5 и независимость каталога F4.7                                            |
+| [`scripts/f4_base_vs_finetuned.py`](../../scripts/f4_base_vs_finetuned.py)                                     | Разделение PLAN/RUN/VERIFY/COMPARE/HUMAN SCORE, запреты на неявную загрузку и перезапись     |
+| [`src/llm_f4/base_vs_finetuned.py`](../../src/llm_f4/base_vs_finetuned.py) → `load_config`, `plan`             | Совпадение model ID/revision, метаданные и ограничения перед запуском                        |
+| [`src/llm_f4/base_vs_finetuned.py`](../../src/llm_f4/base_vs_finetuned.py) → `_require_sources`, `_context`    | Доказуемая цепочка F4.3/F4.4/F4.5, SHA и pinned runtime                                      |
+| [`src/llm_f4/base_vs_finetuned.py`](../../src/llm_f4/base_vs_finetuned.py) → `RealAdapterGenerator`            | Как PEFT подключает сохранённый LoRA-адаптер к тому же Qwen Base                             |
+| [`src/llm_f4/base_vs_finetuned.py`](../../src/llm_f4/base_vs_finetuned.py) → `_execute`, `verify`              | Последовательная генерация, журнал, `--resume`, повторное вычисление манифеста               |
+| [`src/llm_f4/base_vs_finetuned.py`](../../src/llm_f4/base_vs_finetuned.py) → `paired_rows`, `compare`          | Проверка `case_id` и prompt hash, сравнение текстов без оценки истинности                    |
+| [`src/llm_f4/base_vs_finetuned.py`](../../src/llm_f4/base_vs_finetuned.py) → `grades_template`, `score_grades` | Отложенное подключение эталонов, проверка ручных оценок, macro/delta                         |
+| [`tests/test_f4_base_vs_finetuned.py`](../../tests/test_f4_base_vs_finetuned.py)                                  | Отрицательные тесты и математические эталоны, разница между TEST-DOUBLE и реальным inference |
 
 **Итог F4.7:** строгий попарный evaluation требует контроля версии checkpoint, SHA-256 вопросов и адаптера, идентичного декодирования, возобновляемого CPU inference и отдельной экспертной оценки. Изменение текста или снижение loss нельзя трактовать как доказательство роста качества.
