@@ -345,9 +345,9 @@ PASS означает соответствие выбранных метадан
 
 | Порядок | Файл | Что именно изучить |
 |---|---|---|
-| 1 | [`configs/f4_02_model_selection.json`](../../) | Параметры реальных моделей, pinned ревизии, критерии выбора, отличие русского requirements от альтернативы SmolLM2. |
-| 2 | [`src/llm_f4/model_selection.py`](../../) | `ModelCandidate`, `load_catalog()`, архитектурные проверки, `count_parameters()`, `kv_cache_bytes()`, `assess_candidate()`, `create_report()` и границы `probe_tokenizer()`. |
-| 3 | [`tests/test_f4_model_selection.py`](../../) | Вывод числа 494032768, независимый расчёт 12MiB, изменение revision, несовпадение EOS, Windows subprocess и отказ незадекларированного скачивания. |
-| 4 | [`scripts/f4_model_selection.py`](../../) | Как последовательно создаётся отчёт, выводятся причины выбора и отдельно запускается tokenizer probe. |
+| 1 | [`configs/f4_02_model_selection.json`](../../configs/f4_02_model_selection.json) | Параметры реальных моделей, pinned ревизии, критерии выбора, отличие русского requirements от альтернативы SmolLM2. |
+| 2 | [`src/llm_f4/model_selection.py`](../../src/llm_f4/model_selection.py) | `ModelCandidate`, `load_catalog()`, архитектурные проверки, `count_parameters()`, `kv_cache_bytes()`, `assess_candidate()`, `create_report()` и границы `probe_tokenizer()`. |
+| 3 | [`tests/test_f4_model_selection.py`](../../tests/test_f4_model_selection.py) | Вывод числа 494032768, независимый расчёт 12MiB, изменение revision, несовпадение EOS, Windows subprocess и отказ незадекларированного скачивания. |
+| 4 | [`scripts/f4_model_selection.py`](../../scripts/f4_model_selection.py) | Как последовательно создаётся отчёт, выводятся причины выбора и отдельно запускается tokenizer probe. |
 
 **Итог F4.2:** выбран и зафиксирован `Qwen/Qwen2.5-0.5B` Base, проверены метаданные, теоретический ресурсный профиль и работа реального токенизатора.
