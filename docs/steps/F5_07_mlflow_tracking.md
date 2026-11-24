@@ -108,7 +108,7 @@
 ### 4.1. Импорт не изменяет смысл метрик
 Для классификации используют, например, Macro F1, вычисленный исходным этапом F1/F2; при этом F1 - test, а F2.6 - validation, поэтому напрямую ранжировать по ним модели нельзя:
 ```math
-\operatorname{MacroF1} =
+\mathrm{MacroF1} =
 \frac{1}{C}
 \sum_{c=1}^{C}
 \frac{2P_cR_c}{P_c+R_c}
@@ -118,13 +118,13 @@
 
 Для retrieval Recall@5 определён ранее по qrels:
 ```math
-\operatorname{Recall@5} =
+\mathrm{Recall@5} =
 \frac{1}{N}
 \sum_{q=1}^{N}
 \frac{
-|\operatorname{Top5}(q) \cap \operatorname{Rel}(q)|
+|\mathrm{Top5}(q) \cap \mathrm{Rel}(q)|
 }{
-|\operatorname{Rel}(q)|
+|\mathrm{Rel}(q)|
 }
 ```
 
@@ -135,8 +135,8 @@
 ### 4.2. Idempotency key и SHA-256
 Для каждого run собирается набор из имени, исходного source ID, phase/task, dataset/split/protocol, исходного SHA-256, доступных числовых метрик, единиц, selectors и fingerprint конфигурации F5.7.
 ```math
-K = \operatorname{SHA256}\left(
-\operatorname{CanonicalJSON}(\text{run metadata})
+K = \mathrm{SHA256}\left(
+\mathrm{CanonicalJSON}(\text{run metadata})
 \right)
 ```
 
