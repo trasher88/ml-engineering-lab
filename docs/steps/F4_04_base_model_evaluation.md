@@ -472,13 +472,13 @@ Get-Content data\processed\f4_04\full\manifest.json -Encoding UTF8
 
 ## 9. Файлы этапа
 
-| Рекомендуемый порядок | Файл | Что именно стоит изучить |
-|---|---|---|
-| 1 | [`configs/f4_04_base_model_evaluation.json`](../../configs/f4_04_base_model_evaluation.json) | Почему модель и tokenizer revision одинаковы, зачем `max_input_tokens`, `max_new_tokens`, seed, шаблон и фиксированный smoke; связь с F4.2. |
-| 2 | [`src/llm_f4/base_model_evaluation.py`](../../src/llm_f4/base_model_evaluation.py) | `load_config()` и `load_prompts()` — привязка к F4.3 и предотвращение утечки; затем `selection()`, `formatted_prompt()`. |
-| 3 | [`src/llm_f4/base_model_evaluation.py`](../../src/llm_f4/base_model_evaluation.py) | `RealCPUGenerator.__init__()` — безопасная загрузка Base; `RealCPUGenerator.generate()` — токенизация, greedy, `inference_mode`, срез ответа после токенов входа. |
-| 4 | [`src/llm_f4/base_model_evaluation.py`](../../src/llm_f4/base_model_evaluation.py) | `_execute_inner()` — порядок генерации и журнал; `profile_context()`, `_validate_result()`, `verify()` — происхождение и проверка; `template_grades()` и `score_grades()` — разделение инференса и экспертной оценки. |
-| 5 | [`scripts/f4_base_model_evaluation.py`](../../scripts/f4_base_model_evaluation.py) | Все режимы CLI, особенно отличие plan, smoke, full, verify, resume, scoring; явный флаг скачивания. |
-| 6 | [`tests/test_f4_base_model_evaluation.py`](../../tests/test_f4_base_model_evaluation.py) | Как fake backend доказывает корректность конвейера, не подменяя настоящую модель; отрицательные сценарии SHA, JSON, Windows, resume и баллов. |
+| Файл | Что именно стоит изучить |
+|---|---|
+|  [`configs/f4_04_base_model_evaluation.json`](../../configs/f4_04_base_model_evaluation.json) | Почему модель и tokenizer revision одинаковы, зачем `max_input_tokens`, `max_new_tokens`, seed, шаблон и фиксированный smoke; связь с F4.2. |
+|  [`src/llm_f4/base_model_evaluation.py`](../../src/llm_f4/base_model_evaluation.py) | `load_config()` и `load_prompts()` — привязка к F4.3 и предотвращение утечки; затем `selection()`, `formatted_prompt()`. |
+|  [`src/llm_f4/base_model_evaluation.py`](../../src/llm_f4/base_model_evaluation.py) | `RealCPUGenerator.__init__()` — безопасная загрузка Base; `RealCPUGenerator.generate()` — токенизация, greedy, `inference_mode`, срез ответа после токенов входа. |
+|  [`src/llm_f4/base_model_evaluation.py`](../../src/llm_f4/base_model_evaluation.py) | `_execute_inner()` — порядок генерации и журнал; `profile_context()`, `_validate_result()`, `verify()` — происхождение и проверка; `template_grades()` и `score_grades()` — разделение инференса и экспертной оценки. |
+|  [`scripts/f4_base_model_evaluation.py`](../../scripts/f4_base_model_evaluation.py) | Все режимы CLI, особенно отличие plan, smoke, full, verify, resume, scoring; явный флаг скачивания. |
+|  [`tests/test_f4_base_model_evaluation.py`](../../tests/test_f4_base_model_evaluation.py) | Как fake backend доказывает корректность конвейера, не подменяя настоящую модель; отрицательные сценарии SHA, JSON, Windows, resume и баллов. |
 
 **Итог F4.4:**  *измерение исходного поведения предобученной Causal LM*, а не обучение. Успешная генерация - это проверка механизма, а качество ответов - самостоятельная экспертная задача. Это разделение следует сохранять при переходе к F4.5 (SFT + LoRA) и F4.7 (Base vs Fine-Tuned).
