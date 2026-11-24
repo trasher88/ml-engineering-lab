@@ -101,8 +101,10 @@
 ### 4.1. TF-IDF и Logistic Regression (`/classify`)
 Для обучающих текстов `N=24` и терма `t` scikit-learn использует сглаженный IDF:
 ```math
-\operatorname{idf}(t) =
-\ln\left(\frac{N+1}{\operatorname{df}(t)+1}\right)+1
+\mathrm{idf}(t) =
+\ln\left(
+\frac{N+1}{\mathrm{df}(t)+1}
+\right)+1
 ```
 
 Умножить частоту терма на `idf(t)` и нормализовать вектор документа по L2. `ngram_range=(1,2)` добавляет униграммы и биграммы; словарь формируется **только** по 24 synthetic-примерам. Для класса `c` многоклассовая логистическая регрессия вычисляет:
@@ -117,24 +119,26 @@ P(y=c\mid x) =
 ### 4.2. BM25 (`/search`)
 Для терма `t` и документа `d`, где `tf(t,d)` - частота, `df(t)` - число документов с термом, `N=12`, `|d|` - длина документа в токенах, `avgdl` - средняя длина, используется:
 ```math
-\operatorname{idf}(t) =
+\mathrm{idf}(t) =
 \ln\left(
-1 + \frac{N - \operatorname{df}(t) + 0.5}
-{\operatorname{df}(t) + 0.5}
+1 + \frac{N-\mathrm{df}(t)+0.5}
+{\mathrm{df}(t)+0.5}
 \right)
 ```
 
 ```math
-\operatorname{BM25}(q,d) =
-\sum_{t \in \operatorname{unique}(q)}
-\operatorname{idf}(t)
+\mathrm{BM25}(q,d) =
+\sum_{t \in \mathrm{unique}(q)}
+\mathrm{idf}(t)
 \cdot
 \frac{
-\operatorname{tf}(t,d)(k_1+1)
+\mathrm{tf}(t,d)(k_1+1)
 }{
-\operatorname{tf}(t,d)
+\mathrm{tf}(t,d)
 +
-k_1\left(1-b+b\frac{|d|}{\operatorname{avgdl}}\right)
+k_1\left(
+1-b+b\frac{|d|}{\mathrm{avgdl}}
+\right)
 }
 ```
 
