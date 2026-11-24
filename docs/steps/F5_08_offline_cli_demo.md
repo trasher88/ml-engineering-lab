@@ -105,17 +105,17 @@
 ### 4.2. BM25
 Для множества терминов запроса используется:
 ```math
-\operatorname{BM25}(q,d) =
+\mathrm{BM25}(q,d) =
 \sum_{t \in q}
 \log\left(
-1 + \frac{N - \operatorname{df}(t) + 0.5}
-{\operatorname{df}(t) + 0.5}
+1 + \frac{N - \mathrm{df}(t) + 0.5}
+{\mathrm{df}(t) + 0.5}
 \right)
 \cdot
 \frac{
-\operatorname{tf}(t,d)(k_1+1)
+\mathrm{tf}(t,d)(k_1+1)
 }{
-\operatorname{tf}(t,d) +
+\mathrm{tf}(t,d) +
 k_1\left(
 1-b+b\frac{|d|}{\overline{|d|}}
 \right)
@@ -131,8 +131,8 @@ k_1\left(
 
 Проверка использует `doc.text[start:end] == quote == answer` и
 ```math
-H = \operatorname{SHA256}\left(
-\operatorname{UTF8}(\text{doc.text})
+H = \mathrm{SHA256}\left(
+\mathrm{UTF8}(\text{doc.text})
 \right)
 ```
 
