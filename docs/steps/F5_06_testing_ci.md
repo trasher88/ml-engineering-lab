@@ -14,15 +14,14 @@
 
 | Файл | Назначение | Важные функции / связи |
 |---|---|---|
-| `configs/f5_06_test_matrix.json` | Фиксированная матрица unit/integration/regression, набор runtime-входов и профиль Python 3.13 | 4 тестовых файла unit, 3 integration, 8 regression |
-| `src/testing_f5/__init__.py` | Изолированное пространство имён F5.6 | Не выполняет вычислений |
-| `src/testing_f5/ci_matrix.py` | Валидация тестовых файлов, границ путей, полноты регрессии и SHA-256 | `load_matrix()`, `profile_provenance()`, `validate_evidence()` |
-| `scripts/f5_ci.py` | Единый CLI для планирования, запуска, проверки evidence и TCP-smoke | `run_profile()`, `_counts()`, `http_smoke()`, `main()` |
-| `tests/test_f5_ci_contract.py` | Unit/negative-тесты схемы, путей, версий, SHA, JUnit XML и ошибок запуска | `pytest` и изолированные временные каталоги |
-| `tests/test_f5_ci_integration.py` | Интеграционный HTTP-контракт для существующего приложения | `TestClient(create_app())`, OpenAPI, 200/422/404 |
-| `tests/test_f5_ci_regression.py` | Регрессионные инварианты F5.1–F5.5 | Проверка provenance, synthetic-only, safety `PARTIAL`, Docker opt-in |
-| `.github/workflows/f5_06_ci.yml` | Автоматический CPU-runner на GitHub, включая JUnit/evidence и HTTP smoke | Checkout, Python 3.13, install, plan, regression, check, smoke, upload |
-| `docs/steps/F5_06_testing_ci.md` | Учебное описание алгоритма, проверок и ограничений | Девять обязательных разделов |
+| [`configs/f5_06_test_matrix.json`](../../configs/f5_06_test_matrix.json) | Фиксированная матрица unit/integration/regression, набор runtime-входов и профиль Python 3.13 | 4 тестовых файла unit, 3 integration, 8 regression |
+| [`src/testing_f5/__init__.py`](../../src/testing_f5/__init__.py) | Изолированное пространство имён F5.6 | Не выполняет вычислений |
+| [`src/testing_f5/ci_matrix.py`](../../src/testing_f5/ci_matrix.py) | Валидация тестовых файлов, границ путей, полноты регрессии и SHA-256 | `load_matrix()`, `profile_provenance()`, `validate_evidence()` |
+| [`scripts/f5_ci.py`](../../scripts/f5_ci.py) | Единый CLI для планирования, запуска, проверки evidence и TCP-smoke | `run_profile()`, `_counts()`, `http_smoke()`, `main()` |
+| [`tests/test_f5_ci_contract.py`](../../tests/test_f5_ci_contract.py) | Unit/negative-тесты схемы, путей, версий, SHA, JUnit XML и ошибок запуска | `pytest` и изолированные временные каталоги |
+| [`tests/test_f5_ci_integration.py`](../../tests/test_f5_ci_integration.py) | Интеграционный HTTP-контракт для существующего приложения | `TestClient(create_app())`, OpenAPI, 200/422/404 |
+| [`tests/test_f5_ci_regression.py`](../../tests/test_f5_ci_regression.py) | Регрессионные инварианты F5.1–F5.5 | Проверка provenance, synthetic-only, safety `PARTIAL`, Docker opt-in |
+| [`.github/workflows/f5_06_ci.yml`](../../.github/workflows/f5_06_ci.yml) | Автоматический CPU-runner на GitHub, включая JUnit/evidence и HTTP smoke | Checkout, Python 3.13, install, plan, regression, check, smoke, upload |
 
 ## 3. Последовательность реализации
 
@@ -230,15 +229,15 @@ $evidence = Join-Path $env:TEMP 'f5_06_ci_evidence.json'
 
 | Порядок | Файл | Что именно изучить |
 |---|---|---|
-| 1 | `configs/f5_06_test_matrix.json` | Явная матрица профилей, входы, контроль полноты и граница CPU-тестов |
-| 2 | `src/testing_f5/ci_matrix.py` | `load_matrix()`, `_relpath()`, `profile_provenance()`, `validate_evidence()`; SHA и защита путей |
-| 3 | `scripts/f5_ci.py` | `run_profile()`, `_counts()`, `http_smoke()`, `main()`; subprocess, JUnit XML, exit codes |
-| 4 | `tests/test_f5_ci_contract.py` | Отрицательные тесты: неполное покрытие, path traversal, ложный PASS, ошибки JUnit, устаревший SHA |
-| 5 | `tests/test_f5_ci_integration.py` | Взаимодействие FastAPI/Pydantic с demo corpus и проверка OpenAPI |
-| 6 | `tests/test_f5_ci_regression.py` | Сквозные инварианты, разделение synthetic vs real, opt-in Docker |
-| 7 | `.github/workflows/f5_06_ci.yml` | Триггеры, разрешения, версии Actions, установка зависимостей, evidence и real TCP-smoke |
-| 8 | `src/evaluation_f5/unified_report.py` | Фактическая F5.1-логика разделения метрик и их источников |
-| 9 | `src/evaluation_f5/llm_diagnostics.py` | Token overlap, экспертные оценки и `PARTIAL` без фактического review |
-| 10 | `src/evaluation_f5/safety_benchmark.py` | Контракты 28 synthetic-сценариев и ограничения их интерпретации |
-| 11 | `src/api_f5/app.py` и `scripts/f5_api.py` | `create_app()` и `run_http_smoke()`; граница TestClient / реальный TCP |
-| 12 | `tests/test_f5_docker.py` и `scripts/f5_docker_smoke.py` | Разница между unit-проверкой Docker-контрактов и реальным docker build/run |
+| 1 | [`configs/f5_06_test_matrix.json`](../../configs/f5_06_test_matrix.json) | Явная матрица профилей, входы, контроль полноты и граница CPU-тестов |
+| 2 | [`src/testing_f5/ci_matrix.py`](../../src/testing_f5/ci_matrix.py) | `load_matrix()`, `_relpath()`, `profile_provenance()`, `validate_evidence()`; SHA и защита путей |
+| 3 | [`scripts/f5_ci.py`](../../scripts/f5_ci.py) | `run_profile()`, `_counts()`, `http_smoke()`, `main()`; subprocess, JUnit XML, exit codes |
+| 4 | [`tests/test_f5_ci_contract.py`](../../tests/test_f5_ci_contract.py) | Отрицательные тесты: неполное покрытие, path traversal, ложный PASS, ошибки JUnit, устаревший SHA |
+| 5 | [`tests/test_f5_ci_integration.py`](../../tests/test_f5_ci_integration.py) | Взаимодействие FastAPI/Pydantic с demo corpus и проверка OpenAPI |
+| 6 | [`tests/test_f5_ci_regression.py`](../../tests/test_f5_ci_regression.py) | Сквозные инварианты, разделение synthetic vs real, opt-in Docker |
+| 7 | [`.github/workflows/f5_06_ci.yml`](../../.github/workflows/f5_06_ci.yml) | Триггеры, разрешения, версии Actions, установка зависимостей, evidence и real TCP-smoke |
+| 8 | [`src/evaluation_f5/unified_report.py`](../../src/evaluation_f5/unified_report.py) | Фактическая F5.1-логика разделения метрик и их источников |
+| 9 | [`src/evaluation_f5/llm_diagnostics.py`](../../src/evaluation_f5/llm_diagnostics.py) | Token overlap, экспертные оценки и `PARTIAL` без фактического review |
+| 10 | [`src/evaluation_f5/safety_benchmark.py`](../../src/evaluation_f5/safety_benchmark.py) | Контракты 28 synthetic-сценариев и ограничения их интерпретации |
+| 11 | [`src/api_f5/app.py`](../../src/api_f5/app.py) и [`scripts/f5_api.py`](../../scripts/f5_api.py) | `create_app()` и `run_http_smoke()`; граница TestClient / реальный TCP |
+| 12 | [`tests/test_f5_docker.py`](../../tests/test_f5_docker.py) и [`scripts/f5_docker_smoke.py`](../../scripts/f5_docker_smoke.py) | Разница между unit-проверкой Docker-контрактов и реальным docker build/run |
