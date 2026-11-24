@@ -12,14 +12,13 @@
 
 | Новый файл                            | Назначение и основные элементы                                                                                                                               |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `configs/f5_07_mlflow_tracking.json`  | Версия протокола, имя experiment, входы F5.1, шесть имён runs, mapping `source_id` / `metric_prefix` / `required_metrics`                                    |
-| `src/tracking_f5/__init__.py`         | Граница модуля tracking; без тяжёлых импортов при выполнении `plan`                                                                                          |
-| `src/tracking_f5/mlflow_tracking.py`  | `build_plan()`, `tracking_storage()`, `sync_runs()`, `_readback()`; строгая проверка provenance, создание/повторное использование runs и readback артефактов |
-| `scripts/f5_mlflow.py`                | CLI `plan`, `import`, `verify`, `list` и внешний `--registry-output`                                                                                         |
-| `tests/test_f5_mlflow.py`             | Контрактные, отрицательные, идемпотентные тесты; при наличии MLflow - реальная интеграция с SQLite и файловыми artifacts                                     |
-| `requirements-f5_07.txt`              | Зафиксированная версия полнофункционального MLflow для локальных экспериментов и UI                                                                          |
-| `.github/workflows/f5_07_mlflow.yml`  | Изолированный Python 3.13 workflow; MLflow устанавливается обязательно, реальная интеграция с SQLite не может быть пропущена в CI                            |
-| `docs/steps/F5_07_mlflow_tracking.md` | Данный учебно-технический документ: алгоритм, формулы, сценарии, проверки и ограничения                                                                      |
+| [`configs/f5_07_mlflow_tracking.json`](../../configs/f5_07_mlflow_tracking.json)  | Версия протокола, имя experiment, входы F5.1, шесть имён runs, mapping `source_id` / `metric_prefix` / `required_metrics`                                    |
+| [`src/tracking_f5/__init__.py`](../../src/tracking_f5/__init__.py)         | Граница модуля tracking; без тяжёлых импортов при выполнении `plan`                                                                                          |
+| [`src/tracking_f5/mlflow_tracking.py`](../../src/tracking_f5/mlflow_tracking.py)  | `build_plan()`, `tracking_storage()`, `sync_runs()`, `_readback()`; строгая проверка provenance, создание/повторное использование runs и readback артефактов |
+| [`scripts/f5_mlflow.py`](../../scripts/f5_mlflow.py)               | CLI `plan`, `import`, `verify`, `list` и внешний `--registry-output`                                                                                         |
+| [`tests/test_f5_mlflow.py`](../../tests/test_f5_mlflow.py)             | Контрактные, отрицательные, идемпотентные тесты; при наличии MLflow - реальная интеграция с SQLite и файловыми artifacts                                     |
+| [`requirements-f5_07.txt`](../../requirements-f5_07.txt)              | Зафиксированная версия полнофункционального MLflow для локальных экспериментов и UI                                                                          |
+| [`.github/workflows/f5_07_mlflow.yml`](../../.github/workflows/f5_07_mlflow.yml)  | Изолированный Python 3.13 workflow; MLflow устанавливается обязательно, реальная интеграция с SQLite не может быть пропущена в CI                            |
 
 ## 3. Последовательность реализации
 
@@ -275,14 +274,14 @@ $trackingUri = "sqlite:///$db"
 
 | Очередность | Путь | Что изучить |
 |---:|---|---|
-| 1 | `configs/f5_01_unified_evaluation.json` | Какие источники и selectors разрешены; почему метрики разных фаз имеют разные units |
-| 2 | `src/evaluation_f5/unified_report.py` | `build_report`, проверка JSON и SHA, защита от некорректных значений; независимый контракт F5.1 |
-| 3 | `configs/f5_07_mlflow_tracking.json` | Six-slot mapping и `required_metrics`; отделение BM25, Vector и Hybrid |
-| 4 | `src/tracking_f5/mlflow_tracking.py` | `build_plan`, `Record.summary`, `sync_runs`, `tracking_storage`, `_readback`; provenance/idempotency/readback |
-| 5 | `scripts/f5_mlflow.py` | CLI-процедуры планирования, импортирования, проверки, инвентаризации и сериализации registry |
-| 6 | `tests/test_f5_mlflow.py` | Негативные сценарии, MemoryClient vs настоящий `MlflowClient`, SQLite roundtrip и повторный импорт |
-| 7 | `.github/workflows/f5_07_mlflow.yml` | Условия запуска CI, Python 3.13, pinned dependencies, обязательность SQLite-интеграции |
-| 8 | `requirements-f5_07.txt` | Версия MLflow, разделение SDK, SQLite backend, artifact store и UI |
-| 9 | `scripts/f5_unified_report.py` | Команда `--check` для проверки актуальности входных данных перед импортом |
-| 10 | `src/testing_f5/ci_matrix.py` | Отличие старой F5.6 regression от нового отдельного F5.7 MLflow integration профиля |
+| 1 | [`configs/f5_01_unified_evaluation.json`](../../configs/f5_01_unified_evaluation.json) | Какие источники и selectors разрешены; почему метрики разных фаз имеют разные units |
+| 2 | [`src/evaluation_f5/unified_report.py`](../../src/evaluation_f5/unified_report.py) | `build_report`, проверка JSON и SHA, защита от некорректных значений; независимый контракт F5.1 |
+| 3 | [`configs/f5_07_mlflow_tracking.json`](../../configs/f5_07_mlflow_tracking.json) | Six-slot mapping и `required_metrics`; отделение BM25, Vector и Hybrid |
+| 4 | [`src/tracking_f5/mlflow_tracking.py`](../../src/tracking_f5/mlflow_tracking.py) | `build_plan`, `Record.summary`, `sync_runs`, `tracking_storage`, `_readback`; provenance/idempotency/readback |
+| 5 | [`scripts/f5_mlflow.py`](../../scripts/f5_mlflow.py) | CLI-процедуры планирования, импортирования, проверки, инвентаризации и сериализации registry |
+| 6 | [`tests/test_f5_mlflow.py`](../../tests/test_f5_mlflow.py) | Негативные сценарии, MemoryClient vs настоящий `MlflowClient`, SQLite roundtrip и повторный импорт |
+| 7 | [`.github/workflows/f5_07_mlflow.yml`](../../.github/workflows/f5_07_mlflow.yml) | Условия запуска CI, Python 3.13, pinned dependencies, обязательность SQLite-интеграции |
+| 8 | [`requirements-f5_07.txt`](../../requirements-f5_07.txt) | Версия MLflow, разделение SDK, SQLite backend, artifact store и UI |
+| 9 | [`scripts/f5_unified_report.py`](../../scripts/f5_unified_report.py) | Команда `--check` для проверки актуальности входных данных перед импортом |
+| 10 | [`src/testing_f5/ci_matrix.py`](../../src/testing_f5/ci_matrix.py) | Отличие старой F5.6 regression от нового отдельного F5.7 MLflow integration профиля |
 
