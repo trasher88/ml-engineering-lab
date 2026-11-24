@@ -1,4 +1,4 @@
-# F5.3 - Safety Benchmark: воспроизводимая проверка ограниченного контракта
+ # F5.3 - Safety Benchmark: воспроизводимая проверка ограниченного контракта
 
 <p align="center">
 <img src="../reports/F5/F_53.png" alt="Safety Benchmark" width="800">
@@ -134,7 +134,7 @@ M_i =
 \qquad
 E_i =
 \mathbb{1}\left[
-\operatorname{strip}(R_i) \ne \emptyset
+\mathrm{strip}(R_i) \ne \emptyset
 \right]
 ```
 
@@ -145,7 +145,7 @@ P_i = D_i \cdot T_i \cdot M_i \cdot E_i
 
 Доля успешных проверок в наборе `S`:
 ```math
-\operatorname{ContractPassRate}(S) =
+\mathrm{ContractPassRate}(S) =
 \frac{1}{|S|}
 \sum_{i \in S} P_i
 ```
