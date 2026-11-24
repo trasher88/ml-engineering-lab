@@ -13,14 +13,13 @@
 
 | Новый файл | Назначение | Основной интерфейс и связи |
 |---|---|---|
-| `configs/f5_08_offline_demo.json` | Замороженные 10 сценариев: 5 классификационных, 3 поисковых и 2 extractive QA | Фиксированные `id`, `task`, `text`, `expect`, SHA256 fixture F5.4 |
-| `src/demo_f5/__init__.py` | Объявление пакета | Не выполняет побочных действий |
-| `src/demo_f5/offline_demo.py` | Валидация, исполнение, происхождение данных, вывод JSON/MD | `load_config`, `evaluate_cases`, `build_demo`, `json_bytes`, `markdown_bytes`, `run`; повторное использование `DemoEngine`, `build_report` |
-| `scripts/f5_offline_demo.py` | Однокомандный CLI | `main`, команды `run` и `check`, `--root`, `--output-dir` |
-| `tests/test_f5_offline_demo.py` | Unit, integration, regression и отрицательные проверки F5.8 | Офлайн-исполнение, tamper detection, отсутствие перезаписи, F1–F4 lineage |
-| `.github/workflows/f5_08_offline_demo.yml` | Проверки в чистом GitHub runner | Python 3.13, pytest F5.8, `run`, `check`, загрузка двух demo-отчётов как CI artifacts |
-| `docs/steps/F5_08_offline_cli_demo.md` | Настоящий учебно-технический документ | Девять обязательных разделов |
-| `docs/phases/F5_FINAL_PHASE_SUMMARY.md` | Итоговая карта F1–F5 | Границы доказательств, компоненты, вводные команды и требования к portfolio-ready |
+| [`configs/f5_08_offline_demo.json`](../../configs/f5_08_offline_demo.json) | Замороженные 10 сценариев: 5 классификационных, 3 поисковых и 2 extractive QA | Фиксированные `id`, `task`, `text`, `expect`, SHA256 fixture F5.4 |
+| [`src/demo_f5/__init__.py`](../../src/demo_f5/__init__.py) | Объявление пакета | Не выполняет побочных действий |
+| [`src/demo_f5/offline_demo.py`](../../src/demo_f5/offline_demo.py) | Валидация, исполнение, происхождение данных, вывод JSON/MD | `load_config`, `evaluate_cases`, `build_demo`, `json_bytes`, `markdown_bytes`, `run`; повторное использование `DemoEngine`, `build_report` |
+| [`scripts/f5_offline_demo.py`](../../scripts/f5_offline_demo.py) | Однокомандный CLI | `main`, команды `run` и `check`, `--root`, `--output-dir` |
+| [`tests/test_f5_offline_demo.py`](../../tests/test_f5_offline_demo.py) | Unit, integration, regression и отрицательные проверки F5.8 | Офлайн-исполнение, tamper detection, отсутствие перезаписи, F1–F4 lineage |
+| [`.github/workflows/f5_08_offline_demo.yml`](../../.github/workflows/f5_08_offline_demo.yml) | Проверки в чистом GitHub runner | Python 3.13, pytest F5.8, `run`, `check`, загрузка двух demo-отчётов как CI artifacts |
+| [`docs/steps/F5_08_offline_cli_demo.md`](../../docs/steps/F5_08_offline_cli_demo.md) | Настоящий учебно-технический документ | Девять обязательных разделов |
 
 ## 3. Последовательность реализации
 
@@ -228,16 +227,16 @@ cd F:\DEVELOPMENT\ML\ml-engineering-lab
 
 | Порядок | Файл | Что именно изучить |
 |---:|---|---|
-| 1 | `configs/f5_08_offline_demo.json` | Контракт десяти примеров, ожидаемые метки, ID документов, версии fixture |
-| 2 | `src/demo_f5/offline_demo.py` | `load_config()` и защита JSON; `evaluate_cases()` и независимые проверки evidence; `_lineage()` и чтение F5.1; `run()` и атомарный вывод вне репозитория |
-| 3 | `scripts/f5_offline_demo.py` | `main()`, различия `run`/`check`, коды завершения, безопасный default output |
-| 4 | `src/api_f5/demo_service.py` | `DemoEngine`, `classify()` TF-IDF/LogReg, `search()` BM25 и `ask()` с точной цитатой |
-| 5 | `configs/f5_04_api.json` | Параметры BM25, SHA-256, размеры учебной выборки |
-| 6 | `tests/fixtures/f5_04_api_demo_v1.json` | 24 synthetic examples и 12 коротких документов, на которых работает демо |
-| 7 | `src/evaluation_f5/unified_report.py` | `build_report()` и `SourceResult`: выжимка F1–F4 без общего score и без воспроизведения обучения |
-| 8 | `configs/f5_01_unified_evaluation.json` | Точные source selectors, протоколы, split, units и ограничения отчёта F5.1 |
-| 9 | `tests/test_f5_offline_demo.py` | Проверки подмены, отсутствия сети, согласованности JSON/MD и F1–F4 lineage |
-| 10 | `.github/workflows/f5_08_offline_demo.yml` | Python 3.13, автоматический run/check на GitHub runner |
-| 11 | `src/tracking_f5/mlflow_tracking.py` | Отдельный механизм регистрации существующих результатов в SQLite (не запускается F5.8) |
-| 12 | `src/testing_f5/ci_matrix.py` | Исторический профиль регрессии F5.6, сохраняющий независимость CI от CLI-демонстрации |
+| 1 | [`configs/f5_08_offline_demo.json`](../../configs/f5_08_offline_demo.json) | Контракт десяти примеров, ожидаемые метки, ID документов, версии fixture |
+| 2 | [`src/demo_f5/offline_demo.py`](../../src/demo_f5/offline_demo.py) | `load_config()` и защита JSON; `evaluate_cases()` и независимые проверки evidence; `_lineage()` и чтение F5.1; `run()` и атомарный вывод вне репозитория |
+| 3 | [`scripts/f5_offline_demo.py`](../../scripts/f5_offline_demo.py) | `main()`, различия `run`/`check`, коды завершения, безопасный default output |
+| 4 | [`src/api_f5/demo_service.py`](../../src/api_f5/demo_service.py) | `DemoEngine`, `classify()` TF-IDF/LogReg, `search()` BM25 и `ask()` с точной цитатой |
+| 5 | [`configs/f5_04_api.json`](../../configs/f5_04_api.json) | Параметры BM25, SHA-256, размеры учебной выборки |
+| 6 | [`tests/fixtures/f5_04_api_demo_v1.json`](../../tests/fixtures/f5_04_api_demo_v1.json) | 24 synthetic examples и 12 коротких документов, на которых работает демо |
+| 7 | [`src/evaluation_f5/unified_report.py`](../../src/evaluation_f5/unified_report.py) | `build_report()` и `SourceResult`: выжимка F1–F4 без общего score и без воспроизведения обучения |
+| 8 | [`configs/f5_01_unified_evaluation.json`](../../configs/f5_01_unified_evaluation.json) | Точные source selectors, протоколы, split, units и ограничения отчёта F5.1 |
+| 9 | [`tests/test_f5_offline_demo.py`](../../tests/test_f5_offline_demo.py) | Проверки подмены, отсутствия сети, согласованности JSON/MD и F1–F4 lineage |
+| 10 | [`.github/workflows/f5_08_offline_demo.yml`](../../.github/workflows/f5_08_offline_demo.yml) | Python 3.13, автоматический run/check на GitHub runner |
+| 11 | [`src/tracking_f5/mlflow_tracking.py`](../../src/tracking_f5/mlflow_tracking.py) | Отдельный механизм регистрации существующих результатов в SQLite (не запускается F5.8) |
+| 12 | [`src/testing_f5/ci_matrix.py`](../../src/testing_f5/ci_matrix.py) | Исторический профиль регрессии F5.6, сохраняющий независимость CI от CLI-демонстрации |
 
