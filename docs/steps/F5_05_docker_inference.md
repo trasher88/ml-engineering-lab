@@ -117,7 +117,8 @@ P_{\mathrm{build}} = \{p \in P \mid p \in W\}
 ### 4.3. Проверка SHA-256
 Для fixture выполняется проверка:
 ```math
-H_{\mathrm{actual}} = \operatorname{SHA256}(\operatorname{bytes}(\text{fixture})),
+H_{\mathrm{actual}} =
+\mathrm{SHA256}\left(\mathrm{bytes}(\text{fixture})\right),
 \qquad
 \mathrm{valid} = (H_{\mathrm{actual}} = H_{\mathrm{config}})
 ```
