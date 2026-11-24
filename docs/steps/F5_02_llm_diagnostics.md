@@ -91,8 +91,8 @@
 ```math
 M = \sum_{t \in V}
 \min\left(
-\operatorname{count}_R(t),
-\operatorname{count}_A(t)
+\mathrm{count}_R(t),
+\mathrm{count}_A(t)
 \right)
 ```
 
