@@ -1,7 +1,7 @@
 # F5.2 - LLM Evaluation & Diagnostics
 
 <p align="center">
-<img src="../reports/F5/F_51.png" alt="LLM Evaluation & Diagnostics" width="800">
+<img src="../reports/F5/F_52.png" alt="LLM Evaluation & Diagnostics" width="800">
 </p>
 
 ## 1. Цель этапа:
