@@ -301,14 +301,14 @@ Start-Process (Resolve-Path 'data\processed\f4_06\cpu\report.html').Path
 
 ## 9. Файлы этапа
 
-| Порядок | Файл                                        | Что изучить                                                                                                                                              |
+| Файл                                        | Что изучить                                                                                                                                              |
 | ------: | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|       1 | [`src/llm_f4/sft_lora.py`](../../src/llm_f4/sft_lora.py)                    | `run_real()`: откуда берутся `train_loss`, `grad_norm`, две проверки validation loss, `metrics_sha256`; `verify_run()` - проверка подлинности источника. |
-|       2 | [`configs/f4_05_sft_lora.json`](../../configs/f4_05_sft_lora.json)               | Разница CPU/GPU-профилей, `learning_rate`, количество шагов и примеров.                                                                                  |
-|       3 | [`configs/f4_06_training_visualization.json`](../../configs/f4_06_training_visualization.json) | Путь к исходному F4.5, отдельный выходной каталог, разрешение изображений.                                                                               |
-|       4 | [`src/llm_f4/training_visualization.py`](../../src/llm_f4/training_visualization.py)      | `parse_metrics()` → `validate_source()` → `render_files()` → `build_report()` → `verify_report()`; в чём заключается защита от фиктивных результатов.    |
-|       5 | [`scripts/f4_training_visualization.py`](../../scripts/f4_training_visualization.py)      | Какие режимы доступны и почему только `--build` генерирует отчёт из реального запуска.                                                                   |
-|       6 | [`tests/test_f4_training_visualization.py`](../../tests/test_f4_training_visualization.py)   | Независимые числовые примеры, запрет линии для одного шага, проверка раздельных источников LR и loss, обнаружение искажений.                             |
+| [`src/llm_f4/sft_lora.py`](../../src/llm_f4/sft_lora.py)                    | `run_real()`: откуда берутся `train_loss`, `grad_norm`, две проверки validation loss, `metrics_sha256`; `verify_run()` - проверка подлинности источника. |
+| [`configs/f4_05_sft_lora.json`](../../configs/f4_05_sft_lora.json)               | Разница CPU/GPU-профилей, `learning_rate`, количество шагов и примеров.                                                                                  |
+| [`configs/f4_06_training_visualization.json`](../../configs/f4_06_training_visualization.json) | Путь к исходному F4.5, отдельный выходной каталог, разрешение изображений.                                                                               |
+| [`src/llm_f4/training_visualization.py`](../../src/llm_f4/training_visualization.py)      | `parse_metrics()` → `validate_source()` → `render_files()` → `build_report()` → `verify_report()`; в чём заключается защита от фиктивных результатов.    |
+| [`scripts/f4_training_visualization.py`](../../scripts/f4_training_visualization.py)      | Какие режимы доступны и почему только `--build` генерирует отчёт из реального запуска.                                                                   |
+| [`tests/test_f4_training_visualization.py`](../../tests/test_f4_training_visualization.py)   | Независимые числовые примеры, запрет линии для одного шага, проверка раздельных источников LR и loss, обнаружение искажений.                             |
 
 
 **Итог F4.6:** этот отчёт отслеживает **ход обучения**, но не содержит оценки правильности ответов. Для F4.7 потребуется использовать одни и те же вопросы, декодирование и критерии F4.3 для Base и Fine-Tuned; нельзя выдавать изменение loss за результат такой оценки.
