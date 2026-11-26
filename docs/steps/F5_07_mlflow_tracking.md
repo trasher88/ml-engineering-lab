@@ -252,17 +252,17 @@ $trackingUri = "sqlite:///$db"
 ### 6.6. Проверка CI
 После `git push` открыть GitHub Actions → **F5.7 MLflow Tracking CI** → job `mlflow-sqlite`. Workflow устанавливает pinned MLflow и выполняет тест с реальной временной SQLite. Наличие `F5_07_REQUIRE_MLFLOW=1` делает отсутствующую библиотеку ошибкой, а не безусловным skip. Старый workflow F2.1 не отключён и не изменён.
 
-### MLFlow1
-![](../../screenshots)
+**MLFlow**
+![mlflow.png](../../docs/reports/F5/f5/mlflow.png)
 
-### MLFlow2
-![](../../screenshots)
+**Experiments**
+![mlflow_experiments.png](../../docs/reports/F5/f5/mlflow_experiments.png)
 
-### MLFlow3
-![](../../screenshots)
+**Retrievalcomp**
+![mlflow_retrievalcomp.png](../../docs/reports/F5/f5/mlflow_retrievalcomp.png)
 
-### MLFlow4
-![](../../screenshots)
+**Rundetails**
+![mlflow_rundetails.png](../../docs/reports/F5/f5/mlflow_rundetails.png)
 
 ## 7. Что доказано тестами и какие ограничения остаются
 
