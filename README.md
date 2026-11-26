@@ -59,51 +59,13 @@
 
 ### Исследовательский контур: F1–F4
 
-```mermaid
-flowchart TD
-    DATA["Технические Q&A<br/>обработка и фиксированные split"]
-    F1["F1 · TF-IDF + Logistic Regression<br/>baseline и test evaluation"]
-    F2["F2 · PyTorch Embedding Classifier<br/>training / checkpoint / comparison"]
-    F3["F3 · BM25 / Dense / Hybrid RRF<br/>retrieval benchmark + provenance"]
-    F4["F4 · Qwen2.5-0.5B<br/>Base / SFT-LoRA / DPO"]
-    EVAL["F5.1 · Unified Evaluation<br/>19 метрик, 4 проверенных источника"]
-    TRACK["F5.7 · MLflow<br/>6 записей экспериментов"]
-
-    DATA --> F1
-    DATA --> F2
-    F1 -->|"единая test-выборка"| F2
-    DATA -.->|"отдельный frozen corpus"| F3
-    DATA -.->|"отдельный instruction dataset"| F4
-    F1 --> EVAL
-    F2 --> EVAL
-    F3 --> EVAL
-    F4 --> EVAL
-    EVAL --> TRACK
-```
+[]()
 
 Здесь **не изображён непрерывный RAG → Qwen production pipeline**, потому что он не реализован как единый сервис. F3 исследует самостоятельный retrieval/RAG-контур с проверкой источников; F4 исследует адаптацию отдельной LLM.
 
 ### Демонстрационный и эксплуатационный контур: F5
 
-```mermaid
-flowchart TD
-    FIX["F5.4 · Synthetic fixture<br/>24 примера / 12 документов"]
-    ENGINE["DemoEngine<br/>TF-IDF + Logistic Regression<br/>BM25 + extractive QA"]
-    API["FastAPI<br/>/health · /classify · /search · /ask"]
-    DOCKER["Docker<br/>изолированный CPU runtime"]
-    CLI["F5.8 · Offline CLI<br/>10 фиксированных сценариев"]
-    REPORT["JSON / Markdown<br/>check + SHA-256 + provenance"]
-    TESTS["pytest / F5.6 CI matrix<br/>unit · integration · regression"]
-
-    FIX --> ENGINE
-    ENGINE --> API
-    API --> DOCKER
-    ENGINE --> CLI
-    CLI --> REPORT
-    TESTS -.->|"проверяет контракты"| ENGINE
-    TESTS -.-> API
-    TESTS -.-> DOCKER
-```
+[]()
 
 **Разделение намеренное.** Демо использует реальные вычислительные алгоритмы на разрешённых искусственных текстах, но **не загружает checkpoint F1/F2, pretrained-индекс F3 или Qwen/LoRA из F4**. Это позволяет проверять API и контейнер независимо от тяжёлых моделей и правового статуса исходного корпуса.
 
