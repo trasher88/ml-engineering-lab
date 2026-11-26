@@ -19,7 +19,6 @@
 | [`scripts/f5_offline_demo.py`](../../scripts/f5_offline_demo.py) | Однокомандный CLI | `main`, команды `run` и `check`, `--root`, `--output-dir` |
 | [`tests/test_f5_offline_demo.py`](../../tests/test_f5_offline_demo.py) | Unit, integration, regression и отрицательные проверки F5.8 | Офлайн-исполнение, tamper detection, отсутствие перезаписи, F1–F4 lineage |
 | [`.github/workflows/f5_08_offline_demo.yml`](../../.github/workflows/f5_08_offline_demo.yml) | Проверки в чистом GitHub runner | Python 3.13, pytest F5.8, `run`, `check`, загрузка двух demo-отчётов как CI artifacts |
-| [`docs/steps/F5_08_offline_cli_demo.md`](../../docs/steps/F5_08_offline_cli_demo.md) | Настоящий учебно-технический документ | Девять обязательных разделов |
 
 ## 3. Последовательность реализации
 
