@@ -115,7 +115,7 @@
 - Validation, сохранение лучшего checkpoint, диагностика learning curves и регрессионные тесты.
 - Сопоставимое test-сравнение F1/F2 на **608 одинаковых примерах**.
 
-**Результат:** нейросеть получила **Test Macro F1 0.7813**, а классическая модель — **0.8838**. Нейросеть действительно обучается и её состояние воспроизводится, но для данного корпуса и протокола **усложнение модели не повысило качество**.
+**Результат:** нейросеть получила **Test Macro F1 0.7813**, а классическая модель - **0.8838**. Нейросеть действительно обучается и её состояние воспроизводится, но для данного корпуса и протокола **усложнение модели не повысило качество**.
 
 **Ключевые материалы:** [обзор F2](docs/phases/F2.md) · [embedding-классификатор](docs/steps/F2_03_embedding_classifier.md) · [training loop](docs/steps/F2_04_training_loop.md) · [сравнение моделей](docs/steps/F2_07_classical_vs_neural.md).
 
@@ -139,7 +139,7 @@
 
 Что реализовано:
 - Механизм **Scaled Dot-Product Self-Attention**: роль матриц Q/K/V и softmax.
-- Предобученный encoder **`sentence-transformers/paraphrase-MiniLM-L3-v2`**; размерность embeddings — **384**. Ревизия модели зафиксирована в [отчёте F3.7](reports/public/f3_07/F3_07_comparison.md).
+- Предобученный encoder **`sentence-transformers/paraphrase-MiniLM-L3-v2`**; размерность embeddings - **384**. Ревизия модели зафиксирована в [отчёте F3.7](reports/public/f3_07/F3_07_comparison.md).
 - **BM25** с инвертированным индексом и ранжированием по лексическим признакам.
 - **Exact dense vector search на NumPy** с cosine similarity без ANN-индекса.
 - **Hybrid Search**: объединение BM25 и Vector выдач алгоритмом **Reciprocal Rank Fusion (RRF)**.
