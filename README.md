@@ -201,29 +201,41 @@
 
 ### F5 - Evaluation, API & MLOps
 
-**Задача:** превратить результаты отдельных фаз в **проверяемый инженерный контур**: документировать происхождение метрик, диагностировать ответы, тестировать контракт безопасности, предоставить API, обеспечить запуск в контейнере, регрессионное тестирование, учёт экспериментов и воспроизводимую демонстрацию.
+**Задача:** превратить результаты отдельных фаз в **проверяемый инженерный контур**: собрать и проследить происхождение метрик, исследовать качество и безопасность ответов, предоставить HTTP API, обеспечить контейнерный запуск, автоматизированное тестирование, учёт экспериментов и воспроизводимую офлайн-демонстрацию.
 
-| Этап | Реализовано | Подтверждённый результат / граница |
-|---|---|---|
-| [F5.1 - Unified Evaluation](docs/steps/F5_01_unified_evaluation.md) | Извлечение и типизация метрик из проверенных JSON | **4/4 источника, 19 метрик**; разные задачи не объединяются в общий score |
-| [F5.2 - LLM Diagnostics](docs/steps/F5_02_llm_diagnostics.md) | Token Precision/Recall/F1, Exact Match, флаги проблем генерации, рубрика | **32 пары / 64 критерия**; автоматические метрики - proxy, экспертная оценка не завершена |
-| [F5.3 - Safety Benchmark](docs/steps/F5_03_safety_benchmark.md) | Синтетические проверки отказов, утечек и недоверенного контекста | **28/28 contract PASS**, но **доказательность PARTIAL**: проверен rule-based gate, не Qwen |
-| [F5.4 - FastAPI](docs/steps/F5_04_fastapi.md) | `/health`, `/classify`, `/search`, `/ask`; Pydantic/OpenAPI | **8/8 HTTP smoke** на синтетическом backend |
-| [F5.5 - Docker](docs/steps/F5_05_docker_inference.md) | Изолированный контейнер, non-root, healthcheck, реальные TCP-запросы | **Docker HTTP 8/8 PASS**; не контейнеризация Qwen |
-| [F5.6 - Testing & CI](docs/steps/F5_06_testing_ci.md) | Unit / integration / regression; JUnit evidence, SHA, GitHub Actions workflow | Локальная CPU-регрессия; удалённый CI оценивается отдельно |
-| [F5.7 - MLflow Tracking](docs/steps/F5_07_mlflow_tracking.md) | Перенос проверенных метрик F1–F4 в SQLite MLflow, readback | **6/6 runs**; повторный импорт не создаёт дубликаты |
-| [F5.8 - Offline CLI Demo](docs/steps/F5_08_offline_cli_demo.md) | Классификация, BM25, extractive QA, проверка F1-F4 lineage | **10/10 synthetic PASS; 4/4 источника; F5.1 VERIFIED** - подтверждено локальным Windows `check` |
+Что реализовано:
+- **Unified Evaluation:** объединение **19 метрик из четырёх проверенных источников F1-F4** в структурированные JSON/Markdown-отчёты с сохранением контекста задач, выборок и происхождения результатов.
+- **LLM Diagnostics:** анализ **32 пар ответов Base/LoRA** по Token Precision, Recall, F1, Exact Match и диагностическим флагам; подготовлена рубрика из **64 критериев** для экспертной оценки. Эти proxy-метрики не доказывают фактическую правильность ответов.
+- **Safety Benchmark:** **28/28 синтетических контрактных проверок** (обычные и adversarial-сценарии) для rule-based механизма; подтверждена работа тестового контура, **но не безопасность Qwen**.
+- **FastAPI:** HTTP-интерфейс с маршрутами `/health`, `/classify`, `/search` и `/ask`, схемами Pydantic и OpenAPI; **8/8 HTTP smoke PASS** на отдельном синтетическом backend.
+- **Docker Inference:** упаковка того же учебного API в изолированный Linux-контейнер, запуск от непривилегированного пользователя, healthcheck и независимая проверка **8/8 HTTP-запросов**.
+- **Testing & CI:** разделение unit, integration и regression тестов; матрица pytest, проверяемые отчёты и SHA-256, workflow GitHub Actions. Успешность локальных тестов и удалённого CI учитывается раздельно.
+- **MLflow Experiment Tracking:** импорт сохранённых результатов из F1–F4 в локальное SQLite-хранилище; проверены **6/6 записей экспериментов**, метрики, параметры, артефакты и повторный импорт без дублирования.
+- **Offline CLI Demo:** автономные сценарии классификации, BM25-поиска и extractive QA с provenance; подтверждены **10/10 PASS**, **4/4 источника F1-F4** и `F5.1=VERIFIED` при повторной проверке `check` на Windows.
 
-**Результат:** реализованы взаимодополняющие механизмы **Evaluation, Observability на уровне отчётов, API, Containerization, Automated Testing, Experiment Tracking и Offline Demo**. Они проверены на учебных протоколах, но не составляют production serving настоящей LLM.
+**Результат:** создан воспроизводимый контур **Evaluation & MLOps**: от аудита метрик и диагностики до API, Docker, тестирования, отслеживания экспериментов и CLI-демонстрации. **Это не production serving реальных моделей F1–F4:** API и Offline CLI используют отдельный синтетический backend, а улучшение качества LoRA и безопасность настоящей LLM не доказаны представленными тестами.
 
-**Ключевые материалы:** [обзор F5](docs/phases/F5.md) · [сводный отчёт F5.1](docs/reports/F5_01_UNIFIED_EVALUATION.md) · [API-контракт](docs/steps/F5_04_fastapi.md) · [Docker](docs/steps/F5_05_docker_inference.md) · [MLflow](docs/steps/F5_07_mlflow_tracking.md) · [CLI](docs/steps/F5_08_offline_cli_demo.md).
+**Ключевые материалы:** [обзор F5](docs/phases/F5.md) · [Unified Evaluation](docs/steps/F5_01_unified_evaluation.md) · [FastAPI](docs/steps/F5_04_fastapi.md) · [Docker](docs/steps/F5_05_docker_inference.md) · [Testing & CI](docs/steps/F5_06_testing_ci.md) · [MLflow](docs/steps/F5_07_mlflow_tracking.md) · [Offline CLI](docs/steps/F5_08_offline_cli_demo.md).
+
+<details>
+<summary><strong>Все восемь этапов F5</strong></summary>
+
+1. [F5.1 - Unified Evaluation](docs/steps/F5_01_unified_evaluation.md)
+2. [F5.2 - LLM Diagnostics](docs/steps/F5_02_llm_diagnostics.md)
+3. [F5.3 - Safety Benchmark](docs/steps/F5_03_safety_benchmark.md)
+4. [F5.4 - FastAPI](docs/steps/F5_04_fastapi.md)
+5. [F5.5 - Docker Inference](docs/steps/F5_05_docker_inference.md)
+6. [F5.6 - Testing & CI](docs/steps/F5_06_testing_ci.md)
+7. [F5.7 - MLflow Experiment Tracking](docs/steps/F5_07_mlflow_tracking.md)
+8. [F5.8 - Offline CLI Demo](docs/steps/F5_08_offline_cli_demo.md)
+
+</details>
 
 ---
 
 ## Измеренные результаты и их интерпретация
 
 ### 1. Классификация: классическая модель против PyTorch
-
 | Модель | Данные оценки | Test Macro F1 | Интерпретация |
 |---|---|---:|---|
 | TF-IDF + Logistic Regression (F1) | 608 общих test-записей | **0.8838** | Более сильный baseline в проведённом сравнении |
@@ -232,9 +244,7 @@
 **Методологический нюанс:** отдельный отчёт F5.1 читает из F2.6 **лучшую validation Macro F1 = 0.7823**, а не test. Для **сравнения F1 против F2** следует использовать именно сопоставимый test-протокол [F2.7](docs/steps/F2_07_classical_vs_neural.md), а не сравнивать F1 test с F2 validation.
 
 ### 2. Retrieval: BM25 против Vector и Hybrid
-
 **Эксперимент F3.7:** 88 синтетических документов, 80 запросов, 160 положительных qrels; один и тот же frozen benchmark, CPU inference с pinned pretrained MiniLM, фиксированные параметры BM25 и RRF.
-
 | Метод | Recall@5 | MRR@5 |
 |---|---:|---:|
 | BM25 | 0.6375 | 0.7223 |
@@ -248,7 +258,6 @@
 **Источник чисел:** [публичный отчёт F3.7](reports/public/f3_07/F3_07_comparison.md) и [F5.1 Unified Evaluation](docs/reports/F5_01_UNIFIED_EVALUATION.md). Это **реальное измерение pretrained encoder на synthetic benchmark**, а не показатель качества поиска по производственной базе знаний. Отдельные synthetic/silver результаты другого протокола не следует смешивать с этой таблицей.
 
 ### 3. LLM Fine-Tuning: что показал эксперимент
-
 | Показатель | Результат |
 |---|---:|
 | Базовая модель | `Qwen/Qwen2.5-0.5B` |
@@ -263,7 +272,6 @@
 **Интерпретация:** параметрически эффективный fine-tuning действительно выполнился; измеренное снижение loss не является доказательством прироста качества ответов. Полноценный вывод требует дополнительных шагов обучения и независимой экспертной оценки на фиксированном наборе заданий.
 
 ### 4. Инженерная эксплуатация: что именно проверялось
-
 | Проверка | Результат | Что это доказывает |
 |---|---|---|
 | Unified Evaluation | **4/4 источника, 19 метрик** | Полнота извлечения по заданному контракту |
@@ -278,13 +286,10 @@
 ---
 
 ## Практическая демонстрация
-
-Ниже — короткие входные точки для проверки уже подготовленного окружения. Подробные зависимости, режимы и ограничения каждого сценария описаны в соответствующем `docs/steps/` и файлах `requirements-*.txt`. Команды приведены для **PowerShell** из корня репозитория.
+Ниже - короткие входные точки для проверки уже подготовленного окружения. Подробные зависимости, режимы и ограничения каждого сценария описаны в соответствующем `docs/steps/` и файлах `requirements-*.txt`. Команды приведены для **PowerShell** из корня репозитория.
 
 ### FastAPI: HTTP-интерфейс
-
 Запустить сервер:
-
 ```powershell
 .\.venv\Scripts\python.exe -m scripts.f5_api serve --host 127.0.0.1 --port 8000
 ```
@@ -292,7 +297,6 @@
 Открыть **Swagger UI**: <http://127.0.0.1:8000/docs> (доступен только при локально работающем сервере).
 
 Примеры запросов к синтетическому backend:
-
 | Endpoint | JSON-запрос | Что ожидать |
 |---|---|---|
 | `POST /classify` | `{"text":"Python enumerate start индекс"}` | Категория `python`, `score`, данные backend |
@@ -301,7 +305,6 @@
 | `POST /ask` | `{"question":"xyzunknowntoken93654"}` | `no_evidence`, ответ не выдумывается |
 
 Независимая проверка реальных HTTP-запросов (в другом терминале):
-
 ```powershell
 .\.venv\Scripts\python.exe -m scripts.f5_api smoke --url http://127.0.0.1:8000
 ```
@@ -311,9 +314,7 @@
 [Реализация DemoEngine](src/api_f5/demo_service.py) · [FastAPI-приложение](src/api_f5/app.py) · [Тесты API](tests/test_f5_api.py).
 
 ### Docker: изолированный запуск того же API
-
 При работающем Docker Desktop в режиме Linux containers:
-
 ```powershell
 docker build --file Dockerfile --tag ml-engineering-lab:f5.5 .
 
@@ -323,9 +324,7 @@ docker build --file Dockerfile --tag ml-engineering-lab:f5.5 .
 Smoke-тест ожидает `healthy`, непривилегированный runtime и **8/8 реальных TCP HTTP-проверок**; после завершения удаляет тестовый контейнер. Это **не** Docker-сборка Qwen или полного F1–F4 стека.
 
 ### MLflow: история измеренных экспериментов
-
 Проверить наличие источников и план регистрации:
-
 ```powershell
 .\.venv\Scripts\python.exe -m scripts.f5_mlflow plan
 .\.venv\Scripts\python.exe -m scripts.f5_mlflow verify
@@ -335,7 +334,6 @@ Smoke-тест ожидает `healthy`, непривилегированный 
 Регистрируются шесть **существующих результатов**, а не шесть новых тренировок: `f1_classical`, `f2_pytorch`, `f3_bm25`, `f3_vector`, `f3_hybrid`, `f4_lora_sft`. MLflow хранит числовые метрики, параметры/теги, `evidence.json` и происхождение входов. [Документация F5.7](docs/steps/F5_07_mlflow_tracking.md).
 
 ### Offline CLI: финальная демонстрация без сервисов
-
 ```powershell
 # Первый запуск: создаёт отчёты вне Git-репозитория
 .\.venv\Scripts\python.exe -m scripts.f5_offline_demo run
@@ -345,7 +343,6 @@ Smoke-тест ожидает `healthy`, непривилегированный 
 ```
 
 **Подтверждённый локальный результат:**
-
 ```text
 F5.8 PASS: synthetic=10/10; F1-F4 sources=4/4; F5.1=VERIFIED; mode=check; network=NOT USED; LLM=NOT EXECUTED; Docker=NOT EXECUTED; MLflow=NOT EXECUTED
 ```
@@ -359,9 +356,7 @@ F5.8 PASS: synthetic=10/10; F1-F4 sources=4/4; F5.1=VERIFIED; mode=check; networ
 ---
 
 ## Воспроизводимость, тестирование и аудит
-
 ### Как устроена проверяемость
-
 - **Data lineage:** для результатов указываются источник, версия, задача, split, конфигурация и SHA-256.
 - **Frozen protocols:** выборки, метрики и конфигурации оценки фиксируются до измерения; qrels не используются при построении retrieval-ранжирования.
 - **Test isolation:** выбор checkpoint и настройка выполняются без использования test; F1/F2 test-сравнение проводится на одной выборке.
@@ -370,9 +365,7 @@ F5.8 PASS: synthetic=10/10; F1-F4 sources=4/4; F5.1=VERIFIED; mode=check; networ
 - **Separate levels of evidence:** unit-тест проверяет функцию, HTTP smoke — доступность сервиса, модельная метрика — результат конкретной задачи. Эти утверждения не взаимозаменяемы.
 
 ### Быстрые проверки
-
 Для подготовленного Python-окружения:
-
 ```powershell
 # Полная коллекция автоматических тестов
 .\.venv\Scripts\python.exe -m pytest -q
@@ -392,8 +385,7 @@ F5.8 PASS: synthetic=10/10; F1-F4 sources=4/4; F5.1=VERIFIED; mode=check; networ
 
 GitHub Actions workflows размещены в [`.github/workflows/`](.github/workflows/). **Наличие конфигурации CI не означает, что конкретный удалённый запуск прошёл:** это следует проверять отдельно в [Actions](https://github.com/trasher88/ml-engineering-lab/actions).
 
-### Что можно показать при техническом разборе
-
+### Технический разбор
 | Тема | Где искать подтверждения |
 |---|---|
 | Как предотвращалась утечка train/test | [F1.6](docs/steps/F1_06_splits.md), [F2.7](docs/steps/F2_07_classical_vs_neural.md) |
@@ -409,16 +401,16 @@ GitHub Actions workflows размещены в [`.github/workflows/`](.github/wo
 ---
 
 ## Технологии и структура репозитория
-
 | Область | Технологии / подходы |
 |---|---|
-| Язык и окружение | **Python**, преимущественно CPU; локальная проверка на Windows / PowerShell; конфигурации Linux CI |
-| Данные и Classical ML | `pandas`, `scikit-learn`, TF-IDF, Logistic Regression, EDA, leakage-aware split |
-| Deep Learning | **PyTorch**, tensors/autograd, embeddings, DataLoader, AdamW, checkpoints |
-| Retrieval | Transformers, **MiniLM embeddings**, **BM25**, NumPy cosine search, Hybrid RRF, Recall@K/MRR@K |
-| LLM | **Hugging Face Transformers**, **Qwen2.5-0.5B**, SFT, **PEFT/LoRA**, DPO |
-| Оценка | Confusion Matrix, Precision/Recall/F1, token overlap, diagnostic flags, provenance, SHA-256 |
-| Сервисы и MLOps | **FastAPI**, Pydantic, Uvicorn, **Docker**, **pytest**, GitHub Actions, **MLflow/SQLite**, CLI |
+| **Язык и окружение** | **Python**, преимущественно CPU; локальная проверка на Windows / PowerShell; конфигурации Linux CI |
+| **Данные и Classical ML** | `pandas`, `scikit-learn`, TF-IDF, Logistic Regression, EDA, leakage-aware split |
+| **Deep Learning** | **PyTorch**, tensors/autograd, embeddings, DataLoader, AdamW, checkpoints |
+| **Retrieval** | Transformers, **MiniLM embeddings**, **BM25**, NumPy cosine search, Hybrid RRF, Recall@K/MRR@K |
+| **LLM** | **Hugging Face Transformers**, **Qwen2.5-0.5B**, SFT, **PEFT/LoRA**, DPO |
+| **Оценка** | Confusion Matrix, Precision/Recall/F1, token overlap, diagnostic flags, provenance, SHA-256 |
+| **Сервисы и MLOps** | **FastAPI**, Pydantic, Uvicorn, **Docker**, **pytest**, GitHub Actions, **MLflow/SQLite**, CLI |
+
 
 ```text
 ml-engineering-lab/
@@ -426,7 +418,7 @@ ml-engineering-lab/
 ├── configs/                  # Зафиксированные конфигурации и контракты
 ├── data/                     # Манифесты; локальные артефакты данных
 ├── docs/
-│   ├── phases/               # F1.md ... F5.md — обзор каждой фазы
+│   ├── phases/               # F1.md ... F5.md - обзор каждой фазы
 │   ├── steps/                # Подробные материалы 43 этапов
 │   └── reports/              # Отчёты и постеры по фазам
 ├── models/                   # Манифесты моделей и внешних зависимостей
@@ -441,42 +433,11 @@ ml-engineering-lab/
 
 Репозиторий содержит **код, конфигурации, тесты, пояснения и разрешённые агрегированные отчёты**, но не претендует на публикацию всех локальных датасетов, моделей, checkpoint и MLflow-хранилища.
 
-## Ограничения и направления развития
-
-### Что пока не подтверждено
-
-1. **Production RAG с настоящей Qwen.** F3 содержит retrieval/RAG-механизмы, а F4 — отдельные LLM-эксперименты; F5 API работает на synthetic DemoEngine. Это не один развернутый real-model inference pipeline.
-2. **Улучшение качества LLM после fine-tuning.** Проведены короткие реальные CPU-эксперименты (один optimizer step), но отсутствует законченная независимая экспертная оценка и достаточная серия обучения.
-3. **Обобщение retrieval-метрик.** Результаты F3 получены на фиксированном синтетическом benchmark, не на внешней промышленной коллекции с независимой экспертной разметкой.
-4. **Безопасность реальной LLM.** F5.3 проверяет 28 сценариев ограниченного rule-based gate; это не red-team аудит Qwen и не гарантия защиты от prompt injection.
-5. **Production readiness.** Нагрузочные испытания, мониторинг реальных запросов, SLO, полноценное GPU-serving, эксплуатация под реальным трафиком и самостоятельная проверка всех CI-runner результатов не входят в доказанные результаты.
-6. **Публикация исходного корпуса.** В [манифесте данных](data/raw/manifest.json) источник обозначен как **CC BY-NC-SA 4.0**, при этом индивидуальная атрибуция исходных публикаций неполна. Исходные тексты не распространяются через репозиторий до разрешения вопросов лицензирования и атрибуции. Отдельная лицензия на код в репозитории не указана.
-
-### Следующие инженерные задачи (не реализованы в текущем результате)
-
-- Подключить реальный retrieval F3 к генеративной модели и оценить **answer faithfulness / groundedness**, полноту цитирования и ошибки retrieval-to-generation.
-- Подготовить отдельную экспертно размеченную retrieval-выборку и измерять качество на более реалистичных запросах.
-- Провести полноценные многошаговые SFT/LoRA-эксперименты с независимым human evaluation и ablation study.
-- Добавить performance benchmarking, логирование и мониторинг API, тесты производительности, deployment-профили.
-- Развить CI/CD и воспроизводимость среды до полностью закреплённых Docker image digests, lock-файлов с проверкой пакетов и верифицируемого окружения.
-
-Эти пункты — **roadmap**, а не описание уже доступных возможностей.
-
-## Навигация по документации
-
-| Фаза | Обзор | Ключевой материал для технического собеседования |
-|---|---|---|
-| **F1** | [Data Engineering & Classical ML](docs/phases/F1.md) | [Baseline](docs/steps/F1_07_classical_baseline.md), [аудит](docs/steps/F1_09_report.md) |
-| **F2** | [PyTorch & Neural Networks](docs/phases/F2.md) | [Training Loop](docs/steps/F2_04_training_loop.md), [сравнение F1/F2](docs/steps/F2_07_classical_vs_neural.md) |
-| **F3** | [Transformers & Retrieval](docs/phases/F3.md) | [BM25/Vector/Hybrid](docs/steps/F3_07_bm25_vector_hybrid_comparison.md), [RAG/provenance](docs/steps/F3_08_rag_provenance.md) |
-| **F4** | [LLM Fine-Tuning](docs/phases/F4.md) | [LoRA](docs/steps/F4_05_sft_lora.md), [DPO](docs/steps/F4_08_dpo_experiment.md), [финальный отчёт](docs/steps/F4_09_final_phase_report.md) |
-| **F5** | [Evaluation & ML Engineering](docs/phases/F5.md) | [FastAPI](docs/steps/F5_04_fastapi.md), [MLflow](docs/steps/F5_07_mlflow_tracking.md), [Offline CLI](docs/steps/F5_08_offline_cli_demo.md) |
-
 **Полные каталоги:** [`docs/steps/`](docs/steps/) · [`docs/reports/`](docs/reports/) · [`reports/public/`](reports/public/) · [`src/`](src/) · [`tests/`](tests/).
 
 ---
 
-**Итог:** ML Engineering Lab показывает не только знакомство с ML-библиотеками, но и последовательную инженерную работу с данными, моделями, поиском, экспериментами LLM, измерением качества, доказательностью результатов, автоматизацией проверок и воспроизводимыми демонстрациями. Главный результат проекта — **понимание и реализация проверяемых механизмов**, а не необоснованное заявление о готовности production AI-ассистента.
+**Итог:** ML Engineering Lab показывает не только знакомство с ML-библиотеками, но и последовательную инженерную работу с данными, моделями, поиском, экспериментами LLM, измерением качества, доказательностью результатов, автоматизацией проверок и воспроизводимыми демонстрациями. Главный результат проекта - **понимание и реализация проверяемых механизмов**.
 
 
 
