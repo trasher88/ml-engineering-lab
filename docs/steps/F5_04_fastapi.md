@@ -240,14 +240,14 @@ Invoke-RestMethod -Uri 'http://127.0.0.1:8000/ask' -Method Post -ContentType 'ap
 
 Для завершения сервера в первом окне нажать `Ctrl+C`. Никакие файлы отчётов автоматически не создаются, поэтому дополнительные `Untracked files` от запуска не ожидаются (кроме возможных игнорируемых Python caches).
 
-### swagger1
+**swagger1**
 ![swagger1.png](../../docs/reports/F5/f5/swagger1.png)
 
-### swagger2
-![](../../screenshots)
+**swagger2**
+![swagger2health.png](../../docs/reports/F5/f5/swagger2health.png)
 
-### swagger3
-![](../../screenshots)
+**swagger3**
+![swagger3classify.png](../../docs/reports/F5/f5/swagger3classify.png)
 
 
 ## 7. Что доказано тестами и какие ограничения остаются
