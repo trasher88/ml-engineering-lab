@@ -433,36 +433,11 @@ ml-engineering-lab/
 
 Репозиторий содержит **код, конфигурации, тесты, пояснения и разрешённые агрегированные отчёты**, но не претендует на публикацию всех локальных датасетов, моделей, checkpoint и MLflow-хранилища.
 
-**Полные каталоги:** [`docs/steps/`](docs/steps/) · [`docs/reports/`](docs/reports/) · [`reports/public/`](reports/public/) · [`src/`](src/) · [`tests/`](tests/).
+## Навигация
+**Краткие итоги:** [F1](docs/phases/F1.md) · [F2](docs/phases/F2.md) · [F3](docs/phases/F3.md) · [F4](docs/phases/F4.md) · [F5](docs/phases/F5.md)
 
+**Подробности:** [`docs/steps/`](docs/steps/) · [`docs/reports/`](docs/reports/) · [`reports/public/`](reports/public/) · [`src/`](src/) · [`tests/`](tests/)
 ---
 
 **Итог:** ML Engineering Lab показывает не только знакомство с ML-библиотеками, но и последовательную инженерную работу с данными, моделями, поиском, экспериментами LLM, измерением качества, доказательностью результатов, автоматизацией проверок и воспроизводимыми демонстрациями. Главный результат проекта - **понимание и реализация проверяемых механизмов**.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Навигация
-
-**Краткие итоги:** [F1](docs/phases/F1.md) · [F2](docs/phases/F2.md) · [F3](docs/phases/F3.md) · [F4](docs/phases/F4.md) · [F5](docs/phases/F5.md)
-
-**Подробности:** [`docs/steps/`](docs/steps/) · [`docs/reports/`](docs/reports/) · [`reports/public/`](reports/public/)
