@@ -205,14 +205,14 @@
 
 | Этап | Реализовано | Подтверждённый результат / граница |
 |---|---|---|
-| [F5.1 — Unified Evaluation](docs/steps/F5_01_unified_evaluation.md) | Извлечение и типизация метрик из проверенных JSON | **4/4 источника, 19 метрик**; разные задачи не объединяются в общий score |
-| [F5.2 — LLM Diagnostics](docs/steps/F5_02_llm_diagnostics.md) | Token Precision/Recall/F1, Exact Match, флаги проблем генерации, рубрика | **32 пары / 64 критерия**; автоматические метрики — proxy, экспертная оценка не завершена |
-| [F5.3 — Safety Benchmark](docs/steps/F5_03_safety_benchmark.md) | Синтетические проверки отказов, утечек и недоверенного контекста | **28/28 contract PASS**, но **доказательность PARTIAL**: проверен rule-based gate, не Qwen |
-| [F5.4 — FastAPI](docs/steps/F5_04_fastapi.md) | `/health`, `/classify`, `/search`, `/ask`; Pydantic/OpenAPI | **8/8 HTTP smoke** на синтетическом backend |
-| [F5.5 — Docker](docs/steps/F5_05_docker_inference.md) | Изолированный контейнер, non-root, healthcheck, реальные TCP-запросы | **Docker HTTP 8/8 PASS**; не контейнеризация Qwen |
-| [F5.6 — Testing & CI](docs/steps/F5_06_testing_ci.md) | Unit / integration / regression; JUnit evidence, SHA, GitHub Actions workflow | Локальная CPU-регрессия; удалённый CI оценивается отдельно |
-| [F5.7 — MLflow Tracking](docs/steps/F5_07_mlflow_tracking.md) | Перенос проверенных метрик F1–F4 в SQLite MLflow, readback | **6/6 runs**; повторный импорт не создаёт дубликаты |
-| [F5.8 — Offline CLI Demo](docs/steps/F5_08_offline_cli_demo.md) | Классификация, BM25, extractive QA, проверка F1–F4 lineage | **10/10 synthetic PASS; 4/4 источника; F5.1 VERIFIED** — подтверждено локальным Windows `check` |
+| [F5.1 - Unified Evaluation](docs/steps/F5_01_unified_evaluation.md) | Извлечение и типизация метрик из проверенных JSON | **4/4 источника, 19 метрик**; разные задачи не объединяются в общий score |
+| [F5.2 - LLM Diagnostics](docs/steps/F5_02_llm_diagnostics.md) | Token Precision/Recall/F1, Exact Match, флаги проблем генерации, рубрика | **32 пары / 64 критерия**; автоматические метрики - proxy, экспертная оценка не завершена |
+| [F5.3 - Safety Benchmark](docs/steps/F5_03_safety_benchmark.md) | Синтетические проверки отказов, утечек и недоверенного контекста | **28/28 contract PASS**, но **доказательность PARTIAL**: проверен rule-based gate, не Qwen |
+| [F5.4 - FastAPI](docs/steps/F5_04_fastapi.md) | `/health`, `/classify`, `/search`, `/ask`; Pydantic/OpenAPI | **8/8 HTTP smoke** на синтетическом backend |
+| [F5.5 - Docker](docs/steps/F5_05_docker_inference.md) | Изолированный контейнер, non-root, healthcheck, реальные TCP-запросы | **Docker HTTP 8/8 PASS**; не контейнеризация Qwen |
+| [F5.6 - Testing & CI](docs/steps/F5_06_testing_ci.md) | Unit / integration / regression; JUnit evidence, SHA, GitHub Actions workflow | Локальная CPU-регрессия; удалённый CI оценивается отдельно |
+| [F5.7 - MLflow Tracking](docs/steps/F5_07_mlflow_tracking.md) | Перенос проверенных метрик F1–F4 в SQLite MLflow, readback | **6/6 runs**; повторный импорт не создаёт дубликаты |
+| [F5.8 - Offline CLI Demo](docs/steps/F5_08_offline_cli_demo.md) | Классификация, BM25, extractive QA, проверка F1-F4 lineage | **10/10 synthetic PASS; 4/4 источника; F5.1 VERIFIED** - подтверждено локальным Windows `check` |
 
 **Результат:** реализованы взаимодополняющие механизмы **Evaluation, Observability на уровне отчётов, API, Containerization, Automated Testing, Experiment Tracking и Offline Demo**. Они проверены на учебных протоколах, но не составляют production serving настоящей LLM.
 
