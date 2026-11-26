@@ -73,12 +73,11 @@
 
 ## Пять фаз проекта
 
-### F1 — Data Engineering & Classical ML
+### F1 - Data Engineering & Classical ML
 
 **Задача:** подготовить надёжную основу для последующих сравнений: выбрать набор технических вопросов, очистить его, исключить утечки между выборками, обучить простой baseline и проанализировать ошибки.
 
 Что реализовано:
-
 - Загрузка корпуса технических Q&A из четырёх источников Stack Exchange, фиксация ревизии и SHA-256 файлов.
 - Очистка текста, исследование распределений и дубликатов; **3 040** записей после очистки.
 - Разделение на **1 824 train / 608 validation / 608 test** с контролем групповой утечки.
@@ -92,24 +91,23 @@
 <details>
 <summary><strong>Все девять этапов F1</strong></summary>
 
-1. [F1.1 — Основа проекта](docs/steps/F1_01_project_foundation.md)
-2. [F1.2 — Выбор датасета](docs/steps/F1_02_dataset_selection.md)
-3. [F1.3 — Получение данных](docs/steps/F1_03_data_ingestion.md)
-4. [F1.4 — Очистка](docs/steps/F1_04_cleaning.md)
-5. [F1.5 — EDA](docs/steps/F1_05_eda.md)
-6. [F1.6 — Leakage-aware split](docs/steps/F1_06_splits.md)
-7. [F1.7 — Classical baseline](docs/steps/F1_07_classical_baseline.md)
-8. [F1.8 — Error analysis](docs/steps/F1_08_error_analysis.md)
-9. [F1.9 — Final phase report](docs/steps/F1_09_report.md)
+1. [F1.1 - Основа проекта](docs/steps/F1_01_project_foundation.md)
+2. [F1.2 - Выбор датасета](docs/steps/F1_02_dataset_selection.md)
+3. [F1.3 - Получение данных](docs/steps/F1_03_data_ingestion.md)
+4. [F1.4 - Очистка](docs/steps/F1_04_cleaning.md)
+5. [F1.5 - EDA](docs/steps/F1_05_eda.md)
+6. [F1.6 - Leakage-aware split](docs/steps/F1_06_splits.md)
+7. [F1.7 - Classical baseline](docs/steps/F1_07_classical_baseline.md)
+8. [F1.8 - Error analysis](docs/steps/F1_08_error_analysis.md)
+9. [F1.9 - Final phase report](docs/steps/F1_09_report.md)
 
 </details>
 
-### F2 — PyTorch & Neural Networks
+### F2 - PyTorch & Neural Networks
 
 **Задача:** самостоятельно реализовать основные механизмы обучения нейросети и проверить, выигрывает ли нейросетевой подход у baseline F1 на **одной и той же задаче классификации**.
 
 Что реализовано:
-
 - Тензорные операции и автоматическое дифференцирование **autograd**.
 - Подготовка последовательностей токенов через `Dataset`, `DataLoader`, padding и masks.
 - Собственный **EmbeddingClassifier на 578 548 параметров**: embeddings, pooling, линейный классификационный выход.
@@ -124,23 +122,22 @@
 <details>
 <summary><strong>Все восемь этапов F2</strong></summary>
 
-1. [F2.1 — Tensors & Autograd](docs/steps/F2_01_autograd.md)
-2. [F2.2 — Dataset & DataLoader](docs/steps/F2_02_dataset_dataloader.md)
-3. [F2.3 — Embedding Classifier](docs/steps/F2_03_embedding_classifier.md)
-4. [F2.4 — Training Loop](docs/steps/F2_04_training_loop.md)
-5. [F2.5 — Validation & Checkpointing](docs/steps/F2_05_validation_checkpointing.md)
-6. [F2.6 — Training Diagnostics](docs/steps/F2_06_training_diagnostics.md)
-7. [F2.7 — Classical vs Neural](docs/steps/F2_07_classical_vs_neural.md)
+1. [F2.1 - Tensors & Autograd](docs/steps/F2_01_autograd.md)
+2. [F2.2 - Dataset & DataLoader](docs/steps/F2_02_dataset_dataloader.md)
+3. [F2.3 - Embedding Classifier](docs/steps/F2_03_embedding_classifier.md)
+4. [F2.4 - Training Loop](docs/steps/F2_04_training_loop.md)
+5. [F2.5 - Validation & Checkpointing](docs/steps/F2_05_validation_checkpointing.md)
+6. [F2.6 - Training Diagnostics](docs/steps/F2_06_training_diagnostics.md)
+7. [F2.7 - Classical vs Neural](docs/steps/F2_07_classical_vs_neural.md)
 8. [F2.8 — Final Phase Report](docs/steps/F2_08_final_phase_report.md)
 
 </details>
 
-### F3 — Transformers, Information Retrieval & RAG
+### F3 - Transformers, Information Retrieval & RAG
 
 **Задача:** научиться находить релевантные документы по словам и смыслу, измерять качество ранжирования и возвращать ответ с **проверяемым источником**.
 
 Что реализовано:
-
 - Механизм **Scaled Dot-Product Self-Attention**: роль матриц Q/K/V и softmax.
 - Предобученный encoder **`sentence-transformers/paraphrase-MiniLM-L3-v2`**; размерность embeddings — **384**. Ревизия модели зафиксирована в [отчёте F3.7](reports/public/f3_07/F3_07_comparison.md).
 - **BM25** с инвертированным индексом и ранжированием по лексическим признакам.
@@ -157,24 +154,23 @@
 <details>
 <summary><strong>Все девять этапов F3</strong></summary>
 
-1. [F3.1 — Self-Attention](docs/steps/F3_01_transformer_attention.md)
-2. [F3.2 — Pretrained Embeddings](docs/steps/F3_02_pretrained_embeddings.md)
-3. [F3.3 — BM25 Indexing](docs/steps/F3_03_bm25_indexing.md)
-4. [F3.4 — NumPy Vector Search](docs/steps/F3_04_vector_search_numpy.md)
-5. [F3.5 — Hybrid Search / RRF](docs/steps/F3_05_hybrid_rrf.md)
-6. [F3.6 — Frozen Retrieval Benchmark](docs/steps/F3_06_frozen_retrieval_benchmark.md)
-7. [F3.7 — BM25 vs Vector vs Hybrid](docs/steps/F3_07_bm25_vector_hybrid_comparison.md)
-8. [F3.8 — RAG & Provenance](docs/steps/F3_08_rag_provenance.md)
-9. [F3.9 — Final Phase Report](docs/steps/F3_09_final_phase_report.md)
+1. [F3.1 - Self-Attention](docs/steps/F3_01_transformer_attention.md)
+2. [F3.2 - Pretrained Embeddings](docs/steps/F3_02_pretrained_embeddings.md)
+3. [F3.3 - BM25 Indexing](docs/steps/F3_03_bm25_indexing.md)
+4. [F3.4 - NumPy Vector Search](docs/steps/F3_04_vector_search_numpy.md)
+5. [F3.5 - Hybrid Search / RRF](docs/steps/F3_05_hybrid_rrf.md)
+6. [F3.6 - Frozen Retrieval Benchmark](docs/steps/F3_06_frozen_retrieval_benchmark.md)
+7. [F3.7 - BM25 vs Vector vs Hybrid](docs/steps/F3_07_bm25_vector_hybrid_comparison.md)
+8. [F3.8 - RAG & Provenance](docs/steps/F3_08_rag_provenance.md)
+9. [F3.9 - Final Phase Report](docs/steps/F3_09_final_phase_report.md)
 
 </details>
 
-### F4 — LLM Fine-Tuning: Qwen, SFT/LoRA и DPO
+### F4 - LLM Fine-Tuning: Qwen, SFT/LoRA и DPO
 
 **Задача:** исследовать адаптацию предобученной языковой модели с ограниченными CPU-ресурсами: подготовить инструкции, зафиксировать baseline, выполнить настоящие шаги оптимизации, проверить сохранённые результаты и не подменять обучение утверждением о качестве.
 
 Что реализовано:
-
 - **Instruction dataset:** 80 технических примеров, split **56 train / 12 validation / 12 test** с защитой от пересечения смысловых групп.
 - Модель **`Qwen/Qwen2.5-0.5B`**, приблизительно 494 млн параметров, с зафиксированной ревизией.
 - Независимый **evaluation set:** 32 контрольных вопроса и **64 критерия** экспертной оценки; сохранены 32 ответа Base-модели.
@@ -191,19 +187,19 @@
 <details>
 <summary><strong>Все девять этапов F4</strong></summary>
 
-1. [F4.1 — Instruction Dataset](docs/steps/F4_01_instruction_dataset.md)
-2. [F4.2 — Model Selection](docs/steps/F4_02_model_selection.md)
-3. [F4.3 — Independent Evaluation Set](docs/steps/F4_03_evaluation_set.md)
-4. [F4.4 — Base Model Evaluation](docs/steps/F4_04_base_model_evaluation.md)
-5. [F4.5 — Supervised Fine-Tuning / LoRA](docs/steps/F4_05_sft_lora.md)
-6. [F4.6 — Training Visualization](docs/steps/F4_06_training_visualization.md)
-7. [F4.7 — Base vs Fine-Tuned](docs/steps/F4_07_base_vs_finetuned.md)
-8. [F4.8 — DPO Experiment](docs/steps/F4_08_dpo_experiment.md)
-9. [F4.9 — Final Phase Report](docs/steps/F4_09_final_phase_report.md)
+1. [F4.1 - Instruction Dataset](docs/steps/F4_01_instruction_dataset.md)
+2. [F4.2 - Model Selection](docs/steps/F4_02_model_selection.md)
+3. [F4.3 - Independent Evaluation Set](docs/steps/F4_03_evaluation_set.md)
+4. [F4.4 - Base Model Evaluation](docs/steps/F4_04_base_model_evaluation.md)
+5. [F4.5 - Supervised Fine-Tuning / LoRA](docs/steps/F4_05_sft_lora.md)
+6. [F4.6 - Training Visualization](docs/steps/F4_06_training_visualization.md)
+7. [F4.7 - Base vs Fine-Tuned](docs/steps/F4_07_base_vs_finetuned.md)
+8. [F4.8 - DPO Experiment](docs/steps/F4_08_dpo_experiment.md)
+9. [F4.9 - Final Phase Report](docs/steps/F4_09_final_phase_report.md)
 
 </details>
 
-### F5 — Evaluation, API & MLOps
+### F5 - Evaluation, API & MLOps
 
 **Задача:** превратить результаты отдельных фаз в **проверяемый инженерный контур**: документировать происхождение метрик, диагностировать ответы, тестировать контракт безопасности, предоставить API, обеспечить запуск в контейнере, регрессионное тестирование, учёт экспериментов и воспроизводимую демонстрацию.
 
