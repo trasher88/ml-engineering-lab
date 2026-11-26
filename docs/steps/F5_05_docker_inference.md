@@ -256,43 +256,7 @@ docker image ls ml-engineering-lab
 
 # Проверка отсутствия оставшихся контейнеров F5.5.
 docker ps -a --filter "name=ml-lab-f5-05"
-
-# Статическая проверка новой поставки.
-git diff --check
-git status --short
 ```
-
-Не нужно добавлять в Git образ, виртуальное окружение, веса, кэш Docker или отчёты локального запуска. Docker daemon сам хранит image вне рабочего дерева Git.
-
-### 6.5. Команды публикации после локальной проверки
-```powershell
-cd F:\DEVELOPMENT\ML\ml-engineering-lab
-
-git diff --check
-git status --short
-
-git add -- `
-  Dockerfile `
-  .dockerignore `
-  requirements-f5_05.txt `
-  scripts/f5_docker_smoke.py `
-  tests/test_f5_docker.py `
-  docs/steps/F5_05_docker_inference.md
-
-git diff --cached --check
-git diff --cached --stat
-git diff --cached
-
-git commit -m "feat(f5.5): add isolated Docker FastAPI inference demo"
-
-git fetch origin
-git rebase origin/main
-git push origin main
-
-git status --short
-```
-
-Команда `git add` перечисляет только файлы F5.5. При конфликте `git rebase` остановиться и прочитать `git status`; `git push --force` не применять. Независимые ошибки существующего workflow F2 Autograd не подтверждают и не опровергают HTTP-контракт F5.5 и устраняются отдельно.
 
 ## 7. Что доказано тестами и какие ограничения остаются
 
