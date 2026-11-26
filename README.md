@@ -47,11 +47,11 @@
 
 | Направление | Что подтверждено | Где посмотреть |
 |---|---|---|
-| **Classical ML** | 3 040 очищенных записей, 608 test-примеров; **Accuracy 0.8799**, **Macro F1 0.8838** | [Фаза F1](docs/phases/F1.md) · [Отчёт F1.9](docs/steps/F1_09_report.md) |
-| **PyTorch** | Собственный embedding-классификатор (**578 548 параметров**); **Test Macro F1 0.7813** на тех же 608 примерах | [Фаза F2](docs/phases/F2.md) · [Сравнение F2.7](docs/steps/F2_07_classical_vs_neural.md) |
-| **Retrieval / RAG** | BM25, Vector, Hybrid/RRF; на frozen benchmark лучший **Recall@5 0.7875** и **MRR@5 0.8502** у Vector | [Фаза F3](docs/phases/F3.md) · [Отчёт F3.7](reports/public/f3_07/F3_07_comparison.md) |
-| **LLM Fine-Tuning** | Qwen2.5-0.5B; реальные CPU-шаги LoRA SFT и DPO; **540 672 обучаемых LoRA-параметра** | [Фаза F4](docs/phases/F4.md) · [Аудит F4.9](docs/steps/F4_09_final_phase_report.md) |
-| **Evaluation & MLOps** | 19 метрик / 4 источника; FastAPI + Docker HTTP smoke **8/8**; MLflow **6/6** runs; Offline CLI **10/10** | [Фаза F5](docs/phases/F5.md) · [F5.1](docs/reports/F5_01_UNIFIED_EVALUATION.md) · [F5.8](docs/steps/F5_08_offline_cli_demo.md) |
+| **Classical ML** | 3 040 очищенных записей, 608 test-примеров; **Accuracy 0.8799**, **Macro F1 0.8838** | [Фаза F1](docs/phases/F1.md) |
+| **PyTorch** | Собственный embedding-классификатор (**578 548 параметров**); **Test Macro F1 0.7813** на тех же 608 примерах | [Фаза F2](docs/phases/F2.md) |
+| **Retrieval / RAG** | BM25, Vector, Hybrid/RRF; на frozen benchmark лучший **Recall@5 0.7875** и **MRR@5 0.8502** у Vector | [Фаза F3](docs/phases/F3.md) |
+| **LLM Fine-Tuning** | Qwen2.5-0.5B; реальные CPU-шаги LoRA SFT и DPO; **540 672 обучаемых LoRA-параметра** | [Фаза F4](docs/phases/F4.md) |
+| **Evaluation & MLOps** | 19 метрик / 4 источника; FastAPI + Docker HTTP smoke **8/8**; MLflow **6/6** runs; Offline CLI **10/10** | [Фаза F5](docs/phases/F5.md) |
 
 Эти показатели **не являются одной шкалой качества**: классификация, retrieval, обучение LLM и технические smoke-тесты оценивают разные свойства системы.
 
