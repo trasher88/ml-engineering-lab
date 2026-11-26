@@ -284,14 +284,14 @@ docker ps -a --filter "name=ml-lab-f5-05"
 
 | Порядок | Файл | Что изучить |
 |---:|---|---|
-| 1 | [`src/api_f5/app.py`](../../src/api_f5/app.py) (F5.4) | `create_app()`: типизированные входы, `response_model`, `/health`, `/classify`, `/search`, `/ask`, механизм фабрики FastAPI |
-| 2 | [`src/api_f5/demo_service.py`](../../src/api_f5/demo_service.py) (F5.4) | `load_demo()`: конфигурация, SHA-256, ограниченный корпус; `DemoEngine`: TF-IDF/LogReg, BM25 и дословное `evidence` |
-| 3 | [`configs/f5_04_api.json`](../../configs/f5_04_api.json) (F5.4) | ID синтетического протокола, `fixture_path`, `fixture_sha256`, количество документов и обучающих записей |
-| 4 | [`tests/fixtures/f5_04_api_demo_v1.json`](../../tests/fixtures/f5_04_api_demo_v1.json) (F5.4) | Состав 24 тренировочных примеров, 12 документов и `source_id` |
-| 5 | [`Dockerfile`](../../Dockerfile) (F5.5) | Порядок build layers, non-root, `HEALTHCHECK`, `CMD` как Uvicorn factory, отсутствие широкой копии репозитория |
-| 6 | [`.dockerignore`](../../.dockerignore) (F5.5) | Deny-by-default список путей и вложенных каталогов, отличие build context от image filesystem |
-| 7 | [`requirements-f5_05.txt`](../../requirements-f5_05.txt) (F5.5) | Минимум CPU-runtime пакетов, ограничения pinning относительно полного lock и digest |
-| 8 | [`scripts/f5_api.py`](../../scripts/f5_api.py) (F5.4) | `run_http_smoke()`: восемь реальных HTTP-контрактов и их значения, отличие сервера от проверки |
-| 9 | [`scripts/f5_docker_smoke.py`](../../scripts/f5_docker_smoke.py) (F5.5) | `_docker()`, `run_container_smoke()`, `main()`; работа с daemon, health, UID, сетью, ошибками и cleanup |
-| 10 | [`tests/test_f5_docker.py`](../../tests/test_f5_docker.py) (F5.5) | Минимальный runtime context, негативные сценарии, mocked Docker workflow; почему mock не доказывает build/run |
-| 11 | [`tests/test_f5_api.py`](../../tests/test_f5_api.py) (F5.4) | Реальные локальные HTTP/TCP проверки исходного API, заимствуемые для Docker smoke |
+| 1 | [`src/api_f5/app.py`](../../src/api_f5/app.py) | `create_app()`: типизированные входы, `response_model`, `/health`, `/classify`, `/search`, `/ask`, механизм фабрики FastAPI |
+| 2 | [`src/api_f5/demo_service.py`](../../src/api_f5/demo_service.py) | `load_demo()`: конфигурация, SHA-256, ограниченный корпус; `DemoEngine`: TF-IDF/LogReg, BM25 и дословное `evidence` |
+| 3 | [`configs/f5_04_api.json`](../../configs/f5_04_api.json) | ID синтетического протокола, `fixture_path`, `fixture_sha256`, количество документов и обучающих записей |
+| 4 | [`tests/fixtures/f5_04_api_demo_v1.json`](../../tests/fixtures/f5_04_api_demo_v1.json) | Состав 24 тренировочных примеров, 12 документов и `source_id` |
+| 5 | [`Dockerfile`](../../Dockerfile) | Порядок build layers, non-root, `HEALTHCHECK`, `CMD` как Uvicorn factory, отсутствие широкой копии репозитория |
+| 6 | [`.dockerignore`](../../.dockerignore) | Deny-by-default список путей и вложенных каталогов, отличие build context от image filesystem |
+| 7 | [`requirements-f5_05.txt`](../../requirements-f5_05.txt) | Минимум CPU-runtime пакетов, ограничения pinning относительно полного lock и digest |
+| 8 | [`scripts/f5_api.py`](../../scripts/f5_api.py) | `run_http_smoke()`: восемь реальных HTTP-контрактов и их значения, отличие сервера от проверки |
+| 9 | [`scripts/f5_docker_smoke.py`](../../scripts/f5_docker_smoke.py) | `_docker()`, `run_container_smoke()`, `main()`; работа с daemon, health, UID, сетью, ошибками и cleanup |
+| 10 | [`tests/test_f5_docker.py`](../../tests/test_f5_docker.py) | Минимальный runtime context, негативные сценарии, mocked Docker workflow; почему mock не доказывает build/run |
+| 11 | [`tests/test_f5_api.py`](../../tests/test_f5_api.py) | Реальные локальные HTTP/TCP проверки исходного API, заимствуемые для Docker smoke |
