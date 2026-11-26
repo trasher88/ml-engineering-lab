@@ -13,7 +13,7 @@
 | Новый файл | Назначение и основные механизмы | Зависимости / контракт |
 |---|---|---|
 | `Dockerfile` | Python 3.13 slim, установка только runtime-зависимостей, копирование минимальных файлов API, непривилегированный пользователь, встроенный `HEALTHCHECK`, exec-form запуск Uvicorn | `src.api_f5.app:create_app` из F5.4 |
-| `.dockerignore` | Deny-by-default build context: разрешить только Dockerfile, требования, три Python-файла API, один JSON-конфиг и одну fixture | Каталоги `src/api_f5/`, `configs/`, `tests/fixtures/` |
+| [`.dockerignore`](../../.dockerignore) | Deny-by-default build context: разрешить только Dockerfile, требования, три Python-файла API, один JSON-конфиг и одну fixture | Каталоги `src/api_f5/`, `configs/`, `tests/fixtures/` |
 | [`requirements-f5_05.txt`](../../requirements-f5_05.txt) | Три прямые runtime-зависимости с точными версиями; исключены `pytest`, `httpx` и ML/LLM GPU-библиотеки | `fastapi==0.128.2`, `uvicorn==0.48.0`, `scikit-learn==1.8.0` |
 | [`scripts/f5_docker_smoke.py`](../../scripts/f5_docker_smoke.py) | `run_container_smoke()`: проверка CLI/daemon/image, старт отдельного контейнера, ожидание Docker-health, контроль non-root, вызов восьми реальных HTTP-проверок F5.4 и cleanup | `scripts.f5_api.run_http_smoke()`, Docker CLI, host `httpx` |
 | [`tests/test_f5_docker.py`](../../tests/test_f5_docker.py) | 33 тест структуры, whitelist, зависимостей, SHA-256, реально выполняемого локального F5.4 из минимального набора файлов, ошибок и жизненного цикла контейнера через mock | `pytest`, `fastapi.testclient`, F5.4 |
